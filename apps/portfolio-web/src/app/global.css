@@ -1,0 +1,46 @@
+/* RUTA: apps/portfolio-web/src/app/global.css */
+/* VERSIÓN: Con Sistema de Theming Profesional */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ============================================= */
+  /* TEMA OSCURO (POR DEFECTO)                       */
+  /* Inspirado en la estética de la imagen.        */
+  /* ============================================= */
+  :root {
+    --background: 224 71.4% 4.1%; /* Negro azulado muy oscuro */
+    --foreground: 210 20% 98%; /* Blanco casi puro */
+
+    --primary: 217.2 91.2% 59.8%; /* Azul brillante para acentos */
+    --primary-foreground: 210 20% 98%;
+
+    --accent: 210 40% 96.1%; /* Blanco con un toque de gris */
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --border: 217.2 32.6% 17.5%; /* Borde azulado oscuro */
+  }
+
+  /* ============================================= */
+  /* TEMA CLARO                                    */
+  /* Un tema opcional de alto contraste.           */
+  /* ============================================= */
+  .light {
+    --background: 0 0% 100%; /* Blanco */
+    --foreground: 224 71.4% 4.1%; /* Negro azulado */
+
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+  }
+
+  /* Reseteo base para mejorar la estética */
+  body {
+    @apply scroll-smooth;
+  }
+}

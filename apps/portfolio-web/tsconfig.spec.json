@@ -1,0 +1,28 @@
+// RUTA: oh-hoteis/tsconfig.spec.json
+// VERSIÓN: Corregida con la inclusión de tipos de jest-dom
+
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../dist/out-tsc",
+    "module": "commonjs",
+    "jsx": "react-jsx", // Usar react-jsx es más moderno para Jest con React
+    "allowJs": true,
+    "esModuleInterop": true,
+
+    // --- LA CORRECCIÓN CLAVE ESTÁ AQUÍ ---
+    // El array 'types' le dice a TypeScript qué paquetes de definiciones de tipo
+    // globales debe cargar para los archivos incluidos en este tsconfig.
+    // Al añadir "@testing-library/jest-dom", los matchers personalizados como
+    // .toBeInTheDocument() se vuelven disponibles para el autocompletado y la verificación de tipos.
+    "types": ["jest", "node", "@testing-library/jest-dom"]
+  },
+  // Aseguramos que TypeScript aplique esta configuración solo a nuestros archivos de prueba.
+  "include": [
+    "jest.config.ts",
+    "jest.setup.ts",
+    "specs/**/*.spec.ts",
+    "specs/**/*.spec.tsx"
+  ],
+  "exclude": []
+}

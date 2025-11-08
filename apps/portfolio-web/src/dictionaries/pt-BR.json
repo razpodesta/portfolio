@@ -1,0 +1,40 @@
+{
+  "header": {
+    "projects": "Projetos",
+    "about": "Sobre Mim",
+    "contact": "Contato",
+    "talk": "Vamos Conversar",
+    "tagline": "Arquiteto de Soluções Criativas e Inteligentes"
+  },
+  "homepage": {
+    "hero": {
+      "page_title": "Home | Raz Podestá - Portfólio Criativo",
+      "page_description": "Desenvolvedor especialista em Next.js, React e IA, focado em construir interfaces rápidas, responsivas e visualmente impactantes.",
+      "RAZ-LINEUP": "RAZ-LINEUP",
+      "e-commerce": "E-COMMERCE"
+    },
+    "contact": {
+      "title": "ENTRE EM CONTATO",
+      "form_cta": "Tem uma ideia ou projeto em mente? Adoraria ouvir sobre isso. Preencha o formulário e entrarei em contato em breve.",
+      "form_placeholder_name": "* Nome",
+      "form_placeholder_email": "* Email",
+      "form_placeholder_message": "* Sua mensagem...",
+      "form_button_submit": "Enviar Mensagem",
+      "validation": {
+        "name_required": "O nome é obrigatório",
+        "email_required": "O email é obrigatório",
+        "email_invalid": "Por favor, insira um email válido",
+        "message_too_short": "A mensagem deve ter pelo menos 10 caracteres"
+      }
+    }
+  },
+  "footer": {
+    "rights_reserved": "Todos os direitos reservados.",
+    "made_by": "Feito por Raz Podestá"
+  },
+  "not_found": {
+    "title": "Página Não Encontrada",
+    "description": "Opa! Parece que a página que você estava procurando não existe ou foi movida.",
+    "cta_button": "Voltar ao Início"
+  }
+}

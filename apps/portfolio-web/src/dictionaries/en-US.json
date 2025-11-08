@@ -1,0 +1,40 @@
+{
+  "header": {
+    "projects": "Projects",
+    "about": "About Me",
+    "contact": "Contact",
+    "talk": "Let's Talk",
+    "tagline": "Architect of Creative & Intelligent Solutions"
+  },
+  "homepage": {
+    "hero": {
+      "page_title": "Home | Raz Podestá - Creative Portfolio",
+      "page_description": "Expert developer in Next.js, React, and AI, focused on building fast, responsive, and visually stunning interfaces.",
+      "RAZ-LINEUP": "RAZ-LINEUP",
+      "e-commerce": "E-COMMERCE"
+    },
+    "contact": {
+      "title": "GET IN TOUCH",
+      "form_cta": "Have an idea or project in mind? I'd love to hear about it. Fill out the form and I'll get back to you shortly.",
+      "form_placeholder_name": "* Name",
+      "form_placeholder_email": "* Email",
+      "form_placeholder_message": "* Your message...",
+      "form_button_submit": "Send Message",
+      "validation": {
+        "name_required": "Name is required",
+        "email_required": "Email is required",
+        "email_invalid": "Please enter a valid email",
+        "message_too_short": "Message must be at least 10 characters"
+      }
+    }
+  },
+  "footer": {
+    "rights_reserved": "All rights reserved.",
+    "made_by": "Made by Raz Podestá"
+  },
+  "not_found": {
+    "title": "Page Not Found",
+    "description": "Oops! It seems the page you were looking for doesn't exist or has been moved.",
+    "cta_button": "Return Home"
+  }
+}

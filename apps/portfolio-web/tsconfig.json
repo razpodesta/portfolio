@@ -1,0 +1,58 @@
+// RUTA: apps/portfolio-web/tsconfig.json
+// VERSIÓN: Definitiva de Producción (Limpia de tipos de prueba)
+
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // --- Opciones de Next.js y React ---
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    // --- Configuraciones Modernas de Módulos ---
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    // --- Reglas de Calidad de Código ---
+    "strict": true,
+    "noEmit": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // --- Manejo de Rutas ---
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // --- Optimización ---
+    "incremental": true
+
+    // NOTA IMPORTANTE: El array "types" ha sido eliminado intencionadamente.
+    // El tsconfig principal no debe conocer los tipos de Jest o Node.
+  },
+
+  // --- Inclusión Explícita de Archivos ---
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+
+  // --- Exclusión de Archivos de Prueba ---
+  "exclude": [
+    "node_modules",
+    "jest.config.ts",
+    "specs",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
+}
