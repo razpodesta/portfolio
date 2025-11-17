@@ -1,10 +1,8 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/blog.schema.ts
-// VERSIÓN: 2.0 - Arquitectónicamente Puro y Fuente de Verdad Absoluta.
-// DESCRIPCIÓN: Refactorización crítica para cumplir al 100% con el manifiesto
-//              "Zod como Única Fuente de Verdad". Se introduce 'postWithSlugSchema'
-//              para que TODOS los tipos de datos del dominio del blog, incluido el
-//              contrato de API, se infieran directamente de un esquema Zod,
-//              eliminando cualquier definición de tipo manual.
+// VERSIÓN: 2.1 - Sincronizado con la Arquitectura Headless.
+// DESCRIPCIÓN: Se añade la propiedad `content` al `postWithSlugSchema` para reflejar
+//              la estructura de datos completa que proviene de la API del CMS,
+//              reparando el contrato de datos y resolviendo errores de tipo.
 
 import { z } from 'zod';
 
@@ -26,14 +24,15 @@ export const blogPageSchema = z.object({
   read_more_cta: z.string(),
 });
 
-// --- INICIO DE LA MEJORA ARQUITECTÓNICA ---
-// Se crea un nuevo esquema que representa el contrato de datos completo que la API devolverá.
+// --- INICIO DE LA CORRECCIÓN ARQUITECTÓNICA ---
+// Se añade 'content' para que el esquema represente la totalidad de los datos del post.
 export const postWithSlugSchema = z.object({
   slug: z.string(),
   metadata: blogPostSchema,
+  content: z.string(),
 });
-// --- FIN DE LA MEJORA ARQUITECTÓNICA ---
+// --- FIN DE LA CORRECCIÓN ARQUITECTÓNICA ---
 
-// Tipos inferidos para ser utilizados en toda la aplicación.
+// Tipos inferidos. 'PostWithSlug' ahora incluirá la propiedad 'content' automáticamente.
 export type BlogPost = z.infer<typeof blogPostSchema>;
 export type PostWithSlug = z.infer<typeof postWithSlugSchema>;

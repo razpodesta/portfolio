@@ -1,49 +1,88 @@
 // RUTA: apps/portfolio-web/src/lib/blog/actions.ts
-// VERSIÓN: 1.2 - Alineado con la Fuente de Verdad Absoluta.
-// DESCRIPCIÓN: Se elimina la importación no utilizada del tipo 'BlogPost'.
-//              Gracias a la refactorización en 'blog.schema.ts', el tipo
-//              'PostWithSlug' es ahora el único contrato de datos necesario,
-//              ya que encapsula toda la estructura del post. Esto resuelve la
-//              advertencia del compilador y simplifica las dependencias del módulo.
+// VERSIÓN: 2.0 - Soberano y Desacoplado (Consume API GraphQL)
+// DESCRIPCIÓN: Lógica de datos del blog completamente refactorizada para consumir
+//              el CMS Headless (ContentPI), eliminando toda dependencia del sistema de archivos.
 
-import fs from 'fs/promises';
-import path from 'path';
-// --- INICIO DE LA CORRECCIÓN DE IMPORTACIÓN ---
-import { blogPostSchema, type PostWithSlug } from '../schemas/blog.schema';
-// --- FIN DE LA CORRECCIÓN DE IMPORTACIÓN ---
+import { fetchGraphQL } from '../graphql-client';
+import type { PostWithSlug } from '../schemas/blog.schema';
 
-const contentDir = path.join(process.cwd(), 'apps/portfolio-web/src/content/blog');
+// Tipos para la respuesta de la API del CMS
+type CmsEntry = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  author: string;
+  published_date: string;
+  tags: string;
+  content: string;
+};
+
+type GetQueryPayload = {
+  getQuery: {
+    data: CmsEntry[];
+  };
+};
+
+// Esta función ahora es VÁLIDA porque PostWithSlug ya espera la propiedad 'content'.
+function mapCmsDataToPost(entry: CmsEntry): PostWithSlug {
+  return {
+    slug: entry.slug,
+    metadata: {
+      title: entry.title,
+      description: entry.description,
+      author: entry.author,
+      published_date: entry.published_date,
+      tags: entry.tags ? entry.tags.split(',').map(tag => tag.trim()) : [],
+    },
+    content: entry.content // ¡Esta línea ya no dará error!
+  };
+}
 
 /**
- * Obtiene una lista de todos los artículos del blog, leyendo sus metadatos.
- * @returns Una promesa que se resuelve con un array de todos los posts, ordenados por fecha.
+ * Obtiene una lista de todos los artículos del blog desde el CMS.
  */
 export async function getAllPosts(): Promise<PostWithSlug[]> {
+  const query = `
+    query GetAllBlogPosts {
+      getQuery(input: { model: "post", operation: "find" }) {
+        data
+      }
+    }
+  `;
+
   try {
-    const files = await fs.readdir(contentDir);
-    const jsonFiles = files.filter((file) => file.endsWith('.json'));
-
-    const posts = await Promise.all(
-      jsonFiles.map(async (file) => {
-        const filePath = path.join(contentDir, file);
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        const metadata = JSON.parse(fileContent);
-
-        const validatedMetadata = blogPostSchema.parse(metadata);
-
-        const slug = file.replace(/\.json$/, '');
-
-        // El objeto retornado aquí coincide perfectamente con el tipo 'PostWithSlug'
-        return {
-          slug,
-          metadata: validatedMetadata,
-        };
-      })
-    );
+    const data = await fetchGraphQL<GetQueryPayload>(query);
+    const posts = data.getQuery.data.map(mapCmsDataToPost);
 
     return posts.sort((a, b) => new Date(b.metadata.published_date).getTime() - new Date(a.metadata.published_date).getTime());
   } catch (error) {
-    console.error('Error al obtener los posts del blog:', error);
+    console.error('Error fetching all posts from CMS:', error);
     return [];
   }
+}
+
+/**
+ * Obtiene un único artículo del blog por su slug desde el CMS.
+ */
+export async function getPostBySlug(slug: string): Promise<PostWithSlug | null> {
+    const query = `
+      query GetPostBySlug($slug: String!) {
+        getQuery(input: { model: "post", operation: "findOne", params: { where: { slug: $slug } } }) {
+          data
+        }
+      }
+    `;
+
+    try {
+        const data = await fetchGraphQL<GetQueryPayload>(query, { slug });
+        if (!data.getQuery.data || data.getQuery.data.length === 0) {
+            return null;
+        }
+
+        return mapCmsDataToPost(data.getQuery.data[0]);
+    } catch (error) {
+        console.error(`Error fetching post with slug "${slug}" from CMS:`, error);
+        return null;
+    }
 }

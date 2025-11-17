@@ -40,92 +40,324 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "scripts/downloaded_assets/iconos/Date.png",
-        "hash": "10195557020158335376"
+        "file": "scripts/downloaded_assets/2611202_1_319344233994.jpg",
+        "hash": "14151937905419163008"
       },
       {
-        "file": "scripts/downloaded_assets/iconos/icon-whatsapp.png",
-        "hash": "5662799661289037756"
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201335950951.jpg",
+        "hash": "5416566329420314512"
       },
       {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115236464.png",
-        "hash": "16918486392011015316"
+        "file": "scripts/downloaded_assets/2611202_1_347792751775.jpg",
+        "hash": "7943765154615946027"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_258865776309.jpg",
-        "hash": "3746639177234835919"
+        "file": "scripts/downloaded_assets/2611202_1_25886223185.jpg",
+        "hash": "307842782162618955"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_044014254535.jpg",
-        "hash": "6418059962706647064"
+        "file": "scripts/downloaded_assets/2611202_1_31934591025.jpg",
+        "hash": "1360909181874633296"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da029ad7161210530.jpg",
-        "hash": "17349929969966531683"
+        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115203071.png",
+        "hash": "6461656931200573646"
       },
       {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_174854224590487802.png",
-        "hash": "4763389873611974577"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115261034.png",
-        "hash": "18031733908842153361"
-      },
-      {
-        "file": "tsconfig.base.json",
-        "hash": "12188893761860892850"
-      },
-      {
-        "file": ".docs/posicionamiento-seo-obligatorio.md",
-        "hash": "15794258972312383831"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_793225830806.jpg",
-        "hash": "15969648045133041399"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201336788855.jpg",
-        "hash": "2036554455781626416"
-      },
-      {
-        "file": "pnpm-lock.yaml",
-        "hash": "1671152260964516816"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_044014788678.jpg",
-        "hash": "16806149686913092610"
-      },
-      {
-        "file": "scripts/downloaded_assets/logos/favicon.png",
-        "hash": "13048722742456448825"
-      },
-      {
-        "file": ".github/workflows/ci.yml",
-        "hash": "7725873038738926441"
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201336575920.jpg",
+        "hash": "2900262610872842604"
       },
       {
         "file": "scripts/downloaded_assets/2611202_1_04401922987.jpg",
         "hash": "11374916472290602581"
       },
       {
-        "file": "nav-links.es-ES.json",
-        "hash": "1404480268570420285"
+        "file": "eslint.config.mjs",
+        "hash": "10509221285091897805"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_319349031286.jpg",
-        "hash": "17588546762717117461"
+        "file": ".docs/manifiesto-blog.md",
+        "hash": "17063529892578299210"
       },
       {
-        "file": ".gitignore",
-        "hash": "1834400814650665501"
+        "file": "lucide-icons-list.txt",
+        "hash": "14322682212612186953"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/icon-instagram.png",
+        "hash": "16918486392011015316"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da029ad7161210530.jpg",
+        "hash": "17349929969966531683"
+      },
+      {
+        "file": ".docs/posicionamiento-seo-obligatorio.md",
+        "hash": "15794258972312383831"
+      },
+      {
+        "file": ".docs/roadmap-portafolio.md",
+        "hash": "3811779517109438454"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_793225830806.jpg",
+        "hash": "15969648045133041399"
+      },
+      {
+        "file": "nav-links.pt-BR.json",
+        "hash": "2170759762317370142"
+      },
+      {
+        "file": "scripts/downloaded_assets/logos/logo-footer.png",
+        "hash": "13832451218670876258"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_31934219885.jpg",
+        "hash": "3204261743700178435"
       },
       {
         "file": ".docs/manifiesto-tipografia.md",
         "hash": "6887385811548216196"
       },
       {
+        "file": "scripts/downloaded_assets/iconos/icon-whatsapp.png",
+        "hash": "5662799661289037756"
+      },
+      {
+        "file": "nx.json",
+        "hash": "1944726070005607148"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_258865776309.jpg",
+        "hash": "3746639177234835919"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_258867686571.jpg",
+        "hash": "4557925716066855129"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201339347055.jpg",
+        "hash": "10179972369210218535"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174735280925839616.jpg",
+        "hash": "18151071432230145712"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_044014788678.jpg",
+        "hash": "16806149686913092610"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_319346049082.jpg",
+        "hash": "6707887340012877051"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_319346107358.jpg",
+        "hash": "12363166224323169674"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_87163.png",
+        "hash": "18312365495643688587"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_793223482082.jpg",
+        "hash": "4879833218332798927"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_793227049912.jpg",
+        "hash": "10214101003236996757"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_25886711589.jpg",
+        "hash": "4937989568917933954"
+      },
+      {
+        "file": "packages/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
         "file": "scripts/downloaded_assets/2611202_1_258865135467.jpg",
         "hash": "3565987830833483409"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_73883.gif",
+        "hash": "11778468997219707847"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_174854224590487802.png",
+        "hash": "4763389873611974577"
+      },
+      {
+        "file": ".docs/manifiesto-calidad-codigo.md",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_19549.png",
+        "hash": "10923841351601164288"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115236464.png",
+        "hash": "16918486392011015316"
+      },
+      {
+        "file": "pnpm-workspace.yaml",
+        "hash": "3806345288269801475"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_5371669912.jpg",
+        "hash": "1139820548716684555"
+      },
+      {
+        "file": ".docs/manifiesto-rutas.md",
+        "hash": "11508314177086664130"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_319349031286.jpg",
+        "hash": "17588546762717117461"
+      },
+      {
+        "file": "scripts/downloaded_assets/homepage/slider-3-salvador.jpg",
+        "hash": "6892085014632894368"
+      },
+      {
+        "file": "scripts/downloaded_assets/logos/logo-header-desktop.png",
+        "hash": "8654916221470033765"
+      },
+      {
+        "file": ".github/workflows/ci.yml",
+        "hash": "7725873038738926441"
+      },
+      {
+        "file": ".docs/manifesto-arquitectura.md",
+        "hash": "156104386792555757"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "5833918104732742168"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "1834400814650665501"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/cta-anim-whatsapp.gif",
+        "hash": "11778468997219707847"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_044018657446.jpg",
+        "hash": "2200210280286654006"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201331425740.jpg",
+        "hash": "2986873116781864582"
+      },
+      {
+        "file": "scripts/downloaded_assets/homepage/gallery-2.jpg",
+        "hash": "8420839051032950235"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201336788855.jpg",
+        "hash": "2036554455781626416"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_793227453220.jpg",
+        "hash": "17581414459054754021"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174835857124042086.jpg",
+        "hash": "16514583857038129995"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "6870352021923392442"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115261034.png",
+        "hash": "18031733908842153361"
+      },
+      {
+        "file": "README.md",
+        "hash": "18370909480807569042"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_258866978797.jpg",
+        "hash": "12858043604599989973"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115241776.png",
+        "hash": "5662799661289037756"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_258861470434.jpg",
+        "hash": "10900993669519672445"
+      },
+      {
+        "file": "scripts/downloaded_assets/logos/logo-header-mobile.png",
+        "hash": "5195448956750898467"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/Date.png",
+        "hash": "10195557020158335376"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_044015718492.jpg",
+        "hash": "10813103919258493410"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_044012411939.jpg",
+        "hash": "413204514160501580"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_3193491601.jpg",
+        "hash": "580667141722325556"
+      },
+      {
+        "file": "package.json",
+        "hash": "10887104299726506327"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201333016603.jpg",
+        "hash": "10775655622485577359"
+      },
+      {
+        "file": "nav-links.es-ES.json",
+        "hash": "1404480268570420285"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_36379.png",
+        "hash": "6380318779121147756"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_044013842366.jpg",
+        "hash": "9701948116049843792"
+      },
+      {
+        "file": "scripts/downloaded_assets/iconos/2611202_1_34687.png",
+        "hash": "14253556636724544523"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201338457320.jpg",
+        "hash": "3282586306236028590"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "14688272390704683536"
+      },
+      {
+        "file": "scripts/downloaded_assets/2611202_1_044014254535.jpg",
+        "hash": "6418059962706647064"
+      },
+      {
+        "file": "scripts/downloader.bat",
+        "hash": "18336626221456820500"
+      },
+      {
+        "file": "scripts/list-lucide-icons.js",
+        "hash": "15877716727943297317"
       },
       {
         "file": "scripts/downloaded_assets/iconos/2611202_1_29262.png",
@@ -136,300 +368,68 @@
         "hash": "7008379019161968046"
       },
       {
-        "file": "eslint.config.mjs",
-        "hash": "10509221285091897805"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_793223482082.jpg",
-        "hash": "4879833218332798927"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_347792394133.jpg",
-        "hash": "6073494607131578797"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_044013842366.jpg",
-        "hash": "9701948116049843792"
-      },
-      {
-        "file": "packages/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_319346107358.jpg",
-        "hash": "12363166224323169674"
-      },
-      {
-        "file": "scripts/downloaded_assets/homepage/slider-1-floripa.jpg",
-        "hash": "1966176199901508523"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_25886223185.jpg",
-        "hash": "307842782162618955"
-      },
-      {
-        "file": "nx.json",
-        "hash": "1944726070005607148"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_258861470434.jpg",
-        "hash": "10900993669519672445"
-      },
-      {
-        "file": "scripts/downloaded_assets/logos/logo-footer.png",
-        "hash": "13832451218670876258"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_36379.png",
-        "hash": "6380318779121147756"
-      },
-      {
-        "file": ".docs/manifiesto-calidad-codigo.md",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201338457320.jpg",
-        "hash": "3282586306236028590"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_793227453220.jpg",
-        "hash": "17581414459054754021"
-      },
-      {
-        "file": "scripts/prebuild-dictionaries.mjs",
-        "hash": "2523467369143926400"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201336575920.jpg",
-        "hash": "2900262610872842604"
-      },
-      {
-        "file": "tsconfig.json",
-        "hash": "5783799896881274528"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_044015718492.jpg",
-        "hash": "10813103919258493410"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_319344233994.jpg",
-        "hash": "14151937905419163008"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_25886711589.jpg",
-        "hash": "4937989568917933954"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_19549.png",
-        "hash": "10923841351601164288"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_87163.png",
-        "hash": "18312365495643688587"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/icon-instagram.png",
-        "hash": "16918486392011015316"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_258867686571.jpg",
-        "hash": "4557925716066855129"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/cta-anim-whatsapp.gif",
-        "hash": "11778468997219707847"
-      },
-      {
-        "file": ".docs/manifesto-arquitectura.md",
-        "hash": "156104386792555757"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_34687.png",
-        "hash": "14253556636724544523"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_258866978797.jpg",
-        "hash": "12858043604599989973"
-      },
-      {
-        "file": "scripts/downloaded_assets/logos/logo-header-mobile.png",
-        "hash": "5195448956750898467"
-      },
-      {
-        "file": ".docs/manifiesto-blog.md",
-        "hash": "17063529892578299210"
-      },
-      {
-        "file": "scripts/downloaded_assets/homepage/gallery-2.jpg",
-        "hash": "8420839051032950235"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_73883.gif",
-        "hash": "11778468997219707847"
-      },
-      {
-        "file": "jest.config.ts",
-        "hash": "6870352021923392442"
-      },
-      {
-        "file": "scripts/downloaded_assets/homepage/slider-3-salvador.jpg",
-        "hash": "6892085014632894368"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201331446261.jpg",
-        "hash": "8540294326770454724"
-      },
-      {
-        "file": "scripts/downloaded_assets/logos/logo-header-desktop.png",
-        "hash": "8654916221470033765"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_537168097589.jpg",
-        "hash": "16679272529415091459"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_31934591025.jpg",
-        "hash": "1360909181874633296"
-      },
-      {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115241776.png",
-        "hash": "5662799661289037756"
-      },
-      {
-        "file": "scripts/downloader.bat",
-        "hash": "18336626221456820500"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "16267754514737964994"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201339347055.jpg",
-        "hash": "10179972369210218535"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201333016603.jpg",
-        "hash": "10775655622485577359"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_319346049082.jpg",
-        "hash": "6707887340012877051"
-      },
-      {
         "file": "scripts/downloaded_assets/2611202_1_31934507529.jpg",
         "hash": "13392325055791490700"
-      },
-      {
-        "file": "jest.preset.js",
-        "hash": "5833918104732742168"
-      },
-      {
-        "file": ".docs/interaccion-y-experiencia.md",
-        "hash": "14375201034930603262"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174735280925839616.jpg",
-        "hash": "18151071432230145712"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_3193491601.jpg",
-        "hash": "580667141722325556"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc4383120133403295.jpg",
-        "hash": "6067434627666991042"
-      },
-      {
-        "file": "pnpm-workspace.yaml",
-        "hash": "3806345288269801475"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "14688272390704683536"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201331425740.jpg",
-        "hash": "2986873116781864582"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_5371669912.jpg",
-        "hash": "1139820548716684555"
       },
       {
         "file": "scripts/downloaded_assets/2611202_1_319346883041.jpg",
         "hash": "3155444242076770621"
       },
       {
-        "file": "scripts/list-lucide-icons.js",
-        "hash": "15877716727943297317"
+        "file": "scripts/downloaded_assets/2611202_1_537168097589.jpg",
+        "hash": "16679272529415091459"
       },
       {
-        "file": ".docs/manifiesto-rutas.md",
-        "hash": "11508314177086664130"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_044018657446.jpg",
-        "hash": "2200210280286654006"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201335950951.jpg",
-        "hash": "5416566329420314512"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_044012411939.jpg",
-        "hash": "413204514160501580"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_347794051680.jpg",
-        "hash": "3199797834212768597"
-      },
-      {
-        "file": "scripts/downloaded_assets/2611202_1_174835857124042086.jpg",
-        "hash": "16514583857038129995"
+        "file": "pnpm-lock.yaml",
+        "hash": "1671152260964516816"
       },
       {
         "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115213733.png",
         "hash": "9220741446145392843"
       },
       {
-        "file": ".docs/roadmap-portafolio.md",
-        "hash": "3811779517109438454"
+        "file": "scripts/downloaded_assets/2611202_1_347792394133.jpg",
+        "hash": "6073494607131578797"
       },
       {
-        "file": "package.json",
-        "hash": "10887104299726506327"
+        "file": "scripts/downloaded_assets/homepage/slider-1-floripa.jpg",
+        "hash": "1966176199901508523"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_793227049912.jpg",
-        "hash": "10214101003236996757"
+        "file": "scripts/downloaded_assets/2611202_1_347794051680.jpg",
+        "hash": "3199797834212768597"
       },
       {
-        "file": "README.md",
-        "hash": "18370909480807569042"
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc4383120133403295.jpg",
+        "hash": "6067434627666991042"
       },
       {
-        "file": "scripts/downloaded_assets/iconos/2611202_1_174948144115203071.png",
-        "hash": "6461656931200573646"
+        "file": "scripts/downloaded_assets/2611202_1_174733251068262da026fc43831201331446261.jpg",
+        "hash": "8540294326770454724"
       },
       {
-        "file": "nav-links.pt-BR.json",
-        "hash": "2170759762317370142"
+        "file": "scripts/prebuild-dictionaries.mjs",
+        "hash": "2523467369143926400"
       },
       {
-        "file": "lucide-icons-list.txt",
-        "hash": "14322682212612186953"
+        "file": "scripts/downloaded_assets/logos/favicon.png",
+        "hash": "13048722742456448825"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_31934219885.jpg",
-        "hash": "3204261743700178435"
+        "file": "tsconfig.base.json",
+        "hash": "12188893761860892850"
       },
       {
-        "file": "scripts/downloaded_assets/2611202_1_347792751775.jpg",
-        "hash": "7943765154615946027"
+        "file": ".docs/interaccion-y-experiencia.md",
+        "hash": "14375201034930603262"
       },
       {
         "file": "scripts/downloaded_assets/2611202_1_044011287198.jpg",
         "hash": "13599835536717189110"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "5783799896881274528"
       }
     ],
     "projectFileMap": {
@@ -996,7 +996,7 @@
         },
         {
           "file": "apps/portfolio-web/src/lib/blog/actions.ts",
-          "hash": "1124030434111131148"
+          "hash": "8275642650731590588"
         },
         {
           "file": "apps/portfolio-web/src/lib/blog/index.ts",
@@ -1012,6 +1012,10 @@
         {
           "file": "apps/portfolio-web/src/lib/get-dictionary.ts",
           "hash": "14153738857916488850"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/graphql-client.ts",
+          "hash": "9542136821425983021"
         },
         {
           "file": "apps/portfolio-web/src/lib/hooks/use-infinite-carousel-animation.ts",
@@ -1064,7 +1068,7 @@
         },
         {
           "file": "apps/portfolio-web/src/lib/schemas/blog.schema.ts",
-          "hash": "17333934825046851690",
+          "hash": "2045082120844892283",
           "deps": [
             "npm:zod"
           ]
