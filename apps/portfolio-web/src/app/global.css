@@ -1,46 +1,70 @@
 /* RUTA: apps/portfolio-web/src/app/global.css */
-/* VERSIÓN: Con Sistema de Theming Profesional */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* VERSIÓN: 9.0 - Arquitectura Final, Definitiva y Sintácticamente Pura. */
 
+/* ======================================================================== */
+/* PASO 1: IMPORTACIÓN GLOBAL Y CONFIGURACIÓN DE VARIANTES                  */
+/* ======================================================================== */
+@import "tailwindcss";
+
+/* Sincroniza el variante 'dark:' con la clase '.dark' de 'next-themes' */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ======================================================================== */
+/* PASO 2: DEFINICIÓN DEL TEMA                                              */
+/* ======================================================================== */
+@theme {
+  /* -- Tipografía -- */
+  --font-sans: 'var(--font-sans)', Inter, sans-serif;
+  --font-display: 'var(--font-display)', Inter, sans-serif;
+  --font-signature: 'var(--font-signature)', cursive;
+
+  /* -- Sistema de Colores -- */
+  --color-background: oklch(var(--background));
+  --color-foreground: oklch(var(--foreground));
+  --color-border: oklch(var(--border));
+  --color-primary: oklch(var(--primary));
+  --color-primary-foreground: oklch(var(--primary-foreground));
+  --color-accent: oklch(var(--accent));
+  --color-accent-foreground: oklch(var(--accent-foreground));
+
+  /* -- Utilidades Personalizadas -- */
+  --text-shadow-sm: 0 1px 2px var(--tw-shadow-color);
+  --text-shadow: 0 2px 4px var(--tw-shadow-color);
+  --text-shadow-lg: 0 8px 16px var(--tw-shadow-color);
+}
+
+/* ======================================================================== */
+/* PASO 3: EXTENSIÓN DE LAYERS                                              */
+/* ======================================================================== */
 @layer base {
-  /* ============================================= */
-  /* TEMA OSCURO (POR DEFECTO)                       */
-  /* Inspirado en la estética de la imagen.        */
-  /* ============================================= */
+  /* VARIABLES DE TEMA CSS (Oscuro por defecto) */
   :root {
-    --background: 224 71.4% 4.1%; /* Negro azulado muy oscuro */
-    --foreground: 210 20% 98%; /* Blanco casi puro */
-
-    --primary: 217.2 91.2% 59.8%; /* Azul brillante para acentos */
-    --primary-foreground: 210 20% 98%;
-
-    --accent: 210 40% 96.1%; /* Blanco con un toque de gris */
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --border: 217.2 32.6% 17.5%; /* Borde azulado oscuro */
+    --background: 24.93% 0.02 244.38;
+    --foreground: 98.05% 0.01 253.27;
+    --border: 29.8% 0.04 252.34;
+    --primary: 61.95% 0.26 257.53;
+    --primary-foreground: 98.05% 0.01 253.27;
+    --accent: 96.1% 0.02 250;
+    --accent-foreground: 22.2% 0.09 252.2;
   }
 
-  /* ============================================= */
-  /* TEMA CLARO                                    */
-  /* Un tema opcional de alto contraste.           */
-  /* ============================================= */
+  /* VARIABLES PARA TEMA CLARO */
   .light {
-    --background: 0 0% 100%; /* Blanco */
-    --foreground: 224 71.4% 4.1%; /* Negro azulado */
-
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --border: 214.3 31.8% 91.4%;
+    --background: 100% 0 0;
+    --foreground: 24.93% 0.02 244.38;
+    --border: 91.4% 0.02 254.3;
+    --primary: 59.22% 0.25 260.61;
+    --primary-foreground: 98.05% 0.01 253.27;
   }
 
-  /* Reseteo base para mejorar la estética */
+  /* ESTILOS GLOBALES PARA BODY */
   body {
-    @apply scroll-smooth;
+    /* --- INICIO DE LA CORRECCIÓN DE SINTAXIS DEFINITIVA --- */
+    /* Se utiliza la función nativa de CSS 'var()' para consumir las variables. */
+    /* Esta es la forma canónica y correcta. Se elimina la función 'theme()'. */
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    /* --- FIN DE LA CORRECCIÓN DE SINTAXIS DEFINITIVA --- */
+    @apply scroll-smooth antialiased;
   }
 }

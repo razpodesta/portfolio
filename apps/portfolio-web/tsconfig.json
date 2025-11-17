@@ -1,5 +1,7 @@
 // RUTA: apps/portfolio-web/tsconfig.json
-// VERSIÓN: Definitiva de Producción (Limpia de tipos de prueba)
+// VERSIÓN: Definitiva de Producción (Con Declaraciones Personalizadas)
+// DESCRIPCIÓN: Se añade el nuevo archivo 'postprocessing.d.ts' al array 'include'
+//              para que TypeScript lo descubra y utilice sus tipos en todo el proyecto.
 
 {
   "extends": "../../tsconfig.base.json",
@@ -34,14 +36,12 @@
 
     // --- Optimización ---
     "incremental": true
-
-    // NOTA IMPORTANTE: El array "types" ha sido eliminado intencionadamente.
-    // El tsconfig principal no debe conocer los tipos de Jest o Node.
   },
 
   // --- Inclusión Explícita de Archivos ---
   "include": [
     "next-env.d.ts",
+    "postprocessing.d.ts", // <-- INICIO DE LA MEJORA
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts"

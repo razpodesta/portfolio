@@ -1,89 +1,130 @@
 // RUTA: apps/portfolio-web/src/components/layout/Footer.tsx
-// VERSIÓN: De Élite - Nivelado para Portafolio Profesional
+// VERSIÓN: 3.2 - Nivelado para Soportar Iconos en la Navegación.
+// DESCRIPCIÓN: Se actualiza la lógica de renderizado de las columnas de navegación
+//              para detectar y mostrar un icono si este está definido en la estructura
+//              de datos de 'nav-links.ts'. Esto completa la visión de diseño para
+//              los enlaces legales y hace que el componente sea más extensible y
+//              visualmente rico.
+
+'use client';
 
 import Link from 'next/link';
-import { Github, Linkedin, Twitter } from 'lucide-react';
-import type { Dictionary } from '../../lib/schemas/dictionary.schema';
+import { motion, type Variants } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import type { Dictionary } from '@/lib/schemas/dictionary.schema';
+import { socialLinks } from '@/lib/social-links';
+import { footerNavStructure } from '@/lib/nav-links';
 
-/**
- * PRINCIPIO DE SEGREGACIÓN DE INTERFACES (ISP):
- * Las props del componente solo solicitan la parte del diccionario que le
- * concierne ('footer'), derivando su tipo directamente de la fuente de verdad (Zod).
- * Esto lo hace más modular y reutilizable.
- */
 type FooterProps = {
-  dictionary: Dictionary['footer'];
+  content: Dictionary['footer'];
+  navLabels: Dictionary['header']['nav_links'];
+  tagline: string;
 };
 
-/**
- * PRINCIPIO DRY (Don't Repeat Yourself):
- * Los enlaces sociales se definen como una constante fuera del componente.
- * Esto mantiene el JSX limpio y hace que la gestión de los enlaces sea trivial.
- */
-const socialLinks = [
-  {
-    href: 'https://github.com/tu-usuario', // <-- ACTUALIZAR
-    label: 'GitHub',
-    icon: Github,
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
   },
-  {
-    href: 'https://linkedin.com/in/tu-usuario', // <-- ACTUALIZAR
-    label: 'LinkedIn',
-    icon: Linkedin,
-  },
-  {
-    href: 'https://twitter.com/tu-usuario', // <-- ACTUALIZAR
-    label: 'Twitter',
-    icon: Twitter,
-  },
-];
+};
 
-/**
- * Componente `Footer`
- *
- * El pie de página definitivo para el portafolio. Ha sido refactorizado para
- * reflejar una identidad profesional, con enlaces a redes relevantes, una estética
- * cohesiva con el resto del sitio y un fuerte enfoque en la accesibilidad.
- *
- * @param dictionary - Objeto que contiene las traducciones para el pie de página.
- */
-export function Footer({ dictionary }: FooterProps) {
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
+export function Footer({ content, navLabels, tagline }: FooterProps) {
+  const t = content;
+
   return (
-    <footer className="border-t border-zinc-800 bg-zinc-950 text-zinc-400">
-      <div className="container mx-auto grid grid-cols-1 items-center gap-8 px-4 py-8 text-center md:grid-cols-3 md:text-left">
-        {/* Columna 1: Identidad Personal (Wordmark) */}
-        <div className="flex justify-center md:justify-start">
-          <Link
-            href="/"
-            className="text-xl font-bold text-zinc-200 transition-colors hover:text-white"
-          >
-            [Tu Nombre Completo] {/* <-- ACTUALIZAR */}
-          </Link>
-        </div>
+    <motion.footer
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+      className="border-t border-zinc-800 bg-black text-zinc-400"
+    >
+      <div className="container mx-auto px-4 pt-16 pb-8">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+          <motion.div variants={itemVariants} className="col-span-2 md:col-span-2">
+            <Link href="/" className="font-signature text-5xl text-white transition-colors hover:text-zinc-300">
+              Raz Podestá
+            </Link>
+            <p className="mt-4 max-w-xs text-sm">
+              {tagline}
+            </p>
+          </motion.div>
 
-        {/* Columna 2: Copyright y Créditos */}
-        <div className="text-sm">
-          <p>&copy; {new Date().getFullYear()}. {dictionary.rights_reserved}</p>
-          <p>{dictionary.made_by.replace('[Seu Nome]', '[Tu Nombre Completo]')}</p> {/* <-- Reemplazo para consistencia */}
-        </div>
-
-        {/* Columna 3: Redes Sociales Profesionales */}
-        <div className="flex justify-center gap-4 md:justify-end">
-          {socialLinks.map(({ href, label, icon: Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              // A11Y: `aria-label` es crucial para la accesibilidad.
-              aria-label={`Visita mi perfil de ${label}`}
-              className="rounded-full p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
-            >
-              <Icon size={20} />
-            </a>
+          {footerNavStructure.map((column) => (
+            <motion.div variants={itemVariants} key={column.columnKey}>
+              <h2 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
+                {t[column.columnKey as keyof typeof t]}
+              </h2>
+              <ul className="mt-4 space-y-3">
+                {column.links.map((link) => (
+                  <li key={link.labelKey}>
+                    {/* --- INICIO DE LA MEJORA DE RENDERIZADO --- */}
+                    <Link href={link.href || '#'} className="flex items-center gap-2 text-sm transition-colors hover:text-white hover:underline">
+                      {link.Icon && <link.Icon size={14} className="shrink-0 text-zinc-500 group-hover:text-white transition-colors" />}
+                      <span>{navLabels[link.labelKey as keyof typeof navLabels]}</span>
+                    </Link>
+                    {/* --- FIN DE LA MEJORA DE RENDERIZADO --- */}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           ))}
         </div>
+
+        <motion.div variants={itemVariants} className="mt-12 border-t border-zinc-800 pt-8">
+          <div className="flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h3 className="text-lg font-bold text-white">{t.newsletter_title}</h3>
+              <p className="text-sm text-zinc-500">Recibe insights y actualizaciones directamente.</p>
+            </div>
+            <form className="flex w-full max-w-md gap-2">
+              <input
+                type="email"
+                placeholder={t.newsletter_placeholder}
+                className="w-full rounded-md border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:ring-purple-500"
+                aria-label={t.newsletter_placeholder}
+              />
+              <button
+                type="submit"
+                className="shrink-0 rounded-md bg-white px-4 py-2 text-sm font-bold text-black transition-transform hover:scale-105"
+                aria-label={t.newsletter_button}
+              >
+                <ArrowRight size={18} />
+              </button>
+            </form>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="mt-12 flex flex-col-reverse items-center justify-between gap-6 border-t border-zinc-800 pt-8 md:flex-row">
+          <div className="text-center text-sm md:text-left">
+            <p>{t.rights_reserved}</p>
+            <p className="text-zinc-500">{t.made_by}</p>
+          </div>
+          <div className="flex items-center gap-4">
+            {socialLinks.map(({ href, label, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visita mi perfil de ${label}`}
+                className="rounded-full p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
+              >
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

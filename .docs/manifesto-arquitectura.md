@@ -64,4 +64,119 @@ El cumplimiento de esta regla es obligatorio y está reforzado por ESLint (@nx/e
 
 ---
 
+# Manifiesto de Arquitectura: "Código como Artefacto"
+**Versión: 3.0**
+**Fecha: 2025-11-09**
+
+## 1. Misión
+... (sin cambios) ...
+
+---
+
+## 2. El Pilar Fundamental: Zod como Única Fuente de Verdad
+... (sin cambios) ...
+
+---
+## 3. Erradicación Total del Tipo any
+... (sin cambios) ...
+
+---
+## 4. Arquitectura de Componentes (SOLID y Cohesión)
+... (sin cambios) ...
+
+---
+## 5. Reglas de Importación (Límites de Módulo de Nx)
+... (sin cambios) ...
+
+---
+
+## 6. Arquitectura de Contenido (i18n): Granularidad y Pre-construcción
+
+Este proyecto adopta una estrategia de internacionalización (i18n) que trata el contenido como un artefacto de software de primera clase, sujeto a las mismas reglas de robustez, modularidad y validación que el resto del código.
+
+### 6.1. Principio de Granularidad por Característica
+
+Los archivos de diccionario monolíticos están prohibidos. En su lugar, todo el contenido de la UI (textos, etiquetas, etc.) **DEBE** ser segmentado en archivos JSON pequeños y enfocados, ubicados en `apps/portfolio-web/src/messages/{locale}/{feature}.json`.
+
+*   **Ejemplo:** Los textos del footer para español residen en `src/messages/es-ES/footer.json`.
+*   **Beneficio:** Este enfoque (Cohesión por Característica) permite a los desarrolladores modificar textos de una sección específica con la confianza de que no habrá efectos secundarios imprevistos en otras partes de la aplicación.
+
+### 6.2. Arquitectura de Esquemas en Espejo
+
+Cada archivo de mensaje granular **DEBE** tener un archivo de esquema de Zod correspondiente en `apps/portfolio-web/src/lib/schemas/messages/{feature}.schema.ts`.
+
+*   **Ejemplo:** El contrato para `footer.json` es definido por `footer.schema.ts`.
+*   **Garantía:** Esto asegura que cada fragmento de contenido es validado de forma independiente antes de ser integrado en el sistema.
+
+### 6.3. Ensamblaje en Tiempo de Pre-construcción (`prebuild`)
+
+La aplicación en tiempo de ejecución **NUNCA** leerá los archivos de mensajes granulares directamente. En su lugar, un script de Node.js (`scripts/prebuild-dictionaries.mjs`) se ejecuta automáticamente antes de los comandos `dev` y `build`.
+
+*   **Responsabilidad del Script:**
+    1.  Descubrir dinámicamente todos los archivos de mensajes para cada idioma.
+    2.  Ensamblarlos en un único diccionario final por idioma (ej. `en-US.json`).
+    3.  Guardar estos diccionarios completos en la carpeta `apps/portfolio-web/src/dictionaries`, que está versionada en `.gitignore`.
+*   **Beneficio de Rendimiento y Seguridad:** Este proceso elimina la sobrecarga de leer múltiples archivos en tiempo de ejecución y previene que módulos del lado del servidor (como `fs`) se filtren accidentalmente en el bundle del cliente, garantizando la compatibilidad con plataformas como Vercel.
+
+El `dictionary.schema.ts` principal actúa como el agregador final que importa y fusiona todos los esquemas granulares, sirviendo como el contrato definitivo contra el cual se validan los diccionarios ensamblados.
+
+---
+
+# Manifiesto de Arquitectura: "Código como Artefacto"
+**Versión: 3.0**
+**Fecha: 2025-11-09**
+
+## 1. Misión
+
+Este documento establece los principios de arquitectura y las convenciones de código inquebrantables para este portafolio. El objetivo no es solo construir un producto funcional, sino una pieza de software de élite: robusta, mantenible, escalable y que refleje la calidad profesional de mi trabajo. La excelencia no es negociable.
+
+---
+
+## 2. El Pilar Fundamental: Zod como Única Fuente de Verdad
+
+El principio **Don't Repeat Yourself (DRY)** es la ley. Para lograrlo, toda la estructura de datos en esta aplicación **DEBE** ser definida como un esquema de Zod.
+
+### 2.1. Regla de Oro: Esquema Primero, Tipo Después
+
+Nunca se definirá un tipo (`type` o `interface`) manualmente si este describe una estructura de datos. En su lugar, el flujo de trabajo obligatorio es:
+
+1.  **Definir el Esquema:** Crear un archivo en `src/lib/schemas/` que exporte un esquema de Zod. Este esquema define la "forma" y las reglas de validación de los datos.
+2.  **Inferir el Tipo:** Exportar un tipo de TypeScript inferido directamente desde el esquema.
+
+---
+
+## 3. Arquitectura de Contenido (i18n): Granularidad y Pre-construcción
+
+Este proyecto adopta una estrategia de internacionalización (i18n) que trata el contenido como un artefacto de software de primera clase, sujeto a las mismas reglas de robustez, modularidad y validación que el resto del código.
+
+### 3.1. Principio de Granularidad por Característica
+
+Los archivos de diccionario monolíticos están prohibidos. En su lugar, todo el contenido de la UI (textos, etiquetas, etc.) **DEBE** ser segmentado en archivos JSON pequeños y enfocados, ubicados en `apps/portfolio-web/src/messages/{locale}/{feature}.json`.
+
+*   **Ejemplo:** Los textos del footer para español residen en `src/messages/es-ES/footer.json`.
+*   **Beneficio:** Este enfoque (Cohesión por Característica) permite a los desarrolladores modificar textos de una sección específica con la confianza de que no habrá efectos secundarios imprevistos en otras partes de la aplicación.
+
+### 3.2. Arquitectura de Esquemas en Espejo
+
+Cada archivo de mensaje granular **DEBE** tener un archivo de esquema de Zod correspondiente en `apps/portfolio-web/src/lib/schemas/messages/{feature}.schema.ts`.
+
+*   **Ejemplo:** El contrato para `footer.json` es definido por `footer.schema.ts`.
+*   **Garantía:** Esto asegura que cada fragmento de contenido es validado de forma independiente antes de ser integrado en el sistema.
+
+### 3.3. Ensamblaje en Tiempo de Pre-construcción (`prebuild`)
+
+La aplicación en tiempo de ejecución **NUNCA** leerá los archivos de mensajes granulares directamente. En su lugar, un script de Node.js (`scripts/prebuild-dictionaries.mjs`) se ejecuta automáticamente antes de los comandos `dev` y `build`.
+
+*   **Responsabilidad del Script:**
+    1.  Descubrir dinámicamente todos los archivos de mensajes para cada idioma.
+    2.  Ensamblarlos en un único diccionario final por idioma (ej. `en-US.json`).
+    3.  Guardar estos diccionarios completos en la carpeta `apps/portfolio-web/src/dictionaries`, que **NO** está versionada en Git.
+*   **Beneficio de Rendimiento y Seguridad:** Este proceso elimina la sobrecarga de leer múltiples archivos en tiempo de ejecución y previene que módulos del lado del servidor (como `fs`) se filtren accidentalmente en el bundle del cliente, garantizando la compatibilidad con plataformas como Vercel.
+
+El `dictionary.schema.ts` principal actúa como el agregador final que importa y fusiona todos los esquemas granulares, sirviendo como el contrato definitivo contra el cual se validan los diccionarios ensamblados.
+
+... (Secciones 4, 5 y 6 del manifiesto original continúan aquí)
+
+---
+
 

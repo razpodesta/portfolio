@@ -1,5 +1,8 @@
 // RUTA: apps/portfolio-web/src/components/ui/NewsletterModal.tsx
-// VERSIÓN: 1.1 - Corregido el patrón de limpieza de useEffect y dependencias
+// VERSIÓN: 3.1 - Sintaxis Canónica de Tailwind CSS.
+// DESCRIPCIÓN: Se refina el componente reemplazando la clase 'flex-grow' por su
+//              forma canónica y más concisa, 'grow'. Esto resuelve las advertencias
+//              del linter y alinea el código con las mejores prácticas de Tailwind moderno.
 
 'use client';
 
@@ -8,48 +11,38 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { X, Mail } from 'lucide-react';
-import { createSupabaseBrowserClient } from '../../lib/supabase/client';
+import { supabase } from '../../lib/supabase/client';
 import { setCookie, getCookie } from 'cookies-next';
-
-// Placeholder para los iconos de redes sociales.
-const GoogleIcon = () => <span>G</span>;
-const GithubIcon = () => <span>GH</span>;
-const XIcon = () => <span>X</span>;
+import {
+  SiGoogle,
+  SiApple,
+  SiGithub,
+  SiFacebook,
+  SiX,
+} from '@icons-pack/react-simple-icons';
 
 const COOKIE_NAME = 'newsletter_modal_seen';
 
 export function NewsletterModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const supabase = createSupabaseBrowserClient();
 
-  // --- INICIO DE LA CORRECCIÓN: Patrón de useEffect robusto ---
   useEffect(() => {
     let timerId: NodeJS.Timeout | undefined;
     const hasSeenModal = getCookie(COOKIE_NAME);
-
     if (!hasSeenModal) {
-      timerId = setTimeout(() => {
-        setIsOpen(true);
-      }, 5000);
+      timerId = setTimeout(() => setIsOpen(true), 5000);
     }
-
-    // Devolvemos SIEMPRE una función de limpieza.
-    // Esto cumple con el contrato de useEffect y soluciona el error ts(7030).
     return () => {
-      // Solo intentamos limpiar el temporizador si fue creado.
-      if (timerId) {
-        clearTimeout(timerId);
-      }
+      if (timerId) clearTimeout(timerId);
     };
-  }, []); // El array de dependencias vacío es correcto, solo se ejecuta al montar.
-  // --- FIN DE LA CORRECCIÓN ---
+  }, []);
 
   const handleClose = () => {
     setCookie(COOKIE_NAME, 'true', { maxAge: 60 * 60 * 24 * 365, path: '/' });
     setIsOpen(false);
   };
 
-  const handleOAuthLogin = async (provider: 'google' | 'github' | 'twitter') => {
+  const handleOAuthLogin = async (provider: 'google' | 'github' | 'twitter' | 'apple' | 'facebook') => {
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
@@ -65,44 +58,69 @@ export function NewsletterModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
           onClick={handleClose}
         >
           <motion.div
-            initial={{ scale: 0.9, y: 20 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.9, y: 20 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-sm overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            className="relative w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900"
+            onClick={(event) => event.stopPropagation()}
           >
-            <button onClick={handleClose} className="absolute top-3 right-3 text-zinc-500 hover:text-white z-10">
-              <X size={24} />
+            <button
+              onClick={handleClose}
+              className="absolute right-3 top-3 z-10 rounded-full p-1 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-white"
+              aria-label="Cerrar modal"
+            >
+              <X size={20} />
             </button>
 
-            <div className="relative w-full h-48">
-              {/* NOTA: Reemplaza '/images/newsletter-bg.jpg' con la ruta a tu imagen real */}
-              <Image src="/images/newsletter-bg.jpg" alt="Newsletter" layout="fill" className="object-cover"/>
+            <div className="relative h-48 w-full">
+              <Image src="/images/newsletter-bg.jpg" alt="Fondo del newsletter" layout="fill" className="object-cover"/>
             </div>
 
             <div className="p-6 text-center">
               <h2 className="font-display text-2xl font-bold text-white">Únete a la Comunidad</h2>
-              <p className="mt-2 text-zinc-400 text-sm">Recibe contenido exclusivo, proyectos y actualizaciones directamente en tu bandeja de entrada.</p>
+              <p className="mt-2 text-sm text-zinc-400">
+                Usa tu proveedor preferido para una suscripción rápida.
+              </p>
 
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                <button onClick={() => handleOAuthLogin('google')} className="flex items-center justify-center gap-2 p-2 bg-zinc-800 rounded-md hover:bg-zinc-700 transition-colors"><GoogleIcon /> Google</button>
-                <button onClick={() => handleOAuthLogin('github')} className="flex items-center justify-center gap-2 p-2 bg-zinc-800 rounded-md hover:bg-zinc-700 transition-colors"><GithubIcon /> GitHub</button>
-                <button onClick={() => handleOAuthLogin('twitter')} className="flex items-center justify-center gap-2 p-2 bg-zinc-800 rounded-md hover:bg-zinc-700 transition-colors"><XIcon /> X</button>
+              <div className="mt-6 grid grid-cols-2 gap-3 text-sm font-medium">
+                <button onClick={() => handleOAuthLogin('google')} className="flex items-center justify-center gap-2 rounded-md bg-zinc-800 p-2 text-white transition-colors hover:bg-zinc-700">
+                  <SiGoogle size={18} /> Google
+                </button>
+                <button onClick={() => handleOAuthLogin('apple')} className="flex items-center justify-center gap-2 rounded-md bg-zinc-800 p-2 text-white transition-colors hover:bg-zinc-700">
+                  <SiApple size={18} /> Apple
+                </button>
+                <button onClick={() => handleOAuthLogin('github')} className="flex items-center justify-center gap-2 rounded-md bg-zinc-800 p-2 text-white transition-colors hover:bg-zinc-700">
+                  <SiGithub size={18} /> GitHub
+                </button>
+                <button onClick={() => handleOAuthLogin('facebook')} className="flex items-center justify-center gap-2 rounded-md bg-zinc-800 p-2 text-white transition-colors hover:bg-zinc-700">
+                  <SiFacebook size={18} /> Facebook
+                </button>
+                <button onClick={() => handleOAuthLogin('twitter')} className="flex items-center justify-center gap-2 rounded-md bg-zinc-800 p-2 text-white transition-colors hover:bg-zinc-700">
+                  <SiX size={18} /> X
+                </button>
+                <div className="flex items-center justify-center rounded-md border border-dashed border-zinc-700 p-2 text-zinc-500">
+                  Próximamente
+                </div>
               </div>
 
-              <div className="mt-4 flex items-center gap-2">
-                <div className="h-px flex-grow bg-zinc-700"/>
-                <span className="text-zinc-500 text-xs">O</span>
-                <div className="h-px flex-grow bg-zinc-700"/>
+              {/* --- INICIO DE LA CORRECCIÓN DE SINTAXIS --- */}
+              <div className="my-4 flex items-center gap-3">
+                <div className="h-px grow bg-zinc-700" />
+                <span className="text-xs text-zinc-500">O</span>
+                <div className="h-px grow bg-zinc-700" />
               </div>
+              {/* --- FIN DE LA CORRECCIÓN DE SINTAXIS --- */}
 
-              <Link href="/subscribe" className="mt-4 flex items-center justify-center gap-2 w-full p-2 bg-zinc-700 rounded-md hover:bg-zinc-600 transition-colors">
-                <Mail size={16}/>
+              <Link
+                href="/subscribe"
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-zinc-700 p-2 text-sm font-medium text-white transition-colors hover:bg-zinc-600"
+              >
+                <Mail size={16} />
                 Continuar con Email
               </Link>
             </div>

@@ -1,12 +1,18 @@
 // RUTA: apps/portfolio-web/src/components/sections/homepage/ContactSection.tsx
-// VERSIÓN: Migrada desde BookingSection para Portafolio
+// VERSIÓN: 2.1 - Sintaxis Canónica de Tailwind CSS v4.
+// DESCRIPCIÓN: Se actualizan las clases de gradiente a su forma canónica
+//              ('bg-linear-to-r') para cumplir con los estándares más recientes
+//              de Tailwind CSS y resolver las advertencias del linter.
 
 'use client';
 
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { contactFormSchema, type ContactFormData } from '../../../lib/schemas/contact.schema';
+import {
+  contactFormSchema,
+  type ContactFormData,
+} from '../../../lib/schemas/contact.schema';
 import type { Dictionary } from '../../../lib/schemas/dictionary.schema';
 
 type ContactSectionProps = {
@@ -37,7 +43,8 @@ export function ContactSection({ dictionary }: ContactSectionProps) {
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-transparent sm:text-4xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            {/* --- MEJORA DE SINTAXIS (1/2) --- */}
+            <h2 className="text-3xl font-bold tracking-tight text-transparent sm:text-4xl bg-clip-text bg-linear-to-r from-purple-400 to-pink-600">
               {dictionary.title}
             </h2>
             <p className="mt-2 text-lg text-zinc-400">{dictionary.form_cta}</p>
@@ -66,7 +73,8 @@ export function ContactSection({ dictionary }: ContactSectionProps) {
             {errors.message?.message && <p className="mt-1 text-sm text-red-600">{dictionary.validation[errors.message.message as keyof typeof dictionary.validation]}</p>}
           </div>
 
-          <button type="submit" className="w-full rounded-md bg-gradient-to-r from-purple-500 to-pink-600 p-4 font-bold text-white transition-transform hover:scale-105">{dictionary.form_button_submit}</button>
+          {/* --- MEJORA DE SINTAXIS (2/2) --- */}
+          <button type="submit" className="w-full rounded-md bg-linear-to-r from-purple-500 to-pink-600 p-4 font-bold text-white transition-transform hover:scale-105">{dictionary.form_button_submit}</button>
         </motion.form>
       </motion.div>
     </section>

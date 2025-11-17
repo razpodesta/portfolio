@@ -1,17 +1,123 @@
 {
   "header": {
-    "projects": "Proyectos",
-    "about": "Sobre Mí",
-    "contact": "Contacto",
     "talk": "Hablemos",
-    "tagline": "Arquitecto de Soluciones Creativas e Inteligentes"
+    "tagline": "Arquitecto de Soluciones Creativas e Inteligentes",
+    "personal_portfolio": "Portafolio Personal",
+    "job_title": "Portafolio de Proyectos, Internacionalizado, Visión Holística",
+    "nav_links": {
+      "sobre_mi": "Sobre Mí",
+      "quien_soy": "Quién Soy",
+      "mision_vision": "Misión y Visión",
+      "proyectos": "Proyectos",
+      "cocreacion": "Co-creación",
+      "historia": "Historia",
+      "servicios": "Servicios",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "blog": "Blog",
+      "contacto": "Contacto",
+      "contacto_directo": "Contacto Directo",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "nextjs": "Next.js",
+      "react": "React",
+      "tailwind_css": "Tailwind CSS",
+      "svelte": "Svelte",
+      "nodejs": "Node.js",
+      "nestjs": "NestJS",
+      "databases": "Bases de Datos",
+      "ecommerce": "E-commerce",
+      "shopify": "Shopify",
+      "woocommerce": "WooCommerce",
+      "prestashop": "PrestaShop",
+      "vtex": "VTEX",
+      "seo_positioning": "Posicionamiento SEO",
+      "paid_traffic": "Tráfico de Pago",
+      "google_ads": "Google Ads",
+      "meta_ads": "Meta Ads",
+      "whatsapp_ads": "WhatsApp Ads",
+      "tiktok_ads": "TikTok Ads",
+      "spotify_ads": "Spotify Ads",
+      "custom_solutions": "Soluciones a Medida",
+      "terminos_servicio": "Términos de Servicio",
+      "politica_privacidad": "Política de Privacidad",
+      "branding_marca": "Branding de Marca",
+      "creacion_contenidos": "Creación de Contenidos",
+      "imagenes": "Imágenes",
+      "videos": "Videos",
+      "musica": "Música",
+      "jingles": "Jingles",
+      "web_components": "Componentes Web",
+      "styling_strategies": "Estrategias de Estilo",
+      "nx_monorepo": "Monorepo con Nx",
+      "postgresql": "PostgreSQL",
+      "mongodb": "MongoDB",
+      "sistema_de_diseno": "Sistema de Diseño"
+    }
   },
   "homepage": {
     "hero": {
-      "page_title": "Inicio | Raz Podestá - Portafolio Creativo",
-      "page_description": "Desarrollador experto en Next.js, React e IA, enfocado en construir interfaces rápidas, responsivas y visualmente impactantes.",
-      "RAZ-LINEUP": "RAZ-LINEUP",
-      "e-commerce": "E-COMMERCE"
+      "page_title": "Inicio | Raz Podestá - Desarrollo Web Estratégico",
+      "page_description": "Construyendo activos digitales de élite: desde e-commerce de alta conversión hasta aplicaciones web dinámicas con foco en rendimiento y experiencia de usuario.",
+      "LANDINGS_SUBTITLE": "Páginas diseñadas con un único objetivo: la conversión.",
+      "LANDINGS_TITLE": "LANDING PAGES",
+      "LANDINGS_FEATURES": "Copywriting de Alto Impacto · Preparadas para Pruebas A/B · Analítica",
+      "ECOMMERCE_SUBTITLE": "Tiendas online que venden y construyen una marca.",
+      "ECOMMERCE_TITLE": "E-COMMERCE",
+      "ECOMMERCE_FEATURES": "Pasarelas de Pago · Gestión de Inventario · SEO Avanzado",
+      "SHOWROOMS_SUBTITLE": "Presencia digital que refleja la excelencia de tu marca.",
+      "SHOWROOMS_TITLE": "SHOWROOMS CORPORATIVOS",
+      "SHOWROOMS_FEATURES": "Brand Storytelling · Catálogo de Servicios · Captación B2B",
+      "HOTELS_SUBTITLE": "Gestión centralizada de huéspedes y reservas.",
+      "HOTELS_TITLE": "HOTELES",
+      "HOTELS_FEATURES": "Motor de Reservas a Medida · Panel de Control · Multidioma",
+      "COMMUNITIES_SUBTITLE": "Espacios exclusivos para que conecten socios y clientes.",
+      "COMMUNITIES_TITLE": "COMUNIDADES ONLINE",
+      "COMMUNITIES_FEATURES": "Login de Miembros · Contenido Protegido · Suscripciones",
+      "NGO_SUBTITLE": "Herramientas digitales para amplificar el impacto social.",
+      "NGO_TITLE": "ONGs y FUNDACIONES",
+      "NGO_FEATURES": "Sistemas de Donación · Gestión de Voluntarios · Vitrina de Impacto",
+      "PORTFOLIOS_SUBTITLE": "Escaparates visualmente impactantes para creativos.",
+      "PORTFOLIOS_TITLE": "PORTAFOLIOS CREATIVOS",
+      "PORTFOLIOS_FEATURES": "Galerías Dinámicas · Media en Alta Resolución · Formularios",
+      "MAGAZINES_SUBTITLE": "Plataformas de contenido optimizadas para la interacción.",
+      "MAGAZINES_TITLE": "REVISTAS DIGITALES",
+      "MAGAZINES_FEATURES": "CMS Headless · Estrategia SEO · Integración con Newsletter",
+      "FASHION_SUBTITLE": "Experiencias digitales inmersivas para la moda de lujo.",
+      "FASHION_TITLE": "MODA DE AUTOR",
+      "FASHION_FEATURES": "Probador Virtual · Lookbooks Interactivos · Integración E-commerce",
+      "CTA_BUTTON": "Ver Proyecto"
+    },
+    "about_section": {
+      "title": "Ingeniero, Creativo, Estratega.",
+      "bio_part_1": "Con una base forjada durante más de <strong class=\"font-bold text-white\">20 años en ingeniería de software</strong>, hoy fusiono el rigor técnico con una pasión por la creatividad y la estrategia de conversión. Mi especialidad es forjar <strong class=\"font-bold text-white\">ecosistemas digitales de élite</strong>: desde embudos de venta de alta conversión hasta PWAs con filosofía *Mobile-First*.",
+      "bio_part_2": "Para ello, he construido mi propio arsenal: mi IA co-piloto <strong class=\"font-bold text-white\">LIA Legacy</strong> y una metodología que acelera el desarrollo. No construyo sitios, construyo activos escalables diseñados para una sola cosa: <strong class=\"font-bold text-white\">resultados</strong>.",
+      "cta_button": "Leer la Historia Completa"
+    },
+    "value_proposition_section": {
+      "tech_stack_title": "Tecnologías Favoritas",
+      "tech_stack_cta": "Haz clic en cualquier tecnología para explorar su sitio oficial.",
+      "title": "Más Allá del Código: Construyendo Activos Digitales de Élite",
+      "subtitle": "Mi filosofía se basa en la creación de soluciones que no solo son técnicamente impecables, sino que también impulsan el crecimiento, cautivan a los usuarios y se convierten en pilares estratégicos para tu negocio. La excelencia no es una opción, es el punto de partida.",
+      "pillars": [
+        {
+          "title": "Arquitectura de Vanguardia",
+          "description": "Construyo sobre cimientos sólidos con código limpio, escalable y mantenible, garantizando que tu proyecto crezca sin fricciones y con una seguridad de datos inquebrantable."
+        },
+        {
+          "title": "Interacción y Estética",
+          "description": "Diseño interfaces intuitivas y fluidas donde cada microinteracción y animación tiene un propósito: guiar al usuario y reforzar una percepción de calidad y dominio técnico."
+        },
+        {
+          "title": "Resultados de Negocio",
+          "description": "Mi trabajo va más allá de la estética. Implemento las mejores prácticas de SEO técnico y optimización de rendimiento (Core Web Vitals) para asegurar la máxima visibilidad y un impacto real en tus objetivos."
+        }
+      ],
+      "testimonial": {
+        "quote": "Trabajar con Raz fue un punto de inflexión. Su visión estratégica y su impecable ejecución técnica no solo nos entregaron un producto de clase mundial, sino que transformaron nuestra forma de entender el potencial de nuestra plataforma digital.",
+        "author_name": "Alex Johnson",
+        "author_role": "CEO, Tech Innovators Inc."
+      }
     },
     "contact": {
       "title": "PONTE EN CONTACTO",
@@ -26,15 +132,134 @@
         "email_invalid": "Por favor, introduce un email válido",
         "message_too_short": "El mensaje debe tener al menos 10 caracteres"
       }
+    },
+    "history_section": {
+      "title": "Forjado en Código",
+      "subtitle": "Descubre la fusión de dos décadas de ingeniería de sistemas con una visión creativa obsesionada por los resultados. Esto no es solo un portafolio; es el legado de una arquitectura construida para perdurar."
     }
   },
   "footer": {
-    "rights_reserved": "Todos los derechos reservados.",
-    "made_by": "Hecho por Raz Podestá"
+    "newsletter_title": "Únete al Ecosistema",
+    "newsletter_placeholder": "Tu dirección de email",
+    "newsletter_button": "Suscribirse",
+    "column_nav_title": "Navegación",
+    "column_services_title": "Servicios",
+    "column_legal_title": "Legal",
+    "rights_reserved": "© 2025 Todos los derechos reservados.",
+    "made_by": "Forjado por Raz Podestá | MetaShark Tech"
+  },
+  "language_switcher": {
+    "label": "Idioma",
+    "en-US": "English",
+    "es-ES": "Español",
+    "pt-BR": "Português"
   },
   "not_found": {
     "title": "Página No Encontrada",
     "description": "¡Vaya! Parece que la página que buscabas no existe o ha sido movida.",
     "cta_button": "Volver al Inicio"
+  },
+  "quien_soy": {
+    "page_title": "Quién Soy | Raz Podestá - Arquitecto de Ecosistemas Digitales",
+    "page_description": "Descubre la fusión de dos décadas de ingeniería de software de élite con una visión creativa impulsada por IA, diseñada para construir activos digitales de alto rendimiento.",
+    "intro_title": "El Arquitecto detrás de la Máquina",
+    "intro_subtitle": "Mi nombre es Raz Podestá. Y mi propósito es transformar tu visión en un activo digital de alto rendimiento.",
+    "act_i": {
+      "title": "La Fundación del Ingeniero",
+      "description": "Con una base forjada durante más de 20 años en la ingeniería de computación, mi carrera se centró en la arquitectura de sistemas backend, el data business y el análisis de datos. Esta base en ingeniería de sistemas no es solo mi pasado; es la garantía de que cada proyecto que construyo hoy nace sobre cimientos inquebrantables, diseñados para la escala y la resiliencia."
+    },
+    "act_ii": {
+      "title": "El Vuelco Estratégico",
+      "description": "Comprendí que el mercado no necesitaba más código, sino soluciones holísticas que integraran la excelencia técnica con una estrategia de marca y una experiencia de usuario cautivadora. Este fue mi punto de inflexión: la decisión de independizarme para fusionar el rigor del ingeniero con la visión del arquitecto creativo."
+    },
+    "act_iii": {
+      "title": "El Arsenal Soberano",
+      "description": "Para materializar esta visión, forjé mi propio arsenal. 'LIA Legacy', mi IA co-piloto soberana, no solo acelera radicalmente el desarrollo, sino que actúa como una co-autora estratégica en cada solución. Paralelamente, mi metodología 'ES' asegura un ciclo de vida de desarrollo de alta velocidad y claridad, lo que se traduce en una reducción drástica de la deuda técnica para mis clientes."
+    },
+    "act_iv": {
+      "title": "La Filosofía del Predio Digital",
+      "description": "Mi filosofía es simple: no construyo 'sitios', construyo 'predios digitales'. Cada proyecto comienza con una base arquitectónica robusta (un monorepo Nx) preparada para un crecimiento ilimitado. Esto significa que cuando inviertes en una solución conmigo, no estás comprando una casa, estás adquiriendo un terreno preparado para construir un rascacielos. La escalabilidad no es una idea de futuro; es el punto de partida."
+    },
+    "act_v": {
+      "title": "El Arsenal de Crecimiento",
+      "description": "La creatividad y la tecnología solo tienen sentido si impulsan resultados. Por eso, mi trabajo abarca todo el espectro de la conversión: desde el diseño de embudos de marketing y venta, hasta la creación de contenido de alta calidad y el desarrollo de Progressive Web Apps (PWA) que dominan la experiencia móvil. Soy un constructor full-stack y un socio estratégico en la modernización y evaluación de proyectos tecnológicos."
+    }
+  },
+  "mission_vision": {
+    "mission_title": "Nuestra Misión",
+    "mission_description": "Orquestar el ciclo de vida completo de la conversión digital. Forjamos ecosistemas inteligentes y soberanos que unifican la estrategia de marca, la creación de experiencias y la optimización continua, transformando el marketing de un juego de adivinación en una ciencia de crecimiento predecible.",
+    "vision_title": "Nuestra Visión: El Volante de Crecimiento",
+    "vision_subtitle": "Nuestra visión es ser la fuerza motriz de un nuevo paradigma: la web como un ecosistema vivo y auto-optimizado, donde cada interacción alimenta un volante de crecimiento perpetuo (growth flywheel).",
+    "vision_pillars": [
+      {
+        "title": "Entender",
+        "description": "No solo capturamos métricas; obtenemos una observabilidad holística. Integramos datos cualitativos y cuantitativos para construir un perfil de visitante dinámico, entendiendo el 'porqué' detrás de cada 'qué'."
+      },
+      {
+        "title": "Adaptarse",
+        "description": "Las plataformas que creamos no son estáticas. Son entidades vivas que utilizan la inteligencia artificial para adaptarse y evolucionar armónicamente, personalizando la experiencia en tiempo real para satisfacer las necesidades de cada usuario."
+      },
+      {
+        "title": "Maximizar",
+        "description": "La conversión no es un evento, es una ciencia. Nuestro ecosistema utiliza los insights generados para alimentar un ciclo de optimización continua, asegurando que cada activo y cada campaña se vuelvan inherentemente más eficaces con el tiempo, maximizando los objetivos de negocio."
+      }
+    ]
+  },
+  "blog_page": {
+    "page_title": "Blog | Raz Podestá - Ecosistemas Digitales y Estrategia",
+    "page_description": "Explora artículos sobre arquitectura de software, desarrollo frontend, inteligencia artificial y estrategia digital.",
+    "featured_title": "Artículo Destacado",
+    "all_posts_title": "Todos los Artículos",
+    "read_more_cta": "Leer Más"
+  },
+  "contact_page": {
+    "page_title": "Contacto | Raz Podestá",
+    "page_description": "Ponte en contacto para discutir tu próximo proyecto. Hablemos sobre cómo podemos construir juntos un activo digital de élite.",
+    "title": "Iniciemos una Conversación",
+    "subtitle": "Estoy disponible para discutir nuevas colaboraciones, proyectos o simplemente para intercambiar ideas sobre tecnología y estrategia. Utiliza el formulario a continuación para enviarme un mensaje directo."
+  },
+  "design_system_page": {
+    "page_title": "Sistema de Diseño | Raz Podestá",
+    "page_description": "Explora los componentes, tokens de diseño y la filosofía visual que construyen la interfaz de este portafolio.",
+    "title": "Sistema de Diseño",
+    "subtitle": "Una mirada transparente a los bloques de construcción visuales y funcionales de este ecosistema digital.",
+    "construction_notice": "Esta sección está actualmente en construcción. Pronto podrás explorar aquí la paleta de colores, la jerarquía tipográfica y la librería de componentes de React que dan vida a este sitio."
+  },
+  "cocreation_page": {
+    "page_title": "Co-creación | Raz Podestá",
+    "page_description": "Descubre mi framework de colaboración para transformar ideas en activos digitales de alto rendimiento.",
+    "title": "Framework de Co-creación",
+    "subtitle": "Mi proceso para colaborar contigo, desde la concepción de la idea hasta el despliegue y la optimización continua.",
+    "construction_notice": "Esta sección está actualmente en construcción. Aquí detallaré mi metodología de trabajo, fases del proyecto y cómo nos asociaremos para garantizar el éxito de tu visión."
+  },
+  "legal": {
+    "privacy_policy": {
+      "title": "Política de Privacidad",
+      "last_updated": "12 de Noviembre de 2025",
+      "content": [
+        {
+          "heading": "1. Introducción",
+          "body": "Bienvenido a mi portafolio. Tu privacidad es de suma importancia. Esta política detalla qué datos personales se recopilan y cómo se utilizan."
+        },
+        {
+          "heading": "2. Datos que Recopilamos",
+          "body": "Para el widget de visitante, recopilamos datos de geolocalización anónimos a través de APIs públicas (IP-API, Open-Meteo) para personalizar la experiencia. Para la suscripción al boletín, utilizamos Supabase Auth, que puede implicar el uso de cookies para gestionar tu sesión. No vendemos ni compartimos tus datos con terceros."
+        }
+      ]
+    },
+    "terms_of_service": {
+      "title": "Términos de Servicio",
+      "last_updated": "12 de Noviembre de 2025",
+      "content": [
+        {
+          "heading": "1. Aceptación de los Términos",
+          "body": "Al utilizar este sitio web, aceptas cumplir con los presentes términos y condiciones de uso. El contenido y los proyectos aquí mostrados son de mi propiedad intelectual, a menos que se indique lo contrario."
+        },
+        {
+          "heading": "2. Uso del Sitio",
+          "body": "Este sitio se proporciona 'tal cual' con fines informativos y profesionales. No se permite el uso de su contenido con fines comerciales sin consentimiento explícito previo. Se prohíbe cualquier intento de interrumpir o comprometer la seguridad del sitio."
+        }
+      ]
+    }
   }
 }

@@ -1,0 +1,276 @@
+{
+  "apps/portfolio-web": {
+    "root": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev.continuous": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev.options": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev.syncGenerators": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev.executor": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev.options.cwd": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.dev.options.command": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start.continuous": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start.options": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start.dependsOn": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start.executor": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start.options.cwd": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.start.options.command": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static.continuous": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static.options": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static.dependsOn": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static.executor": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static.options.cwd": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.serve-static.options.command": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.watch-deps": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.watch-deps.continuous": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.watch-deps.dependsOn": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.watch-deps.executor": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.watch-deps.options": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "targets.watch-deps.options.command": [
+      "apps/portfolio-web/next.config.js",
+      "@nx/next/plugin"
+    ],
+    "name": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "$schema": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.scope:app": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.type:ui": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.defaultConfiguration": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development.outputPath": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.executor": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.defaultConfiguration": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.options": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.options.buildTarget": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.options.dev": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.options.port": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations.development": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations.development.buildTarget": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations.development.dev": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations.production": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations.production.buildTarget": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.configurations.production.dev": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.passWithNoTests": [
+      "apps/portfolio-web/project.json",
+      "nx/core/project-json"
+    ]
+  }
+}

@@ -1,15 +1,12 @@
-const { join } = require('path');
-
-// Note: If you use library-specific PostCSS/Tailwind configuration then you should remove the `postcssConfig` build
-// option from your application's configuration (i.e. project.json).
-//
-// See: https://nx.dev/guides/using-tailwind-css-in-react#step-4:-applying-configuration-to-libraries
+// RUTA: apps/portfolio-web/postcss.config.js
+// VERSIÓN: 4.0 - Definitiva y Forzada
+// DESCRIPCIÓN: Esta configuración utiliza 'module.exports' y el plugin correcto
+//              '@tailwindcss/postcss'. Esta es la única configuración que el
+//              proceso de build debe leer.
 
 module.exports = {
   plugins: {
-    tailwindcss: {
-      config: join(__dirname, 'tailwind.config.js'),
-    },
+    '@tailwindcss/postcss': {},
     autoprefixer: {},
   },
 };
