@@ -1,8 +1,4 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx
-// VERSIÓN: 1.0 - Página de Detalle de Artículo de Blog.
-// DESCRIPCIÓN: Renderiza el contenido de un artículo individual del blog,
-//              cargando sus metadatos (.json) y su cuerpo (.mdx) desde el
-//              sistema de archivos.
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -11,18 +7,13 @@ import path from 'path';
 import { type Locale } from '@/config/i18n.config';
 import { blogPostSchema } from '@/lib/schemas/blog.schema';
 
-// NOTA: Para renderizar MDX, necesitarás una librería como 'next-mdx-remote'.
-// Por ahora, mostraremos el contenido como texto plano.
-// import { MDXRemote } from 'next-mdx-remote/rsc';
-
 type PostPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
     lang: Locale;
-  };
+  }>;
 };
 
-// Función para obtener los datos de un post específico
 async function getPost(slug: string) {
   const contentDir = path.join(process.cwd(), 'apps/portfolio-web/src/content/blog');
   const jsonPath = path.join(contentDir, `${slug}.json`);
@@ -36,13 +27,15 @@ async function getPost(slug: string) {
 
     const metadata = blogPostSchema.parse(JSON.parse(jsonContent));
     return { metadata, content: mdxContent };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = await getPost(params.slug);
+  const { slug } = await params;
+  const post = await getPost(slug);
+
   if (!post) {
     return {};
   }
@@ -53,7 +46,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPost(params.slug);
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   if (!post) {
     notFound();
@@ -69,11 +63,6 @@ export default async function PostPage({ params }: PostPageProps) {
       </header>
 
       <div className="prose prose-invert prose-lg mx-auto font-sans">
-        {/*
-          IMPLEMENTACIÓN FUTURA CON MDX:
-          <MDXRemote source={post.content} />
-        */}
-        {/* Placeholder actual: */}
         <p>{post.content}</p>
       </div>
     </article>
