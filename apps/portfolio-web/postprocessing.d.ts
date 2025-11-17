@@ -1,9 +1,9 @@
 // RUTA: apps/portfolio-web/postprocessing.d.ts
-// VERSIÓN: 1.0 - Contrato de Tipos a Medida para la Librería 'postprocessing'
+// VERSIÓN: 1.1 - Refactorizado para eliminar importaciones no utilizadas.
 // DESCRIPCIÓN: Este archivo de declaración proporciona a TypeScript los tipos
 //              mínimos necesarios para las clases de 'postprocessing' que utilizamos
-//              en el proyecto. Esto resuelve los errores de compilación de forma
-//              segura y nos permite mantener un tipado estricto en toda la aplicación.
+//              en el proyecto. Se ha eliminado la importación 'Texture' para resolver
+//              la advertencia del linter y mantener la pureza del código.
 
 declare module 'postprocessing' {
   import {
@@ -11,7 +11,6 @@ declare module 'postprocessing' {
     Camera,
     WebGLRenderer,
     Vector2,
-    Texture,
     WebGLRenderTarget,
   } from 'three';
 

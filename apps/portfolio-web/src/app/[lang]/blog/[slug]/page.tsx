@@ -8,17 +8,15 @@ import { BlogCard } from '@/components/ui/BlogCard';
 import { getAllPosts } from '@/lib/blog';
 import type { PostWithSlug } from '@/lib/schemas/blog.schema';
 
-// --- INICIO DE LA CORRECCIÓN DE TIPO ---
+// --- TIPO CORREGIDO ---
 type BlogPageProps = {
   params: Promise<{ lang: Locale }>;
 };
-// --- FIN DE LA CORRECCIÓN DE TIPO ---
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
-  // --- INICIO DE LA CORRECCIÓN DE LÓGICA ---
+  // --- LÓGICA CORREGIDA ---
   const { lang } = await params;
   const dictionary = await getDictionary(lang);
-  // --- FIN DE LA CORRECCIÓN DE LÓGICA ---
   const t = dictionary.blog_page;
   return {
     title: t.page_title,
@@ -27,10 +25,9 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
-  // --- INICIO DE LA CORRECCIÓN DE LÓGICA ---
+  // --- LÓGICA CORREGIDA ---
   const { lang } = await params;
   const dictionary = await getDictionary(lang);
-  // --- FIN DE LA CORRECCIÓN DE LÓGICA ---
   const t = dictionary.blog_page;
   const allPosts = await getAllPosts();
 
@@ -49,7 +46,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
             key={post.slug}
             post={post.metadata}
             slug={post.slug}
-            lang={lang} // Usamos la variable 'lang' ya desenvuelta
+            lang={lang}
             ctaText={t.read_more_cta}
           />
         ))}
