@@ -1,0 +1,14 @@
+{
+  "page_title": "Lucide Iconography | Raz Podestá",
+  "page_description": "Explore the complete collection of Lucide icons available in the design system.",
+  "header_title": "Lucide Universe",
+  "header_subtitle": "A collection of beautiful and consistent SVG icons for modern interfaces.",
+  "search_placeholder": "Search icon by name...",
+  "load_more": "Load More Icons",
+  "showing_count": "Showing {count} of {total} icons",
+  "visit_official": "View Documentation",
+  "copy_import": "Copy JSX",
+  "categories": {
+    "all": "All"
+  }
+}

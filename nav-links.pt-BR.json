@@ -1,5 +1,0 @@
-{
-  "nav_links": {
-    "frontend": "Frontend", "backend": "Backend", "projects": "Projetos", "cocreation": "Co-criação", "history": "História", "blog": "Blog", "whatsapp": "WhatsApp", "email": "Email", "nextjs": "Next.js", "react": "React", "tailwind_css": "Tailwind CSS", "svelte": "Svelte", "web_components": "Web Components", "styling_strategies": "Estratégias de Estilo", "nx_monorepo": "Monorepo com Nx", "nodejs": "Node.js", "nestjs": "NestJS", "databases": "Bancos de Dados", "postgresql": "PostgreSQL", "mongodb": "MongoDB", "ai_content": "Conteúdo com IA", "copywriting": "Copy de Conversão", "jingles": "Jingles e Músicas", "videos": "Vídeos e Reels", "marketing": "Marketing Digital", "google_ads": "Google Ads", "meta_ads": "Meta Ads (Pixel)", "tiktok_ads": "TikTok Ads", "ecommerce": "E-commerce", "shopify": "Shopify", "woocommerce": "WooCommerce", "prestashop": "PrestaShop", "kiwify": "Kiwify", "ai_automations": "Automação com IA", "n8n": "n8n", "zapier": "Zapier", "make": "Make.com", "custom_solutions": "Soluções Sob Medida"
-  }
-}

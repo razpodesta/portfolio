@@ -1,20 +1,18 @@
 // RUTA: apps/portfolio-web/src/components/ui/NestedDropdownContent.tsx
-// VERSIÓN: 3.0 - Arquitectónicamente Resiliente y Definitiva.
-// DESCRIPCIÓN: Se aplica la corrección de raíz al problema de tipo.
-//              1. (ERROR CRÍTICO) Se modifica la prop 'links' para que acepte 'NavItem[] | undefined',
-//                 alineando la firma del componente con la estructura de datos.
-//              2. Se añade una guarda de entrada que retorna 'null' si 'links' no está definido,
-//                 haciendo el componente inherentemente seguro y eliminando el error del compilador.
-//              3. (REFINAMIENTO) Se corrige la sintaxis de Tailwind a su forma canónica.
+// VERSIÓN: 4.0 - Soporte Recursivo de Enrutamiento Localizado
+// DESCRIPCIÓN: Componente recursivo para menús multinivel que respeta el idioma activo.
 
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 import type { NavItem, NavLink } from '../../lib/nav-links';
+import { getLocalizedHref } from '../../lib/utils/link-helpers';
+import { i18n, type Locale } from '../../config/i18n.config';
 
 type NestedDropdownContentProps = {
-  links: NavItem[] | undefined; // <-- CORRECCIÓN DE RAÍZ 1: Aceptar 'undefined'
+  links: NavItem[] | undefined;
   dictionary: Record<string, string>;
   level?: number;
 };
@@ -23,7 +21,10 @@ type NestedDropdownContentProps = {
 const isRenderableLink = (item: NavItem): item is NavLink => 'labelKey' in item;
 
 export function NestedDropdownContent({ links, dictionary, level = 0 }: NestedDropdownContentProps) {
-  // --- CORRECCIÓN DE RAÍZ 2: Guarda de entrada para una seguridad absoluta ---
+  const pathname = usePathname();
+  // Extracción defensiva del idioma
+  const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
+
   if (!links) {
     return null;
   }
@@ -37,6 +38,9 @@ export function NestedDropdownContent({ links, dictionary, level = 0 }: NestedDr
 
         const hasChildren = item.children && item.children.length > 0;
         const label = dictionary[item.labelKey] || item.labelKey;
+
+        // Calculamos la ruta localizada solo si es un enlace directo
+        const finalHref = hasChildren ? '#' : getLocalizedHref(item.href, currentLang);
 
         if (hasChildren) {
           return (
@@ -59,7 +63,7 @@ export function NestedDropdownContent({ links, dictionary, level = 0 }: NestedDr
         return (
           <Link
             key={label}
-            href={item.href || '#'}
+            href={finalHref}
             className="flex items-center gap-3 text-zinc-300 hover:text-white hover:bg-zinc-800 p-2 rounded-md transition-colors text-sm"
           >
             {item.Icon && <item.Icon size={18} className="shrink-0" />}

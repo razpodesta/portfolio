@@ -3,7 +3,6 @@
   "defaultBase": "main",
   "nxCloudAccessToken": "",
   "nxCloudUrl": "https://cloud.nx.app",
-
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -19,13 +18,15 @@
       "{workspaceRoot}/pnpm-lock.yaml"
     ]
   },
-
   "plugins": [
     {
       "plugin": "@nx/js/typescript",
       "options": {
-        "typecheck": { "targetName": "typecheck" }
-      }
+        "typecheck": {
+          "targetName": "typecheck"
+        }
+      },
+      "exclude": ["packages/cms/core/*", "packages/testing-utils/*"]
     },
     {
       "plugin": "@nx/next/plugin",
@@ -47,15 +48,50 @@
       "options": {
         "targetName": "test"
       }
+    },
+    {
+      "plugin": "@nx/rollup/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": ["packages/cms/core/*", "packages/testing-utils/*"],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "build",
+          "configName": "tsconfig.lib.json"
+        }
+      }
     }
   ],
-
   "generators": {
     "@nx/next": {
       "application": {
         "style": "tailwind",
         "linter": "eslint"
       }
+    },
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "jest"
+      }
+    }
+  },
+  "targetDefaults": {
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  },
+  "release": {
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
     }
   }
 }

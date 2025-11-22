@@ -1,6 +1,9 @@
-import type { Config } from 'jest';
-import { getJestProjectsAsync } from '@nx/jest';
-
-export default async (): Promise<Config> => ({
-  projects: await getJestProjectsAsync(),
-});
+export default {
+  displayName: '@portfolio/source',
+  preset: './jest.preset.js',
+  coverageDirectory: 'test-output/jest/coverage',
+  testMatch: [
+    '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
+    '<rootDir>/src/**/*(*.)@(spec|test).[jt]s?(x)',
+  ],
+};

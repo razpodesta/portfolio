@@ -1,0 +1,45 @@
+// RUTA: /apps/cms-admin/tsconfig.json
+// VERSIÓN: 2.0 - Corregida y Alineada con la Base
+{
+  "extends": "../../tsconfig.base.json", // <-- INICIO DE LA CORRECCIÓN
+  "compilerOptions": {
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "module": "esnext",
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "sourceMap": false,
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "jsx": "preserve",
+    
+    "paths": {
+    "@dashboard/*": ["shared/components/dashboard/*"], // <-- RUTA CORREGIDA
+    "@modals/*": ["shared/components/modals/*"], // Corregido por consistencia
+    "@app/*": ["*"], // Corregido por consistencia
+    "@config": ["config"],
+    "@constants/*": ["constants/*"],
+    "@contexts/*": ["contexts/*"],
+    "@graphql/*": ["graphql/*"],
+    "@interfaces": ["interfaces"],
+    "@lib/*": ["shared/lib/*"],
+    "@layouts/*": ["shared/components/layouts/*"],
+    "@pages/*": ["pages/*"],
+    "@ui/*": ["shared/components/ui/*"],
+    "@styles/*": ["shared/styles/*"],
+    "@shared/*": ["shared/*"]
+},
+    "incremental": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"],
+  "references": []
+}

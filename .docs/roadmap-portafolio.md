@@ -58,4 +58,51 @@ Crear Archivos page.tsx Básicos: Añadir un componente page.tsx simple como pla
 
 ---
 
+Roadmap de Modernización: cms-api a Nivel de Élite
+Versión: 1.0
+Fecha: 2025-11-20
+1. Misión y Filosofía
+La misión de esta modernización es transformar cms-api de un servidor tradicional a una API de vanguardia, robusta y completamente type-safe. Los principios rectores son:
+Sincronía Tecnológica: La API utilizará un stack que refleje la modernidad de portfolio-web, adoptando @apollo/server v4 y las mejores prácticas del ecosistema Node.js actual.
+Erradicación Total de any: Se refactorizará toda la base de código para eliminar por completo el tipo any, reemplazándolo con tipos inferidos de Zod y tipos explícitos donde sea necesario. La seguridad de tipos no es negociable.
+Arquitectura Limpia y Desacoplada: Se optimizará la estructura de archivos y la lógica interna para mejorar la legibilidad, mantenibilidad y facilidad para añadir nuevas funcionalidades.
+Consistencia del Monorepo: Se unificarán las versiones de dependencias clave (como typescript y zod) en todo el monorepo para garantizar la máxima compatibilidad y evitar conflictos.
+2. Plan de Acción Táctico: Ejecución por Fases
+Fase 1: Cirugía de Dependencias y Cimientos
+Esta fase es crítica y se enfoca en reemplazar el "corazón" de la API.
+1.1. Eliminar Dependencias Obsoletas:
+Vamos a remover Apollo Server 3 y otras librerías que serán reemplazadas.
+code
+Cmd
+pnpm remove apollo-server-express graphql-tag
+1.2. Instalar el Nuevo Núcleo de Apollo Server 4 y Dependencias Esenciales:
+Instalaremos @apollo/server y las librerías necesarias para integrarlo con Express, además de graphql que ahora es un peer dependency.
+code
+Cmd
+pnpm add @apollo/server express graphql cors
+1.3. Unificar Versiones del Monorepo:
+Asegurémonos de que todo el workspace use las mismas versiones de herramientas clave.
+code
+Cmd
+pnpm add -D typescript@~5.9.3 zod@^4.1.12
+Fase 2: Refactorización Arquitectónica del Servidor (index.ts)
+El archivo de entrada src/index.ts será completamente reescrito para adoptar la nueva sintaxis de @apollo/server v4.
+Objetivo: Reemplazar la lógica de apollo-server-express por la nueva integración con expressMiddleware.
+Acción: Te proporcionaré el archivo index.ts completamente refactorizado.
+Fase 3: Erradicación de any y Tipado Soberano
+Esta es la fase de calidad de código más intensiva. Auditaremos y refactorizaremos cada archivo para eliminar any y usar tipos estrictos.
+Objetivo: Lograr un 100% de type safety.
+Foco Principal:
+apps/cms-api/src/interfaces/types.ts: Se convertirá en la fuente de verdad soberana para todos los tipos de datos del backend. Lo reescribiremos para que sea explícito y robusto.
+Resolvers (apps/cms-api/src/graphql/resolvers/): Los argumentos de cada resolver (parent, args, context, info) serán tipados explícitamente.
+Modelos de Sequelize: Se asegurará que los modelos y sus asociaciones estén correctamente tipados.
+Fase 4: Optimización de la Estructura y Lógica
+Revisaremos la lógica actual para mejorarla y hacerla más eficiente.
+Objetivo: Simplificar el código y mejorar el rendimiento.
+Acciones:
+apps/cms-api/src/models/index.ts: Se refactorizará la forma en que se inicializa Sequelize y se asocian los modelos para que sea más limpia.
+apps/cms-api/src/lib/auth.ts: Se auditará y refinará la lógica de autenticación y creación de tokens.
+
+---
+
 

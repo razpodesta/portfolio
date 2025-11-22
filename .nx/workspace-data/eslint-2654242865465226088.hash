@@ -1,5 +1,347 @@
 {
-  "9778173439698222136": {
+  "7434492560397609743": {
+    "apps/cms-admin": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/cms-admin"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-admin/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-admin/.eslintignore",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "7184934792332750645": {
+    "apps/cms-api": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/cms-api"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-api/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-api/.eslintignore",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "8622452860401249252": {
+    "apps/portfolio-web": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/portfolio-web"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "17570310672279713504": {
+    "packages/cms/core": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/cms/core"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/cms/core/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "13678557076984472793": {
+    "packages/cms/ui": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/cms/ui"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/cms/ui/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "8528984033325529021": {
+    "packages/testing-utils": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/testing-utils"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/testing-utils/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "17105271305399977144": {},
+  "10421393146381177356": {},
+  "4976002268441849008": {
+    "apps/cms-admin": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/cms-admin"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-admin/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-admin/.eslintignore",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "8481856680076170567": {
+    "apps/cms-api": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/cms-api"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-api/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-api/.eslintignore",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "16618839965718317575": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -41,8 +383,135 @@
       }
     }
   },
-  "10768205314337076511": {},
-  "6101931278386146104": {
+  "1561459876885534278": {
+    "packages/cms/core": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/cms/core"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/cms/core/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "13078444538788253186": {
+    "packages/cms/ui": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/cms/ui"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/cms/ui/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "10194666825237909994": {
+    "packages/testing-utils": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/testing-utils"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/testing-utils/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "8406207488706339618": {},
+  "8505862947346294312": {},
+  "10411241224133686299": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -84,8 +553,8 @@
       }
     }
   },
-  "995935847070122890": {},
-  "8844322725062557419": {
+  "4137590326603165912": {},
+  "6279820230701355593": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -127,8 +596,8 @@
       }
     }
   },
-  "4199441083201391558": {},
-  "16632495779313051346": {
+  "14580387085038705425": {},
+  "4837610430448576693": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -170,8 +639,8 @@
       }
     }
   },
-  "5510586147624193952": {},
-  "5884014874380429390": {
+  "287175671989733640": {},
+  "6486675017929901894": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -213,8 +682,8 @@
       }
     }
   },
-  "10163536519793105245": {},
-  "3109996087166880028": {
+  "16291868937101643986": {},
+  "9312682383802932900": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -256,8 +725,94 @@
       }
     }
   },
-  "5289264856311071437": {},
-  "1049338910557727738": {
+  "12652212372305331613": {},
+  "14508575107021428115": {
+    "apps/cms-admin": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/cms-admin"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-admin/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-admin/.eslintignore",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "12754701938092261849": {
+    "apps/cms-api": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "apps/cms-api"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-api/eslint.config.mjs",
+            "{workspaceRoot}/apps/cms-api/.eslintignore",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "2525108214475976400": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -299,8 +854,134 @@
       }
     }
   },
-  "6828738911629167317": {},
-  "10003623704113737286": {
+  "7283918018887340639": {
+    "packages/cms/core": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/cms/core"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/cms/core/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "3968273716919322449": {
+    "packages/cms/ui": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/cms/ui"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/cms/ui/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "2338781343968540917": {
+    "packages/testing-utils": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "packages/testing-utils"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/eslint.config.mjs",
+            "{workspaceRoot}/packages/testing-utils/eslint.config.mjs",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "pnpm exec eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "5165221388325030065": {},
+  "943116443658547568": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -342,8 +1023,8 @@
       }
     }
   },
-  "15014360595473278910": {},
-  "8897132866412116579": {
+  "6233257353824767162": {},
+  "6802146155858848423": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -385,8 +1066,8 @@
       }
     }
   },
-  "17120811607933174614": {},
-  "3542344679067497190": {
+  "12935420715412373460": {},
+  "1356432394871863575": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -428,8 +1109,8 @@
       }
     }
   },
-  "13569497053080754285": {},
-  "15307526543370147016": {
+  "5214816467427340333": {},
+  "17741739654460641949": {
     "apps/portfolio-web": {
       "targets": {
         "lint": {
@@ -471,1339 +1152,5 @@
       }
     }
   },
-  "7068583692017834842": {},
-  "6530736005372929109": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "13273465487575130514": {},
-  "2296593680171480387": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "11918249734633804054": {},
-  "2945644026077406698": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "11475788105329193388": {},
-  "15565994551563485355": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "10848701500044870857": {},
-  "3342093698204233435": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "14171696536698791064": {},
-  "10874736230814516316": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "10760308148896637662": {},
-  "13844863170048412714": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "8685240154349047974": {},
-  "15990336454709994154": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "1210226324210508580": {},
-  "7374438897504755183": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "4350811221132046534": {},
-  "776283992557328658": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "13853545813793182968": {},
-  "5777724253606301091": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "934486589648078653": {},
-  "14700844624925132385": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "12248160027954990471": {},
-  "12418351921328188666": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "17680827829191062500": {},
-  "17488557269986721603": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "9422016395805328735": {},
-  "5690409571087010354": {},
-  "5426322501537343619": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "11935605573368131598": {},
-  "16922429644190346059": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "16761225374781185753": {},
-  "1568711821486714268": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "7427748267756231281": {},
-  "5244448170617784883": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "10265970017404067662": {},
-  "11255254251337031238": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "3801306384941010054": {},
-  "4672635508782720774": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "10927240654903246282": {},
-  "8607093183592061697": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "1867528645828726335": {},
-  "2548305931593878551": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "2100812669118276941": {},
-  "16471707471289854467": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "8478839124506884247": {},
-  "13309871816452160605": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "6400293104466030798": {},
-  "7611329500814485337": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "16468123990454479975": {},
-  "4049294626858532522": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "5386757892562597503": {},
-  "14345195692144058913": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "12381592345791630430": {},
-  "16503986455169959480": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "1023127055215769728": {},
-  "4501537019304132997": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "8396660636578178183": {},
-  "11537074091502933229": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "4218469227070515381": {},
-  "7986361857396330000": {
-    "apps/portfolio-web": {
-      "targets": {
-        "lint": {
-          "command": "eslint .",
-          "cache": true,
-          "options": {
-            "cwd": "apps/portfolio-web"
-          },
-          "inputs": [
-            "default",
-            "^default",
-            "{workspaceRoot}/eslint.config.mjs",
-            "{workspaceRoot}/apps/portfolio-web/eslint.config.mjs",
-            "{workspaceRoot}/tools/eslint-rules/**/*",
-            {
-              "externalDependencies": [
-                "eslint"
-              ]
-            }
-          ],
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "metadata": {
-            "technologies": [
-              "eslint"
-            ],
-            "description": "Runs ESLint on project",
-            "help": {
-              "command": "pnpm exec eslint --help",
-              "example": {
-                "options": {
-                  "max-warnings": 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "14423290491728220678": {}
+  "2358177245585195602": {}
 }

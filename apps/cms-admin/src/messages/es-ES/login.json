@@ -1,0 +1,11 @@
+{
+  "page_title": "Iniciar Sesión | ContentPI",
+  "sign_in_title": "Inicia sesión en tu cuenta",
+  "email_placeholder": "Dirección de correo electrónico",
+  "password_placeholder": "Contraseña",
+  "login_button": "Iniciar Sesión",
+  "signing_in_button": "Iniciando sesión...",
+  "register_button": "Registrarse",
+  "error_invalid_credentials": "Credenciales inválidas, por favor intenta de nuevo.",
+  "error_unexpected": "Ocurrió un error inesperado. Por favor, contacta a soporte."
+}

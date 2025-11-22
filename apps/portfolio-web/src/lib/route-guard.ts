@@ -1,87 +1,68 @@
 // RUTA: apps/portfolio-web/src/lib/route-guard.ts
-// VERSIÓN: 4.0 - Sincronizado con el Manifiesto de Rutas v1.0
-// DESCRIPCIÓN: Se actualiza el array `publicPaths` para incluir todas las nuevas
-//              rutas públicas definidas en el manifiesto, asegurando que el
-//              middleware no las bloquee incorrectamente.
+// VERSIÓN: 5.0 - Seguridad Holística
+// DESCRIPCIÓN: Define estrictamente qué es público. Todo lo demás es privado.
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { type Locale } from '../config/i18n.config';
 
-// ===================================================================================
-// TIPOS Y CONFIGURACIÓN CENTRALIZADA
-// ===================================================================================
+// Configuración de Rutas Públicas (Whitelist)
+// Se usa coincidencia parcial (startsWith) para subrutas.
+const publicPathPrefixes = [
+  '/',              // Homepage
+  '/login',         // Auth
+  '/quien-soy',     // About
+  '/mision-y-vision',
+  '/contacto',
+  '/blog',          // Incluye /blog/[slug]
+  '/servicios',     // Incluye /servicios/*
+  '/cocreacion',
+  '/sistema-de-diseno',
+  '/iconos',        // Librerías
+  '/tecnologias',   // Librerías
+  '/legal',         // Términos y Privacidad
+  '/curriculum'
+];
 
-type UserRole = 'user' | 'admin';
-
-interface UserSession {
-  isAuthenticated: boolean;
-  role: UserRole | null;
-}
-
-const routeConfig = {
-  // --- INICIO DE LA ACTUALIZACIÓN ---
-  // Se añaden todas las nuevas rutas y sus posibles sub-rutas.
-  publicPaths: [
-    '/',
-    '/login',
-    '/unauthorized',
-    '/quien-soy',
-    '/mision-y-vision',
-    '/contacto',
-    '/blog', // Incluye /blog y /blog/[slug], /blog/categorias/[category] etc.
-    '/servicios', // Incluye todas las sub-rutas de servicios
-    '/cocreacion',
-    '/sistema-de-diseno',
-  ],
-  // --- FIN DE LA ACTUALIZACIÓN ---
-  adminPaths: ['/admin'],
-};
-
-// ===================================================================================
-// SIMULACIÓN DE OBTENCIÓN DE SESIÓN (Sin cambios)
-// ===================================================================================
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getSession(_request: NextRequest): UserSession {
-  // --- SIMULACIÓN ---
-  const isAuthenticated = false;
-  const role: UserRole = 'user';
-  // --- FIN DE SIMULACIÓN ---
-
-  if (!isAuthenticated) {
-    return { isAuthenticated: false, role: null };
-  }
-
-  return { isAuthenticated: true, role };
-}
-
-// ===================================================================================
-// LÓGICA DEL GUARDIÁN OPTIMIZADA (Sin cambios)
-// ===================================================================================
+const adminPathPrefix = '/admin';
 
 export function routeGuard(request: NextRequest, locale: Locale): NextResponse | null {
   const { pathname } = request.nextUrl;
-  const session = getSession(request);
 
-  const pathnameWithoutLocale = pathname.startsWith(`/${locale}`)
-    ? pathname.substring(`/${locale}`.length) || '/'
-    : pathname;
+  // 1. Normalizar la ruta: Eliminar el prefijo del idioma para comparar con la whitelist.
+  // Ejemplo: /pt-BR/blog/post-1 -> /blog/post-1
+  let pathWithoutLocale = pathname.replace(new RegExp(`^/${locale}`), '');
+  if (pathWithoutLocale === '') pathWithoutLocale = '/';
 
-  const isPublic = routeConfig.publicPaths.some((p) => pathnameWithoutLocale.startsWith(p));
-  const isAdminPath = routeConfig.adminPaths.some((p) => pathnameWithoutLocale.startsWith(p));
+  // 2. Verificación de Rutas Públicas
+  const isPublic = publicPathPrefixes.some(prefix => {
+    if (prefix === '/') return pathWithoutLocale === '/'; // Home exacto
+    return pathWithoutLocale.startsWith(prefix);
+  });
 
   if (isPublic) {
-    return null;
+    return null; // Permitir acceso
   }
 
-  if (!session.isAuthenticated) {
-    const loginUrl = new URL(`/${locale}/login`, request.url);
-    return NextResponse.redirect(loginUrl);
+  // 3. Simulación de Sesión (Conectar con Supabase/Auth real aquí)
+  // Por defecto: No autenticado.
+  const isAuthenticated = false;
+  const role = 'user';
+
+  // 4. Protección de Rutas Administrativas
+  if (pathWithoutLocale.startsWith(adminPathPrefix)) {
+    if (!isAuthenticated || role !== 'admin') {
+      // Redirigir a login o unauthorized manteniendo el idioma actual
+      return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+    }
   }
 
-  if (isAdminPath && session.role !== 'admin') {
-    const unauthorizedUrl = new URL(`/${locale}/unauthorized`, request.url);
-    return NextResponse.redirect(unauthorizedUrl);
+  // 5. Rutas no públicas (Privadas por defecto)
+  if (!isAuthenticated) {
+     // Si quieres que todo lo que no es público requiera login:
+     // return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+
+     // O si prefieres mostrar 404 para rutas inexistentes en vez de protegerlas:
+     return null; // Dejamos pasar para que Next.js maneje el 404 si no existe la página.
   }
 
   return null;

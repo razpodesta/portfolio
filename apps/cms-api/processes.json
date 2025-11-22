@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "api",
+      "script": "ts-node src/api.ts",
+      "watch": "./src/api",
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    }
+  ]
+}

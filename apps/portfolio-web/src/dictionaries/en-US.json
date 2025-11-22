@@ -3,8 +3,11 @@
     "talk": "Let's Talk",
     "tagline": "Architect of Creative & Intelligent Solutions",
     "personal_portfolio": "Personal Portfolio",
-    "job_title": "Project Portfolio, Internationalized, Holistic Vision",
+    "job_title": "Project Portfolio, Internationalized, Holistic Vision"
+  },
+  "nav-links": {
     "nav_links": {
+      "curriculum": "Resume",
       "sobre_mi": "About Me",
       "quien_soy": "Who I Am",
       "mision_vision": "Mission & Vision",
@@ -52,7 +55,10 @@
       "nx_monorepo": "Nx Monorepo",
       "postgresql": "PostgreSQL",
       "mongodb": "MongoDB",
-      "sistema_de_diseno": "Design System"
+      "sistema_de_diseno": "Design System",
+      "recursos": "Resources",
+      "lucide_icons": "Lucide Icons",
+      "tech_icons": "Tech Stack"
     }
   },
   "homepage": {
@@ -136,6 +142,64 @@
     "history_section": {
       "title": "Forged in Code",
       "subtitle": "Discover the fusion of two decades of systems engineering with a creative vision obsessed with results. This is not just a portfolio; it is the legacy of an architecture built to last."
+    },
+    "ai_gallery_section": {
+      "badge": "Ideogram 3.0 Powered",
+      "title": "AI Visual Synth",
+      "subtitle": "Explore a curated collection of algorithmically generated assets. Photorealism, perfect typography, and stylistic consistency, orchestrated by our sovereign CMS.",
+      "overlay_indicator": "LIVE RENDER • WEBGL 2.0",
+      "footer_prompt": "Advanced Prompt Engineering",
+      "footer_upscaling": "8K Upscaling & Optimization",
+      "items": {
+        "neon-typography": {
+          "title": "Neon Glass Typography",
+          "description": "3D typography render with neon tubes and glass."
+        },
+        "editorial-fashion": {
+          "title": "Editorial Fashion",
+          "description": "High-fashion composition with photorealistic textures."
+        },
+        "tech-badge": {
+          "title": "Titanium Tech Badge",
+          "description": "Macro product shot with brushed titanium finish."
+        },
+        "transparent-gadget": {
+          "title": "Transparent Hardware",
+          "description": "Engineering visualization of a futuristic device."
+        },
+        "luxury-perfume": {
+          "title": "Luxury Glassware",
+          "description": "Product photography with rim lighting."
+        },
+        "concept-car": {
+          "title": "Automotive Concept",
+          "description": "Abstract detail of carbon fiber headlights."
+        },
+        "concrete-workspace": {
+          "title": "Concrete Workspace",
+          "description": "Minimalist interior design with raw concrete."
+        },
+        "cyberpunk-street": {
+          "title": "Cyberpunk Atmosphere",
+          "description": "Night street photography with volumetric lighting."
+        },
+        "abstract-geometry": {
+          "title": "Parametric Geometry",
+          "description": "White abstract architecture against deep blue sky."
+        },
+        "fluid-shapes": {
+          "title": "Iridescent Fluids",
+          "description": "3D liquid metal simulation with chromatic dispersion."
+        },
+        "mechanical-insect": {
+          "title": "Clockwork Insect",
+          "description": "Steampunk mechanical insect macro photography."
+        },
+        "neural-network": {
+          "title": "Neural Network Art",
+          "description": "Abstract visualization of data streams."
+        }
+      }
     }
   },
   "footer": {
@@ -260,6 +324,188 @@
           "body": "This site is provided 'as is' for informational and professional purposes. The use of its content for commercial purposes without prior explicit consent is not permitted. Any attempt to disrupt or compromise the security of the site is prohibited."
         }
       ]
+    }
+  },
+  "curriculum": {
+    "page_title": "Raz Podestá's Resume",
+    "page_description": "Professional resume of Raz Podestá, Digital Ecosystems Architect and Full-Stack Developer.",
+    "print_button": "Print",
+    "printable_footer": "CURRICULUM DEVELOPED BY RAZ PODESTÁ - PRINTABLE VERSION 2025",
+    "header": {
+      "name": "Raz Podestá",
+      "title": "Digital Ecosystems Architect | Full-Stack Developer | AI",
+      "phone": "Whatsapp +55 (48) 9212-3079",
+      "email": "razpodesta@gmail.com",
+      "linkedin": "linkedin.com/in/razpodesta",
+      "location": "Florianópolis, SC, Brazil"
+    },
+    "summary": {
+      "title": "Professional Summary",
+      "content": "A multidisciplinary software architect with over 20 years of experience, specializing in creating 'intelligent digital brains' instead of simple websites. My philosophy is to merge deep systems engineering with a strategic product vision and a passion for UX to build scalable, resilient, and high-performance digital assets that drive measurable business results. I don't build sites; I build sovereign ecosystems designed to grow."
+    },
+    "experience": {
+      "title": "Experience",
+      "items": [
+        {
+          "role": "Digital Ecosystems Architect & Founder",
+          "company": "MetaShark Tech",
+          "period": "2020 - Present",
+          "location": "Florianópolis, Brazil",
+          "duties": [
+            "Design and development of software architectures based on monorepos (Nx) for complex projects.",
+            "Implementation of sovereign Headless CMS and GraphQL APIs with Apollo Server, NestJS, and Sequelize.",
+            "Creation of high-performance Progressive Web Apps (PWA) with Next.js, TypeScript, and Tailwind CSS.",
+            "Development of 'LIA Legacy', an orchestrating AI co-pilot to accelerate the software development lifecycle."
+          ]
+        },
+        {
+          "role": "Technical Lead & Software Architect",
+          "company": "Various Technology Consultancies",
+          "period": "2000 - 2020",
+          "location": "Latin America",
+          "duties": [
+            "Led development teams on large-scale projects for the finance, retail, and media sectors.",
+            "Optimized SQL and NoSQL databases, achieving performance improvements of up to 300%.",
+            "Implemented Continuous Integration and Continuous Deployment (CI/CD) pipelines, reducing time-to-market by 50%.",
+            "Mentored and trained developers, improving code quality and team productivity."
+          ]
+        }
+      ]
+    },
+    "education": {
+      "title": "Education",
+      "items": [
+        {
+          "degree": "Computer Science and Management Engineering",
+          "university": "University of Science and Technology (UCIT)",
+          "period": "2002 - 2006",
+          "location": "Santiago, Chile"
+        },
+        {
+          "degree": "Law",
+          "university": "University of Chile",
+          "period": "1994 - 1998",
+          "location": "Santiago, Chile"
+        }
+      ]
+    },
+    "skills_section": {
+      "title": "Skills & Tech Stack",
+      "categories": [
+        {
+          "title": "Frontend",
+          "skills": [
+            "TypeScript",
+            "React",
+            "Next.js",
+            "Vue.js",
+            "Svelte",
+            "Tailwind CSS",
+            "Framer Motion",
+            "Three.js"
+          ]
+        },
+        {
+          "title": "Backend",
+          "skills": [
+            "Node.js",
+            "NestJS",
+            "Python",
+            "GraphQL",
+            "REST APIs",
+            "Go"
+          ]
+        },
+        {
+          "title": "Databases",
+          "skills": [
+            "PostgreSQL",
+            "MongoDB",
+            "Redis",
+            "SQL Server"
+          ]
+        },
+        {
+          "title": "DevOps & Git",
+          "skills": [
+            "Git",
+            "Jest",
+            "CI/CD",
+            "GitHub Actions"
+          ]
+        },
+        {
+          "title": "AI & Blockchain",
+          "skills": [
+            "LangChain",
+            "TensorFlow",
+            "PyTorch",
+            "Solidity",
+            "Smart Contracts"
+          ]
+        },
+        {
+          "title": "E-commerce & Marketing",
+          "skills": [
+            "Shopify",
+            "WooCommerce",
+            "PrestaShop",
+            "VTEX",
+            "Meta Ads",
+            "Google Ads"
+          ]
+        }
+      ]
+    },
+    "methodologies": {
+      "title": "Methodologies & Principles",
+      "items": [
+        "Architecture by Manifesto",
+        "Scrum",
+        "SOLID",
+        "DRY",
+        "CI/CD",
+        "Mobile-First Development"
+      ]
+    },
+    "hobbies": {
+      "title": "Hobbies & Interests",
+      "content": "AI-assisted music composition, exploring new software architectures, and studying the philosophy behind complex systems."
+    },
+    "call_to_action": {
+      "title": "Let's Build Together",
+      "content": "My passion is to transform ambitious visions into digital reality. If you have a project in mind or are looking for a strategic partner to take your platform to the next level, I would love to hear your vision and explore if we can create quality software together that endures and scales."
+    }
+  },
+  "technologies_page": {
+    "page_title": "Technologies & Stack | Raz Podestá",
+    "page_description": "Explore the complete universe of technologies, languages, and tools available in my development arsenal.",
+    "title": "Tech Arsenal",
+    "subtitle": "A comprehensive index of every tool, language, and framework available to build your next digital solution.",
+    "search_placeholder": "Search technology, language, or tool...",
+    "category_all": "All",
+    "category_frontend": "Frontend",
+    "category_backend": "Backend",
+    "category_devops": "DevOps & Cloud",
+    "category_ai": "AI & Data",
+    "category_design": "Design",
+    "category_other": "Others",
+    "showing_results": "Showing {count} technologies",
+    "load_more_button": "Load More Technologies",
+    "view_official_site": "Official Site"
+  },
+  "lucide_page": {
+    "page_title": "Lucide Iconography | Raz Podestá",
+    "page_description": "Explore the complete collection of Lucide icons available in the design system.",
+    "header_title": "Lucide Universe",
+    "header_subtitle": "A collection of beautiful and consistent SVG icons for modern interfaces.",
+    "search_placeholder": "Search icon by name...",
+    "load_more": "Load More Icons",
+    "showing_count": "Showing {count} of {total} icons",
+    "visit_official": "View Documentation",
+    "copy_import": "Copy JSX",
+    "categories": {
+      "all": "All"
     }
   }
 }

@@ -1,5 +1,6 @@
 {
   "nav_links": {
+    "curriculum": "Currículo",
     "sobre_mi": "Sobre Mim",
     "quien_soy": "Quem Sou Eu",
     "mision_vision": "Missão e Visão",
@@ -47,6 +48,9 @@
     "nx_monorepo": "Monorepo com Nx",
     "postgresql": "PostgreSQL",
     "mongodb": "MongoDB",
-    "sistema_de_diseno": "Sistema de Design"
+    "sistema_de_diseno": "Sistema de Design",
+    "recursos": "Recursos",
+    "lucide_icons": "Ícones Lucide",
+    "tech_icons": "Arsenal Tecnológico"
   }
 }

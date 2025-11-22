@@ -3,8 +3,11 @@
     "talk": "Hablemos",
     "tagline": "Arquitecto de Soluciones Creativas e Inteligentes",
     "personal_portfolio": "Portafolio Personal",
-    "job_title": "Portafolio de Proyectos, Internacionalizado, Visión Holística",
+    "job_title": "Portafolio de Proyectos, Internacionalizado, Visión Holística"
+  },
+  "nav-links": {
     "nav_links": {
+      "curriculum": "Currículum",
       "sobre_mi": "Sobre Mí",
       "quien_soy": "Quién Soy",
       "mision_vision": "Misión y Visión",
@@ -52,7 +55,10 @@
       "nx_monorepo": "Monorepo con Nx",
       "postgresql": "PostgreSQL",
       "mongodb": "MongoDB",
-      "sistema_de_diseno": "Sistema de Diseño"
+      "sistema_de_diseno": "Sistema de Diseño",
+      "recursos": "Recursos",
+      "lucide_icons": "Iconografía Lucide",
+      "tech_icons": "Arsenal Tecnológico"
     }
   },
   "homepage": {
@@ -260,6 +266,157 @@
           "body": "Este sitio se proporciona 'tal cual' con fines informativos y profesionales. No se permite el uso de su contenido con fines comerciales sin consentimiento explícito previo. Se prohíbe cualquier intento de interrumpir o comprometer la seguridad del sitio."
         }
       ]
+    }
+  },
+  "curriculum": {
+    "page_title": "Currículum de Raz Podestá",
+    "page_description": "Currículum profesional de Raz Podestá, Arquitecto de Ecosistemas Digitales y Desarrollador Full-Stack.",
+    "print_button": "Imprimir",
+    "printable_footer": "CURRÍCULUM DESARROLLADO POR RAZ PODESTÁ - VERSIÓN IMPRIMIBLE 2025",
+    "header": {
+      "name": "RAZ PODESTÁ",
+      "title": "Arquitecto de Ecosistemas Digitales | Desarrollador Full-Stack | IA",
+      "phone": "Whatsapp +55 (48) 9212-3079",
+      "email": "razpodesta@gmail.com",
+      "linkedin": "linkedin.com/in/razpodesta",
+      "location": "Florianópolis, SC, Brasil"
+    },
+    "summary": {
+      "title": "RESUMEN PROFESIONAL",
+      "content": "Arquitecto de software multidisciplinario con más de 20 años de experiencia, especializado en la creación de 'cerebros digitales inteligentes'. Mi filosofía fusiona una profunda ingeniería de sistemas con una visión estratégica de producto y una obsesión por la UX para construir activos digitales escalables y resilientes. No construyo sitios; construyo ecosistemas soberanos diseñados para crecer y convertir."
+    },
+    "experience": {
+      "title": "EXPERIENCIA",
+      "items": [
+        {
+          "role": "Arquitecto de Ecosistemas Digitales & Fundador",
+          "company": "MetaShark Tech",
+          "period": "2020 - Presente",
+          "location": "Florianópolis, Brasil",
+          "duties": [
+            "Diseño y desarrollo de arquitecturas de software basadas en monorepos (Nx) para proyectos de alta complejidad.",
+            "Implementación de CMS Headless soberanos y APIs GraphQL optimizadas con Apollo Server, NestJS y Sequelize.",
+            "Creación de Progressive Web Apps (PWA) de alto rendimiento y Mobile-First utilizando Next.js y Tailwind CSS.",
+            "Desarrollo de 'LIA Legacy', una IA co-piloto orquestadora para acelerar el ciclo de vida del desarrollo de software."
+          ]
+        },
+        {
+          "role": "Líder Técnico & Arquitecto de Software",
+          "company": "Diversas Consultoras de Tecnología",
+          "period": "2000 - 2020",
+          "location": "Latinoamérica",
+          "duties": [
+            "Liderazgo de equipos de desarrollo en proyectos a gran escala para los sectores de finanzas, retail y medios.",
+            "Optimización de bases de datos SQL y NoSQL, logrando mejoras de rendimiento de hasta un 300%.",
+            "Implementación de pipelines de CI/CD que redujeron el time-to-market en un 50%.",
+            "Mentoría técnica y elevación de los estándares de calidad de código en equipos multidisciplinarios."
+          ]
+        }
+      ]
+    },
+    "education": {
+      "title": "EDUCACIÓN",
+      "items": [
+        {
+          "degree": "Ingeniería en Informática y Gestión",
+          "university": "Universidad de Ciencias de la Informática (UCINF)",
+          "period": "2002 - 2006",
+          "location": "Santiago, Chile"
+        },
+        {
+          "degree": "Derecho",
+          "university": "Universidad de Chile",
+          "period": "1994 - 1998",
+          "location": "Santiago, Chile"
+        }
+      ]
+    },
+    "certifications": {
+      "title": "CERTIFICACIONES",
+      "items": [
+        {
+          "name": "Google Data Analytics Professional Certificate",
+          "issuer": "Google",
+          "year": "2023"
+        },
+        {
+          "name": "Next.js & React - The Complete Guide",
+          "issuer": "Udemy",
+          "year": "2024"
+        },
+        {
+          "name": "Advanced GraphQL with Node.js",
+          "issuer": "Udemy",
+          "year": "2022"
+        },
+        {
+          "name": "Architecting with Google Compute Engine",
+          "issuer": "Google Cloud",
+          "year": "2021"
+        }
+      ]
+    },
+    "skills_section": {
+      "title": "HABILIDADES"
+    },
+    "hobbies": {
+      "title": "INTERESES Y AFICIONES",
+      "items": [
+        "Composición Musical & Sintetizadores",
+        "Inteligencia Artificial Generativa",
+        "Filosofía de Sistemas Complejos",
+        "Arquitectura de Software"
+      ]
+    }
+  },
+  "technologies_page": {
+    "page_title": "Stack Tecnológico | Raz Podestá",
+    "page_description": "Herramienta de consulta técnica para arquitectura y desarrollo.",
+    "header_title": "Arsenal Tecnológico",
+    "header_subtitle": "Esta herramienta está diseñada para asistir en la planificación, arquitectura y desarrollo de sitios de última generación. Consulta la disponibilidad de iconos, obtén instrucciones de instalación precisas y accede directamente a la documentación oficial de cada tecnología para acelerar tu flujo de trabajo.",
+    "search_placeholder": "Buscar tecnología (ej: Next.js, Docker, Python)...",
+    "load_more": "Cargar más Tecnologías",
+    "showing_count": "Mostrando {count} de {total} tecnologías",
+    "visit_official": "Documentación Oficial",
+    "copy_import": "Copiar JSX",
+    "view_details": "Ver Detalles",
+    "modal_install_title": "Instalación de Librería",
+    "modal_usage_title": "Implementación",
+    "modal_close": "Cerrar",
+    "scroll_top": "Ir Arriba",
+    "scroll_bottom": "Ir Abajo",
+    "library_help_btn": "Ayuda de Librería",
+    "library_help_title": "Recurso de Arquitectura",
+    "library_help_desc": "Este índice centralizado facilita la selección de tecnologías para nuevos proyectos, asegurando consistencia visual y acceso rápido a las fuentes de verdad técnica.",
+    "btn_docs": "Documentación de Iconos",
+    "btn_repo": "Repositorio GitHub",
+    "categories": {
+      "all": "Todas",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de Datos",
+      "devops": "DevOps",
+      "ai": "IA & Data",
+      "design": "Diseño",
+      "languages": "Lenguajes",
+      "ecommerce": "E-commerce",
+      "social": "Social",
+      "crypto": "Crypto",
+      "other": "Otras"
+    }
+  },
+  "lucide_page": {
+    "page_title": "Iconografía Lucide | Raz Podestá",
+    "page_description": "Explora la colección completa de iconos Lucide disponibles en el sistema de diseño.",
+    "header_title": "Universo Lucide",
+    "header_subtitle": "Una colección de iconos SVG hermosos y consistentes para interfaces modernas.",
+    "search_placeholder": "Buscar icono por nombre...",
+    "load_more": "Cargar más Iconos",
+    "showing_count": "Mostrando {count} de {total} iconos",
+    "visit_official": "Ver Documentación",
+    "copy_import": "Copiar JSX",
+    "categories": {
+      "all": "Todos"
     }
   }
 }

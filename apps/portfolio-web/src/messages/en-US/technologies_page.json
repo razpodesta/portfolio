@@ -1,0 +1,17 @@
+{
+  "page_title": "Technologies & Stack | Raz Podestá",
+  "page_description": "Explore the complete universe of technologies, languages, and tools available in my development arsenal.",
+  "title": "Tech Arsenal",
+  "subtitle": "A comprehensive index of every tool, language, and framework available to build your next digital solution.",
+  "search_placeholder": "Search technology, language, or tool...",
+  "category_all": "All",
+  "category_frontend": "Frontend",
+  "category_backend": "Backend",
+  "category_devops": "DevOps & Cloud",
+  "category_ai": "AI & Data",
+  "category_design": "Design",
+  "category_other": "Others",
+  "showing_results": "Showing {count} technologies",
+  "load_more_button": "Load More Technologies",
+  "view_official_site": "Official Site"
+}

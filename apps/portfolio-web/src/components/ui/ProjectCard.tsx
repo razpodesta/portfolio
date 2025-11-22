@@ -1,12 +1,16 @@
 // RUTA: apps/portfolio-web/src/components/ui/ProjectCard.tsx
-// VERSIÓN: Integrada a la nueva arquitectura
+// VERSIÓN: 2.1 - Sintaxis Canónica de Tailwind CSS.
+// DESCRIPCIÓN: Se refactoriza el componente para reemplazar las clases 'flex-grow'
+//              por su forma canónica y más concisa, 'grow'. Esto resuelve las
+//              advertencias del linter y alinea el código con las mejores prácticas
+//              modernas de Tailwind CSS, manteniendo la pureza sintáctica del proyecto.
 
 'use client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ExternalLink, Github } from 'lucide-react';
-import type { Project } from '../../lib/types'; // Usamos la ruta relativa correcta y el tipo Project
+import type { Project } from '../../lib/types';
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
@@ -26,9 +30,27 @@ export function ProjectCard({ project }: { project: Project }) {
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
-      <div className="flex flex-grow flex-col p-6">
-        <h3 className="text-xl font-bold text-zinc-100">{project.title}</h3>
-        <p className="mt-2 flex-grow text-zinc-400">{project.description}</p>
+
+      {/* --- INICIO DE LA MEJORA DE SINTAXIS (1/2) --- */}
+      <div className="flex grow flex-col p-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-bold text-zinc-100">{project.title}</h3>
+          {project.codeUrl && (
+            <Link
+              href={project.codeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Ver el código de ${project.title} en GitHub`}
+              className="p-2 text-zinc-400 transition-colors hover:text-white"
+            >
+              <Github size={20} />
+            </Link>
+          )}
+        </div>
+
+        {/* --- INICIO DE LA MEJORA DE SINTAXIS (2/2) --- */}
+        <p className="mt-2 grow text-sm text-zinc-400">{project.description}</p>
+
         <div className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span key={tag} className="rounded-full bg-zinc-700 px-3 py-1 text-xs font-medium text-zinc-300">
@@ -37,18 +59,12 @@ export function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-      {(project.codeUrl || project.liveUrl) && (
+
+      {project.liveUrl && project.liveUrl !== '#' && (
         <div className="flex items-center justify-end gap-2 border-t border-zinc-700 p-4">
-          {project.codeUrl && (
-            <Link href={project.codeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-md px-3 py-1.5 text-zinc-300 transition-colors hover:bg-zinc-700 hover:text-white">
-              <Github size={16} /> <span className="text-sm">Código</span>
-            </Link>
-          )}
-          {project.liveUrl && (
-            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-md px-3 py-1.5 text-zinc-300 transition-colors hover:bg-zinc-700 hover:text-white">
-              <ExternalLink size={16} /> <span className="text-sm">Demo</span>
-            </Link>
-          )}
+          <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-md px-3 py-1.5 text-zinc-300 transition-colors hover:bg-zinc-700 hover:text-white">
+            <ExternalLink size={16} /> <span className="text-sm">Demo</span>
+          </Link>
         </div>
       )}
     </motion.div>

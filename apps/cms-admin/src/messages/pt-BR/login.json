@@ -1,0 +1,11 @@
+{
+  "page_title": "Login | ContentPI",
+  "sign_in_title": "Faça login na sua conta",
+  "email_placeholder": "Endereço de e-mail",
+  "password_placeholder": "Senha",
+  "login_button": "Login",
+  "signing_in_button": "Entrando...",
+  "register_button": "Registrar",
+  "error_invalid_credentials": "Credenciais inválidas, por favor, tente novamente.",
+  "error_unexpected": "Ocorreu um erro inesperado. Por favor, entre em contato com o suporte."
+}

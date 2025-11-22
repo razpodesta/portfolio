@@ -1,11 +1,17 @@
 packages:
-  - 'apps/*'
-  - 'packages/*'
+  - apps/*
+  - packages/*
+  - ui
+  - packages/cms/*
 
 onlyBuiltDependencies:
+  - '@apollo/protobufjs'
   - '@parcel/watcher'
   - '@swc/core'
+  - core-js
+  - core-js-pure
   - esbuild
+  - husky
   - nx
   - sharp
   - unrs-resolver

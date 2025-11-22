@@ -3,8 +3,11 @@
     "talk": "Vamos Conversar",
     "tagline": "Arquiteto de Soluções Criativas e Inteligentes",
     "personal_portfolio": "Portfólio Pessoal",
-    "job_title": "Portfólio de Projetos, Internacionalizado, Visão Holística",
+    "job_title": "Portfólio de Projetos, Internacionalizado, Visão Holística"
+  },
+  "nav-links": {
     "nav_links": {
+      "curriculum": "Currículo",
       "sobre_mi": "Sobre Mim",
       "quien_soy": "Quem Sou Eu",
       "mision_vision": "Missão e Visão",
@@ -52,7 +55,10 @@
       "nx_monorepo": "Monorepo com Nx",
       "postgresql": "PostgreSQL",
       "mongodb": "MongoDB",
-      "sistema_de_diseno": "Sistema de Design"
+      "sistema_de_diseno": "Sistema de Design",
+      "recursos": "Recursos",
+      "lucide_icons": "Ícones Lucide",
+      "tech_icons": "Arsenal Tecnológico"
     }
   },
   "homepage": {
@@ -136,6 +142,64 @@
     "history_section": {
       "title": "Forjado em Código",
       "subtitle": "Descubra a fusão de duas décadas de engenharia de sistemas com uma visão criativa obcecada por resultados. Isto não é apenas um portfólio; é o legado de uma arquitetura construída para durar."
+    },
+    "ai_gallery_section": {
+      "badge": "Impulsionado por Ideogram 3.0",
+      "title": "Sintetizador Visual IA",
+      "subtitle": "Explore uma coleção curada de ativos gerados algoritmicamente. Fotorrealismo, tipografia perfeita e consistência estilística, orquestrados pelo nosso CMS soberano.",
+      "overlay_indicator": "RENDER AO VIVO • WEBGL 2.0",
+      "footer_prompt": "Engenharia de Prompts Avançada",
+      "footer_upscaling": "Upscaling 8K e Otimização",
+      "items": {
+        "neon-typography": {
+          "title": "Tipografia Neon e Cristal",
+          "description": "Renderização 3D tipográfica com tubos de neon."
+        },
+        "editorial-fashion": {
+          "title": "Moda Editorial",
+          "description": "Composição de alta moda com texturas fotorrealistas."
+        },
+        "tech-badge": {
+          "title": "Insígnia de Titânio",
+          "description": "Fotografia macro de produto com acabamento escovado."
+        },
+        "transparent-gadget": {
+          "title": "Hardware Transparente",
+          "description": "Visualização de engenharia de um dispositivo futurista."
+        },
+        "luxury-perfume": {
+          "title": "Vidraria de Luxo",
+          "description": "Fotografia publicitária com iluminação de borda."
+        },
+        "concept-car": {
+          "title": "Conceito Automotivo",
+          "description": "Detalhe abstrato de faróis com fibra de carbono."
+        },
+        "concrete-workspace": {
+          "title": "Espaço Minimalista",
+          "description": "Design de interiores com texturas de concreto bruto."
+        },
+        "cyberpunk-street": {
+          "title": "Atmosfera Cyberpunk",
+          "description": "Fotografia noturna com iluminação volumétrica."
+        },
+        "abstract-geometry": {
+          "title": "Geometria Paramétrica",
+          "description": "Arquitetura abstrata branca contra céu azul."
+        },
+        "fluid-shapes": {
+          "title": "Fluidos Iridescentes",
+          "description": "Simulação 3D de metal líquido com dispersão."
+        },
+        "mechanical-insect": {
+          "title": "Inseto Mecânico",
+          "description": "Macro fotografia steampunk de alta precisão."
+        },
+        "neural-network": {
+          "title": "Arte de Rede Neural",
+          "description": "Visualização abstrata de fluxos de dados."
+        }
+      }
     }
   },
   "footer": {
@@ -260,6 +324,188 @@
           "body": "Este site é fornecido 'como está' para fins informativos e profissionais. Não é permitido o uso de seu conteúdo para fins comerciais sem consentimento explícito prévio. É proibida qualquer tentativa de interromper ou comprometer a segurança do site."
         }
       ]
+    }
+  },
+  "curriculum": {
+    "page_title": "Currículo de Raz Podestá",
+    "page_description": "Currículo profissional de Raz Podestá, Arquiteto de Ecossistemas Digitais e Desenvolvedor Full-Stack.",
+    "print_button": "Imprimir",
+    "printable_footer": "CURRÍCULO DESENVOLVIDO POR RAZ PODESTÁ - VERSÃO PARA IMPRESSÃO 2025",
+    "header": {
+      "name": "Raz Podestá",
+      "title": "Arquiteto de Ecossistemas Digitais | Desenvolvedor Full-Stack | IA",
+      "phone": "Whatsapp +55 (48) 9212-3079",
+      "email": "razpodesta@gmail.com",
+      "linkedin": "linkedin.com/in/razpodesta",
+      "location": "Florianópolis, SC, Brasil"
+    },
+    "summary": {
+      "title": "Resumo Profissional",
+      "content": "Arquiteto de software multidisciplinar com mais de 20 anos de experiência, especializado na criação de 'cérebros digitais inteligentes' em vez de simples websites. Minha filosofia é fundir uma profunda engenharia de sistemas com uma visão estratégica de produto e uma paixão pela UX para construir ativos digitais escaláveis, resilientes e de alto desempenho que impulsionam resultados de negócio mensuráveis. Eu não construo sites; construo ecossistemas soberanos projetados para crescer."
+    },
+    "experience": {
+      "title": "Experiência",
+      "items": [
+        {
+          "role": "Arquiteto de Ecossistemas Digitais & Fundador",
+          "company": "MetaShark Tech",
+          "period": "2020 - Presente",
+          "location": "Florianópolis, Brasil",
+          "duties": [
+            "Projeto e desenvolvimento de arquiteturas de software baseadas em monorepos (Nx) para projetos complexos.",
+            "Implementação de CMS Headless soberanos e APIs GraphQL com Apollo Server, NestJS e Sequelize.",
+            "Criação de Progressive Web Apps (PWA) de alto desempenho com Next.js, TypeScript e Tailwind CSS.",
+            "Desenvolvimento de 'LIA Legacy', uma IA copiloto orquestradora para acelerar o ciclo de vida do desenvolvimento de software."
+          ]
+        },
+        {
+          "role": "Líder Técnico & Arquiteto de Software",
+          "company": "Diversas Consultorias de Tecnologia",
+          "period": "2000 - 2020",
+          "location": "América Latina",
+          "duties": [
+            "Liderança de equipes de desenvolvimento em projetos de grande escala para os setores financeiro, varejo e mídia.",
+            "Otimização de bancos de dados SQL e NoSQL, alcançando melhorias de desempenho de até 300%.",
+            "Implementação de pipelines de Integração Contínua e Implantação Contínua (CI/CD), reduzindo o time-to-market em 50%.",
+            "Mentoria e treinamento de desenvolvedores, melhorando a qualidade do código e a produtividade da equipe."
+          ]
+        }
+      ]
+    },
+    "education": {
+      "title": "Formação Acadêmica",
+      "items": [
+        {
+          "degree": "Engenharia em Informática e Gestão",
+          "university": "Universidade de Ciências da Tecnologia (UCIT)",
+          "period": "2002 - 2006",
+          "location": "Santiago, Chile"
+        },
+        {
+          "degree": "Direito",
+          "university": "Universidade do Chile",
+          "period": "1994 - 1998",
+          "location": "Santiago, Chile"
+        }
+      ]
+    },
+    "skills_section": {
+      "title": "Habilidades & Stack Tecnológico",
+      "categories": [
+        {
+          "title": "Frontend",
+          "skills": [
+            "TypeScript",
+            "React",
+            "Next.js",
+            "Vue.js",
+            "Svelte",
+            "Tailwind CSS",
+            "Framer Motion",
+            "Three.js"
+          ]
+        },
+        {
+          "title": "Backend",
+          "skills": [
+            "Node.js",
+            "NestJS",
+            "Python",
+            "GraphQL",
+            "REST APIs",
+            "Go"
+          ]
+        },
+        {
+          "title": "Bancos de Dados",
+          "skills": [
+            "PostgreSQL",
+            "MongoDB",
+            "Redis",
+            "SQL Server"
+          ]
+        },
+        {
+          "title": "DevOps & Git",
+          "skills": [
+            "Git",
+            "Jest",
+            "CI/CD",
+            "GitHub Actions"
+          ]
+        },
+        {
+          "title": "Inteligência Artificial & Blockchain",
+          "skills": [
+            "LangChain",
+            "TensorFlow",
+            "PyTorch",
+            "Solidity",
+            "Smart Contracts"
+          ]
+        },
+        {
+          "title": "E-commerce & Marketing",
+          "skills": [
+            "Shopify",
+            "WooCommerce",
+            "PrestaShop",
+            "VTEX",
+            "Meta Ads",
+            "Google Ads"
+          ]
+        }
+      ]
+    },
+    "methodologies": {
+      "title": "Metodologias & Princípios",
+      "items": [
+        "Arquitetura por Manifesto",
+        "Scrum",
+        "SOLID",
+        "DRY",
+        "CI/CD",
+        "Desenvolvimento Mobile-First"
+      ]
+    },
+    "hobbies": {
+      "title": "Hobbies & Interesses",
+      "content": "Composição musical assistida por IA, exploração de novas arquiteturas de software e o estudo da filosofia por trás de sistemas complexos."
+    },
+    "call_to_action": {
+      "title": "Vamos Construir Juntos",
+      "content": "Minha paixão é transformar visões ambiciosas em realidade digital. Se você tem um projeto em mente ou busca um parceiro estratégico para levar sua plataforma ao próximo nível, adoraria ouvir sua visão e explorar se podemos criar juntos um software de qualidade que perdure e escale."
+    }
+  },
+  "technologies_page": {
+    "page_title": "Tecnologias & Stack | Raz Podestá",
+    "page_description": "Explore o universo completo de tecnologias, linguagens e ferramentas disponíveis no meu arsenal de desenvolvimento.",
+    "title": "Arsenal Tecnológico",
+    "subtitle": "Um índice exaustivo de cada ferramenta, linguagem e framework disponível para construir sua próxima solução digital.",
+    "search_placeholder": "Buscar tecnologia, linguagem ou ferramenta...",
+    "category_all": "Todas",
+    "category_frontend": "Frontend",
+    "category_backend": "Backend",
+    "category_devops": "DevOps & Cloud",
+    "category_ai": "IA & Dados",
+    "category_design": "Design",
+    "category_other": "Outros",
+    "showing_results": "Exibindo {count} tecnologias",
+    "load_more_button": "Carregar Mais Tecnologias",
+    "view_official_site": "Site Oficial"
+  },
+  "lucide_page": {
+    "page_title": "Iconografia Lucide | Raz Podestá",
+    "page_description": "Explore a coleção completa de ícones Lucide disponíveis no sistema de design.",
+    "header_title": "Universo Lucide",
+    "header_subtitle": "Uma coleção de ícones SVG bonitos e consistentes para interfaces modernas.",
+    "search_placeholder": "Buscar ícone por nome...",
+    "load_more": "Carregar Mais Ícones",
+    "showing_count": "Exibindo {count} de {total} ícones",
+    "visit_official": "Ver Documentação",
+    "copy_import": "Copiar JSX",
+    "categories": {
+      "all": "Todos"
     }
   }
 }

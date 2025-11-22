@@ -1,13 +1,13 @@
 // RUTA: apps/portfolio-web/src/components/layout/Header.tsx
-// VERSIÓN: 16.1 (Verificada) - Lógica de Tipos Corregida y Robusta.
-// DESCRIPCIÓN: Este componente utiliza correctamente la clase 'font-signature'
-//              y funcionará como se espera una vez que la fuente sea cargada
-//              correctamente desde el layout principal.
+// VERSIÓN: 17.0 - Navegación Localizada y Optimizada (Zero Regressions)
+// DESCRIPCIÓN: Componente de cabecera soberano. Gestiona el estado de navegación,
+//              la localización de rutas y la identidad de marca.
 
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
@@ -19,9 +19,17 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 import { NestedDropdownContent } from '../ui/NestedDropdownContent';
 import { ColorWaveBar } from '../ui/ColorWaveBar';
 import { mainNavStructure, type NavItem, type NavLink } from '../../lib/nav-links';
+import { getLocalizedHref } from '../../lib/utils/link-helpers';
+import { i18n, type Locale } from '../../config/i18n.config';
 
-const Brand = ({ isMobile = false, onLinkClick, dictionary }: { isMobile?: boolean, onLinkClick?: () => void, dictionary: Dictionary['header'] }) => (
-    <Link href="/" className="transition-opacity group hover:opacity-80" onClick={onLinkClick}>
+// --- SUB-COMPONENTES EXTRAÍDOS (Performance Optimization) ---
+
+const Brand = ({ isMobile = false, onLinkClick, dictionary, currentLang }: { isMobile?: boolean, onLinkClick?: () => void, dictionary: Dictionary['header'], currentLang: Locale }) => (
+    <Link
+      href={`/${currentLang}`}
+      className="transition-opacity group hover:opacity-80"
+      onClick={onLinkClick}
+    >
       {isMobile ? (
         <div className="text-left">
            <p className="font-sans text-xs font-bold tracking-wider text-white uppercase">
@@ -44,10 +52,15 @@ const Brand = ({ isMobile = false, onLinkClick, dictionary }: { isMobile?: boole
     </Link>
 );
 
-const SimpleMenuItem = ({ item, label }: { item: NavItem; label: string }) => (
-  'href' in item && item.href ? (
+const SimpleMenuItem = ({ item, label, currentLang }: { item: NavItem; label: string; currentLang: Locale }) => {
+  if (!('href' in item) || !item.href) return null;
+
+  // Inyección de idioma para evitar redirecciones 308
+  const finalHref = getLocalizedHref(item.href, currentLang);
+
+  return (
     <Link
-      href={item.href}
+      href={finalHref}
       target={item.href.startsWith('http') ? '_blank' : undefined}
       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
       className="flex items-center gap-3 p-2 text-sm rounded-md text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
@@ -55,8 +68,8 @@ const SimpleMenuItem = ({ item, label }: { item: NavItem; label: string }) => (
       {item.Icon && <item.Icon size={16} />}
       {label}
     </Link>
-  ) : null
-);
+  );
+};
 
 const SocialMenuItem = ({ item }: { item: Extract<NavItem, { isSocial: true }> }) => (
   <>
@@ -71,6 +84,8 @@ const SocialMenuItem = ({ item }: { item: Extract<NavItem, { isSocial: true }> }
   </>
 );
 
+// --- COMPONENTE PRINCIPAL ---
+
 type HeaderProps = {
   dictionary: Dictionary;
 };
@@ -80,6 +95,10 @@ export function Header({ dictionary }: HeaderProps) {
   const { isWidgetVisible, toggleWidgetVisibility } = useWidget();
   const { scrollY, scrollDirection } = useScrollDirection();
   const [hasScrolled, setHasScrolled] = useState(false);
+
+  const pathname = usePathname();
+  // Extracción segura del idioma actual desde la URL
+  const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
   useEffect(() => {
     if (scrollY > 50 && !hasScrolled && isWidgetVisible) {
@@ -113,7 +132,7 @@ export function Header({ dictionary }: HeaderProps) {
       <div className="container px-4 mx-auto">
         <div className="items-center justify-between hidden h-24 md:flex gap-8">
           <div className="shrink-0">
-            <Brand dictionary={dictionary.header} />
+            <Brand dictionary={dictionary.header} currentLang={currentLang} />
           </div>
           <nav className="flex items-center gap-1">
             {mainNavStructure.map((navGroup) => (
@@ -132,7 +151,7 @@ export function Header({ dictionary }: HeaderProps) {
                       if ('isSeparator' in item) return <div key="separator" className="h-px my-2 bg-zinc-800" />;
                       if ('isSocial' in item) return <SocialMenuItem key="social" item={item} />;
                       const label = navLabels[item.labelKey as keyof typeof navLabels];
-                      return <SimpleMenuItem key={label} item={item} label={label} />;
+                      return <SimpleMenuItem key={label} item={item} label={label} currentLang={currentLang} />;
                     })}
                   </div>
                 )}
@@ -149,14 +168,14 @@ export function Header({ dictionary }: HeaderProps) {
                  </motion.button>
                )}
              </AnimatePresence>
-             <Link href="#contact" className="px-4 py-2 ml-2 text-xs font-bold text-white transition-transform rounded-full bg-linear-to-r from-purple-500 to-pink-600 hover:scale-105">
+             <Link href={`/${currentLang}/#contact`} className="px-4 py-2 ml-2 text-xs font-bold text-white transition-transform rounded-full bg-linear-to-r from-purple-500 to-pink-600 hover:scale-105">
                 {dictionary.header.talk}
               </Link>
           </div>
         </div>
         <div className="flex items-center justify-between h-20 md:hidden">
           <div className="pl-3">
-            <Brand isMobile onLinkClick={closeMenu} dictionary={dictionary.header} />
+            <Brand isMobile onLinkClick={closeMenu} dictionary={dictionary.header} currentLang={currentLang} />
           </div>
           <button onClick={() => setIsMenuOpen(true)} aria-label="Abrir menú de navegación" className="p-2 text-white">
             <Menu size={24} />
@@ -185,9 +204,9 @@ export function Header({ dictionary }: HeaderProps) {
                 <X size={32} />
               </button>
               <nav className="flex flex-col items-center gap-8 mt-20">
-                <Link href="#about" className="text-3xl font-semibold text-white" onClick={closeMenu}>{navLabels['sobre_mi']}</Link>
-                <Link href="#contact" className="text-3xl font-semibold text-white" onClick={closeMenu}>{navLabels['contacto']}</Link>
-                <Link href="#contact" className="w-full p-4 mt-8 text-xl font-bold text-center text-white rounded-md bg-linear-to-r from-purple-500 to-pink-600" onClick={closeMenu}>{dictionary.header.talk}</Link>
+                <Link href={`/${currentLang}/#quien-soy`} className="text-3xl font-semibold text-white" onClick={closeMenu}>{navLabels['sobre_mi']}</Link>
+                <Link href={`/${currentLang}/#contact`} className="text-3xl font-semibold text-white" onClick={closeMenu}>{navLabels['contacto']}</Link>
+                <Link href={`/${currentLang}/#contact`} className="w-full p-4 mt-8 text-xl font-bold text-center text-white rounded-md bg-linear-to-r from-purple-500 to-pink-600" onClick={closeMenu}>{dictionary.header.talk}</Link>
               </nav>
             </motion.div>
           </motion.div>

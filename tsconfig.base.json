@@ -15,11 +15,15 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2022",
-    "customConditions": ["@portfolio/source"],
+    "target": "es2021",
     "baseUrl": ".",
+    "jsx": "react-jsx",
     "paths": {
-      "@portfolio/web/*": ["apps/portfolio-web/src/*"]
+      "@portfolio/web/*": ["apps/portfolio-web/src/*"],
+      "@portfolio/cms-api/*": ["apps/cms-api/src/*"],
+      "@metashark-cms/ui": ["packages/cms/ui/src/index.ts"],
+      "@metashark-cms/core": ["packages/cms/core/src/index.ts"],
+      "@portfolio/testing-utils": ["packages/testing-utils/src/index.ts"]
     }
   }
 }

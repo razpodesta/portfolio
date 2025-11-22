@@ -54,5 +54,6 @@
     "specs",
     "**/*.spec.ts",
     "**/*.spec.tsx"
-  ]
+  ],
+  "references": []
 }

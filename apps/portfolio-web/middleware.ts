@@ -1,76 +1,70 @@
 // RUTA: apps/portfolio-web/middleware.ts
-// VERSIÓN: Holística v2.0 - Con Guardián de Rutas Integrado
+// VERSIÓN: 5.0 - Default pt-BR & Performance
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
-
 import { i18n, type Locale } from './src/config/i18n.config';
-import { routeGuard } from './src/lib/route-guard'; // <-- Importamos nuestro guardián
+import { routeGuard } from './src/lib/route-guard';
 
-/**
- * Determina el mejor 'locale' soportado basado en las cabeceras 'Accept-Language'.
- */
 function getLocale(request: NextRequest): Locale {
+  // 1. Prioridad: Cookie de preferencia (si existiera)
+  // 2. Negociación de headers
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  const locales: string[] = [...i18n.locales];
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-  return locale as Locale;
+  try {
+    return matchLocale(languages, [...i18n.locales], i18n.defaultLocale) as Locale;
+  } catch (e) {
+    return i18n.defaultLocale; // Fallback seguro a pt-BR
+  }
 }
 
-/**
- * Middleware principal.
- *
- * Su flujo de responsabilidad es claro y secuencial:
- * 1. Determinar si a la ruta le falta un prefijo de 'locale'.
- * 2. Si falta, redirigir a la URL correcta con el 'locale' detectado.
- * 3. Una vez que la ruta tiene un 'locale', invocar al `routeGuard` para manejar la autorización.
- */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // --- PASO 1: Gestión de Internacionalización (i18n) ---
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  // 1. Ignorar archivos estáticos y APIs internas
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/static') ||
+    pathname.includes('.') // Archivos con extensión (imágenes, etc)
+  ) {
+    return NextResponse.next();
+  }
+
+  // 2. Verificar si falta el locale en la ruta
+  const pathnameHasLocale = i18n.locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  // Redirige si falta el 'locale' en la ruta.
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-    const newUrl = new URL(`/${locale}${pathname}`, request.url);
+  if (!pathnameHasLocale) {
+    // Si estamos en la raíz '/', forzamos pt-BR por defecto si no hay preferencia
+    // O usamos la detección del navegador.
+    // Para cumplir "Default pt-BR":
+    const locale = pathname === '/' ? i18n.defaultLocale : getLocale(request);
 
-    // SOLUCIÓN AL BUG 404: Usar una redirección explícita y permanente (308).
-    // Esto corrige el problema de la página no encontrada en la ruta raíz.
+    const newUrl = new URL(`/${locale}${pathname === '/' ? '' : pathname}`, request.url);
+    // Preservar query params
+    newUrl.search = request.nextUrl.search;
+
     return NextResponse.redirect(newUrl);
   }
 
-  // --- PASO 2: Invocación del Guardián de Rutas ---
-  // Una vez que sabemos que la ruta tiene un 'locale', delegamos la lógica
-  // de seguridad y autorización a nuestro guardián.
-  const localeFromPath = (pathname.split('/')[1] as Locale) || i18n.defaultLocale;
-  const guardResponse = routeGuard(request, localeFromPath);
+  // 3. Extraer locale actual para el Guardián
+  const localeFromPath = pathname.split('/')[1] as Locale;
 
-  // Si el guardián decide que hay que redirigir (porque no hay permisos, etc.),
-  // devolvemos su respuesta. De lo contrario, la petición continúa.
+  // 4. Ejecutar Route Guard
+  const guardResponse = routeGuard(request, localeFromPath);
   if (guardResponse) {
     return guardResponse;
   }
 
-  // Si todo está en orden, permite que la petición continúe.
   return NextResponse.next();
 }
 
-/**
- * Configuración del Matcher.
- * Le dice a Next.js que este middleware se aplique a todas las rutas,
- * EXCEPTO a las que son para archivos estáticos, imágenes o rutas internas de Next.
- */
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)',
-  ],
+  // Matcher optimizado para excluir estáticos agresivamente
+  matcher: ['/((?!_next/static|_next/image|assets|favicon.ico|robots.txt|sitemap.xml).*)'],
 };

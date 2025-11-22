@@ -1,0 +1,24 @@
+// RUTA: /apps/cms-api/tsconfig.json
+// VERSIÓN: 3.0 - "El Guardián de la Coherencia del Backend"
+// DESCRIPCIÓN: Se elimina la sobrescritura conflictiva de la opción 'module'.
+//              Ahora, el proyecto hereda correctamente 'module: "nodenext"' desde
+//              'tsconfig.base.json', resolviendo el error de compilación y garantizando
+//              una estrategia de módulos consistente en todo el ecosistema.
+
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    // --- LÍNEA CONFLICTIVA ELIMINADA ---
+    // "module": "commonjs", // <-- Esta línea causaba el conflicto y ha sido eliminada.
+    "noImplicitAny": true,
+    "outDir": "../../dist/out-tsc",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "target": "es2021", // Actualizado a un target más moderno.
+    "typeRoots": ["./src/@types", "../../node_modules/@types"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+}

@@ -1,19 +1,18 @@
 // RUTA: apps/portfolio-web/src/components/layout/Footer.tsx
-// VERSIÓN: 3.2 - Nivelado para Soportar Iconos en la Navegación.
-// DESCRIPCIÓN: Se actualiza la lógica de renderizado de las columnas de navegación
-//              para detectar y mostrar un icono si este está definido en la estructura
-//              de datos de 'nav-links.ts'. Esto completa la visión de diseño para
-//              los enlaces legales y hace que el componente sea más extensible y
-//              visualmente rico.
+// VERSIÓN: 4.0 - Footer Localizado e Interactivo
+// DESCRIPCIÓN: Pie de página con navegación contextual y soporte completo de i18n.
 
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, type Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import type { Dictionary } from '@/lib/schemas/dictionary.schema';
 import { socialLinks } from '@/lib/social-links';
 import { footerNavStructure } from '@/lib/nav-links';
+import { getLocalizedHref } from '@/lib/utils/link-helpers';
+import { i18n, type Locale } from '@/config/i18n.config';
 
 type FooterProps = {
   content: Dictionary['footer'];
@@ -39,6 +38,9 @@ const itemVariants: Variants = {
 
 export function Footer({ content, navLabels, tagline }: FooterProps) {
   const t = content;
+  const pathname = usePathname();
+  // Extracción de idioma para generar enlaces coherentes
+  const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
   return (
     <motion.footer
@@ -51,7 +53,7 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
       <div className="container mx-auto px-4 pt-16 pb-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <motion.div variants={itemVariants} className="col-span-2 md:col-span-2">
-            <Link href="/" className="font-signature text-5xl text-white transition-colors hover:text-zinc-300">
+            <Link href={`/${currentLang}`} className="font-signature text-5xl text-white transition-colors hover:text-zinc-300">
               Raz Podestá
             </Link>
             <p className="mt-4 max-w-xs text-sm">
@@ -65,16 +67,19 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
                 {t[column.columnKey as keyof typeof t]}
               </h2>
               <ul className="mt-4 space-y-3">
-                {column.links.map((link) => (
-                  <li key={link.labelKey}>
-                    {/* --- INICIO DE LA MEJORA DE RENDERIZADO --- */}
-                    <Link href={link.href || '#'} className="flex items-center gap-2 text-sm transition-colors hover:text-white hover:underline">
-                      {link.Icon && <link.Icon size={14} className="shrink-0 text-zinc-500 group-hover:text-white transition-colors" />}
-                      <span>{navLabels[link.labelKey as keyof typeof navLabels]}</span>
-                    </Link>
-                    {/* --- FIN DE LA MEJORA DE RENDERIZADO --- */}
-                  </li>
-                ))}
+                {column.links.map((link) => {
+                  // Inyección de idioma para cada enlace del footer
+                  const finalHref = getLocalizedHref(link.href, currentLang);
+
+                  return (
+                    <li key={link.labelKey}>
+                      <Link href={finalHref} className="flex items-center gap-2 text-sm transition-colors hover:text-white hover:underline">
+                        {link.Icon && <link.Icon size={14} className="shrink-0 text-zinc-500 group-hover:text-white transition-colors" />}
+                        <span>{navLabels[link.labelKey as keyof typeof navLabels]}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </motion.div>
           ))}

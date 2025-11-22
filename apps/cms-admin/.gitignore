@@ -1,0 +1,5 @@
+node_modules
+.DS_Store
+.next
+/i18n
+public/i18n/*.json

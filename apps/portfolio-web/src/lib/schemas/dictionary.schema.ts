@@ -1,12 +1,10 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/dictionary.schema.ts
-// VERSIÓN: 11.0 - Sincronizado con la Navegabilidad Completa.
-// DESCRIPCIÓN: Se importan y se integran los nuevos esquemas para las páginas
-//              de contacto, sistema de diseño, co-creación y legales, completando
-//              el contrato maestro de datos para todas las rutas del sitio.
+// VERSIÓN: 16.0 - Maestro Completo
+// DESCRIPCIÓN: Contrato de datos global. No contiene abreviaciones.
 
 import { z } from 'zod';
 
-// Importaciones existentes...
+// Importaciones de esquemas granulares
 import { headerSchema } from './header.schema';
 import { navLinksSchema } from './nav-links.schema';
 import { footerSchema } from './footer.schema';
@@ -15,48 +13,45 @@ import { notFoundSchema } from './not_found.schema';
 import { missionVisionSchema } from './mission_vision.schema';
 import { quienSoySchema } from './quien_soy.schema';
 import { blogPageSchema } from './blog.schema';
-import { heroSchema } from './hero.schema';
-import { aboutSectionSchema } from './about_section.schema';
-import { valuePropositionSectionSchema } from './value_proposition.schema';
-import { contactMessagesSchema } from './contact.schema';
-import { historySectionSchema } from './history_section.schema';
-
-// --- NUEVAS IMPORTACIONES ---
+import { homepageSchema } from './homepage.schema'; // <-- Contiene la corrección de AI Gallery
 import { contactPageSchema } from './contact_page.schema';
 import { designSystemPageSchema } from './design_system_page.schema';
 import { cocreationPageSchema } from './cocreation_page.schema';
 import { legalPageSchema } from './legal_page.schema';
+import { curriculumSchema } from './curriculum.schema';
+import { libraryPageSchema } from './library_page.schema';
 
-// Homepage Schema (sin cambios)
-export const homepageSchema = z.object({
-  hero: heroSchema,
-  about_section: aboutSectionSchema,
-  value_proposition_section: valuePropositionSectionSchema,
-  contact: contactMessagesSchema,
-  history_section: historySectionSchema,
-});
-
-// Contrato para las páginas legales
+// Sub-esquema para agrupación legal
 const legalContentSchema = z.object({
   privacy_policy: legalPageSchema,
   terms_of_service: legalPageSchema,
 });
 
-// Contrato final y maestro del diccionario
+// Esquema Maestro
 export const dictionarySchema = z.object({
+  // Componentes Globales
   header: headerSchema.merge(navLinksSchema),
-  homepage: homepageSchema,
   footer: footerSchema,
   language_switcher: languageSwitcherSchema,
   not_found: notFoundSchema,
+
+  // Páginas Principales
+  homepage: homepageSchema,
   mission_vision: missionVisionSchema,
   quien_soy: quienSoySchema,
+  curriculum: curriculumSchema,
+
+  // Páginas de Servicios y Contenido
   blog_page: blogPageSchema,
-  // --- NUEVOS OBJETOS DE PÁGINA ---
   contact_page: contactPageSchema,
   design_system_page: designSystemPageSchema,
   cocreation_page: cocreationPageSchema,
   legal: legalContentSchema,
+
+  // Páginas de Recursos (Librerías)
+  lucide_page: libraryPageSchema,
+  technologies_page: libraryPageSchema,
 });
 
+// Inferencia de Tipos Global
 export type Dictionary = z.infer<typeof dictionarySchema>;

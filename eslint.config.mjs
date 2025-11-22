@@ -1,5 +1,7 @@
 // RUTA: /eslint.config.mjs (RAÍZ DEL PROYECTO)
-// VERSIÓN: Definitiva de Élite 3.0 ("Reloj Suizo")
+// VERSIÓN: Definitiva de Élite 4.0 ("Constitución del Monorepo")
+// DESCRIPCIÓN: Se añade la exclusión de 'test-output' a la lista global de ignores
+//              para asegurar que los reportes de cobertura de Jest no sean analizados.
 
 import nxPlugin from '@nx/eslint-plugin';
 
@@ -12,14 +14,14 @@ export default [
 
   // --- CAPA 2: EXCLUSIONES GLOBALES ---
   // Esta es la única fuente de verdad para los archivos y carpetas que NUNCA deben ser analizados.
-  // Se aplica a todos los proyectos del workspace.
   {
     ignores: [
         '**/node_modules',
         '**/dist',
         '**/.next',
         '**/.nx',
-        '**/coverage'
+        '**/coverage',
+        '**/test-output' // <-- MEJORA: Exclusión para los reportes de Jest.
     ],
   },
 
@@ -32,8 +34,6 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: true,
-          // La clave "allow" se elimina por completo. Ya no es necesaria
-          // y era la fuente del error de expresión regular.
           allow: [],
           depConstraints: [
             {

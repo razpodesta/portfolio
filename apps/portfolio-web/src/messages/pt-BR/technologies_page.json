@@ -1,0 +1,17 @@
+{
+  "page_title": "Tecnologias & Stack | Raz Podestá",
+  "page_description": "Explore o universo completo de tecnologias, linguagens e ferramentas disponíveis no meu arsenal de desenvolvimento.",
+  "title": "Arsenal Tecnológico",
+  "subtitle": "Um índice exaustivo de cada ferramenta, linguagem e framework disponível para construir sua próxima solução digital.",
+  "search_placeholder": "Buscar tecnologia, linguagem ou ferramenta...",
+  "category_all": "Todas",
+  "category_frontend": "Frontend",
+  "category_backend": "Backend",
+  "category_devops": "DevOps & Cloud",
+  "category_ai": "IA & Dados",
+  "category_design": "Design",
+  "category_other": "Outros",
+  "showing_results": "Exibindo {count} tecnologias",
+  "load_more_button": "Carregar Mais Tecnologias",
+  "view_official_site": "Site Oficial"
+}

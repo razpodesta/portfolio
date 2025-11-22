@@ -1,28 +1,17 @@
-// RUTA: oh-hoteis/tsconfig.spec.json
-// VERSIÓN: Corregida con la inclusión de tipos de jest-dom
-
+// RUTA: /apps/portfolio-web/tsconfig.spec.json
+// VERSIÓN: 2.0 - Definitiva y Alineada con la Arquitectura de Espejo
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../dist/out-tsc",
+    "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "jsx": "react-jsx", // Usar react-jsx es más moderno para Jest con React
-    "allowJs": true,
-    "esModuleInterop": true,
-
-    // --- LA CORRECCIÓN CLAVE ESTÁ AQUÍ ---
-    // El array 'types' le dice a TypeScript qué paquetes de definiciones de tipo
-    // globales debe cargar para los archivos incluidos en este tsconfig.
-    // Al añadir "@testing-library/jest-dom", los matchers personalizados como
-    // .toBeInTheDocument() se vuelven disponibles para el autocompletado y la verificación de tipos.
     "types": ["jest", "node", "@testing-library/jest-dom"]
   },
-  // Aseguramos que TypeScript aplique esta configuración solo a nuestros archivos de prueba.
   "include": [
-    "jest.config.ts",
-    "jest.setup.ts",
-    "specs/**/*.spec.ts",
-    "specs/**/*.spec.tsx"
-  ],
-  "exclude": []
+    // --- INICIO DE LA CORRECCIÓN ---
+    // Se apunta a la ubicación correcta de los archivos de prueba.
+    "../../tests/apps/portfolio-web/**/*.spec.ts",
+    "../../tests/apps/portfolio-web/**/*.spec.tsx"
+    // --- FIN DE LA CORRECCIÓN ---
+  ]
 }
