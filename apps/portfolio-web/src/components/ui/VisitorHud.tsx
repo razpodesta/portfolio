@@ -1,20 +1,19 @@
 // RUTA: apps/portfolio-web/src/components/ui/VisitorHud.tsx
-// VERSIÓN: 12.0 - Zustand Powered & Hydration Safe
-// DESCRIPCIÓN: Widget visual conectado al store global. Implementa lógica de
-//              montaje diferido para respetar la persistencia del usuario sin
-//              errores de hidratación.
+// VERSIÓN: 12.0 - Integración de Zustand
+// DESCRIPCIÓN: Se reemplaza el Context API por el store de Zustand para
+//              controlar la visibilidad y persistencia del widget.
 
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
 import {
-  MapPin, Thermometer, Clock, Globe, Loader, AlertCircle, X,
-  GripVertical, Network, CloudSun, CloudRain, Cloud, Sun, ScanFace, Info
+  MapPin, CloudSun, CloudRain, Cloud, Sun, Clock,
+  Loader, AlertCircle, X, Info, ScanFace,
 } from 'lucide-react';
 import { useVisitorData } from '../../lib/hooks/use-visitor-data';
-// useWidget eliminado
-import { useUIStore } from '../../lib/store/ui.store'; // <-- ZUSTAND IMPORT
+// import { useWidget } from '../../lib/contexts/WidgetContext'; // <-- ELIMINADO
+import { useUIStore } from '../../lib/store/ui.store'; // <-- NUEVO STORE
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
 
 const WIDGET_POSITION_KEY = 'visitorWidgetPosition';
@@ -43,55 +42,15 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
   const { data, isLoading, error } = useVisitorData();
   const [currentTime, setCurrentTime] = useState('--:--');
 
-  // --- ZUSTAND INTEGRATION ---
-  const isWidgetVisible = useUIStore((state) => state.isVisitorHudVisible);
-  const toggleWidgetVisibility = useUIStore((state) => state.toggleVisitorHud);
+  // --- MIGRACIÓN A ZUSTAND ---
+  const isVisitorHudOpen = useUIStore((state) => state.isVisitorHudOpen);
+  const closeVisitorHud = useUIStore((state) => state.closeVisitorHud);
   // ---------------------------
 
-  const [mounted, setMounted] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Hidratación Segura
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Restaurar posición
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedPosition = localStorage.getItem(WIDGET_POSITION_KEY);
-      if (storedPosition) {
-        try {
-          const { x: savedX, y: savedY } = JSON.parse(storedPosition);
-          x.set(savedX);
-          y.set(savedY);
-        } catch (e) {
-          console.error("Error widget pos", e);
-        }
-      }
-    }
-  }, [x, y]);
-
-  // Reloj
-  useEffect(() => {
-    if (!data?.timezone) return;
-    const updateClock = () => {
-      const timeString = new Date().toLocaleTimeString('en-GB', {
-        timeZone: data.timezone,
-        hour: '2-digit', minute: '2-digit'
-      });
-      setCurrentTime(timeString);
-    };
-    const rafId = requestAnimationFrame(updateClock);
-    const timerId = setInterval(updateClock, 1000);
-    return () => {
-      cancelAnimationFrame(rafId);
-      clearInterval(timerId);
-    };
-  }, [data?.timezone]);
-
-  // Memoización de Clima
+  // Hook: Clima
   const weatherInfo = useMemo(() => {
     if (!data?.weather) return { label: '...', icon: CloudSun, color: 'text-zinc-400' };
     const status = getWeatherStatus(data.weather.weathercode);
@@ -105,20 +64,58 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
     return { label, icon: status.icon, color };
   }, [data, dictionary]);
 
+  // Hook: Auto-Hide en Scroll (Mantenido por seguridad local, aunque el Header también lo maneja)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10 && isVisitorHudOpen) {
+        closeVisitorHud();
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isVisitorHudOpen, closeVisitorHud]);
+
+  // Hook: Posición
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedPosition = localStorage.getItem(WIDGET_POSITION_KEY);
+      if (storedPosition) {
+        try {
+          const { x: savedX, y: savedY } = JSON.parse(storedPosition);
+          x.set(savedX);
+          y.set(savedY);
+        } catch (e) { console.error(e); }
+      }
+    }
+  }, [x, y]);
+
+  // Hook: Reloj
+  useEffect(() => {
+    if (!data?.timezone) return;
+    const updateClock = () => {
+      const timeString = new Date().toLocaleTimeString('en-GB', {
+        timeZone: data.timezone,
+        hour: '2-digit', minute: '2-digit'
+      });
+      setCurrentTime(timeString);
+    };
+    const rafId = requestAnimationFrame(updateClock);
+    const timerId = setInterval(updateClock, 1000);
+    return () => { cancelAnimationFrame(rafId); clearInterval(timerId); };
+  }, [data?.timezone]);
+
   function handleDragEnd() {
     const newPosition = { x: x.get(), y: y.get() };
     localStorage.setItem(WIDGET_POSITION_KEY, JSON.stringify(newPosition));
   }
 
-  // 3. GUARDIAS
+  // 2. GUARDIA
   if (!dictionary) return null;
-  // Evitamos renderizar en el servidor o antes de que Zustand hidrate para prevenir saltos
-  if (!mounted) return null;
 
-  // 4. RENDERIZADO
+  // 3. RENDERIZADO
   return (
     <AnimatePresence>
-      {isWidgetVisible && (
+      {isVisitorHudOpen && (
         <motion.div
           drag
           onDragEnd={handleDragEnd}
@@ -129,7 +126,6 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
           exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
           className="fixed top-24 right-4 z-40 w-72 cursor-grab rounded-2xl border border-zinc-800 bg-zinc-950/95 p-0 text-zinc-300 shadow-2xl shadow-black/80 backdrop-blur-xl active:cursor-grabbing sm:top-28 overflow-hidden"
         >
-          {/* Header Proactivo */}
           <div className="flex items-center justify-between px-4 py-3 bg-zinc-900/50 border-b border-zinc-800">
             <div className="flex items-center gap-2 text-purple-400">
               <ScanFace size={16} />
@@ -138,7 +134,7 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
               </span>
             </div>
             <button
-              onClick={toggleWidgetVisibility}
+              onClick={closeVisitorHud}
               className="p-1 rounded-full text-zinc-500 hover:bg-white/10 hover:text-white transition-colors"
             >
               <X size={14} />
@@ -157,7 +153,6 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
               </div>
             ) : (
               <>
-                {/* Fila 1: Ciudad y Hora */}
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <p className="text-[9px] text-zinc-500 uppercase tracking-wider mb-1 flex items-center gap-1">
@@ -172,12 +167,8 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
                         <p className="font-mono font-bold text-white text-sm">{currentTime}</p>
                     </div>
                 </div>
-
                 <div className="h-px bg-zinc-800/50 w-full" />
-
-                {/* Fila 2: Clima y Coordenadas */}
                 <div className="grid grid-cols-2 gap-4 items-center">
-                    {/* Clima Detallado */}
                     <div className="flex items-center gap-3">
                          <weatherInfo.icon size={24} className={weatherInfo.color} />
                          <div>
@@ -185,8 +176,6 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
                              <p className="text-sm font-bold text-white">{data?.weather.temperature}°C</p>
                          </div>
                     </div>
-
-                    {/* Coordenadas */}
                     <div className="text-right">
                          <p className="text-[9px] text-zinc-500 uppercase tracking-wider mb-1">{dictionary.coords_format}</p>
                          <p className="font-mono text-[10px] text-zinc-400">
@@ -197,8 +186,6 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
                          </p>
                     </div>
                 </div>
-
-                {/* Fila 3: IP Centrada */}
                 <div className="bg-zinc-900/80 rounded-lg p-2 text-center border border-zinc-800">
                     <p className="text-[8px] text-zinc-500 uppercase tracking-[0.2em] mb-1">{dictionary.label_ip_visitor}</p>
                     <p className="font-mono text-xs text-purple-300 font-bold tracking-wide">{data?.ip}</p>
@@ -207,7 +194,6 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
             )}
           </div>
 
-          {/* Footer de Créditos */}
           <div className="bg-zinc-950 border-t border-zinc-900 py-2 px-4 text-center">
               <p className="text-[8px] text-zinc-600 font-medium flex items-center justify-center gap-1">
                  <Info size={8} /> {dictionary.footer_credits}

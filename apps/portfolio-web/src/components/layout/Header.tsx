@@ -1,8 +1,7 @@
 // RUTA: apps/portfolio-web/src/components/layout/Header.tsx
-// VERSIÓN: 22.0 - Zustand Integration & Hydration Safety
-// DESCRIPCIÓN: Integración completa con el store de Zustand. Se implementa un chequeo
-//              de montaje ('mounted') para evitar errores de hidratación al leer
-//              el estado persistente del localStorage.
+// VERSIÓN: 22.0 - Integración de Zustand
+// DESCRIPCIÓN: Migración completa a 'useUIStore'. El componente ahora reacciona
+//              y actualiza el estado global de UI de manera optimizada.
 
 'use client';
 
@@ -12,8 +11,8 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
-// useWidget eliminado
-import { useUIStore } from '../../lib/store/ui.store'; // <-- ZUSTAND IMPORT
+// import { useWidget } from '../../lib/contexts/WidgetContext'; // <-- ELIMINADO
+import { useUIStore } from '../../lib/store/ui.store'; // <-- NUEVO STORE
 import { useScrollDirection } from '../../lib/hooks/use-scroll-direction';
 import { DropdownMenu } from '../ui/DropdownMenu';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
@@ -24,7 +23,7 @@ import { mainNavStructure, type NavItem } from '../../lib/nav-links';
 import { getLocalizedHref } from '../../lib/utils/link-helpers';
 import { i18n, type Locale } from '../../config/i18n.config';
 
-// --- SUB-COMPONENTES OPTIMIZADOS ---
+// --- SUB-COMPONENTES ---
 
 const Brand = ({
   isMobile = false,
@@ -110,12 +109,12 @@ type HeaderProps = {
 
 export function Header({ dictionary }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Estado para controlar la hidratación del cliente y evitar desajustes
-  const [mounted, setMounted] = useState(false);
 
-  // --- ZUSTAND INTEGRATION ---
-  const isWidgetVisible = useUIStore((state) => state.isVisitorHudVisible);
-  const toggleWidgetVisibility = useUIStore((state) => state.toggleVisitorHud);
+  // --- MIGRACIÓN A ZUSTAND ---
+  // Seleccionamos solo lo necesario para evitar re-renderizados
+  const isVisitorHudOpen = useUIStore((state) => state.isVisitorHudOpen);
+  const toggleVisitorHud = useUIStore((state) => state.toggleVisitorHud);
+  const closeVisitorHud = useUIStore((state) => state.closeVisitorHud);
   // ---------------------------
 
   const { scrollY, scrollDirection } = useScrollDirection();
@@ -124,19 +123,13 @@ export function Header({ dictionary }: HeaderProps) {
   const pathname = usePathname();
   const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
-  // Efecto de Montaje para Hidratación Segura
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Lógica de Auto-Ocultar con Scroll
-  useEffect(() => {
-    // Solo ejecutamos si está montado para asegurar consistencia con el store
-    if (mounted && scrollY > 50 && !hasAutoHiddenRef.current && isWidgetVisible) {
-      toggleWidgetVisibility();
+    // Lógica de auto-ocultamiento migrada a acciones de Zustand
+    if (scrollY > 50 && !hasAutoHiddenRef.current && isVisitorHudOpen) {
+      closeVisitorHud();
       hasAutoHiddenRef.current = true;
     }
-  }, [scrollY, isWidgetVisible, toggleWidgetVisibility, mounted]);
+  }, [scrollY, isVisitorHudOpen, closeVisitorHud]);
 
   const navLabels = useMemo(() => {
     const headerSimpleLabels = dictionary.header;
@@ -197,15 +190,15 @@ export function Header({ dictionary }: HeaderProps) {
              <LanguageSwitcher dictionary={dictionary.language_switcher} />
              <ThemeToggle />
              <AnimatePresence>
-               {/* Solo renderizamos el botón condicional si el componente está montado en el cliente */}
-               {mounted && !isWidgetVisible && (
+               {/* El botón solo aparece si el HUD está cerrado */}
+               {!isVisitorHudOpen && (
                  <motion.button
-                   onClick={toggleWidgetVisibility}
+                   onClick={toggleVisitorHud}
                    initial={{ opacity: 0, scale: 0.8 }}
                    animate={{ opacity: 1, scale: 1 }}
                    exit={{ opacity: 0, scale: 0.8 }}
                    className="flex items-center justify-center w-10 h-10 rounded-full text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
-                   aria-label="Mostrar widget de visitante"
+                   aria-label="Mostrar información del visitante"
                  >
                    <Globe size={18} strokeWidth={1.5} />
                  </motion.button>

@@ -1,6 +1,8 @@
 /**
  * @file Hoja de Estilos Global.
- * @version 12.0 - Ajuste de Impresión para Layout "Píldora"
+ * @version 13.0 - A Prueba de Errores de Producción
+ * @description Se añade una regla para ocultar el overlay de errores de Next.js
+ *              en entornos de producción mediante un selector condicional.
  */
 
 @import "tailwindcss";
@@ -49,6 +51,17 @@
     @apply scroll-smooth antialiased;
   }
 }
+
+/* ======================================================================== */
+/* CAPA DE PRODUCCIÓN: OCULTACIÓN DE OVERLAYS DE DESARROLLO                  */
+/* ======================================================================== */
+/* Esta regla soberana oculta el portal de errores de Next.js cuando el     */
+/* body tiene el atributo 'data-production-env' en 'true'.                  */
+/* ======================================================================== */
+body:has([data-production-env="true"]) nextjs-portal {
+  display: none !important;
+}
+
 
 /* ======================================================================== */
 /* CAPA 4: ESTILOS DE IMPRESIÓN (Modo Estricto A4)                          */
