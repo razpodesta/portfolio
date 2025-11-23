@@ -2397,7 +2397,7 @@
         },
         {
           "file": "apps/portfolio-web/src/lib/schemas/technologies_page.schema.ts",
-          "hash": "15114581274253814620",
+          "hash": "8316175642612864846",
           "deps": [
             "npm:zod"
           ]
@@ -2531,7 +2531,7 @@
         },
         {
           "file": "apps/portfolio-web/src/messages/en-US/technologies_page.json",
-          "hash": "5636028886033770310"
+          "hash": "6158077713172075245"
         },
         {
           "file": "apps/portfolio-web/src/messages/en-US/value_proposition.json",
