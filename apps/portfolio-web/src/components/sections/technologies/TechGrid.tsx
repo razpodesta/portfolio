@@ -1,11 +1,11 @@
 /**
  * @file Grid de Tecnologías Interactivo.
  * @description Renderiza una colección filtrable de iconos con paginación virtual.
- * @version 3.0 - Type Safe & Optimized
+ * @version 3.3 - Filtrado de Tipos y Corrección de Lógica
  */
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, type ComponentType } from 'react';
 import { Search, ExternalLink } from 'lucide-react';
 import * as SimpleIcons from '@icons-pack/react-simple-icons';
 import type { Dictionary } from '@/lib/schemas/dictionary.schema';
@@ -29,6 +29,20 @@ export function TechGrid({ technologies, dictionary }: TechGridProps) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(60);
 
+  // --- INICIO DE LA SOLUCIÓN DE ÉLITE: FILTRADO Y MAPEO MEMOIZADO ---
+  const iconMap = useMemo(() => {
+    // 1. Filtramos las entradas para quedarnos solo con las que son componentes (funciones).
+    const componentEntries = Object.entries(SimpleIcons).filter(
+      ([, value]) => typeof value === 'function'
+    );
+
+    // 2. Ahora, creamos el Map con la seguridad de que solo contiene componentes válidos.
+    return new Map<string, ComponentType<{ size?: number; className?: string }>>(
+      componentEntries as [string, ComponentType<{ size?: number; className?: string }>][]
+    );
+  }, []);
+  // --- FIN DE LA SOLUCIÓN DE ÉLITE ---
+
   const filteredTechs = useMemo(() => {
     return technologies.filter((tech) => {
       const matchesSearch = tech.name.toLowerCase().includes(search.toLowerCase());
@@ -39,9 +53,11 @@ export function TechGrid({ technologies, dictionary }: TechGridProps) {
 
   const visibleTechs = filteredTechs.slice(0, visibleCount);
 
+  // --- INICIO DE LA CORRECCIÓN: FUNCIÓN FALTANTE ---
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 60);
   };
+  // --- FIN DE LA CORRECCIÓN ---
 
   const getCategoryLabel = (cat: string) => {
     if (cat === 'All') return dictionary.category_all;
@@ -58,7 +74,6 @@ export function TechGrid({ technologies, dictionary }: TechGridProps) {
   return (
     <div className="space-y-8">
       <div className="sticky top-24 z-30 flex flex-col gap-4 rounded-2xl border border-zinc-800 bg-zinc-950/80 p-4 backdrop-blur-xl md:flex-row md:items-center md:justify-between shadow-2xl">
-
         <div className="relative w-full md:w-80 shrink-0">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
           <input
@@ -93,7 +108,7 @@ export function TechGrid({ technologies, dictionary }: TechGridProps) {
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {visibleTechs.map((tech) => {
-          const IconComponent = SimpleIcons[tech.id];
+          const IconComponent = iconMap.get(tech.id);
 
           if (!IconComponent) return null;
 
