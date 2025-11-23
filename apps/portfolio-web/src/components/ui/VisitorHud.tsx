@@ -1,20 +1,20 @@
 // RUTA: apps/portfolio-web/src/components/ui/VisitorHud.tsx
-// VERSIÓN: 12.0 - Migración a Zustand
-// DESCRIPCIÓN: Integración completa con el store de Zustand.
-//              Mantiene todas las correcciones visuales y de hooks previas.
+// VERSIÓN: 12.0 - Zustand Powered & Hydration Safe
+// DESCRIPCIÓN: Widget visual conectado al store global. Implementa lógica de
+//              montaje diferido para respetar la persistencia del usuario sin
+//              errores de hidratación.
 
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
 import {
-  MapPin, CloudSun, CloudRain, Cloud, Sun, Clock,
-  Loader, AlertCircle, X, GripVertical, Network, Info, ScanFace
+  MapPin, Thermometer, Clock, Globe, Loader, AlertCircle, X,
+  GripVertical, Network, CloudSun, CloudRain, Cloud, Sun, ScanFace, Info
 } from 'lucide-react';
 import { useVisitorData } from '../../lib/hooks/use-visitor-data';
-// --- MIGRACIÓN ZUSTAND ---
-import { useUIStore } from '../../lib/store/ui.store';
-// -------------------------
+// useWidget eliminado
+import { useUIStore } from '../../lib/store/ui.store'; // <-- ZUSTAND IMPORT
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
 
 const WIDGET_POSITION_KEY = 'visitorWidgetPosition';
@@ -43,42 +43,21 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
   const { data, isLoading, error } = useVisitorData();
   const [currentTime, setCurrentTime] = useState('--:--');
 
-  // --- MIGRACIÓN ZUSTAND ---
-  const isVisitorHudVisible = useUIStore((state) => state.isVisitorHudVisible);
-  const toggleVisitorHud = useUIStore((state) => state.toggleVisitorHud);
-  // -------------------------
+  // --- ZUSTAND INTEGRATION ---
+  const isWidgetVisible = useUIStore((state) => state.isVisitorHudVisible);
+  const toggleWidgetVisibility = useUIStore((state) => state.toggleVisitorHud);
+  // ---------------------------
 
+  const [mounted, setMounted] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const weatherInfo = useMemo(() => {
-    if (!data?.weather) return { label: '...', icon: CloudSun, color: 'text-zinc-400' };
-
-    const status = getWeatherStatus(data.weather.weathercode);
-    let label = '';
-    let color = '';
-
-    if (dictionary) {
-      if (status.type === 'sunny') { label = dictionary.weather_sunny; color = 'text-yellow-400'; }
-      else if (status.type === 'rainy') { label = dictionary.weather_rainy; color = 'text-blue-400'; }
-      else { label = dictionary.weather_cloudy; color = 'text-gray-400'; }
-    }
-
-    return { label, icon: status.icon, color };
-  }, [data, dictionary]);
-
-  // Hook: Auto-Hide en Scroll (Refuerzo local)
+  // Hidratación Segura
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10 && isVisitorHudVisible) {
-        toggleVisitorHud();
-      }
-    };
+    setMounted(true);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isVisitorHudVisible, toggleVisitorHud]);
-
+  // Restaurar posición
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedPosition = localStorage.getItem(WIDGET_POSITION_KEY);
@@ -94,9 +73,9 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
     }
   }, [x, y]);
 
+  // Reloj
   useEffect(() => {
     if (!data?.timezone) return;
-
     const updateClock = () => {
       const timeString = new Date().toLocaleTimeString('en-GB', {
         timeZone: data.timezone,
@@ -104,28 +83,42 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
       });
       setCurrentTime(timeString);
     };
-
     const rafId = requestAnimationFrame(updateClock);
     const timerId = setInterval(updateClock, 1000);
-
     return () => {
       cancelAnimationFrame(rafId);
       clearInterval(timerId);
     };
   }, [data?.timezone]);
 
+  // Memoización de Clima
+  const weatherInfo = useMemo(() => {
+    if (!data?.weather) return { label: '...', icon: CloudSun, color: 'text-zinc-400' };
+    const status = getWeatherStatus(data.weather.weathercode);
+    let label = '';
+    let color = '';
+    if (dictionary) {
+      if (status.type === 'sunny') { label = dictionary.weather_sunny; color = 'text-yellow-400'; }
+      else if (status.type === 'rainy') { label = dictionary.weather_rainy; color = 'text-blue-400'; }
+      else { label = dictionary.weather_cloudy; color = 'text-gray-400'; }
+    }
+    return { label, icon: status.icon, color };
+  }, [data, dictionary]);
+
   function handleDragEnd() {
     const newPosition = { x: x.get(), y: y.get() };
     localStorage.setItem(WIDGET_POSITION_KEY, JSON.stringify(newPosition));
   }
 
-  // GUARDIA
+  // 3. GUARDIAS
   if (!dictionary) return null;
+  // Evitamos renderizar en el servidor o antes de que Zustand hidrate para prevenir saltos
+  if (!mounted) return null;
 
-  // RENDERIZADO
+  // 4. RENDERIZADO
   return (
     <AnimatePresence>
-      {isVisitorHudVisible && (
+      {isWidgetVisible && (
         <motion.div
           drag
           onDragEnd={handleDragEnd}
@@ -145,7 +138,7 @@ export function VisitorHud({ dictionary }: VisitorHudProps) {
               </span>
             </div>
             <button
-              onClick={toggleVisitorHud}
+              onClick={toggleWidgetVisibility}
               className="p-1 rounded-full text-zinc-500 hover:bg-white/10 hover:text-white transition-colors"
             >
               <X size={14} />

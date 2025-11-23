@@ -1,6 +1,7 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
-// VERSIÓN: 14.0 - Arquitectura Simplificada (Zustand)
-// DESCRIPCIÓN: Se elimina el WidgetProvider obsoleto.
+// VERSIÓN: 14.0 - Migración a Zustand (Limpieza de Contexto)
+// DESCRIPCIÓN: Se ha eliminado el WidgetProvider. El estado global ahora se gestiona
+//              de forma atómica mediante 'useUIStore', simplificando el árbol de renderizado.
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -11,7 +12,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { NewsletterModal } from '@/components/ui/NewsletterModal';
 import { VisitorHud } from '@/components/ui/VisitorHud';
-// --- BORRADO: import { WidgetProvider } ... ---
+// WidgetProvider eliminado intencionalmente
 import '../global.css';
 
 const fontSatoshi = localFont({
@@ -72,19 +73,18 @@ export default async function RootLayout({
         className={`${fontSatoshi.variable} ${fontSignature.variable} font-sans bg-background text-foreground antialiased`}
       >
         <Providers>
-          {/* --- MIGRACIÓN: Se ha eliminado <WidgetProvider> --- */}
-            <div className="flex min-h-screen flex-col">
-              <Header dictionary={dictionary} />
-              <main className="grow">{children}</main>
-              <Footer
-                content={dictionary.footer}
-                navLabels={dictionary['nav-links'].nav_links}
-                tagline={dictionary.header.tagline}
-              />
-            </div>
-            <NewsletterModal />
-            <VisitorHud dictionary={dictionary.visitor_hud} />
-          {/* --- MIGRACIÓN: Fin de bloque limpio --- */}
+          {/* El WidgetProvider ha sido eliminado. Zustand maneja el estado ahora. */}
+          <div className="flex min-h-screen flex-col">
+            <Header dictionary={dictionary} />
+            <main className="grow">{children}</main>
+            <Footer
+              content={dictionary.footer}
+              navLabels={dictionary['nav-links'].nav_links}
+              tagline={dictionary.header.tagline}
+            />
+          </div>
+          <NewsletterModal />
+          <VisitorHud dictionary={dictionary.visitor_hud} />
         </Providers>
       </body>
     </html>

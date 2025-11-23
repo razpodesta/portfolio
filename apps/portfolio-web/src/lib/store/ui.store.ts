@@ -1,48 +1,51 @@
 // RUTA: apps/portfolio-web/src/lib/store/ui.store.ts
 // VERSIÓN: 1.0 - Store Soberano de UI
-// DESCRIPCIÓN: Gestión de estado global utilizando Zustand.
-//              Implementa persistencia automática en LocalStorage para preferencias de usuario.
-//              Reemplaza completamente a WidgetContext.tsx.
+// DESCRIPCIÓN: Gestión de estado global para la interfaz de usuario con persistencia automática.
+//              Reemplaza a WidgetContext con una arquitectura atómica y de alto rendimiento.
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-// 1. Contrato de Estado (State Contract)
+// 1. Contrato de Estado (Interface Estricta)
 interface UIState {
-  // --- Estado: Visitor HUD ---
+  // Estado del Visitor HUD
   isVisitorHudVisible: boolean;
   toggleVisitorHud: () => void;
   setVisitorHudVisibility: (visible: boolean) => void;
 
-  // --- Estado: Menú Móvil (Preparado para expansión) ---
+  // Estado del Menú Móvil (Preparado para expansión)
   isMobileMenuOpen: boolean;
   toggleMobileMenu: () => void;
   closeMobileMenu: () => void;
+  setMobileMenuOpen: (open: boolean) => void;
 }
 
-// 2. Implementación del Store
+// 2. Creación del Store con Middleware de Persistencia
 export const useUIStore = create<UIState>()(
   persist(
     (set) => ({
-      // Lógica HUD
-      isVisitorHudVisible: true, // Valor por defecto
+      // --- Visitor HUD Logic ---
+      isVisitorHudVisible: true, // Valor inicial por defecto
       toggleVisitorHud: () =>
         set((state) => ({ isVisitorHudVisible: !state.isVisitorHudVisible })),
       setVisitorHudVisibility: (visible: boolean) =>
         set({ isVisitorHudVisible: visible }),
 
-      // Lógica Menú Móvil
+      // --- Mobile Menu Logic ---
       isMobileMenuOpen: false,
       toggleMobileMenu: () =>
         set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
       closeMobileMenu: () => set({ isMobileMenuOpen: false }),
+      setMobileMenuOpen: (open: boolean) => set({ isMobileMenuOpen: open }),
     }),
     {
-      name: 'portfolio-ui-preference', // Clave única en localStorage
-      storage: createJSONStorage(() => localStorage), // Motor de almacenamiento
+      name: 'portfolio-ui-storage', // Clave única en localStorage
+      storage: createJSONStorage(() => localStorage), // Motor de almacenamiento explícito
       // Optimización: Solo persistimos la preferencia del HUD.
-      // El menú móvil siempre debe empezar cerrado al recargar.
-      partialize: (state) => ({ isVisitorHudVisible: state.isVisitorHudVisible }),
+      // El estado del menú móvil debe reiniciarse al recargar.
+      partialize: (state) => ({
+        isVisitorHudVisible: state.isVisitorHudVisible,
+      }),
     }
   )
 );

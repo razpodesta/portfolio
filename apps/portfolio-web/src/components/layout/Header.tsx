@@ -1,8 +1,8 @@
 // RUTA: apps/portfolio-web/src/components/layout/Header.tsx
-// VERSIÓN: 22.0 - Migración a Zustand (Atomic Selectors)
-// DESCRIPCIÓN: Se sustituye el Context API por Zustand para la gestión del estado global.
-//              Se mantiene la lógica de 'auto-hide' al hacer scroll, ahora interactuando
-//              directamente con el store global.
+// VERSIÓN: 22.0 - Zustand Integration & Hydration Safety
+// DESCRIPCIÓN: Integración completa con el store de Zustand. Se implementa un chequeo
+//              de montaje ('mounted') para evitar errores de hidratación al leer
+//              el estado persistente del localStorage.
 
 'use client';
 
@@ -12,9 +12,8 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
-// --- MIGRACIÓN ZUSTAND ---
-import { useUIStore } from '../../lib/store/ui.store';
-// -------------------------
+// useWidget eliminado
+import { useUIStore } from '../../lib/store/ui.store'; // <-- ZUSTAND IMPORT
 import { useScrollDirection } from '../../lib/hooks/use-scroll-direction';
 import { DropdownMenu } from '../ui/DropdownMenu';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
@@ -111,11 +110,13 @@ type HeaderProps = {
 
 export function Header({ dictionary }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Estado para controlar la hidratación del cliente y evitar desajustes
+  const [mounted, setMounted] = useState(false);
 
-  // --- MIGRACIÓN ZUSTAND: Selectores Atómicos ---
-  const isVisitorHudVisible = useUIStore((state) => state.isVisitorHudVisible);
-  const toggleVisitorHud = useUIStore((state) => state.toggleVisitorHud);
-  // ----------------------------------------------
+  // --- ZUSTAND INTEGRATION ---
+  const isWidgetVisible = useUIStore((state) => state.isVisitorHudVisible);
+  const toggleWidgetVisibility = useUIStore((state) => state.toggleVisitorHud);
+  // ---------------------------
 
   const { scrollY, scrollDirection } = useScrollDirection();
   const hasAutoHiddenRef = useRef(false);
@@ -123,13 +124,19 @@ export function Header({ dictionary }: HeaderProps) {
   const pathname = usePathname();
   const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
-  // Lógica de auto-ocultamiento al hacer scroll
+  // Efecto de Montaje para Hidratación Segura
   useEffect(() => {
-    if (scrollY > 50 && !hasAutoHiddenRef.current && isVisitorHudVisible) {
-      toggleVisitorHud();
+    setMounted(true);
+  }, []);
+
+  // Lógica de Auto-Ocultar con Scroll
+  useEffect(() => {
+    // Solo ejecutamos si está montado para asegurar consistencia con el store
+    if (mounted && scrollY > 50 && !hasAutoHiddenRef.current && isWidgetVisible) {
+      toggleWidgetVisibility();
       hasAutoHiddenRef.current = true;
     }
-  }, [scrollY, isVisitorHudVisible, toggleVisitorHud]);
+  }, [scrollY, isWidgetVisible, toggleWidgetVisibility, mounted]);
 
   const navLabels = useMemo(() => {
     const headerSimpleLabels = dictionary.header;
@@ -190,10 +197,10 @@ export function Header({ dictionary }: HeaderProps) {
              <LanguageSwitcher dictionary={dictionary.language_switcher} />
              <ThemeToggle />
              <AnimatePresence>
-               {/* Usamos la variable del store */}
-               {!isVisitorHudVisible && (
+               {/* Solo renderizamos el botón condicional si el componente está montado en el cliente */}
+               {mounted && !isWidgetVisible && (
                  <motion.button
-                   onClick={toggleVisitorHud}
+                   onClick={toggleWidgetVisibility}
                    initial={{ opacity: 0, scale: 0.8 }}
                    animate={{ opacity: 1, scale: 1 }}
                    exit={{ opacity: 0, scale: 0.8 }}
