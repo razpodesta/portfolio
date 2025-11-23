@@ -1,5 +1,5 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/tecnologias/page.tsx
-// VERSIÓN: 3.0 - Data-Only Server Component
+// VERSIÓN: 3.1 - Alineado con el Contrato de Datos
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
@@ -33,28 +33,29 @@ export default async function TechIconsPage({ params }: PageProps) {
     name: icon.name,
     category: icon.category,
     url: icon.url,
-    // No pasamos IconComponent
   }));
 
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-4 py-20 sm:py-24">
         <div className="mx-auto max-w-3xl text-center mb-16">
+          {/* --- INICIO DE LA CORRECCIÓN --- */}
           <BlurText
-            text={t.header_title}
+            text={t.title}
             className="font-display text-4xl font-bold tracking-tight text-white sm:text-6xl justify-center mb-6"
             animateBy="words"
           />
           <p className="font-sans text-lg text-zinc-400 max-w-2xl mx-auto">
-            {t.header_subtitle}
+            {t.subtitle}
           </p>
+          {/* --- FIN DE LA CORRECCIÓN --- */}
         </div>
 
         <IconLibraryExplorer
           assets={assets}
           dictionary={t}
           accentColor="purple"
-          libraryType="simple-icons" // Indicamos que use Simple Icons
+          libraryType="simple-icons"
         />
       </div>
     </main>
