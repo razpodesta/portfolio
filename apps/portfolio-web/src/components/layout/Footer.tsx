@@ -1,6 +1,9 @@
 // RUTA: apps/portfolio-web/src/components/layout/Footer.tsx
-// VERSIÓN: 4.0 - Footer Localizado e Interactivo
-// DESCRIPCIÓN: Pie de página con navegación contextual y soporte completo de i18n.
+// VERSIÓN: 4.1 - Alineado con el Contrato de Datos Soberano
+// DESCRIPCIÓN: Se corrige el tipo de la prop 'navLabels' para que apunte a la
+//              sección correcta del diccionario ('nav-links' en lugar de 'header'),
+//              resolviendo el error de tipo TS2339 y restaurando la integridad
+//              del contrato de datos del componente.
 
 'use client';
 
@@ -14,11 +17,13 @@ import { footerNavStructure } from '@/lib/nav-links';
 import { getLocalizedHref } from '@/lib/utils/link-helpers';
 import { i18n, type Locale } from '@/config/i18n.config';
 
+// --- INICIO DE LA CORRECCIÓN CRÍTICA ---
 type FooterProps = {
   content: Dictionary['footer'];
-  navLabels: Dictionary['header']['nav_links'];
+  navLabels: Dictionary['nav-links']['nav_links']; // Corregido para apuntar a la fuente de verdad correcta.
   tagline: string;
 };
+// --- FIN DE LA CORRECCIÓN CRÍTICA ---
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -39,7 +44,6 @@ const itemVariants: Variants = {
 export function Footer({ content, navLabels, tagline }: FooterProps) {
   const t = content;
   const pathname = usePathname();
-  // Extracción de idioma para generar enlaces coherentes
   const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
   return (
@@ -68,7 +72,6 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
               </h2>
               <ul className="mt-4 space-y-3">
                 {column.links.map((link) => {
-                  // Inyección de idioma para cada enlace del footer
                   const finalHref = getLocalizedHref(link.href, currentLang);
 
                   return (
