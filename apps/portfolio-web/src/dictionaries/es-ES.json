@@ -1,9 +1,11 @@
 {
   "header": {
-    "talk": "Hablemos",
-    "tagline": "Arquitecto de Soluciones Creativas e Inteligentes",
-    "personal_portfolio": "Portafolio Personal",
-    "job_title": "Portafolio de Proyectos, Internacionalizado, Visión Holística"
+    "talk": "Let's Talk",
+    "tagline": "Architect of Creative & Intelligent Solutions",
+    "personal_portfolio": "PERSONAL WEBSITE & PORTFOLIO",
+    "job_title": "Personal WebSite and Portfolio",
+    "mobile_title": "Raz Podestá",
+    "mobile_subtitle": "PERSONAL WEBSITE & PORTFOLIO"
   },
   "nav-links": {
     "nav_links": {
@@ -142,6 +144,64 @@
     "history_section": {
       "title": "Forjado en Código",
       "subtitle": "Descubre la fusión de dos décadas de ingeniería de sistemas con una visión creativa obsesionada por los resultados. Esto no es solo un portafolio; es el legado de una arquitectura construida para perdurar."
+    },
+    "ai_gallery_section": {
+      "badge": "Impulsado por Ideogram 3.0",
+      "title": "Sintetizador Visual IA",
+      "subtitle": "Explora una colección curada de activos generados algorítmicamente. Fotorrealismo, tipografía perfecta y consistencia estilística, orquestados por nuestro CMS soberano.",
+      "overlay_indicator": "RENDER EN VIVO • WEBGL 2.0",
+      "footer_prompt": "Ingeniería de Prompts Avanzada",
+      "footer_upscaling": "Escalado 8K y Optimización",
+      "items": {
+        "neon-typography": {
+          "title": "Tipografía Neón y Cristal",
+          "description": "Renderizado 3D tipográfico con tubos de neón."
+        },
+        "editorial-fashion": {
+          "title": "Moda Editorial",
+          "description": "Composición de alta moda con texturas fotorrealistas."
+        },
+        "tech-badge": {
+          "title": "Insignia de Titanio",
+          "description": "Fotografía macro de producto con acabado cepillado."
+        },
+        "transparent-gadget": {
+          "title": "Hardware Transparente",
+          "description": "Visualización de ingeniería de un dispositivo futurista."
+        },
+        "luxury-perfume": {
+          "title": "Cristalería de Lujo",
+          "description": "Fotografía de producto publicitaria con iluminación de borde."
+        },
+        "concept-car": {
+          "title": "Concepto Automotriz",
+          "description": "Detalle abstracto de faros con fibra de carbono."
+        },
+        "concrete-workspace": {
+          "title": "Espacio Minimalista",
+          "description": "Interiorismo con texturas de hormigón crudo."
+        },
+        "cyberpunk-street": {
+          "title": "Atmósfera Cyberpunk",
+          "description": "Fotografia nocturna con iluminación volumétrica."
+        },
+        "abstract-geometry": {
+          "title": "Geometría Paramétrica",
+          "description": "Arquitectura abstracta blanca contra cielo azul."
+        },
+        "fluid-shapes": {
+          "title": "Fluidos Iridiscentes",
+          "description": "Simulación 3D de metal líquido con dispersión."
+        },
+        "mechanical-insect": {
+          "title": "Insecto Mecánico",
+          "description": "Macro fotografia steampunk de alta precisión."
+        },
+        "neural-network": {
+          "title": "Arte de Red Neuronal",
+          "description": "Visualización abstracta de flujos de datos."
+        }
+      }
     }
   },
   "footer": {
@@ -162,8 +222,20 @@
   },
   "not_found": {
     "title": "Página No Encontrada",
-    "description": "¡Vaya! Parece que la página que buscabas no existe o ha sido movida.",
-    "cta_button": "Volver al Inicio"
+    "description": "Parece que te has aventurado en territorio indefinido. La ruta que buscas no existe en esta versión de la matriz.",
+    "cta_button": "Volver a la Base",
+    "error_code": "ERR_ROUTE_MISSING • SYSTEM_ID_404"
+  },
+  "server_error": {
+    "title": "Fallo del Sistema",
+    "description": "Se ha detectado una anomalía crítica en el núcleo. Nuestros centinelas automatizados han sido notificados y los protocolos de recuperación están en marcha.",
+    "retry_button": "Reintentar Conexión",
+    "home_button": "Evacuación de Emergencia (Inicio)"
+  },
+  "maintenance": {
+    "title": "Actualización del Sistema en Curso",
+    "description": "Estamos desplegando mejoras arquitectónicas en el ecosistema. El acceso está temporalmente restringido para garantizar la integridad de los datos.",
+    "estimated_return": "Retorno esperado: En breve."
   },
   "quien_soy": {
     "page_title": "Quién Soy | Raz Podestá - Arquitecto de Ecosistemas Digitales",
@@ -418,5 +490,19 @@
     "categories": {
       "all": "Todos"
     }
+  },
+  "visitor_hud": {
+    "label_visitor_info": "INFORMACIÓN DEL VISITANTE",
+    "label_ip_visitor": "I.P. VISITANTE",
+    "footer_credits": "Componente creado por Raz Podestá - MetaShark Tech",
+    "status_calibrating": "CALIBRANDO...",
+    "status_error": "SEÑAL PERDIDA",
+    "label_location": "UBICACIÓN",
+    "label_weather": "CLIMA",
+    "weather_sunny": "SOLEADO",
+    "weather_rainy": "LLUVIOSO",
+    "weather_cloudy": "NUBLADO",
+    "label_time": "HORA LOCAL",
+    "coords_format": "COORDENADAS"
   }
 }

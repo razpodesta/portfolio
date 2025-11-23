@@ -2,8 +2,10 @@
   "header": {
     "talk": "Vamos Conversar",
     "tagline": "Arquiteto de Soluções Criativas e Inteligentes",
-    "personal_portfolio": "Portfólio Pessoal",
-    "job_title": "Portfólio de Projetos, Internacionalizado, Visão Holística"
+    "personal_portfolio": "WEBSITE PESSOAL & PORTFÓLIO",
+    "job_title": "Portfólio de Projetos",
+    "mobile_title": "Raz Podestá",
+    "mobile_subtitle": "WEBSITE PESSOAL & PORTFÓLIO"
   },
   "nav-links": {
     "nav_links": {
@@ -220,8 +222,20 @@
   },
   "not_found": {
     "title": "Página Não Encontrada",
-    "description": "Opa! Parece que a página que você estava procurando não existe ou foi movida.",
-    "cta_button": "Voltar ao Início"
+    "description": "Parece que você se aventurou em território indefinido. A rota que você procura não existe nesta versão da matrix.",
+    "cta_button": "Retornar à Base",
+    "error_code": "ERR_ROUTE_MISSING • SYSTEM_ID_404"
+  },
+  "server_error": {
+    "title": "Falha no Sistema",
+    "description": "Uma anomalia crítica foi detectada no núcleo. Nossas sentinelas automatizadas foram notificadas e os protocolos de recuperação estão em andamento.",
+    "retry_button": "Tentar Novamente",
+    "home_button": "Evacuação de Emergência (Início)"
+  },
+  "maintenance": {
+    "title": "Atualização do Sistema em Andamento",
+    "description": "Estamos implementando melhorias arquitetônicas no ecossistema. O acesso está temporariamente restrito para garantir a integridade dos dados.",
+    "estimated_return": "Retorno esperado: Em breve."
   },
   "quien_soy": {
     "page_title": "Quem Sou Eu | Raz Podestá - Arquiteto de Ecossistemas Digitais",
@@ -507,5 +521,19 @@
     "categories": {
       "all": "Todos"
     }
+  },
+  "visitor_hud": {
+    "label_visitor_info": "INFORMAÇÃO DO VISITANTE",
+    "label_ip_visitor": "I.P. VISITANTE",
+    "footer_credits": "Componente criado por Raz Podestá - MetaShark Tech",
+    "status_calibrating": "CALIBRANDO...",
+    "status_error": "SINAL PERDIDO",
+    "label_location": "LOCALIZAÇÃO",
+    "label_weather": "CLIMA",
+    "weather_sunny": "ENSOLARADO",
+    "weather_rainy": "CHUVOSO",
+    "weather_cloudy": "NUBLADO",
+    "label_time": "HORA LOCAL",
+    "coords_format": "COORDENADAS"
   }
 }

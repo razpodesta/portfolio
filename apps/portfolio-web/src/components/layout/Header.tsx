@@ -1,51 +1,64 @@
 // RUTA: apps/portfolio-web/src/components/layout/Header.tsx
-// VERSIÓN: 17.0 - Navegación Localizada y Optimizada (Zero Regressions)
-// DESCRIPCIÓN: Componente de cabecera soberano. Gestiona el estado de navegación,
-//              la localización de rutas y la identidad de marca.
+// VERSIÓN: 22.0 - Migración a Zustand (Atomic Selectors)
+// DESCRIPCIÓN: Se sustituye el Context API por Zustand para la gestión del estado global.
+//              Se mantiene la lógica de 'auto-hide' al hacer scroll, ahora interactuando
+//              directamente con el store global.
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
-import { useWidget } from '../../lib/contexts/WidgetContext';
+// --- MIGRACIÓN ZUSTAND ---
+import { useUIStore } from '../../lib/store/ui.store';
+// -------------------------
 import { useScrollDirection } from '../../lib/hooks/use-scroll-direction';
 import { DropdownMenu } from '../ui/DropdownMenu';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { NestedDropdownContent } from '../ui/NestedDropdownContent';
 import { ColorWaveBar } from '../ui/ColorWaveBar';
-import { mainNavStructure, type NavItem, type NavLink } from '../../lib/nav-links';
+import { mainNavStructure, type NavItem } from '../../lib/nav-links';
 import { getLocalizedHref } from '../../lib/utils/link-helpers';
 import { i18n, type Locale } from '../../config/i18n.config';
 
-// --- SUB-COMPONENTES EXTRAÍDOS (Performance Optimization) ---
+// --- SUB-COMPONENTES OPTIMIZADOS ---
 
-const Brand = ({ isMobile = false, onLinkClick, dictionary, currentLang }: { isMobile?: boolean, onLinkClick?: () => void, dictionary: Dictionary['header'], currentLang: Locale }) => (
+const Brand = ({
+  isMobile = false,
+  onLinkClick,
+  dictionary,
+  currentLang
+}: {
+  isMobile?: boolean;
+  onLinkClick?: () => void;
+  dictionary: Dictionary['header'];
+  currentLang: Locale;
+}) => (
     <Link
       href={`/${currentLang}`}
-      className="transition-opacity group hover:opacity-80"
+      className="transition-opacity group hover:opacity-80 block"
       onClick={onLinkClick}
     >
       {isMobile ? (
-        <div className="text-left">
-           <p className="font-sans text-xs font-bold tracking-wider text-white uppercase">
-             {dictionary.job_title}
-           </p>
-           <p className="font-sans text-[10px] leading-tight text-zinc-400">
-             {dictionary.personal_portfolio}
+        <div className="text-left flex flex-col justify-center h-full">
+           <h1 className="font-signature text-3xl text-white leading-none mb-1">
+             {dictionary.mobile_title}
+           </h1>
+           <p className="font-sans text-[9px] font-bold tracking-widest text-zinc-400 uppercase">
+             {dictionary.mobile_subtitle}
            </p>
         </div>
       ) : (
         <div className="text-left">
-          <h1 className="font-signature text-4xl text-white whitespace-nowrap">
+          <h1 className="font-signature text-5xl text-white whitespace-nowrap leading-none pt-2">
             Raz Podestá
           </h1>
-          <p className="font-sans text-[10px] font-bold uppercase tracking-wider text-zinc-400 mt-1 ml-1">
-            Portafolio de proyectos y servicios
+          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mt-0 ml-1">
+            {dictionary.personal_portfolio}
           </p>
         </div>
       )}
@@ -55,7 +68,6 @@ const Brand = ({ isMobile = false, onLinkClick, dictionary, currentLang }: { isM
 const SimpleMenuItem = ({ item, label, currentLang }: { item: NavItem; label: string; currentLang: Locale }) => {
   if (!('href' in item) || !item.href) return null;
 
-  // Inyección de idioma para evitar redirecciones 308
   const finalHref = getLocalizedHref(item.href, currentLang);
 
   return (
@@ -76,7 +88,14 @@ const SocialMenuItem = ({ item }: { item: Extract<NavItem, { isSocial: true }> }
     <div className="h-px my-2 bg-zinc-800" />
     <div className="flex items-center justify-center gap-2 p-2">
       {item.links.map(link => (
-        <Link key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} className="p-2 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors">
+        <Link
+          key={link.label}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={link.label}
+          className="p-2 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+        >
           <link.icon size={18} />
         </Link>
       ))}
@@ -92,26 +111,33 @@ type HeaderProps = {
 
 export function Header({ dictionary }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isWidgetVisible, toggleWidgetVisibility } = useWidget();
+
+  // --- MIGRACIÓN ZUSTAND: Selectores Atómicos ---
+  const isVisitorHudVisible = useUIStore((state) => state.isVisitorHudVisible);
+  const toggleVisitorHud = useUIStore((state) => state.toggleVisitorHud);
+  // ----------------------------------------------
+
   const { scrollY, scrollDirection } = useScrollDirection();
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const hasAutoHiddenRef = useRef(false);
 
   const pathname = usePathname();
-  // Extracción segura del idioma actual desde la URL
   const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
+  // Lógica de auto-ocultamiento al hacer scroll
   useEffect(() => {
-    if (scrollY > 50 && !hasScrolled && isWidgetVisible) {
-      toggleWidgetVisibility();
-      setHasScrolled(true);
+    if (scrollY > 50 && !hasAutoHiddenRef.current && isVisitorHudVisible) {
+      toggleVisitorHud();
+      hasAutoHiddenRef.current = true;
     }
-  }, [scrollY, hasScrolled, isWidgetVisible, toggleWidgetVisibility]);
+  }, [scrollY, isVisitorHudVisible, toggleVisitorHud]);
 
   const navLabels = useMemo(() => {
-    const { nav_links, ...headerSimpleLabels } = dictionary.header;
+    const headerSimpleLabels = dictionary.header;
+    const navigationLinks = dictionary['nav-links'].nav_links;
+
     return {
         ...headerSimpleLabels,
-        ...nav_links,
+        ...navigationLinks,
     };
   }, [dictionary]);
 
@@ -131,9 +157,10 @@ export function Header({ dictionary }: HeaderProps) {
     >
       <div className="container px-4 mx-auto">
         <div className="items-center justify-between hidden h-24 md:flex gap-8">
-          <div className="shrink-0">
+          <div className="shrink-0 pt-1">
             <Brand dictionary={dictionary.header} currentLang={currentLang} />
           </div>
+
           <nav className="flex items-center gap-1">
             {mainNavStructure.map((navGroup) => (
               <DropdownMenu key={navGroup.labelKey} trigger={
@@ -144,7 +171,7 @@ export function Header({ dictionary }: HeaderProps) {
                 </button>
               }>
                 {navGroup.isNested ? (
-                  <NestedDropdownContent links={navGroup.children as NavLink[]} dictionary={dictionary.header.nav_links} />
+                  <NestedDropdownContent links={navGroup.children as NavItem[]} dictionary={dictionary['nav-links'].nav_links} />
                 ) : (
                   <div className="w-48 p-2 space-y-1">
                     {navGroup.children?.map((item) => {
@@ -158,23 +185,36 @@ export function Header({ dictionary }: HeaderProps) {
               </DropdownMenu>
             ))}
           </nav>
+
           <div className="flex items-center gap-2">
              <LanguageSwitcher dictionary={dictionary.language_switcher} />
              <ThemeToggle />
              <AnimatePresence>
-               {!isWidgetVisible && (
-                 <motion.button onClick={toggleWidgetVisibility} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} className="flex items-center justify-center w-10 h-10 rounded-full text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white" aria-label="Mostrar widget de visitante">
+               {/* Usamos la variable del store */}
+               {!isVisitorHudVisible && (
+                 <motion.button
+                   onClick={toggleVisitorHud}
+                   initial={{ opacity: 0, scale: 0.8 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 0.8 }}
+                   className="flex items-center justify-center w-10 h-10 rounded-full text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
+                   aria-label="Mostrar widget de visitante"
+                 >
                    <Globe size={18} strokeWidth={1.5} />
                  </motion.button>
                )}
              </AnimatePresence>
-             <Link href={`/${currentLang}/#contact`} className="px-4 py-2 ml-2 text-xs font-bold text-white transition-transform rounded-full bg-linear-to-r from-purple-500 to-pink-600 hover:scale-105">
+             <Link
+               href={`/${currentLang}/#contact`}
+               className="px-4 py-2 ml-2 text-xs font-bold text-white transition-transform rounded-full bg-linear-to-r from-purple-500 to-pink-600 hover:scale-105"
+             >
                 {dictionary.header.talk}
               </Link>
           </div>
         </div>
+
         <div className="flex items-center justify-between h-20 md:hidden">
-          <div className="pl-3">
+          <div className="pl-1">
             <Brand isMobile onLinkClick={closeMenu} dictionary={dictionary.header} currentLang={currentLang} />
           </div>
           <button onClick={() => setIsMenuOpen(true)} aria-label="Abrir menú de navegación" className="p-2 text-white">
@@ -182,7 +222,9 @@ export function Header({ dictionary }: HeaderProps) {
           </button>
         </div>
       </div>
+
       <ColorWaveBar position="bottom" />
+
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div

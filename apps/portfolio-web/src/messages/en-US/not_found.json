@@ -1,5 +1,6 @@
 {
   "title": "Page Not Found",
-  "description": "Oops! It seems the page you were looking for doesn't exist or has been moved.",
-  "cta_button": "Return Home"
+  "description": "It seems you've ventured into undefined territory. The route you are looking for does not exist in this version of the matrix.",
+  "cta_button": "Return to Base",
+  "error_code": "ERR_ROUTE_MISSING • SYSTEM_ID_404"
 }

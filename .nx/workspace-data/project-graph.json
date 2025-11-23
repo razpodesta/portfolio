@@ -59,7 +59,7 @@
               ],
               "description": "Run Jest Tests",
               "help": {
-                "command": "npx jest --help",
+                "command": "pnpm exec jest --help",
                 "example": {
                   "options": {
                     "coverage": true
@@ -100,27 +100,11 @@
             "cache": true,
             "inputs": [
               "production",
-              "^production"
+              {
+                "dependentTasksOutputFiles": "**/*.d.ts"
+              }
             ],
-            "outputs": [
-              "{projectRoot}/**/*.js",
-              "{projectRoot}/**/*.cjs",
-              "{projectRoot}/**/*.mjs",
-              "{projectRoot}/**/*.jsx",
-              "{projectRoot}/**/*.js.map",
-              "{projectRoot}/**/*.jsx.map",
-              "{projectRoot}/**/*.d.ts",
-              "{projectRoot}/**/*.d.cts",
-              "{projectRoot}/**/*.d.mts",
-              "{projectRoot}/**/*.d.ts.map",
-              "{projectRoot}/**/*.d.cts.map",
-              "{projectRoot}/**/*.d.mts.map",
-              "{projectRoot}/tsconfig.tsbuildinfo",
-              "{workspaceRoot}/dist/out-tsc/**/*.d.ts",
-              "{workspaceRoot}/dist/out-tsc/tsconfig.tsbuildinfo",
-              "{projectRoot}/out-tsc/jest/**/*.d.ts",
-              "{projectRoot}/out-tsc/jest/tsconfig.tsbuildinfo"
-            ],
+            "outputs": [],
             "syncGenerators": [
               "@nx/js:typescript-sync"
             ],
@@ -152,11 +136,21 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.lib.json",
+              "{projectRoot}/src/**/*.ts",
+              "{projectRoot}/src/**/*.tsx",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/src/**/*.spec.ts",
+              "!{projectRoot}/src/**/*.spec.tsx",
+              "!{projectRoot}/src/**/*.test.ts",
               "^production"
             ],
             "outputs": [
-              "{workspaceRoot}/dist/out-tsc"
+              "{workspaceRoot}/dist/out-tsc/**/*.d.ts",
+              "{workspaceRoot}/dist/out-tsc/**/*.d.ts.map",
+              "{workspaceRoot}/dist/out-tsc/tsconfig.lib.tsbuildinfo"
             ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
@@ -430,7 +424,7 @@
               ],
               "description": "Run Jest Tests",
               "help": {
-                "command": "npx jest --help",
+                "command": "pnpm exec jest --help",
                 "example": {
                   "options": {
                     "coverage": true
@@ -471,27 +465,11 @@
             "cache": true,
             "inputs": [
               "production",
-              "^production"
+              {
+                "dependentTasksOutputFiles": "**/*.d.ts"
+              }
             ],
-            "outputs": [
-              "{projectRoot}/**/*.js",
-              "{projectRoot}/**/*.cjs",
-              "{projectRoot}/**/*.mjs",
-              "{projectRoot}/**/*.jsx",
-              "{projectRoot}/**/*.js.map",
-              "{projectRoot}/**/*.jsx.map",
-              "{projectRoot}/**/*.d.ts",
-              "{projectRoot}/**/*.d.cts",
-              "{projectRoot}/**/*.d.mts",
-              "{projectRoot}/**/*.d.ts.map",
-              "{projectRoot}/**/*.d.cts.map",
-              "{projectRoot}/**/*.d.mts.map",
-              "{projectRoot}/tsconfig.tsbuildinfo",
-              "{projectRoot}/dist/**/*.d.ts",
-              "{projectRoot}/dist/tsconfig.lib.tsbuildinfo",
-              "{projectRoot}/out-tsc/jest/**/*.d.ts",
-              "{projectRoot}/out-tsc/jest/tsconfig.tsbuildinfo"
-            ],
+            "outputs": [],
             "syncGenerators": [
               "@nx/js:typescript-sync"
             ],
@@ -523,7 +501,13 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.lib.json",
+              "{projectRoot}/src/**/*.ts",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/src/**/*.spec.ts",
+              "!{projectRoot}/src/**/*.test.ts",
               "^production"
             ],
             "outputs": [
@@ -622,27 +606,11 @@
             "cache": true,
             "inputs": [
               "production",
-              "^production"
+              {
+                "dependentTasksOutputFiles": "**/*.d.ts"
+              }
             ],
-            "outputs": [
-              "{projectRoot}/**/*.js",
-              "{projectRoot}/**/*.cjs",
-              "{projectRoot}/**/*.mjs",
-              "{projectRoot}/**/*.jsx",
-              "{projectRoot}/**/*.js.map",
-              "{projectRoot}/**/*.jsx.map",
-              "{projectRoot}/**/*.d.ts",
-              "{projectRoot}/**/*.d.cts",
-              "{projectRoot}/**/*.d.mts",
-              "{projectRoot}/**/*.d.ts.map",
-              "{projectRoot}/**/*.d.cts.map",
-              "{projectRoot}/**/*.d.mts.map",
-              "{projectRoot}/tsconfig.tsbuildinfo",
-              "{projectRoot}/dist/**/*.d.ts",
-              "{projectRoot}/dist/tsconfig.lib.tsbuildinfo",
-              "{projectRoot}/out-tsc/jest/**/*.d.ts",
-              "{projectRoot}/out-tsc/jest/tsconfig.tsbuildinfo"
-            ],
+            "outputs": [],
             "syncGenerators": [
               "@nx/js:typescript-sync"
             ],
@@ -717,7 +685,7 @@
               ],
               "description": "Run Jest Tests",
               "help": {
-                "command": "npx jest --help",
+                "command": "pnpm exec jest --help",
                 "example": {
                   "options": {
                     "coverage": true
@@ -942,7 +910,7 @@
               ],
               "description": "Run Jest Tests",
               "help": {
-                "command": "npx jest --help",
+                "command": "pnpm exec jest --help",
                 "example": {
                   "options": {
                     "coverage": true
@@ -1010,11 +978,18 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/src/**/*.ts",
+              "!{projectRoot}/node_modules",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.ts",
               "^production"
             ],
             "outputs": [
               "{workspaceRoot}/dist/out-tsc/**/*.d.ts",
+              "{workspaceRoot}/dist/out-tsc/**/*.d.ts.map",
               "{workspaceRoot}/dist/out-tsc/tsconfig.tsbuildinfo"
             ],
             "syncGenerators": [
@@ -1058,7 +1033,7 @@
               ],
               "description": "Run Jest Tests",
               "help": {
-                "command": "npx jest --help",
+                "command": "pnpm exec jest --help",
                 "example": {
                   "options": {
                     "coverage": true
@@ -4289,6 +4264,15 @@
         "hash": "sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw=="
       }
     },
+    "npm:@mediapipe/tasks-vision": {
+      "type": "npm",
+      "name": "npm:@mediapipe/tasks-vision",
+      "data": {
+        "version": "0.10.17",
+        "packageName": "@mediapipe/tasks-vision",
+        "hash": "sha512-CZWV/q6TTe8ta61cZXjfnnHsfWIdFhms03M9T7Cnd5y2mdpylJM0rF1qRq+wsQVRMLz1OYPVEBU9ph2Bx8cxrg=="
+      }
+    },
     "npm:@modern-js/node-bundle-require": {
       "type": "npm",
       "name": "npm:@modern-js/node-bundle-require",
@@ -4512,6 +4496,15 @@
         "version": "0.21.4",
         "packageName": "@module-federation/webpack-bundler-runtime",
         "hash": "sha512-dusmR3uPnQh9u9ChQo3M+GLOuGFthfvnh7WitF/a1eoeTfRmXqnMFsXtZCUK+f/uXf+64874Zj/bhAgbBcVHZA=="
+      }
+    },
+    "npm:@monogrid/gainmap-js": {
+      "type": "npm",
+      "name": "npm:@monogrid/gainmap-js",
+      "data": {
+        "version": "3.3.0",
+        "packageName": "@monogrid/gainmap-js",
+        "hash": "sha512-KZHLPi66rC0iyzVEWe9HP1DdAH1DfrnN7lx8i09zOusDckGKu6ckHf5h1Wfa4hpQWpIeJXg20RiLbh8E8O3PQQ=="
       }
     },
     "npm:@mswjs/interceptors": {
@@ -5493,6 +5486,78 @@
         "version": "1.1.0",
         "packageName": "@protobufjs/utf8",
         "hash": "sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw=="
+      }
+    },
+    "npm:@react-spring/animated": {
+      "type": "npm",
+      "name": "npm:@react-spring/animated",
+      "data": {
+        "version": "10.0.3",
+        "packageName": "@react-spring/animated",
+        "hash": "sha512-7MrxADV3vaUADn2V9iYhaIL6iOWRx9nCJjYrsk2AHD2kwPr6fg7Pt0v+deX5RnCDmCKNnD6W5fasiyM8D+wzJQ=="
+      }
+    },
+    "npm:@react-spring/core": {
+      "type": "npm",
+      "name": "npm:@react-spring/core",
+      "data": {
+        "version": "10.0.3",
+        "packageName": "@react-spring/core",
+        "hash": "sha512-D4DwNO68oohDf/0HG2G0Uragzb9IA1oXblxrd6MZAcBcUQG2EHUWXewjdECMPLNmQvlYVyyBRH6gPxXM5DX7DQ=="
+      }
+    },
+    "npm:@react-spring/rafz": {
+      "type": "npm",
+      "name": "npm:@react-spring/rafz",
+      "data": {
+        "version": "10.0.3",
+        "packageName": "@react-spring/rafz",
+        "hash": "sha512-Ri2/xqt8OnQ2iFKkxKMSF4Nqv0LSWnxXT4jXFzBDsHgeeH/cHxTLupAWUwmV9hAGgmEhBmh5aONtj3J6R/18wg=="
+      }
+    },
+    "npm:@react-spring/shared": {
+      "type": "npm",
+      "name": "npm:@react-spring/shared",
+      "data": {
+        "version": "10.0.3",
+        "packageName": "@react-spring/shared",
+        "hash": "sha512-geCal66nrkaQzUVhPkGomylo+Jpd5VPK8tPMEDevQEfNSWAQP15swHm+MCRG4wVQrQlTi9lOzKzpRoTL3CA84Q=="
+      }
+    },
+    "npm:@react-spring/three": {
+      "type": "npm",
+      "name": "npm:@react-spring/three",
+      "data": {
+        "version": "10.0.3",
+        "packageName": "@react-spring/three",
+        "hash": "sha512-hZP7ChF/EwnWn+H2xuzAsRRfQdhquoBTI1HKgO6X9V8tcVCuR69qJmsA9N00CA4Nzx0bo/zwBtqONmi55Ffm5w=="
+      }
+    },
+    "npm:@react-spring/types": {
+      "type": "npm",
+      "name": "npm:@react-spring/types",
+      "data": {
+        "version": "10.0.3",
+        "packageName": "@react-spring/types",
+        "hash": "sha512-H5Ixkd2OuSIgHtxuHLTt7aJYfhMXKXT/rK32HPD/kSrOB6q6ooeiWAXkBy7L8F3ZxdkBb9ini9zP9UwnEFzWgQ=="
+      }
+    },
+    "npm:@react-three/drei": {
+      "type": "npm",
+      "name": "npm:@react-three/drei",
+      "data": {
+        "version": "10.7.7",
+        "packageName": "@react-three/drei",
+        "hash": "sha512-ff+J5iloR0k4tC++QtD/j9u3w5fzfgFAWDtAGQah9pF2B1YgOq/5JxqY0/aVoQG5r3xSZz0cv5tk2YuBob4xEQ=="
+      }
+    },
+    "npm:@react-three/fiber": {
+      "type": "npm",
+      "name": "npm:@react-three/fiber",
+      "data": {
+        "version": "9.4.0",
+        "packageName": "@react-three/fiber",
+        "hash": "sha512-k4iu1R6e5D54918V4sqmISUkI5OgTw3v7/sDRKEC632Wd5g2WBtUS5gyG63X0GJO/HZUj1tsjSXfyzwrUHZl1g=="
       }
     },
     "npm:@rollup/plugin-babel": {
@@ -6773,6 +6838,15 @@
         "hash": "sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw=="
       }
     },
+    "npm:@types/draco3d": {
+      "type": "npm",
+      "name": "npm:@types/draco3d",
+      "data": {
+        "version": "1.4.10",
+        "packageName": "@types/draco3d",
+        "hash": "sha512-AX22jp8Y7wwaBgAixaSvkoG4M/+PlAcm3Qs4OW8yT9DM4xUpWKeFhLueTAyZF39pviAdcDdeJoACapiAceqNcw=="
+      }
+    },
     "npm:@types/eslint-scope": {
       "type": "npm",
       "name": "npm:@types/eslint-scope",
@@ -7070,6 +7144,15 @@
         "hash": "sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA=="
       }
     },
+    "npm:@types/offscreencanvas": {
+      "type": "npm",
+      "name": "npm:@types/offscreencanvas",
+      "data": {
+        "version": "2019.7.3",
+        "packageName": "@types/offscreencanvas",
+        "hash": "sha512-ieXiYmgSRXUDeOntE1InxjWyvEelZGP63M+cGuquuRLuIKKT1osnkXjxev9B7d1nXSug5vpunx+gNlbVxMlC9A=="
+      }
+    },
     "npm:@types/parse-json": {
       "type": "npm",
       "name": "npm:@types/parse-json",
@@ -7140,6 +7223,24 @@
         "version": "19.2.3",
         "packageName": "@types/react-dom",
         "hash": "sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ=="
+      }
+    },
+    "npm:@types/react-reconciler@0.28.9": {
+      "type": "npm",
+      "name": "npm:@types/react-reconciler@0.28.9",
+      "data": {
+        "version": "0.28.9",
+        "packageName": "@types/react-reconciler",
+        "hash": "sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg=="
+      }
+    },
+    "npm:@types/react-reconciler@0.32.3": {
+      "type": "npm",
+      "name": "npm:@types/react-reconciler@0.32.3",
+      "data": {
+        "version": "0.32.3",
+        "packageName": "@types/react-reconciler",
+        "hash": "sha512-cMi5ZrLG7UtbL7LTK6hq9w/EZIRk4Mf1Z5qHoI+qBh7/WkYkFXQ7gOto2yfUvPzF5ERMAhaXS5eTQ2SAnHjLzA=="
       }
     },
     "npm:@types/react@17.0.89": {
@@ -7689,6 +7790,24 @@
         "version": "1.11.1",
         "packageName": "@unrs/resolver-binding-win32-x64-msvc",
         "hash": "sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g=="
+      }
+    },
+    "npm:@use-gesture/core": {
+      "type": "npm",
+      "name": "npm:@use-gesture/core",
+      "data": {
+        "version": "10.3.1",
+        "packageName": "@use-gesture/core",
+        "hash": "sha512-WcINiDt8WjqBdUXye25anHiNxPc0VOrlT8F6LLkU6cycrOGUDyY/yyFmsg3k8i5OLvv25llc0QC45GhR/C8llw=="
+      }
+    },
+    "npm:@use-gesture/react": {
+      "type": "npm",
+      "name": "npm:@use-gesture/react",
+      "data": {
+        "version": "10.3.1",
+        "packageName": "@use-gesture/react",
+        "hash": "sha512-Yy19y6O2GJq8f7CHf7L0nxL8bf4PZCPaVOCgJrusOeFHY1LvHgYXnmnXg6N5iwAnbgbZCDjo60SiM6IPJi9C5g=="
       }
     },
     "npm:@verdaccio/auth": {
@@ -9689,6 +9808,15 @@
         "hash": "sha512-GlF5wPWnSa/X5LKM1o0wz0suXIINz1iHRLvTS+sLyi7XPbe5ycmYI3DlZqVGZZtDgl4DmasFg7gOB3JYbphV5g=="
       }
     },
+    "npm:bidi-js": {
+      "type": "npm",
+      "name": "npm:bidi-js",
+      "data": {
+        "version": "1.0.3",
+        "packageName": "bidi-js",
+        "hash": "sha512-RKshQI1R3YQ+n9YJz2QQ147P66ELpa1FQEg20Dk8oW9t2KgLbpDLLp9aGZ7y8WHSshDknG0bknqGw5/tyCs5tw=="
+      }
+    },
     "npm:big.js": {
       "type": "npm",
       "name": "npm:big.js",
@@ -10227,6 +10355,15 @@
         "version": "6.3.0",
         "packageName": "camelcase",
         "hash": "sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA=="
+      }
+    },
+    "npm:camera-controls": {
+      "type": "npm",
+      "name": "npm:camera-controls",
+      "data": {
+        "version": "3.1.2",
+        "packageName": "camera-controls",
+        "hash": "sha512-xkxfpG2ECZ6Ww5/9+kf4mfg1VEYAoe9aDSY+IwF0UEs7qEzwy0aVRfs2grImIECs/PoBtWFrh7RXsQkwG922JA=="
       }
     },
     "npm:caniuse-api": {
@@ -11210,13 +11347,22 @@
         "hash": "sha512-/f6gpQuxDaqXu+1kwQYSckUglPaOrHdbIlBAu0YuW8/Cdb45XwXYNUBXg3r/9Mo6n540Kn/smKcZWko5x99KrQ=="
       }
     },
-    "npm:cross-env": {
+    "npm:cross-env@7.0.2": {
       "type": "npm",
-      "name": "npm:cross-env",
+      "name": "npm:cross-env@7.0.2",
       "data": {
         "version": "7.0.2",
         "packageName": "cross-env",
         "hash": "sha512-KZP/bMEOJEDCkDQAyRhu3RL2ZO/SUVrxQVI0G3YEQ+OLbRA3c6zgixe8Mq8a/z7+HKlNEjo8oiLUs8iRijY2Rw=="
+      }
+    },
+    "npm:cross-env@7.0.3": {
+      "type": "npm",
+      "name": "npm:cross-env@7.0.3",
+      "data": {
+        "version": "7.0.3",
+        "packageName": "cross-env",
+        "hash": "sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw=="
       }
     },
     "npm:cross-inspect": {
@@ -11930,6 +12076,15 @@
         "hash": "sha512-DtCOLG98P007x7wiiOmfI0fi3eIKyWiLTGJ2MDnVi/E04lWGbf+JzrRHMm0rgIIZJGtHpKpbVgLWHrv8xXpc3Q=="
       }
     },
+    "npm:detect-gpu": {
+      "type": "npm",
+      "name": "npm:detect-gpu",
+      "data": {
+        "version": "5.0.70",
+        "packageName": "detect-gpu",
+        "hash": "sha512-bqerEP1Ese6nt3rFkwPnGbsUF9a4q+gMmpTVVOEzoCyeCc+y7/RvJnQZJx1JwhgQI5Ntg0Kgat8Uu7XpBqnz1w=="
+      }
+    },
     "npm:detect-indent": {
       "type": "npm",
       "name": "npm:detect-indent",
@@ -12225,6 +12380,15 @@
         "version": "2.0.6",
         "packageName": "dottie",
         "hash": "sha512-iGCHkfUc5kFekGiqhe8B/mdaurD+lakO9txNnTvKtA6PISrw86LgqHvRzWYPyoE2Ph5aMIrCw9/uko6XHTKCwA=="
+      }
+    },
+    "npm:draco3d": {
+      "type": "npm",
+      "name": "npm:draco3d",
+      "data": {
+        "version": "1.5.7",
+        "packageName": "draco3d",
+        "hash": "sha512-m6WCKt/erDXcw+70IJXnG7M3awwQPAsZvJGX5zY7beBqpELw6RDGkYVU0W43AFxye4pDZ5i2Lbyc/NNGqwjUVQ=="
       }
     },
     "npm:dunder-proto": {
@@ -13478,9 +13642,18 @@
         "hash": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg=="
       }
     },
-    "npm:fflate": {
+    "npm:fflate@0.6.10": {
       "type": "npm",
-      "name": "npm:fflate",
+      "name": "npm:fflate@0.6.10",
+      "data": {
+        "version": "0.6.10",
+        "packageName": "fflate",
+        "hash": "sha512-IQrh3lEPM93wVCEczc9SaAOvkmcoQn/G8Bo1e8ZPlY3X3bnAxWaBdvTdvM1hP62iZp0BXWDy4vTAy4fF0+Dlpg=="
+      }
+    },
+    "npm:fflate@0.8.2": {
+      "type": "npm",
+      "name": "npm:fflate@0.8.2",
       "data": {
         "version": "0.8.2",
         "packageName": "fflate",
@@ -14513,6 +14686,15 @@
         "hash": "sha512-wiSuFQLZ+urS9x2gGPl1H5drc5twabmm4m2gTR27XDFyjUHJUNsS8o/2aKyIF6IoBaR630atdher0XJ5g6OMmA=="
       }
     },
+    "npm:glsl-noise": {
+      "type": "npm",
+      "name": "npm:glsl-noise",
+      "data": {
+        "version": "0.0.0",
+        "packageName": "glsl-noise",
+        "hash": "sha512-b/ZCF6amfAUb7dJM/MxRs7AetQEahYzJ8PtgfrmEdtw6uyGOr+ZSGtgjFm6mfsBkxJ4d2W7kg+Nlqzqvn3Bc0w=="
+      }
+    },
     "npm:gopd": {
       "type": "npm",
       "name": "npm:gopd",
@@ -14817,6 +14999,15 @@
         "version": "0.25.1",
         "packageName": "hermes-parser",
         "hash": "sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA=="
+      }
+    },
+    "npm:hls.js": {
+      "type": "npm",
+      "name": "npm:hls.js",
+      "data": {
+        "version": "1.6.15",
+        "packageName": "hls.js",
+        "hash": "sha512-E3a5VwgXimGHwpRGV+WxRTKeSp2DW5DI5MWv34ulL3t5UNmyJWCQ1KmLEHbYzcfThfXG8amBL+fCYPneGHC4VA=="
       }
     },
     "npm:hmac-drbg": {
@@ -15276,6 +15467,15 @@
         "version": "0.5.5",
         "packageName": "image-size",
         "hash": "sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ=="
+      }
+    },
+    "npm:immediate": {
+      "type": "npm",
+      "name": "npm:immediate",
+      "data": {
+        "version": "3.0.6",
+        "packageName": "immediate",
+        "hash": "sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ=="
       }
     },
     "npm:immutable": {
@@ -16358,6 +16558,15 @@
         "hash": "sha512-H0dkQoCa3b2VEeKQBOxFph+JAbcrQdE7KC0UkqwpLmv2EC4P41QXP+rqo9wYodACiG5/WM5s9oDApTU8utwj9g=="
       }
     },
+    "npm:its-fine": {
+      "type": "npm",
+      "name": "npm:its-fine",
+      "data": {
+        "version": "2.0.0",
+        "packageName": "its-fine",
+        "hash": "sha512-KLViCmWx94zOvpLwSlsx6yOCeMhZYaxrJV87Po5k/FoZzcPSahvK5qJ7fYhS61sZi5ikmh2S3Hz55A2l3U69ng=="
+      }
+    },
     "npm:jackspeak": {
       "type": "npm",
       "name": "npm:jackspeak",
@@ -17312,6 +17521,15 @@
         "hash": "sha512-771TFWFD70G1wLTC4oU2Cw4qvtmNrIw+wRvBtn+okgHl7slJVi7zfNcdmqDL72BojM30VNJ2UHylr1o77U37Jw=="
       }
     },
+    "npm:lie": {
+      "type": "npm",
+      "name": "npm:lie",
+      "data": {
+        "version": "3.3.0",
+        "packageName": "lie",
+        "hash": "sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ=="
+      }
+    },
     "npm:lightningcss-android-arm64": {
       "type": "npm",
       "name": "npm:lightningcss-android-arm64",
@@ -17915,6 +18133,15 @@
         "hash": "sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ=="
       }
     },
+    "npm:maath": {
+      "type": "npm",
+      "name": "npm:maath",
+      "data": {
+        "version": "0.10.8",
+        "packageName": "maath",
+        "hash": "sha512-tRvbDF0Pgqz+9XUa4jjfgAQ8/aPKmQdWXilFu2tMy4GWj4NOsx99HlULO4IeREfbO3a0sA145DZYyvXPkybm0g=="
+      }
+    },
     "npm:magic-string": {
       "type": "npm",
       "name": "npm:magic-string",
@@ -18129,6 +18356,15 @@
         "version": "1.4.1",
         "packageName": "merge2",
         "hash": "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg=="
+      }
+    },
+    "npm:meshline": {
+      "type": "npm",
+      "name": "npm:meshline",
+      "data": {
+        "version": "3.3.1",
+        "packageName": "meshline",
+        "hash": "sha512-/TQj+JdZkeSUOl5Mk2J7eLcYTLiQm2IDzmlSvYm7ov15anEcDJ92GHqqazxTSreeNgfnYu24kiEvvv0WlbCdFQ=="
       }
     },
     "npm:meshoptimizer": {
@@ -20813,6 +21049,15 @@
         "hash": "sha512-tisx8XN/PWTL3uXz2mt8bjlMS1wiOUSCK3ixi4zjwUCFmP8XW8hNhXwrxwd2zf2VmCyCQ3GUaLm7GLnkkBbDsQ=="
       }
     },
+    "npm:potpack": {
+      "type": "npm",
+      "name": "npm:potpack",
+      "data": {
+        "version": "1.0.2",
+        "packageName": "potpack",
+        "hash": "sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ=="
+      }
+    },
     "npm:prelude-ls": {
       "type": "npm",
       "name": "npm:prelude-ls",
@@ -20928,6 +21173,15 @@
         "version": "1.0.1",
         "packageName": "promise-inflight",
         "hash": "sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g=="
+      }
+    },
+    "npm:promise-worker-transferable": {
+      "type": "npm",
+      "name": "npm:promise-worker-transferable",
+      "data": {
+        "version": "1.0.4",
+        "packageName": "promise-worker-transferable",
+        "hash": "sha512-bN+0ehEnrXfxV2ZQvU2PetO0n4gqBD4ulq3MI1WOPLgr7/Mg9yRQkX5+0v1vagr74ZTsl7XtzlaYDo2EuCeYJw=="
       }
     },
     "npm:promise.series": {
@@ -21317,6 +21571,15 @@
         "hash": "sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg=="
       }
     },
+    "npm:react-reconciler": {
+      "type": "npm",
+      "name": "npm:react-reconciler",
+      "data": {
+        "version": "0.31.0",
+        "packageName": "react-reconciler",
+        "hash": "sha512-7Ob7Z+URmesIsIVRjnLoDGwBEG/tVitidU0nMsqX/eeJaLY89RISO/10ERe0MqmzuKUUB1rmY+h1itMbUHg9BQ=="
+      }
+    },
     "npm:react-test-renderer": {
       "type": "npm",
       "name": "npm:react-test-renderer",
@@ -21324,6 +21587,15 @@
         "version": "16.14.0",
         "packageName": "react-test-renderer",
         "hash": "sha512-L8yPjqPE5CZO6rKsKXRO/rVPiaCOy0tQQJbC+UjPNlobl5mad59lvPjwFsQHTvL03caVDIVr9x9/OSgDe6I5Eg=="
+      }
+    },
+    "npm:react-use-measure": {
+      "type": "npm",
+      "name": "npm:react-use-measure",
+      "data": {
+        "version": "2.1.7",
+        "packageName": "react-use-measure",
+        "hash": "sha512-KrvcAo13I/60HpwGO5jpW7E9DfusKyLPLvuHlUyP5zqnmAPhNc6qTRjUQrdTADl0lpPpDVU2/Gg51UlOGHXbdg=="
       }
     },
     "npm:react": {
@@ -22370,6 +22642,15 @@
         "hash": "sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA=="
       }
     },
+    "npm:scheduler@0.25.0": {
+      "type": "npm",
+      "name": "npm:scheduler@0.25.0",
+      "data": {
+        "version": "0.25.0",
+        "packageName": "scheduler",
+        "hash": "sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA=="
+      }
+    },
     "npm:scheduler@0.27.0": {
       "type": "npm",
       "name": "npm:scheduler@0.27.0",
@@ -23333,6 +23614,24 @@
         "hash": "sha512-72E9+uLc27Mt718pMHt9VMNiAL4LMsmDbBva8mxWUCkT07fSzEGMYUCk0XWY6lp0j6RBAG4cJ3mWuZv2OE3s0g=="
       }
     },
+    "npm:stats-gl": {
+      "type": "npm",
+      "name": "npm:stats-gl",
+      "data": {
+        "version": "2.4.2",
+        "packageName": "stats-gl",
+        "hash": "sha512-g5O9B0hm9CvnM36+v7SFl39T7hmAlv541tU81ME8YeSb3i1CIP5/QdDeSB3A0la0bKNHpxpwxOVRo2wFTYEosQ=="
+      }
+    },
+    "npm:stats.js": {
+      "type": "npm",
+      "name": "npm:stats.js",
+      "data": {
+        "version": "0.17.0",
+        "packageName": "stats.js",
+        "hash": "sha512-hNKz8phvYLPEcRkeG1rsGmV5ChMjKDAWU7/OJJdDErPBNChQXxCo3WZurGpnWc6gZhAzEPFad1aVgyOANH1sMw=="
+      }
+    },
     "npm:statuses@1.5.0": {
       "type": "npm",
       "name": "npm:statuses@1.5.0",
@@ -23837,6 +24136,15 @@
         "hash": "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="
       }
     },
+    "npm:suspend-react": {
+      "type": "npm",
+      "name": "npm:suspend-react",
+      "data": {
+        "version": "0.1.3",
+        "packageName": "suspend-react",
+        "hash": "sha512-aqldKgX9aZqpoDp3e8/BZ8Dm7x1pJl+qI3ZKxDN0i/IQTWUwBx/ManmlVJ3wowqbno6c2bmiIfs+Um6LbsjJyQ=="
+      }
+    },
     "npm:svg-parser": {
       "type": "npm",
       "name": "npm:svg-parser",
@@ -24069,6 +24377,24 @@
         "version": "3.1.0",
         "packageName": "thread-stream",
         "hash": "sha512-OqyPZ9u96VohAyMfJykzmivOrY2wfMSf3C5TtFJVgN+Hm6aj+voFhlK+kZEIv2FBh1X6Xp3DlnCOfEQ3B2J86A=="
+      }
+    },
+    "npm:three-mesh-bvh": {
+      "type": "npm",
+      "name": "npm:three-mesh-bvh",
+      "data": {
+        "version": "0.8.3",
+        "packageName": "three-mesh-bvh",
+        "hash": "sha512-4G5lBaF+g2auKX3P0yqx+MJC6oVt6sB5k+CchS6Ob0qvH0YIhuUk1eYr7ktsIpY+albCqE80/FVQGV190PmiAg=="
+      }
+    },
+    "npm:three-stdlib": {
+      "type": "npm",
+      "name": "npm:three-stdlib",
+      "data": {
+        "version": "2.36.1",
+        "packageName": "three-stdlib",
+        "hash": "sha512-XyGQrFmNQ5O/IoKm556ftwKsBg11TIb301MB5dWNicziQBEs2g3gtOYIf7pFiLa0zI2gUwhtCjv9fmjnxKZ1Cg=="
       }
     },
     "npm:three": {
@@ -24395,6 +24721,33 @@
         "hash": "sha512-WZGXGstmCWgeevgTL54hrCuw1dyMQIzWy7ZfqRJfSmJZBwklI15egmQytFP6bPidmw3M8d5yEowl1niq4vmqZw=="
       }
     },
+    "npm:troika-three-text": {
+      "type": "npm",
+      "name": "npm:troika-three-text",
+      "data": {
+        "version": "0.52.4",
+        "packageName": "troika-three-text",
+        "hash": "sha512-V50EwcYGruV5rUZ9F4aNsrytGdKcXKALjEtQXIOBfhVoZU9VAqZNIoGQ3TMiooVqFAbR1w15T+f+8gkzoFzawg=="
+      }
+    },
+    "npm:troika-three-utils": {
+      "type": "npm",
+      "name": "npm:troika-three-utils",
+      "data": {
+        "version": "0.52.4",
+        "packageName": "troika-three-utils",
+        "hash": "sha512-NORAStSVa/BDiG52Mfudk4j1FG4jC4ILutB3foPnfGbOeIs9+G5vZLa0pnmnaftZUGm4UwSoqEpWdqvC7zms3A=="
+      }
+    },
+    "npm:troika-worker-utils": {
+      "type": "npm",
+      "name": "npm:troika-worker-utils",
+      "data": {
+        "version": "0.52.0",
+        "packageName": "troika-worker-utils",
+        "hash": "sha512-W1CpvTHykaPH5brv5VHLfQo9D1OYuo0cSBEUQFFT/nBUzM8iD6Lq2/tgG/f1OelbAS1WtaTPQzE5uM49egnngw=="
+      }
+    },
     "npm:ts-api-utils": {
       "type": "npm",
       "name": "npm:ts-api-utils",
@@ -24519,6 +24872,15 @@
         "version": "0.6.0",
         "packageName": "tunnel-agent",
         "hash": "sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w=="
+      }
+    },
+    "npm:tunnel-rat": {
+      "type": "npm",
+      "name": "npm:tunnel-rat",
+      "data": {
+        "version": "0.1.2",
+        "packageName": "tunnel-rat",
+        "hash": "sha512-lR5VHmkPhzdhrM092lI2nACsLO4QubF0/yoOhzX7c+wIpbN1GjHNzCc91QlpxBi+cnx8vVJ+Ur6vL5cEoQPFpQ=="
       }
     },
     "npm:tv4": {
@@ -25016,6 +25378,15 @@
         "hash": "sha512-oCwdVC7mTuWiPyjLUz/COz5TLk6wgp0RCsN+wHZ2Ekneac9w8uuV0njcbbie2ME+Vs+d6duwmYuR3HgQXs1fOg=="
       }
     },
+    "npm:use-sync-external-store": {
+      "type": "npm",
+      "name": "npm:use-sync-external-store",
+      "data": {
+        "version": "1.6.0",
+        "packageName": "use-sync-external-store",
+        "hash": "sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w=="
+      }
+    },
     "npm:use": {
       "type": "npm",
       "name": "npm:use",
@@ -25068,6 +25439,15 @@
         "version": "0.4.0",
         "packageName": "utila",
         "hash": "sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA=="
+      }
+    },
+    "npm:utility-types": {
+      "type": "npm",
+      "name": "npm:utility-types",
+      "data": {
+        "version": "3.11.0",
+        "packageName": "utility-types",
+        "hash": "sha512-6Z7Ma2aVEWisaL6TvBCy7P8rm2LQoPv6dJ7ecIaIixHcwfbJ0x7mWdbcwlIM5IGQxPZSFYeqRCqlOOeKoJYMkw=="
       }
     },
     "npm:utils-merge": {
@@ -25338,6 +25718,24 @@
         "version": "1.0.1",
         "packageName": "wcwidth",
         "hash": "sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg=="
+      }
+    },
+    "npm:webgl-constants": {
+      "type": "npm",
+      "name": "npm:webgl-constants",
+      "data": {
+        "version": "1.1.1",
+        "packageName": "webgl-constants",
+        "hash": "sha512-LkBXKjU5r9vAW7Gcu3T5u+5cvSvh5WwINdr0C+9jpzVB41cjQAP5ePArDtk/WHYdVj0GefCgM73BA7FlIiNtdg=="
+      }
+    },
+    "npm:webgl-sdf-generator": {
+      "type": "npm",
+      "name": "npm:webgl-sdf-generator",
+      "data": {
+        "version": "1.1.1",
+        "packageName": "webgl-sdf-generator",
+        "hash": "sha512-9Z0JcMTFxeE+b2x1LJTdnaT8rT8aEp7MVxkNwoycNmJWwPdzoXzMh0BjJSh/AEFP+KPYZUli814h8bJZFIZ2jA=="
       }
     },
     "npm:webidl-conversions@3.0.1": {
@@ -26014,6 +26412,24 @@
         "packageName": "zod",
         "hash": "sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ=="
       }
+    },
+    "npm:zustand@4.5.7": {
+      "type": "npm",
+      "name": "npm:zustand@4.5.7",
+      "data": {
+        "version": "4.5.7",
+        "packageName": "zustand",
+        "hash": "sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw=="
+      }
+    },
+    "npm:zustand@5.0.8": {
+      "type": "npm",
+      "name": "npm:zustand@5.0.8",
+      "data": {
+        "version": "5.0.8",
+        "packageName": "zustand",
+        "hash": "sha512-gyPKpIaxY9XcO2vSMrLbiER7QMAMGOQZVRdJ6Zi782jkbzZygq5GI9nG8g+sMgitRtndwaBSl7uiqC49o1SSiw=="
+      }
     }
   },
   "dependencies": {
@@ -26188,6 +26604,11 @@
       {
         "source": "portfolio-web",
         "target": "npm:zod",
+        "type": "static"
+      },
+      {
+        "source": "portfolio-web",
+        "target": "npm:zustand@5.0.8",
         "type": "static"
       },
       {
@@ -26838,6 +27259,21 @@
       {
         "source": "@portfolio/source",
         "target": "npm:@hookform/resolvers",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "npm:@react-spring/three",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "npm:@react-three/drei",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "npm:@react-three/fiber",
         "type": "static"
       },
       {
@@ -30497,7 +30933,7 @@
       },
       {
         "source": "npm:@contentpi/ui",
-        "target": "npm:cross-env",
+        "target": "npm:cross-env@7.0.2",
         "type": "static"
       },
       {
@@ -33488,6 +33924,18 @@
         "type": "static"
       }
     ],
+    "npm:@monogrid/gainmap-js": [
+      {
+        "source": "npm:@monogrid/gainmap-js",
+        "target": "npm:promise-worker-transferable",
+        "type": "static"
+      },
+      {
+        "source": "npm:@monogrid/gainmap-js",
+        "target": "npm:three",
+        "type": "static"
+      }
+    ],
     "npm:@mswjs/interceptors": [
       {
         "source": "npm:@mswjs/interceptors",
@@ -35243,6 +35691,303 @@
         "type": "static"
       }
     ],
+    "npm:@react-spring/animated": [
+      {
+        "source": "npm:@react-spring/animated",
+        "target": "npm:@react-spring/shared",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/animated",
+        "target": "npm:@react-spring/types",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/animated",
+        "target": "npm:react",
+        "type": "static"
+      }
+    ],
+    "npm:@react-spring/core": [
+      {
+        "source": "npm:@react-spring/core",
+        "target": "npm:@react-spring/animated",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/core",
+        "target": "npm:@react-spring/shared",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/core",
+        "target": "npm:@react-spring/types",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/core",
+        "target": "npm:react",
+        "type": "static"
+      }
+    ],
+    "npm:@react-spring/shared": [
+      {
+        "source": "npm:@react-spring/shared",
+        "target": "npm:@react-spring/rafz",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/shared",
+        "target": "npm:@react-spring/types",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/shared",
+        "target": "npm:react",
+        "type": "static"
+      }
+    ],
+    "npm:@react-spring/three": [
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:@react-spring/animated",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:@react-spring/core",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:@react-spring/shared",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:@react-spring/types",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:@react-three/fiber",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-spring/three",
+        "target": "npm:three",
+        "type": "static"
+      }
+    ],
+    "npm:@react-three/drei": [
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:@babel/runtime",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:@mediapipe/tasks-vision",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:@monogrid/gainmap-js",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:@react-three/fiber",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:@use-gesture/react",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:camera-controls",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:cross-env@7.0.3",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:detect-gpu",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:glsl-noise",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:hls.js",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:maath",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:meshline",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:stats-gl",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:stats.js",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:suspend-react",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:three",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:three-mesh-bvh",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:three-stdlib",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:troika-three-text",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:tunnel-rat",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:use-sync-external-store",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:utility-types",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:zustand@5.0.8",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/drei",
+        "target": "npm:react-dom",
+        "type": "static"
+      }
+    ],
+    "npm:@react-three/fiber": [
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:@babel/runtime",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:@types/react-reconciler@0.32.3",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:@types/webxr",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:base64-js",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:buffer@6.0.3",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:its-fine",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:react-reconciler",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:react-use-measure",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:scheduler@0.25.0",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:suspend-react",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:three",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:use-sync-external-store",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:zustand@5.0.8",
+        "type": "static"
+      },
+      {
+        "source": "npm:@react-three/fiber",
+        "target": "npm:react-dom",
+        "type": "static"
+      }
+    ],
     "npm:@rollup/plugin-babel": [
       {
         "source": "npm:@rollup/plugin-babel",
@@ -36416,7 +37161,7 @@
       },
       {
         "source": "npm:@tokenizer/inflate",
-        "target": "npm:fflate",
+        "target": "npm:fflate@0.8.2",
         "type": "static"
       },
       {
@@ -36810,6 +37555,20 @@
         "type": "static"
       }
     ],
+    "npm:@types/react-reconciler@0.28.9": [
+      {
+        "source": "npm:@types/react-reconciler@0.28.9",
+        "target": "npm:@types/react",
+        "type": "static"
+      }
+    ],
+    "npm:@types/react-reconciler@0.32.3": [
+      {
+        "source": "npm:@types/react-reconciler@0.32.3",
+        "target": "npm:@types/react",
+        "type": "static"
+      }
+    ],
     "npm:@types/react@17.0.89": [
       {
         "source": "npm:@types/react@17.0.89",
@@ -36919,7 +37678,7 @@
       },
       {
         "source": "npm:@types/three",
-        "target": "npm:fflate",
+        "target": "npm:fflate@0.8.2",
         "type": "static"
       },
       {
@@ -37287,6 +38046,18 @@
       {
         "source": "npm:@unrs/resolver-binding-wasm32-wasi",
         "target": "npm:@napi-rs/wasm-runtime@0.2.12",
+        "type": "static"
+      }
+    ],
+    "npm:@use-gesture/react": [
+      {
+        "source": "npm:@use-gesture/react",
+        "target": "npm:@use-gesture/core",
+        "type": "static"
+      },
+      {
+        "source": "npm:@use-gesture/react",
+        "target": "npm:react",
         "type": "static"
       }
     ],
@@ -40031,6 +40802,13 @@
         "type": "static"
       }
     ],
+    "npm:bidi-js": [
+      {
+        "source": "npm:bidi-js",
+        "target": "npm:require-from-string",
+        "type": "static"
+      }
+    ],
     "npm:bin-version-check": [
       {
         "source": "npm:bin-version-check",
@@ -40850,6 +41628,13 @@
       {
         "source": "npm:camel-case",
         "target": "npm:tslib",
+        "type": "static"
+      }
+    ],
+    "npm:camera-controls": [
+      {
+        "source": "npm:camera-controls",
+        "target": "npm:three",
         "type": "static"
       }
     ],
@@ -41743,9 +42528,16 @@
         "type": "static"
       }
     ],
-    "npm:cross-env": [
+    "npm:cross-env@7.0.2": [
       {
-        "source": "npm:cross-env",
+        "source": "npm:cross-env@7.0.2",
+        "target": "npm:cross-spawn@7.0.6",
+        "type": "static"
+      }
+    ],
+    "npm:cross-env@7.0.3": [
+      {
+        "source": "npm:cross-env@7.0.3",
         "target": "npm:cross-spawn@7.0.6",
         "type": "static"
       }
@@ -42702,6 +43494,13 @@
       {
         "source": "npm:des.js",
         "target": "npm:minimalistic-assert",
+        "type": "static"
+      }
+    ],
+    "npm:detect-gpu": [
+      {
+        "source": "npm:detect-gpu",
+        "target": "npm:webgl-constants",
         "type": "static"
       }
     ],
@@ -48993,6 +49792,18 @@
         "type": "static"
       }
     ],
+    "npm:its-fine": [
+      {
+        "source": "npm:its-fine",
+        "target": "npm:@types/react-reconciler@0.28.9",
+        "type": "static"
+      },
+      {
+        "source": "npm:its-fine",
+        "target": "npm:react",
+        "type": "static"
+      }
+    ],
     "npm:jackspeak": [
       {
         "source": "npm:jackspeak",
@@ -52003,6 +52814,13 @@
         "type": "static"
       }
     ],
+    "npm:lie": [
+      {
+        "source": "npm:lie",
+        "target": "npm:immediate",
+        "type": "static"
+      }
+    ],
     "npm:lightningcss": [
       {
         "source": "npm:lightningcss",
@@ -52301,6 +53119,18 @@
         "type": "static"
       }
     ],
+    "npm:maath": [
+      {
+        "source": "npm:maath",
+        "target": "npm:@types/three",
+        "type": "static"
+      },
+      {
+        "source": "npm:maath",
+        "target": "npm:three",
+        "type": "static"
+      }
+    ],
     "npm:magic-string": [
       {
         "source": "npm:magic-string",
@@ -52425,6 +53255,13 @@
       {
         "source": "npm:memory-fs@0.5.0",
         "target": "npm:readable-stream@2.3.8",
+        "type": "static"
+      }
+    ],
+    "npm:meshline": [
+      {
+        "source": "npm:meshline",
+        "target": "npm:three",
         "type": "static"
       }
     ],
@@ -56230,6 +57067,18 @@
         "type": "static"
       }
     ],
+    "npm:promise-worker-transferable": [
+      {
+        "source": "npm:promise-worker-transferable",
+        "target": "npm:is-promise",
+        "type": "static"
+      },
+      {
+        "source": "npm:promise-worker-transferable",
+        "target": "npm:lie",
+        "type": "static"
+      }
+    ],
     "npm:promptly": [
       {
         "source": "npm:promptly",
@@ -56615,6 +57464,18 @@
         "type": "static"
       }
     ],
+    "npm:react-reconciler": [
+      {
+        "source": "npm:react-reconciler",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "npm:react-reconciler",
+        "target": "npm:scheduler@0.25.0",
+        "type": "static"
+      }
+    ],
     "npm:react-test-renderer": [
       {
         "source": "npm:react-test-renderer",
@@ -56639,6 +57500,18 @@
       {
         "source": "npm:react-test-renderer",
         "target": "npm:scheduler@0.19.1",
+        "type": "static"
+      }
+    ],
+    "npm:react-use-measure": [
+      {
+        "source": "npm:react-use-measure",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "npm:react-use-measure",
+        "target": "npm:react-dom",
         "type": "static"
       }
     ],
@@ -59073,6 +59946,18 @@
         "type": "static"
       }
     ],
+    "npm:stats-gl": [
+      {
+        "source": "npm:stats-gl",
+        "target": "npm:@types/three",
+        "type": "static"
+      },
+      {
+        "source": "npm:stats-gl",
+        "target": "npm:three",
+        "type": "static"
+      }
+    ],
     "npm:steno": [
       {
         "source": "npm:steno",
@@ -59614,6 +60499,13 @@
         "type": "static"
       }
     ],
+    "npm:suspend-react": [
+      {
+        "source": "npm:suspend-react",
+        "target": "npm:react",
+        "type": "static"
+      }
+    ],
     "npm:svgo@2.8.0": [
       {
         "source": "npm:svgo@2.8.0",
@@ -59978,6 +60870,50 @@
         "type": "static"
       }
     ],
+    "npm:three-mesh-bvh": [
+      {
+        "source": "npm:three-mesh-bvh",
+        "target": "npm:three",
+        "type": "static"
+      }
+    ],
+    "npm:three-stdlib": [
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:@types/draco3d",
+        "type": "static"
+      },
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:@types/offscreencanvas",
+        "type": "static"
+      },
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:@types/webxr",
+        "type": "static"
+      },
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:draco3d",
+        "type": "static"
+      },
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:fflate@0.6.10",
+        "type": "static"
+      },
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:potpack",
+        "type": "static"
+      },
+      {
+        "source": "npm:three-stdlib",
+        "target": "npm:three",
+        "type": "static"
+      }
+    ],
     "npm:through2": [
       {
         "source": "npm:through2",
@@ -60159,6 +61095,40 @@
       {
         "source": "npm:tree-dump",
         "target": "npm:tslib",
+        "type": "static"
+      }
+    ],
+    "npm:troika-three-text": [
+      {
+        "source": "npm:troika-three-text",
+        "target": "npm:bidi-js",
+        "type": "static"
+      },
+      {
+        "source": "npm:troika-three-text",
+        "target": "npm:three",
+        "type": "static"
+      },
+      {
+        "source": "npm:troika-three-text",
+        "target": "npm:troika-three-utils",
+        "type": "static"
+      },
+      {
+        "source": "npm:troika-three-text",
+        "target": "npm:troika-worker-utils",
+        "type": "static"
+      },
+      {
+        "source": "npm:troika-three-text",
+        "target": "npm:webgl-sdf-generator",
+        "type": "static"
+      }
+    ],
+    "npm:troika-three-utils": [
+      {
+        "source": "npm:troika-three-utils",
+        "target": "npm:three",
         "type": "static"
       }
     ],
@@ -60519,6 +61489,13 @@
       {
         "source": "npm:tunnel-agent",
         "target": "npm:safe-buffer@5.2.1",
+        "type": "static"
+      }
+    ],
+    "npm:tunnel-rat": [
+      {
+        "source": "npm:tunnel-rat",
+        "target": "npm:zustand@4.5.7",
         "type": "static"
       }
     ],
@@ -60979,6 +61956,13 @@
       {
         "source": "npm:url",
         "target": "npm:qs@6.14.0",
+        "type": "static"
+      }
+    ],
+    "npm:use-sync-external-store": [
+      {
+        "source": "npm:use-sync-external-store",
+        "target": "npm:react",
         "type": "static"
       }
     ],
@@ -62715,9 +63699,43 @@
         "target": "npm:zod",
         "type": "static"
       }
+    ],
+    "npm:zustand@4.5.7": [
+      {
+        "source": "npm:zustand@4.5.7",
+        "target": "npm:use-sync-external-store",
+        "type": "static"
+      },
+      {
+        "source": "npm:zustand@4.5.7",
+        "target": "npm:@types/react",
+        "type": "static"
+      },
+      {
+        "source": "npm:zustand@4.5.7",
+        "target": "npm:react",
+        "type": "static"
+      }
+    ],
+    "npm:zustand@5.0.8": [
+      {
+        "source": "npm:zustand@5.0.8",
+        "target": "npm:@types/react",
+        "type": "static"
+      },
+      {
+        "source": "npm:zustand@5.0.8",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "npm:zustand@5.0.8",
+        "target": "npm:use-sync-external-store",
+        "type": "static"
+      }
     ]
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1763843683705
+  "computedAt": 1763920483245
 }

@@ -1,11 +1,12 @@
 // RUTA: apps/portfolio-web/src/lib/hooks/use-visitor-data.ts
-// VERSIÓN: 1.0 - Handler de Datos del Visitante (Custom Hook)
+// VERSIÓN: 4.0 - Datos Climáticos Enriquecidos (WMO Codes)
+// DESCRIPCIÓN: Se añade 'weathercode' a la interfaz y a la petición fetch
+//              para determinar el estado del clima (Lluvia, Sol, Nubes).
 
 'use client';
 
 import { useState, useEffect } from 'react';
 
-// 1. Definimos la estructura de datos que nuestro handler devolverá.
 export interface VisitorData {
   city: string;
   coordinates: {
@@ -15,53 +16,44 @@ export interface VisitorData {
   timezone: string;
   weather: {
     temperature: number;
+    weathercode: number; // <-- NUEVO CAMPO PARA CÓDIGOS WMO
   };
+  ip: string;
 }
 
-// 2. Este es nuestro handler. Un hook que encapsula toda la lógica.
 export function useVisitorData() {
   const [data, setData] = useState<VisitorData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // La función auto-ejecutable previene condiciones de carrera
-    // y permite el uso de async/await dentro de useEffect.
-    (async () => {
+    const fetchVisitorData = async () => {
       try {
         setIsLoading(true);
 
-        // Consulta de Geolocalización
-        const geoResponse = await fetch('http://ip-api.com/json/?fields=city,lat,lon,timezone');
-        if (!geoResponse.ok) throw new Error('API Error: Could not retrieve location.');
-        const geoData = await geoResponse.json();
+        const response = await fetch('/api/visitor');
 
-        // Consulta de Clima
-        const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geoData.lat}&longitude=${geoData.lon}&current_weather=true`);
-        if (!weatherResponse.ok) throw new Error('API Error: Could not retrieve weather.');
-        const weatherData = await weatherResponse.json();
+        if (!response.ok) {
+          throw new Error(`Error del servidor: ${response.status}`);
+        }
 
-        // 3. Formateamos y establecemos los datos en una única estructura limpia.
-        setData({
-          city: geoData.city,
-          coordinates: {
-            latitude: geoData.lat,
-            longitude: geoData.lon,
-          },
-          timezone: geoData.timezone,
-          weather: {
-            temperature: Math.round(weatherData.current_weather.temperature),
-          },
-        });
+        const jsonData = await response.json();
+
+        if (jsonData.error) {
+          throw new Error(jsonData.error);
+        }
+
+        setData(jsonData);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred.');
-        console.error("Visitor Data Handler Error:", err);
+        console.error("[Visitor Hook] Error recuperando datos:", err);
+        setError("Datos no disponibles");
       } finally {
         setIsLoading(false);
       }
-    })();
-  }, []); // El array vacío asegura que esto se ejecute solo una vez.
+    };
 
-  // 4. El hook devuelve un objeto con el estado de la consulta.
+    fetchVisitorData();
+  }, []);
+
   return { data, isLoading, error };
 }

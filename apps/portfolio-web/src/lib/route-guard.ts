@@ -1,69 +1,150 @@
 // RUTA: apps/portfolio-web/src/lib/route-guard.ts
-// VERSIÓN: 5.0 - Seguridad Holística
-// DESCRIPCIÓN: Define estrictamente qué es público. Todo lo demás es privado.
+// VERSIÓN: 7.0 - Seguridad de Tipos Robusta & Arquitectura Escalable
+// @file Guardián de Rutas (Middleware Logic)
+// @description Maneja la protección de rutas, RBAC y normalización de URLs.
+//              Refactorizado para eliminar errores de comparación de tipos (TS2367)
+//              mediante una simulación de sesión estrictamente tipada.
+// @author Raz Podestá - MetaShark Tech
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { type Locale } from '../config/i18n.config';
 
-// Configuración de Rutas Públicas (Whitelist)
-// Se usa coincidencia parcial (startsWith) para subrutas.
+// ===================================================================================
+// DEFINICIONES DE TIPO Y CONTRATOS
+// ===================================================================================
+
+/**
+ * Roles permitidos en el sistema.
+ * Definido como unión de literales para uso en RBAC.
+ */
+type UserRole = 'user' | 'admin';
+
+/**
+ * Interfaz que simula el objeto de sesión de un proveedor de autenticación real.
+ * Esto evita que TypeScript infiera tipos literales inmutables en los mocks.
+ */
+interface Session {
+  isAuthenticated: boolean;
+  role: UserRole;
+}
+
+// ===================================================================================
+// CONFIGURACIÓN DE RUTAS
+// ===================================================================================
+
+/**
+ * Prefijos de rutas que son accesibles públicamente sin autenticación.
+ * El sistema es "Permisivo por defecto", pero esta lista ayuda a organizar
+ * la lógica de exclusión explícita si se cambia la estrategia a "Restrictivo".
+ */
 const publicPathPrefixes = [
-  '/',              // Homepage
-  '/login',         // Auth
-  '/quien-soy',     // About
+  '/',              // Homepage & Landing
+  '/login',         // Autenticación
+  '/quien-soy',     // Identidad
   '/mision-y-vision',
   '/contacto',
-  '/blog',          // Incluye /blog/[slug]
-  '/servicios',     // Incluye /servicios/*
+  '/blog',          // CMS Contenido
+  '/servicios',     // Catálogo
   '/cocreacion',
   '/sistema-de-diseno',
-  '/iconos',        // Librerías
-  '/tecnologias',   // Librerías
-  '/legal',         // Términos y Privacidad
+  '/iconos',        // Herramientas
+  '/tecnologias',
+  '/legal',
   '/curriculum'
 ];
 
+/**
+ * Prefijo reservado para el panel de administración.
+ * Requiere rol 'admin' estrictamente.
+ */
 const adminPathPrefix = '/admin';
 
+// ===================================================================================
+// UTILIDADES INTERNAS
+// ===================================================================================
+
+/**
+ * Normaliza la ruta eliminando el prefijo de idioma para simplificar la comparación.
+ * Ej: /pt-BR/blog/post-1 -> /blog/post-1
+ *
+ * @param pathname La ruta completa incluyendo el locale.
+ * @param locale El locale actual detectado.
+ */
+function getPathWithoutLocale(pathname: string, locale: Locale): string {
+  const path = pathname.replace(new RegExp(`^/${locale}`), '');
+  // Asegura que siempre devolvemos al menos '/' para la raíz
+  return path === '' ? '/' : path;
+}
+
+// ===================================================================================
+// LÓGICA DEL GUARDIÁN (MAIN)
+// ===================================================================================
+
+/**
+ * Ejecuta la lógica de protección de rutas.
+ *
+ * @param request La petición entrante de Next.js.
+ * @param locale El idioma actual resuelto por el middleware.
+ * @returns {NextResponse | null} Retorna un objeto redirect si se deniega el acceso, o null para permitir.
+ */
 export function routeGuard(request: NextRequest, locale: Locale): NextResponse | null {
   const { pathname } = request.nextUrl;
+  const pathWithoutLocale = getPathWithoutLocale(pathname, locale);
 
-  // 1. Normalizar la ruta: Eliminar el prefijo del idioma para comparar con la whitelist.
-  // Ejemplo: /pt-BR/blog/post-1 -> /blog/post-1
-  let pathWithoutLocale = pathname.replace(new RegExp(`^/${locale}`), '');
-  if (pathWithoutLocale === '') pathWithoutLocale = '/';
-
-  // 2. Verificación de Rutas Públicas
+  // ---------------------------------------------------------------------------
+  // 1. VERIFICACIÓN DE RUTAS PÚBLICAS (WHITELIST)
+  // ---------------------------------------------------------------------------
+  // Si la ruta coincide exactamente con la raíz o empieza con un prefijo público,
+  // permitimos el paso inmediatamente.
   const isPublic = publicPathPrefixes.some(prefix => {
-    if (prefix === '/') return pathWithoutLocale === '/'; // Home exacto
+    if (prefix === '/') return pathWithoutLocale === '/';
     return pathWithoutLocale.startsWith(prefix);
   });
 
   if (isPublic) {
-    return null; // Permitir acceso
+    return null; // Acceso concedido
   }
 
-  // 3. Simulación de Sesión (Conectar con Supabase/Auth real aquí)
-  // Por defecto: No autenticado.
-  const isAuthenticated = false;
-  const role = 'user';
+  // ---------------------------------------------------------------------------
+  // 2. OBTENCIÓN DE SESIÓN (SIMULACIÓN TIPADA)
+  // ---------------------------------------------------------------------------
+  // Aquí simulamos la obtención de la sesión. En producción, esto vendría de:
+  // const session = await supabase.auth.getSession();
+  //
+  // NOTA: Usamos la interfaz 'Session' explícitamente. Esto soluciona el error TS2367
+  // al decirle al compilador que 'role' es un tipo amplio (UserRole), no el literal 'user',
+  // permitiendo comparaciones lógicas válidas con 'admin'.
+  const session: Session = {
+    isAuthenticated: false, // Cambiar a true para simular login
+    role: 'user',           // Cambiar a 'admin' para simular privilegios
+  };
 
-  // 4. Protección de Rutas Administrativas
+  // ---------------------------------------------------------------------------
+  // 3. PROTECCIÓN DE RUTAS ADMINISTRATIVAS (RBAC)
+  // ---------------------------------------------------------------------------
   if (pathWithoutLocale.startsWith(adminPathPrefix)) {
-    if (!isAuthenticated || role !== 'admin') {
-      // Redirigir a login o unauthorized manteniendo el idioma actual
+    // Lógica de Guardia: Debe estar autenticado Y tener rol de admin.
+    if (!session.isAuthenticated || session.role !== 'admin') {
+      console.warn(`[Security] Acceso denegado a ruta administrativa: ${pathname}`);
+      // Redirigir a login, preservando el locale actual
       return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
     }
   }
 
-  // 5. Rutas no públicas (Privadas por defecto)
-  if (!isAuthenticated) {
-     // Si quieres que todo lo que no es público requiera login:
-     // return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+  // ---------------------------------------------------------------------------
+  // 4. RUTAS PRIVADAS GENERALES (COMPORTAMIENTO POR DEFECTO)
+  // ---------------------------------------------------------------------------
+  // Según la directriz actual: "por defecto todas las rutas son públicas".
+  // Sin embargo, mantenemos la estructura lógica lista para proteger rutas de usuario
+  // en el futuro (ej: /dashboard, /profile).
 
-     // O si prefieres mostrar 404 para rutas inexistentes en vez de protegerlas:
-     return null; // Dejamos pasar para que Next.js maneje el 404 si no existe la página.
+  /*
+  // LÓGICA FUTURA PARA RUTAS PRIVADAS:
+  if (!session.isAuthenticated) {
+      return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
+  */
 
+  // Por ahora, permitimos el acceso a cualquier ruta no capturada anteriormente.
   return null;
 }

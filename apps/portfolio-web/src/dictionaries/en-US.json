@@ -1,9 +1,11 @@
 {
   "header": {
-    "talk": "Let's Talk",
-    "tagline": "Architect of Creative & Intelligent Solutions",
-    "personal_portfolio": "Personal Portfolio",
-    "job_title": "Project Portfolio, Internationalized, Holistic Vision"
+    "talk": "Vamos Conversar",
+    "tagline": "Arquiteto de Soluções Criativas e Inteligentes",
+    "personal_portfolio": "Portfólio Pessoal",
+    "job_title": "Portfólio de Projetos, Internacionalizado, Visão Holística",
+    "mobile_title": "Portfólio de Raz Podestá",
+    "mobile_subtitle": "Website Pessoal"
   },
   "nav-links": {
     "nav_links": {
@@ -220,8 +222,20 @@
   },
   "not_found": {
     "title": "Page Not Found",
-    "description": "Oops! It seems the page you were looking for doesn't exist or has been moved.",
-    "cta_button": "Return Home"
+    "description": "It seems you've ventured into undefined territory. The route you are looking for does not exist in this version of the matrix.",
+    "cta_button": "Return to Base",
+    "error_code": "ERR_ROUTE_MISSING • SYSTEM_ID_404"
+  },
+  "server_error": {
+    "title": "System Malfunction",
+    "description": "A critical anomaly has been detected in the core. Our automated sentinels have been notified and recovery protocols are engaging.",
+    "retry_button": "Retry Connection",
+    "home_button": "Emergency Evac (Home)"
+  },
+  "maintenance": {
+    "title": "System Upgrade in Progress",
+    "description": "We are currently deploying architectural improvements to the ecosystem. Access is temporarily restricted to ensure data integrity.",
+    "estimated_return": "Expected uptime: Shortly."
   },
   "quien_soy": {
     "page_title": "Who I Am | Raz Podestá - Digital Ecosystem Architect",
@@ -507,5 +521,19 @@
     "categories": {
       "all": "All"
     }
+  },
+  "visitor_hud": {
+    "label_visitor_info": "VISITOR INFORMATION",
+    "label_ip_visitor": "VISITOR I.P.",
+    "footer_credits": "Component created by Raz Podestá - MetaShark Tech",
+    "status_calibrating": "CALIBRATING...",
+    "status_error": "SIGNAL LOST",
+    "label_location": "LOCATION",
+    "label_weather": "WEATHER",
+    "weather_sunny": "SUNNY",
+    "weather_rainy": "RAINY",
+    "weather_cloudy": "CLOUDY",
+    "label_time": "LOCAL TIME",
+    "coords_format": "COORDINATES"
   }
 }

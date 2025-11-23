@@ -3166,7 +3166,7 @@
   },
   {
     "source": "npm:@contentpi/ui",
-    "target": "npm:cross-env",
+    "target": "npm:cross-env@7.0.2",
     "type": "static"
   },
   {
@@ -6020,6 +6020,16 @@
     "type": "static"
   },
   {
+    "source": "npm:@monogrid/gainmap-js",
+    "target": "npm:promise-worker-transferable",
+    "type": "static"
+  },
+  {
+    "source": "npm:@monogrid/gainmap-js",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
     "source": "npm:@mswjs/interceptors",
     "target": "npm:@open-draft/deferred-promise",
     "type": "static"
@@ -7740,6 +7750,291 @@
     "type": "static"
   },
   {
+    "source": "npm:@react-spring/animated",
+    "target": "npm:@react-spring/shared",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/animated",
+    "target": "npm:@react-spring/types",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/animated",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/core",
+    "target": "npm:@react-spring/animated",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/core",
+    "target": "npm:@react-spring/shared",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/core",
+    "target": "npm:@react-spring/types",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/core",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/shared",
+    "target": "npm:@react-spring/rafz",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/shared",
+    "target": "npm:@react-spring/types",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/shared",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:@react-spring/animated",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:@react-spring/core",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:@react-spring/shared",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:@react-spring/types",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:@react-three/fiber",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-spring/three",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:@babel/runtime",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:@mediapipe/tasks-vision",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:@monogrid/gainmap-js",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:@react-three/fiber",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:@use-gesture/react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:camera-controls",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:cross-env@7.0.3",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:detect-gpu",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:glsl-noise",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:hls.js",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:maath",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:meshline",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:stats-gl",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:stats.js",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:suspend-react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:three-mesh-bvh",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:three-stdlib",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:troika-three-text",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:tunnel-rat",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:use-sync-external-store",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:utility-types",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:zustand@5.0.8",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/drei",
+    "target": "npm:react-dom",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:@babel/runtime",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:@types/react-reconciler@0.32.3",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:@types/webxr",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:base64-js",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:buffer@6.0.3",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:its-fine",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:react-reconciler",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:react-use-measure",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:scheduler@0.25.0",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:suspend-react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:use-sync-external-store",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:zustand@5.0.8",
+    "type": "static"
+  },
+  {
+    "source": "npm:@react-three/fiber",
+    "target": "npm:react-dom",
+    "type": "static"
+  },
+  {
     "source": "npm:@rollup/plugin-babel",
     "target": "npm:@babel/core",
     "type": "static"
@@ -8801,7 +9096,7 @@
   },
   {
     "source": "npm:@tokenizer/inflate",
-    "target": "npm:fflate",
+    "target": "npm:fflate@0.8.2",
     "type": "static"
   },
   {
@@ -9125,6 +9420,16 @@
     "type": "static"
   },
   {
+    "source": "npm:@types/react-reconciler@0.28.9",
+    "target": "npm:@types/react",
+    "type": "static"
+  },
+  {
+    "source": "npm:@types/react-reconciler@0.32.3",
+    "target": "npm:@types/react",
+    "type": "static"
+  },
+  {
     "source": "npm:@types/react@17.0.89",
     "target": "npm:@types/prop-types",
     "type": "static"
@@ -9216,7 +9521,7 @@
   },
   {
     "source": "npm:@types/three",
-    "target": "npm:fflate",
+    "target": "npm:fflate@0.8.2",
     "type": "static"
   },
   {
@@ -9552,6 +9857,16 @@
   {
     "source": "npm:@unrs/resolver-binding-wasm32-wasi",
     "target": "npm:@napi-rs/wasm-runtime@0.2.12",
+    "type": "static"
+  },
+  {
+    "source": "npm:@use-gesture/react",
+    "target": "npm:@use-gesture/core",
+    "type": "static"
+  },
+  {
+    "source": "npm:@use-gesture/react",
+    "target": "npm:react",
     "type": "static"
   },
   {
@@ -12020,6 +12335,11 @@
     "type": "static"
   },
   {
+    "source": "npm:bidi-js",
+    "target": "npm:require-from-string",
+    "type": "static"
+  },
+  {
     "source": "npm:bin-version-check",
     "target": "npm:bin-version",
     "type": "static"
@@ -12767,6 +13087,11 @@
   {
     "source": "npm:camel-case",
     "target": "npm:tslib",
+    "type": "static"
+  },
+  {
+    "source": "npm:camera-controls",
+    "target": "npm:three",
     "type": "static"
   },
   {
@@ -13560,7 +13885,12 @@
     "type": "static"
   },
   {
-    "source": "npm:cross-env",
+    "source": "npm:cross-env@7.0.2",
+    "target": "npm:cross-spawn@7.0.6",
+    "type": "static"
+  },
+  {
+    "source": "npm:cross-env@7.0.3",
     "target": "npm:cross-spawn@7.0.6",
     "type": "static"
   },
@@ -14427,6 +14757,11 @@
   {
     "source": "npm:des.js",
     "target": "npm:minimalistic-assert",
+    "type": "static"
+  },
+  {
+    "source": "npm:detect-gpu",
+    "target": "npm:webgl-constants",
     "type": "static"
   },
   {
@@ -20170,6 +20505,16 @@
     "type": "static"
   },
   {
+    "source": "npm:its-fine",
+    "target": "npm:@types/react-reconciler@0.28.9",
+    "type": "static"
+  },
+  {
+    "source": "npm:its-fine",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
     "source": "npm:jackspeak",
     "target": "npm:@isaacs/cliui",
     "type": "static"
@@ -23020,6 +23365,11 @@
     "type": "static"
   },
   {
+    "source": "npm:lie",
+    "target": "npm:immediate",
+    "type": "static"
+  },
+  {
     "source": "npm:lightningcss",
     "target": "npm:detect-libc@2.1.2",
     "type": "static"
@@ -23280,6 +23630,16 @@
     "type": "static"
   },
   {
+    "source": "npm:maath",
+    "target": "npm:@types/three",
+    "type": "static"
+  },
+  {
+    "source": "npm:maath",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
     "source": "npm:magic-string",
     "target": "npm:@jridgewell/sourcemap-codec",
     "type": "static"
@@ -23382,6 +23742,11 @@
   {
     "source": "npm:memory-fs@0.5.0",
     "target": "npm:readable-stream@2.3.8",
+    "type": "static"
+  },
+  {
+    "source": "npm:meshline",
+    "target": "npm:three",
     "type": "static"
   },
   {
@@ -26805,6 +27170,16 @@
     "type": "static"
   },
   {
+    "source": "npm:promise-worker-transferable",
+    "target": "npm:is-promise",
+    "type": "static"
+  },
+  {
+    "source": "npm:promise-worker-transferable",
+    "target": "npm:lie",
+    "type": "static"
+  },
+  {
     "source": "npm:promptly",
     "target": "npm:read",
     "type": "static"
@@ -27140,6 +27515,16 @@
     "type": "static"
   },
   {
+    "source": "npm:react-reconciler",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:react-reconciler",
+    "target": "npm:scheduler@0.25.0",
+    "type": "static"
+  },
+  {
     "source": "npm:react-test-renderer",
     "target": "npm:object-assign",
     "type": "static"
@@ -27162,6 +27547,16 @@
   {
     "source": "npm:react-test-renderer",
     "target": "npm:scheduler@0.19.1",
+    "type": "static"
+  },
+  {
+    "source": "npm:react-use-measure",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:react-use-measure",
+    "target": "npm:react-dom",
     "type": "static"
   },
   {
@@ -29360,6 +29755,16 @@
     "type": "static"
   },
   {
+    "source": "npm:stats-gl",
+    "target": "npm:@types/three",
+    "type": "static"
+  },
+  {
+    "source": "npm:stats-gl",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
     "source": "npm:steno",
     "target": "npm:graceful-fs",
     "type": "static"
@@ -29825,6 +30230,11 @@
     "type": "static"
   },
   {
+    "source": "npm:suspend-react",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
     "source": "npm:svgo@2.8.0",
     "target": "npm:@trysound/sax",
     "type": "static"
@@ -30155,6 +30565,46 @@
     "type": "static"
   },
   {
+    "source": "npm:three-mesh-bvh",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:@types/draco3d",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:@types/offscreencanvas",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:@types/webxr",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:draco3d",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:fflate@0.6.10",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:potpack",
+    "type": "static"
+  },
+  {
+    "source": "npm:three-stdlib",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
     "source": "npm:through2",
     "target": "npm:readable-stream@2.3.8",
     "type": "static"
@@ -30302,6 +30752,36 @@
   {
     "source": "npm:tree-dump",
     "target": "npm:tslib",
+    "type": "static"
+  },
+  {
+    "source": "npm:troika-three-text",
+    "target": "npm:bidi-js",
+    "type": "static"
+  },
+  {
+    "source": "npm:troika-three-text",
+    "target": "npm:three",
+    "type": "static"
+  },
+  {
+    "source": "npm:troika-three-text",
+    "target": "npm:troika-three-utils",
+    "type": "static"
+  },
+  {
+    "source": "npm:troika-three-text",
+    "target": "npm:troika-worker-utils",
+    "type": "static"
+  },
+  {
+    "source": "npm:troika-three-text",
+    "target": "npm:webgl-sdf-generator",
+    "type": "static"
+  },
+  {
+    "source": "npm:troika-three-utils",
+    "target": "npm:three",
     "type": "static"
   },
   {
@@ -30642,6 +31122,11 @@
   {
     "source": "npm:tunnel-agent",
     "target": "npm:safe-buffer@5.2.1",
+    "type": "static"
+  },
+  {
+    "source": "npm:tunnel-rat",
+    "target": "npm:zustand@4.5.7",
     "type": "static"
   },
   {
@@ -31052,6 +31537,11 @@
   {
     "source": "npm:url",
     "target": "npm:qs@6.14.0",
+    "type": "static"
+  },
+  {
+    "source": "npm:use-sync-external-store",
+    "target": "npm:react",
     "type": "static"
   },
   {
@@ -32662,6 +33152,36 @@
   {
     "source": "npm:zod-validation-error",
     "target": "npm:zod",
+    "type": "static"
+  },
+  {
+    "source": "npm:zustand@4.5.7",
+    "target": "npm:use-sync-external-store",
+    "type": "static"
+  },
+  {
+    "source": "npm:zustand@4.5.7",
+    "target": "npm:@types/react",
+    "type": "static"
+  },
+  {
+    "source": "npm:zustand@4.5.7",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:zustand@5.0.8",
+    "target": "npm:@types/react",
+    "type": "static"
+  },
+  {
+    "source": "npm:zustand@5.0.8",
+    "target": "npm:react",
+    "type": "static"
+  },
+  {
+    "source": "npm:zustand@5.0.8",
+    "target": "npm:use-sync-external-store",
     "type": "static"
   }
 ]

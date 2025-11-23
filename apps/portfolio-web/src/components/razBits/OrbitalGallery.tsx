@@ -1,15 +1,26 @@
 // RUTA: apps/portfolio-web/src/components/razBits/OrbitalGallery.tsx
-// VERSIÓN: 3.0.0 - Elite Edition (Memory Safe & WebGL2 Optimized)
+// VERSIÓN: 3.2.0 - Bulletproof Shader Compilation
+// DESCRIPCIÓN: Solución definitiva al error de compilación de shaders.
+//              Se fuerza la directiva #version como primera línea estricta.
+//              Se mejora el manejo de errores de WebGL para evitar crashes.
+
+'use client';
 
 import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import { mat4, quat, vec2, vec3 } from 'gl-matrix';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ==============================================
-// 1. SHADERS (GLSL 3.00 ES)
+// 1. SHADERS (GLSL 3.00 ES) - ESTRICTOS
 // ==============================================
 
-const VERTEX_SHADER = `#version 300 es
+// NOTA: Usamos concatenación explícita para garantizar que no haya NINGÚN
+// carácter antes de #version 300 es. Los template literals a veces fallan aquí.
+const VERSION_HEADER = '#version 300 es\n';
+
+const VERTEX_SHADER_SOURCE = VERSION_HEADER + `
+precision highp float;
+
 uniform mat4 uWorldMatrix;
 uniform mat4 uViewMatrix;
 uniform mat4 uProjectionMatrix;
@@ -24,49 +35,54 @@ out float vAlpha;
 flat out int vInstanceId;
 
 void main() {
-    vec4 worldPosition = uWorldMatrix * aInstanceMatrix * vec4(aModelPosition, 1.);
-    vec3 centerPos = (uWorldMatrix * aInstanceMatrix * vec4(0., 0., 0., 1.)).xyz;
+    vec4 worldPosition = uWorldMatrix * aInstanceMatrix * vec4(aModelPosition, 1.0);
+    vec3 centerPos = (uWorldMatrix * aInstanceMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
     float radius = length(centerPos.xyz);
 
     // Efecto de Inercia/Estiramiento Visual
-    if (gl_VertexID > 0) {
+    // Aplicamos solo si no es el centro absoluto para evitar divisiones por cero o artefactos
+    if (length(aModelPosition) > 0.1) {
         vec3 rotationAxis = uRotationAxisVelocity.xyz;
-        float rotationVelocity = min(.15, uRotationAxisVelocity.w * 15.);
+        // Limitamos la velocidad para evitar que la geometría explote
+        float rotationVelocity = min(0.15, uRotationAxisVelocity.w * 15.0);
+
         vec3 stretchDir = normalize(cross(centerPos, rotationAxis));
         vec3 relativeVertexPos = normalize(worldPosition.xyz - centerPos);
 
         float strength = dot(stretchDir, relativeVertexPos);
-        float invAbsStrength = min(0., abs(strength) - 1.);
-        strength = rotationVelocity * sign(strength) * abs(invAbsStrength * invAbsStrength * invAbsStrength + 1.);
+        float invAbsStrength = min(0.0, abs(strength) - 1.0);
+        strength = rotationVelocity * sign(strength) * abs(invAbsStrength * invAbsStrength * invAbsStrength + 1.0);
 
         worldPosition.xyz += stretchDir * strength;
     }
 
-    worldPosition.xyz = radius * normalize(worldPosition.xyz);
+    // Re-normalización esférica para mantener la forma
+    if (radius > 0.001) {
+        worldPosition.xyz = radius * normalize(worldPosition.xyz);
+    }
+
     gl_Position = uProjectionMatrix * uViewMatrix * worldPosition;
 
-    // Alpha basado en profundidad (Depth Fog)
+    // Alpha basado en profundidad (Depth Fog) para ocultar la parte trasera
     vAlpha = smoothstep(0.2, 1.0, normalize(worldPosition.xyz).z);
     vUvs = aModelUvs;
     vInstanceId = gl_InstanceID;
-}
-`;
+}`;
 
-const FRAGMENT_SHADER = `#version 300 es
+const FRAGMENT_SHADER_SOURCE = VERSION_HEADER + `
 precision highp float;
 
 uniform sampler2D uTex;
 uniform int uItemCount;
 uniform int uAtlasSize;
 
-out vec4 outColor;
-
 in vec2 vUvs;
 in float vAlpha;
 flat in int vInstanceId;
 
+out vec4 outColor;
+
 void main() {
-    // Cálculo de UVs para Texture Atlas
     int itemIndex = vInstanceId % uItemCount;
     int cellsPerRow = uAtlasSize;
 
@@ -76,23 +92,24 @@ void main() {
     vec2 cellSize = vec2(1.0) / vec2(float(cellsPerRow));
     vec2 cellOffset = vec2(float(cellX), float(cellY)) * cellSize;
 
-    // Corrección de sangrado de bordes (Clamp manual)
+    // Corrección de sangrado de bordes (Clamp manual para evitar líneas entre texturas)
     vec2 st = vec2(vUvs.x, 1.0 - vUvs.y);
-    st = clamp(st, 0.005, 0.995);
+    st = clamp(st, 0.01, 0.99);
 
     st = st * cellSize + cellOffset;
 
     vec4 texColor = texture(uTex, st);
+
+    // Aplicamos el alpha calculado en el vertex shader
     outColor = vec4(texColor.rgb, texColor.a * vAlpha);
-}
-`;
+}`;
 
 // ==============================================
 // 2. GEOMETRÍA & MATEMÁTICAS
 // ==============================================
 
 class GeometryHelpers {
-  static createIcosahedron(): { vertices: Float32Array } {
+  static createIcosahedron(): Float32Array {
     const t = (1.0 + Math.sqrt(5.0)) / 2.0;
     const vertices = [
       [-1, t, 0], [1, t, 0], [-1, -t, 0], [1, -t, 0],
@@ -105,11 +122,11 @@ class GeometryHelpers {
       const norm = vec3.normalize(vec3.create(), vec3.fromValues(v[0], v[1], v[2]));
       positions.set(norm, i * 3);
     });
-    return { vertices: positions };
+    return positions;
   }
 
   static createDisc(steps = 48, radius = 1) {
-    const vertices: number[] = [0, 0, 0]; // Centro
+    const vertices: number[] = [0, 0, 0];
     const uvs: number[] = [0.5, 0.5];
     const indices: number[] = [];
 
@@ -136,7 +153,7 @@ class GeometryHelpers {
 }
 
 // ==============================================
-// 3. CONTROLADOR DE INPUT (Gestión de Eventos Segura)
+// 3. CONTROLADOR DE INPUT
 // ==============================================
 
 class InputController {
@@ -151,7 +168,6 @@ class InputController {
   private damping = 0.95;
   private sensitivity = 0.005;
 
-  // Referencias para limpieza correcta de eventos
   private handleDown: (e: PointerEvent | TouchEvent) => void;
   private handleMove: (e: PointerEvent | TouchEvent) => void;
   private handleUp: () => void;
@@ -173,7 +189,7 @@ class InputController {
 
   private onMove(e: PointerEvent | TouchEvent) {
     if (!this.isDown) return;
-    if (e.type === 'touchmove') e.preventDefault(); // Prevenir scroll en móviles
+    if (e.type === 'touchmove') e.preventDefault();
 
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
@@ -187,11 +203,8 @@ class InputController {
   private setupListeners() {
     this.element.addEventListener('pointerdown', this.handleDown as EventListener);
     this.element.addEventListener('pointermove', this.handleMove as EventListener);
-
-    // Soporte explícito para TouchEvents (Safari/iOS)
     this.element.addEventListener('touchstart', this.handleDown as EventListener, { passive: false });
     this.element.addEventListener('touchmove', this.handleMove as EventListener, { passive: false });
-
     window.addEventListener('pointerup', this.handleUp);
     window.addEventListener('touchend', this.handleUp);
   }
@@ -265,11 +278,9 @@ class RenderEngine {
 
     this.controller = new InputController(canvas);
 
-    const geometry = GeometryHelpers.createIcosahedron();
-    this.instancePositions = geometry.vertices;
+    this.instancePositions = GeometryHelpers.createIcosahedron();
     this.instanceCount = this.instancePositions.length / 3;
 
-    // Observer para redimensionamiento eficiente
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(canvas);
 
@@ -277,7 +288,7 @@ class RenderEngine {
   }
 
   private init() {
-    this.createProgram();
+    if (!this.createProgram()) return;
     this.createGeometry();
     this.createTextureAtlas().then(() => {
         this.resize();
@@ -285,9 +296,9 @@ class RenderEngine {
     });
   }
 
-  private createProgram() {
+  private createProgram(): boolean {
     const gl = this.gl;
-    const createShader = (type: number, source: string) => {
+    const createShader = (type: number, source: string, name: string) => {
       const s = gl.createShader(type);
       if (!s) return null;
 
@@ -295,34 +306,46 @@ class RenderEngine {
       gl.compileShader(s);
 
       if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(s));
+        const info = gl.getShaderInfoLog(s);
+        // CORRECCIÓN DE ÉLITE: Manejo explícito de log nulo
+        const errorMsg = info || "Error desconocido (Driver retornó log nulo). Revisa la directiva #version.";
+
+        console.error(`❌ Error compilando ${name}:`, errorMsg);
+
+        // Logging defensivo del código fuente para debug
+        console.groupCollapsed(`${name} Source Code (First 5 lines)`);
+        const lines = source.split('\n');
+        lines.slice(0, 5).forEach((line, i) => console.log(`${i + 1}: ${JSON.stringify(line)}`));
+        console.groupEnd();
+
         gl.deleteShader(s);
         return null;
       }
       return s;
     };
 
-    const vert = createShader(gl.VERTEX_SHADER, VERTEX_SHADER);
-    const frag = createShader(gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
+    const vert = createShader(gl.VERTEX_SHADER, VERTEX_SHADER_SOURCE, 'Vertex Shader');
+    const frag = createShader(gl.FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE, 'Fragment Shader');
 
-    if (!vert || !frag) return;
+    if (!vert || !frag) return false;
 
     const prog = gl.createProgram();
-    if (!prog) return;
+    if (!prog) return false;
 
     gl.attachShader(prog, vert);
     gl.attachShader(prog, frag);
     gl.linkProgram(prog);
 
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-        console.error(gl.getProgramInfoLog(prog));
+        console.error("❌ Error linkeando programa:", gl.getProgramInfoLog(prog));
         gl.deleteProgram(prog);
-        return;
+        return false;
     }
 
     this.program = prog;
     gl.deleteShader(vert);
     gl.deleteShader(frag);
+    return true;
   }
 
   private createGeometry() {
@@ -406,49 +429,59 @@ class RenderEngine {
 
     if (!ctx) return;
 
+    const placeholderColor = '#333';
+
     const loadPromises = this.items.map(item => {
-        return new Promise<HTMLImageElement>((resolve) => {
+        return new Promise<HTMLImageElement | null>((resolve) => {
             const img = new Image();
             img.crossOrigin = "anonymous";
             img.src = item.image;
             img.onload = () => resolve(img);
             img.onerror = () => {
-                // Fallback visual simple
-                const placeholder = document.createElement('canvas');
-                placeholder.width = 2; placeholder.height = 2;
-                resolve(placeholder as unknown as HTMLImageElement);
+                console.warn(`Fallo al cargar imagen (fallback): ${item.image}`);
+                resolve(null);
             };
         });
     });
 
     const images = await Promise.all(loadPromises);
 
+    ctx.fillStyle = placeholderColor;
+    ctx.fillRect(0, 0, ATLAS_WIDTH, ATLAS_WIDTH);
+
     images.forEach((img, i) => {
         const x = (i % cols) * CELL_SIZE;
         const y = Math.floor(i / cols) * CELL_SIZE;
 
-        // Lógica Object-Fit: Cover para el Atlas
-        const imgAspect = img.width / img.height;
-        let renderW, renderH, offsetX, offsetY;
+        if (img) {
+            const imgAspect = img.width / img.height;
+            let renderW, renderH, offsetX, offsetY;
 
-        if (imgAspect > 1) {
-            renderH = CELL_SIZE;
-            renderW = CELL_SIZE * imgAspect;
-            offsetX = (CELL_SIZE - renderW) / 2;
-            offsetY = 0;
+            if (imgAspect > 1) {
+                renderH = CELL_SIZE;
+                renderW = CELL_SIZE * imgAspect;
+                offsetX = (CELL_SIZE - renderW) / 2;
+                offsetY = 0;
+            } else {
+                renderW = CELL_SIZE;
+                renderH = CELL_SIZE / imgAspect;
+                offsetX = 0;
+                offsetY = (CELL_SIZE - renderH) / 2;
+            }
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(x, y, CELL_SIZE, CELL_SIZE);
+            ctx.clip();
+            ctx.drawImage(img, x + offsetX, y + offsetY, renderW, renderH);
+            ctx.restore();
         } else {
-            renderW = CELL_SIZE;
-            renderH = CELL_SIZE / imgAspect;
-            offsetX = 0;
-            offsetY = (CELL_SIZE - renderH) / 2;
+            ctx.fillStyle = '#111';
+            ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+            ctx.fillStyle = '#555';
+            ctx.font = '40px sans-serif';
+            ctx.fillText('IMG ERROR', x + 20, y + CELL_SIZE / 2);
         }
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(x, y, CELL_SIZE, CELL_SIZE);
-        ctx.clip();
-        ctx.drawImage(img, x + offsetX, y + offsetY, renderW, renderH);
-        ctx.restore();
     });
 
     const texture = this.gl.createTexture();
@@ -461,7 +494,6 @@ class RenderEngine {
     this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR_MIPMAP_LINEAR);
     this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
 
-    // Filtrado Anisotrópico para nitidez
     const ext = this.gl.getExtension('EXT_texture_filter_anisotropic');
     if (ext) {
         const max = this.gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
@@ -583,7 +615,6 @@ class RenderEngine {
     if (this.texture) this.gl.deleteTexture(this.texture);
     if (this.vao) this.gl.deleteVertexArray(this.vao);
 
-    // Liberación de contexto para ahorrar memoria GPU en SPAs
     const ext = this.gl.getExtension('WEBGL_lose_context');
     if (ext) ext.loseContext();
   }
@@ -610,6 +641,7 @@ export const OrbitalGallery = ({ items }: OrbitalGalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
+  // Limitar ítems a 12 para el icosaedro
   const galleryItems = useMemo(() => items.slice(0, 12), [items]);
   const activeItem = galleryItems[activeIndex];
 
@@ -629,13 +661,12 @@ export const OrbitalGallery = ({ items }: OrbitalGalleryProps) => {
         engineRef.current = engine;
         engine.start();
     } catch (e) {
-        console.error("Fallo al inicializar el motor 3D:", e);
+        console.error("Fallo crítico al inicializar Orbital Gallery:", e);
         return;
     }
 
     canvas.addEventListener('orbital-change', handleOrbitalChange);
 
-    // Observer para pausar la animación si no es visible
     const observer = new IntersectionObserver((entries) => {
         const engine = engineRef.current;
         if (!engine) return;
@@ -645,7 +676,6 @@ export const OrbitalGallery = ({ items }: OrbitalGalleryProps) => {
 
     if (container) observer.observe(container);
 
-    // CLEANUP
     return () => {
       canvas.removeEventListener('orbital-change', handleOrbitalChange);
       if (container) observer.unobserve(container);

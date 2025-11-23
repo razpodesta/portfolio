@@ -1,5 +1,6 @@
 {
   "title": "Página Não Encontrada",
-  "description": "Opa! Parece que a página que você estava procurando não existe ou foi movida.",
-  "cta_button": "Voltar ao Início"
+  "description": "Parece que você se aventurou em território indefinido. A rota que você procura não existe nesta versão da matrix.",
+  "cta_button": "Retornar à Base",
+  "error_code": "ERR_ROUTE_MISSING • SYSTEM_ID_404"
 }

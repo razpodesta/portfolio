@@ -1,7 +1,6 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
-// VERSIÓN: 10.0 - Actualización de Tipografía de Firma.
-// DESCRIPCIÓN: Se reemplaza la fuente 'Daniela-Butters' por 'solitude-handrwitten'
-//              para la firma "Raz Podestá", modernizando la identidad visual.
+// VERSIÓN: 14.0 - Arquitectura Simplificada (Zustand)
+// DESCRIPCIÓN: Se elimina el WidgetProvider obsoleto.
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -12,7 +11,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { NewsletterModal } from '@/components/ui/NewsletterModal';
 import { VisitorHud } from '@/components/ui/VisitorHud';
-import { WidgetProvider } from '@/lib/contexts/WidgetContext';
+// --- BORRADO: import { WidgetProvider } ... ---
 import '../global.css';
 
 const fontSatoshi = localFont({
@@ -24,15 +23,11 @@ const fontSatoshi = localFont({
   display: 'swap',
 });
 
-// --- INICIO DE LA ACTUALIZACIÓN DE FUENTE ---
-// 1. Se elimina la variable 'fontDanielaButters'.
-// 2. Se crea la nueva variable 'fontSolitude' para cargar la nueva tipografía.
-const fontSolitude = localFont({
-    src: '../../../public/fonts/solitude-handrwitten.woff2',
-    variable: '--font-signature', // Se mantiene la misma variable CSS para una sustitución limpia.
+const fontSignature = localFont({
+    src: '../../../public/fonts/Dicaten.woff2',
+    variable: '--font-signature',
     display: 'swap',
 });
-// --- FIN DE LA ACTUALIZACIÓN DE FUENTE ---
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -74,23 +69,22 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <head />
       <body
-        // 3. Se actualiza la clase en el body para usar la nueva variable de fuente.
-        className={`${fontSatoshi.variable} ${fontSolitude.variable} font-sans bg-background text-foreground antialiased`}
+        className={`${fontSatoshi.variable} ${fontSignature.variable} font-sans bg-background text-foreground antialiased`}
       >
         <Providers>
-          <WidgetProvider>
+          {/* --- MIGRACIÓN: Se ha eliminado <WidgetProvider> --- */}
             <div className="flex min-h-screen flex-col">
               <Header dictionary={dictionary} />
               <main className="grow">{children}</main>
               <Footer
                 content={dictionary.footer}
-                navLabels={dictionary.header.nav_links}
+                navLabels={dictionary['nav-links'].nav_links}
                 tagline={dictionary.header.tagline}
               />
             </div>
             <NewsletterModal />
-            <VisitorHud />
-          </WidgetProvider>
+            <VisitorHud dictionary={dictionary.visitor_hud} />
+          {/* --- MIGRACIÓN: Fin de bloque limpio --- */}
         </Providers>
       </body>
     </html>
