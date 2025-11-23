@@ -72,6 +72,137 @@
   "fileMap": {
     "nonProjectFiles": [],
     "projectFileMap": {
+      "@portfolio/testing-utils": [
+        {
+          "file": "packages/testing-utils/.spec.swcrc",
+          "hash": "18201067170784284381"
+        },
+        {
+          "file": "packages/testing-utils/README.md",
+          "hash": "16269602868918243062"
+        },
+        {
+          "file": "packages/testing-utils/eslint.config.mjs",
+          "hash": "7885312352449748209",
+          "deps": [
+            [
+              "npm:jsonc-eslint-parser",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "packages/testing-utils/jest.config.ts",
+          "hash": "7602484459021342145"
+        },
+        {
+          "file": "packages/testing-utils/package.json",
+          "hash": "15569404560354003881",
+          "deps": [
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "packages/testing-utils/src/index.ts",
+          "hash": "10496210136792617449"
+        },
+        {
+          "file": "packages/testing-utils/src/lib/factories/user.factory.ts",
+          "hash": "16366464358184771164",
+          "deps": [
+            "npm:@faker-js/faker"
+          ]
+        },
+        {
+          "file": "packages/testing-utils/src/lib/mocks/handlers.ts",
+          "hash": "6682892904495886246"
+        },
+        {
+          "file": "packages/testing-utils/src/lib/mocks/server.ts",
+          "hash": "5072969720175049260",
+          "deps": [
+            "npm:msw"
+          ]
+        },
+        {
+          "file": "packages/testing-utils/src/lib/rendering/custom-render.tsx",
+          "hash": "5941408186728530533",
+          "deps": [
+            "npm:react",
+            "npm:@testing-library/react",
+            "npm:next-themes"
+          ]
+        },
+        {
+          "file": "packages/testing-utils/src/lib/testing-utils.ts",
+          "hash": "16045256856501043472"
+        },
+        {
+          "file": "packages/testing-utils/tsconfig.json",
+          "hash": "12834038490315927699"
+        },
+        {
+          "file": "packages/testing-utils/tsconfig.lib.json",
+          "hash": "17741022809241267094"
+        },
+        {
+          "file": "packages/testing-utils/tsconfig.spec.json",
+          "hash": "12872603765494946759"
+        }
+      ],
+      "@metashark-cms/core": [
+        {
+          "file": "packages/cms/core/.spec.swcrc",
+          "hash": "18201067170784284381"
+        },
+        {
+          "file": "packages/cms/core/README.md",
+          "hash": "9420225203192903995"
+        },
+        {
+          "file": "packages/cms/core/eslint.config.mjs",
+          "hash": "12190544393852254075",
+          "deps": [
+            "npm:typescript-eslint",
+            "npm:eslint-plugin-jest"
+          ]
+        },
+        {
+          "file": "packages/cms/core/jest.config.ts",
+          "hash": "10947208101590835327"
+        },
+        {
+          "file": "packages/cms/core/package.json",
+          "hash": "17318987155930952580",
+          "deps": [
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "packages/cms/core/src/index.ts",
+          "hash": "2608416409492758487"
+        },
+        {
+          "file": "packages/cms/core/src/lib/core.spec.ts",
+          "hash": "853841883290635150"
+        },
+        {
+          "file": "packages/cms/core/src/lib/core.ts",
+          "hash": "14885622587354129707"
+        },
+        {
+          "file": "packages/cms/core/tsconfig.json",
+          "hash": "14186287857387999199"
+        },
+        {
+          "file": "packages/cms/core/tsconfig.lib.json",
+          "hash": "12409399598543652302"
+        },
+        {
+          "file": "packages/cms/core/tsconfig.spec.json",
+          "hash": "6879201920187279103"
+        }
+      ],
       "cms-admin": [
         {
           "file": "apps/cms-admin/.editorconfig",
@@ -718,1462 +849,6 @@
           "hash": "17889160185919761047"
         }
       ],
-      "@metashark-cms/core": [
-        {
-          "file": "packages/cms/core/.spec.swcrc",
-          "hash": "18201067170784284381"
-        },
-        {
-          "file": "packages/cms/core/README.md",
-          "hash": "9420225203192903995"
-        },
-        {
-          "file": "packages/cms/core/eslint.config.mjs",
-          "hash": "12190544393852254075",
-          "deps": [
-            "npm:typescript-eslint",
-            "npm:eslint-plugin-jest"
-          ]
-        },
-        {
-          "file": "packages/cms/core/jest.config.ts",
-          "hash": "10947208101590835327"
-        },
-        {
-          "file": "packages/cms/core/package.json",
-          "hash": "17318987155930952580",
-          "deps": [
-            "npm:tslib"
-          ]
-        },
-        {
-          "file": "packages/cms/core/src/index.ts",
-          "hash": "2608416409492758487"
-        },
-        {
-          "file": "packages/cms/core/src/lib/core.spec.ts",
-          "hash": "853841883290635150"
-        },
-        {
-          "file": "packages/cms/core/src/lib/core.ts",
-          "hash": "14885622587354129707"
-        },
-        {
-          "file": "packages/cms/core/tsconfig.json",
-          "hash": "14186287857387999199"
-        },
-        {
-          "file": "packages/cms/core/tsconfig.lib.json",
-          "hash": "12409399598543652302"
-        },
-        {
-          "file": "packages/cms/core/tsconfig.spec.json",
-          "hash": "6879201920187279103"
-        }
-      ],
-      "portfolio-web": [
-        {
-          "file": "apps/portfolio-web/.swcrc",
-          "hash": "2742566327615098680"
-        },
-        {
-          "file": "apps/portfolio-web/eslint.config.mjs",
-          "hash": "1983342572454620730",
-          "deps": [
-            "npm:typescript-eslint",
-            "npm:@next/eslint-plugin-next",
-            "npm:eslint-plugin-react-hooks",
-            "npm:eslint-plugin-jest"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/index.d.ts",
-          "hash": "5498222895072842432"
-        },
-        {
-          "file": "apps/portfolio-web/jest.config.ts",
-          "hash": "2862187547245347636",
-          "deps": [
-            "npm:jest"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/middleware.ts",
-          "hash": "13216732766676330509",
-          "deps": [
-            "npm:next",
-            "npm:@formatjs/intl-localematcher",
-            "npm:negotiator"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/next-env.d.ts",
-          "hash": "1320675027584673186"
-        },
-        {
-          "file": "apps/portfolio-web/next.config.js",
-          "hash": "6156653129985466567",
-          "deps": [
-            "npm:@nx/next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/postcss.config.js",
-          "hash": "11860505650263276733"
-        },
-        {
-          "file": "apps/portfolio-web/postprocessing.d.ts",
-          "hash": "7986205200324700090",
-          "deps": [
-            "npm:three"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/project.json",
-          "hash": "7678880221673671464"
-        },
-        {
-          "file": "apps/portfolio-web/public/Logo-portfolio-png.png",
-          "hash": "321806918914935842"
-        },
-        {
-          "file": "apps/portfolio-web/public/favicon.ico",
-          "hash": "6058699349852120907"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/ClashDisplay-Bold.woff2",
-          "hash": "11989498581320362949"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/ClashDisplay-Regular.woff2",
-          "hash": "9892300192117144466"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/Dicaten.woff2",
-          "hash": "14541492045793292995"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/PallomaSignature.woff2",
-          "hash": "16073802737102914867"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/Satoshi-Variable.woff2",
-          "hash": "5583310828694438789"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/Satoshi-VariableItalic.woff2",
-          "hash": "3431948276316487907"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/TimelessHandwriten.woff2",
-          "hash": "15044358037530843414"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/astor-futuristic.woff2",
-          "hash": "12965696738342616830"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/solitude-handrwitten.woff2",
-          "hash": "6989047234244552928"
-        },
-        {
-          "file": "apps/portfolio-web/public/fonts/sophisticoSignature.woff2",
-          "hash": "17549200935040998331"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/256x256-raz-podesta-avatar-curriculum-circular_png.png",
-          "hash": "1646847949225475868"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/abstract-architectural-geometry.jpg",
-          "hash": "11550297703248662164"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/aesthetic-editorial-fashion.jpg",
-          "hash": "1506623280311701329"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/concept-car-detail.jpg",
-          "hash": "12691786235940176512"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/cyberpunk-city-street.jpg",
-          "hash": "12328870707152575609"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/data-visualization-art.jpg",
-          "hash": "2264647514612983046"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/fluid-iridescent-shapes.jpg",
-          "hash": "15533439860227861898"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/luxury-perfume-gold.jpg",
-          "hash": "15040370361082534955"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/mechanical-insect-macro.jpg",
-          "hash": "4577678642024109520"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/minimalist-concrete-workspace.jpg",
-          "hash": "9502197344688714711"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/razbits-neon-typography.jpg",
-          "hash": "10783562822907530275"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/tech-badge-v2.jpg",
-          "hash": "16832422675086782141"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/ai-gallery/transparent-tech-gadget.jpg",
-          "hash": "10180787275683174848"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/newsletter-bg.jpg",
-          "hash": "6414318893567853737"
-        },
-        {
-          "file": "apps/portfolio-web/public/images/raz-podesta-avatar.jpg",
-          "hash": "4441800932748959602"
-        },
-        {
-          "file": "apps/portfolio-web/public/logo-animado.mp4.txt",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "apps/portfolio-web/public/logo.png",
-          "hash": "3102827742882455360"
-        },
-        {
-          "file": "apps/portfolio-web/public/logos/Adobe Express - file (1).png",
-          "hash": "3506768066929299253"
-        },
-        {
-          "file": "apps/portfolio-web/public/logos/Adobe Express - file.png",
-          "hash": "11342158833987358381"
-        },
-        {
-          "file": "apps/portfolio-web/public/logos/logo-removebg-preview.png",
-          "hash": "3875461204031454565"
-        },
-        {
-          "file": "apps/portfolio-web/public/logos/logo.jpeg",
-          "hash": "16685765715564412016"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/01-homepage-hero-landing-pages.jpg",
-          "hash": "9419484589491325603"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/02-homepage-hero-ecommerce.jpg",
-          "hash": "6315599295759408489"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/03-homepage-hero-showrooms-corporativos.jpg",
-          "hash": "4243885217682539404"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/04-homepage-hero-hoteleria.jpg",
-          "hash": "6284757009741387495"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/05-homepage-hero-comunidades-online.jpg",
-          "hash": "1920364199166729256"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/06-homepage-hero-plataformas-ong.jpg",
-          "hash": "4517456676853573092"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/07-homepage-hero-portafolios-creativos.jpg",
-          "hash": "12984861648195520666"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/08-homepage-hero-revistas-digitales.jpg",
-          "hash": "7889456077143024878"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/09-homepage-hero-fashion-wear.jpg",
-          "hash": "1744549724577171076"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/hero-homepage-002.jpg",
-          "hash": "14858056555292545819"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/hero-homepage-003.jpg",
-          "hash": "15288317845194093806"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/zzzz.jpeg",
-          "hash": "14355859641316346882"
-        },
-        {
-          "file": "apps/portfolio-web/public/projects/zzzzcomunidades-online.jpg",
-          "hash": "513830164012156886"
-        },
-        {
-          "file": "apps/portfolio-web/public/robots.txt",
-          "hash": "16023991809247473460"
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx",
-          "hash": "2396459629318646393",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/blog/page.tsx",
-          "hash": "1231330251547223424",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/blog/tag/[slug]/page.tsx",
-          "hash": "16229518522375498777",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/cocreacion/page.tsx",
-          "hash": "11558814891707336841",
-          "deps": [
-            "npm:next",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/curriculum/page.tsx",
-          "hash": "10542473121585711015",
-          "deps": [
-            "npm:next",
-            "npm:lucide-react",
-            "npm:@icons-pack/react-simple-icons"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/iconos/lucide/page.tsx",
-          "hash": "14342901316085021500",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/layout.tsx",
-          "hash": "15719568015632500991",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/legal/politica-de-privacidad/page.tsx",
-          "hash": "6924493224499551569",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/legal/terminos-de-servicio/page.tsx",
-          "hash": "3916007243053916639",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/maintenance/page.tsx",
-          "hash": "7730766306314094006",
-          "deps": [
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx",
-          "hash": "16911649137784491563",
-          "deps": [
-            "npm:next",
-            "npm:framer-motion",
-            "npm:lucide-react",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/not-found.tsx",
-          "hash": "2355935623886000510",
-          "deps": [
-            "npm:next",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/page.tsx",
-          "hash": "674324481434129258",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/quien-soy/page.tsx",
-          "hash": "12616595146044236736",
-          "deps": [
-            "npm:next",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/servicios/desarrollo-frontend/page.tsx",
-          "hash": "3767050218451762245"
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/sistema-de-diseno/page.tsx",
-          "hash": "9106947810227080878",
-          "deps": [
-            "npm:next",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/subscribe/page.tsx",
-          "hash": "900549891172885326"
-        },
-        {
-          "file": "apps/portfolio-web/src/app/[lang]/tecnologias/page.tsx",
-          "hash": "14541089066420505811",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/api/visitor/route.ts",
-          "hash": "4726738655755538281",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/global.css",
-          "hash": "8677140824985265898"
-        },
-        {
-          "file": "apps/portfolio-web/src/app/layout.tsx",
-          "hash": "5047649017556764950",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/not-found.tsx",
-          "hash": "13200857469301497808",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/app/sitemap.ts",
-          "hash": "11256322446041843030",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/layout/Footer.tsx",
-          "hash": "11684698814315553196",
-          "deps": [
-            "npm:next",
-            "npm:framer-motion",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/layout/Header.tsx",
-          "hash": "4079086328299054131",
-          "deps": [
-            "npm:react",
-            "npm:next",
-            "npm:framer-motion",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/layout/Providers.tsx",
-          "hash": "9244214823296698950",
-          "deps": [
-            "npm:react",
-            "npm:next-themes"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/razBits/BlurText.tsx",
-          "hash": "9502816176564851846",
-          "deps": [
-            "npm:framer-motion",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/razBits/GridScan.tsx",
-          "hash": "3393244103977659207",
-          "deps": [
-            "npm:react",
-            "npm:postprocessing",
-            "npm:three"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/razBits/LetterGlitch.tsx",
-          "hash": "989668515336452231",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/razBits/OrbitalGallery.tsx",
-          "hash": "6526688593539039840",
-          "deps": [
-            "npm:react",
-            "npm:gl-matrix",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/AboutSection.tsx",
-          "hash": "18039093987790751921",
-          "deps": [
-            "npm:framer-motion",
-            "npm:next",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/AiContentSection.tsx",
-          "hash": "1737980860989765241",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/ContactSection.tsx",
-          "hash": "4531087988187085060",
-          "deps": [
-            "npm:react-hook-form",
-            "npm:@hookform/resolvers",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/HeroCarousel.tsx",
-          "hash": "1578802574402716213",
-          "deps": [
-            "npm:react",
-            "npm:embla-carousel",
-            "npm:embla-carousel-react",
-            "npm:embla-carousel-autoplay",
-            "npm:embla-carousel-fade",
-            "npm:framer-motion",
-            "npm:next",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/HistorySection.tsx",
-          "hash": "3651792231322635310",
-          "deps": [
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/TechStackSection.tsx",
-          "hash": "4310764567190322518",
-          "deps": [
-            "npm:react",
-            "npm:@icons-pack/react-simple-icons"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/homepage/ValuePropositionSection.tsx",
-          "hash": "17102917276803920475",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/sections/technologies/TechGrid.tsx",
-          "hash": "15865632990358099339",
-          "deps": [
-            "npm:react",
-            "npm:lucide-react",
-            "npm:@icons-pack/react-simple-icons"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/shared/IconLibraryExplorer.tsx",
-          "hash": "18080617821123951556",
-          "deps": [
-            "npm:react",
-            "npm:lucide-react",
-            "npm:framer-motion",
-            "npm:@icons-pack/react-simple-icons"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/AnimatedQrCode.tsx",
-          "hash": "12075457120073847247",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/Avatar.tsx",
-          "hash": "13896893835020058355",
-          "deps": [
-            "npm:next",
-            "npm:class-variance-authority"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/BlogCard.tsx",
-          "hash": "10371921693305231302",
-          "deps": [
-            "npm:next",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/ColorWaveBar.tsx",
-          "hash": "5079201994321595259",
-          "deps": [
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/DropdownMenu.tsx",
-          "hash": "1999007480313222265",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/Flag.tsx",
-          "hash": "16023160280032683331",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/JsonLdScript.tsx",
-          "hash": "10483905999300904551"
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/LanguageSwitcher.tsx",
-          "hash": "10283941012924391469",
-          "deps": [
-            "npm:react",
-            "npm:next",
-            "npm:framer-motion",
-            "npm:cookies-next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/NestedDropdownContent.tsx",
-          "hash": "13763701650630338836",
-          "deps": [
-            "npm:next",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/NewsletterModal.tsx",
-          "hash": "16269670088775073484",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion",
-            "npm:next",
-            "npm:lucide-react",
-            "npm:cookies-next",
-            "npm:@icons-pack/react-simple-icons"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/PillarCard.tsx",
-          "hash": "12179850190851606163",
-          "deps": [
-            "npm:framer-motion",
-            "npm:lucide-react",
-            "npm:react",
-            "npm:class-variance-authority"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/PrintButton.tsx",
-          "hash": "18245542336972559818",
-          "deps": [
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/ProjectCard.tsx",
-          "hash": "9438460188129806411",
-          "deps": [
-            "npm:framer-motion",
-            "npm:next",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/QrCode.tsx",
-          "hash": "4316494862610620172",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/ShareButtons.tsx",
-          "hash": "10540936557355663531",
-          "deps": [
-            "npm:next",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/TestimonialCard.tsx",
-          "hash": "9725851156170685911",
-          "deps": [
-            "npm:framer-motion",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/ThemeToggle.tsx",
-          "hash": "5481063194310077646",
-          "deps": [
-            "npm:react",
-            "npm:next-themes",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/components/ui/VisitorHud.tsx",
-          "hash": "13504236864609023652",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion",
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/config/i18n.config.ts",
-          "hash": "14970461292421340127"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/arquitectura-por-manifiesto.json",
-          "hash": "7560942535503420771"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/arquitectura-por-manifiesto.mdx",
-          "hash": "7929643232050859385"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/filosofia-mobile-first.json",
-          "hash": "4053489602559254710"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/filosofia-mobile-first.mdx",
-          "hash": "5897181121521234484"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/monorepo-con-nx.json",
-          "hash": "2537207330666711454"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/monorepo-con-nx.mdx",
-          "hash": "6678669588655501942"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/que-es-una-pwa.json",
-          "hash": "11585547580989053819"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/que-es-una-pwa.mdx",
-          "hash": "12699755048429685860"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/zod-fuente-de-verdad.json",
-          "hash": "17512293098222030944"
-        },
-        {
-          "file": "apps/portfolio-web/src/content/blog/zod-fuente-de-verdad.mdx",
-          "hash": "7782922721270786213"
-        },
-        {
-          "file": "apps/portfolio-web/src/data/ai-gallery.ts",
-          "hash": "1208269757933786836"
-        },
-        {
-          "file": "apps/portfolio-web/src/data/lucide-icons.json",
-          "hash": "17673932210316100464"
-        },
-        {
-          "file": "apps/portfolio-web/src/data/technologies.json",
-          "hash": "18362484720436406257"
-        },
-        {
-          "file": "apps/portfolio-web/src/dictionaries/en-US.json",
-          "hash": "15534676362876954742"
-        },
-        {
-          "file": "apps/portfolio-web/src/dictionaries/es-ES.json",
-          "hash": "6803561821195747357"
-        },
-        {
-          "file": "apps/portfolio-web/src/dictionaries/pt-BR.json",
-          "hash": "10430688385354163667"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/blog-api.ts",
-          "hash": "12088135229483940905"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/blog/actions.ts",
-          "hash": "308349332634338709"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/blog/index.ts",
-          "hash": "7167615456314149467"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/contexts/WidgetContext.tsx",
-          "hash": "12824906563685923661",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/get-dictionary.ts",
-          "hash": "14153738857916488850"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/graphql-client.ts",
-          "hash": "9542136821425983021"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/hooks/use-infinite-carousel-animation.ts",
-          "hash": "12585382888830928298",
-          "deps": [
-            "npm:react",
-            "npm:gsap"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/hooks/use-scroll-direction.ts",
-          "hash": "9425736971293164138",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/hooks/use-visitor-data.ts",
-          "hash": "8210173442210572230",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/nav-links.ts",
-          "hash": "3283739632341709003",
-          "deps": [
-            "npm:react",
-            "npm:lucide-react",
-            "npm:@icons-pack/react-simple-icons"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/projects-data.ts",
-          "hash": "7781559815077451679"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/route-guard.ts",
-          "hash": "7071182016508794870",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/about_section.schema.ts",
-          "hash": "5971916815360257220",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/blog.schema.ts",
-          "hash": "2045082120844892283",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/cocreation_page.schema.ts",
-          "hash": "8086291738832805468",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/contact.schema.ts",
-          "hash": "7354723360102795770",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/contact_page.schema.ts",
-          "hash": "10169555690903685206",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/curriculum.schema.ts",
-          "hash": "280612124189171341",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/design_system_page.schema.ts",
-          "hash": "17269037201337633962",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/dictionary.schema.ts",
-          "hash": "17838974570629893987",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/footer.schema.ts",
-          "hash": "14938499240781755239",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/header.schema.ts",
-          "hash": "7781447869449191235",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/hero.schema.ts",
-          "hash": "7076176526898208781",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/history_section.schema.ts",
-          "hash": "7749555322255298911",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/homepage.schema.ts",
-          "hash": "11714833132716074596",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/language_switcher.schema.ts",
-          "hash": "16990282183990765977",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/legal_page.schema.ts",
-          "hash": "11644625779996789522",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/library_page.schema.ts",
-          "hash": "1327964927600966111",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/mission_vision.schema.ts",
-          "hash": "10741551717241775966",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/nav-links.schema.ts",
-          "hash": "4512932407470154212",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/not_found.schema.ts",
-          "hash": "12689134203582275761",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/quien_soy.schema.ts",
-          "hash": "11246662676537323744",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/seo.schema.ts",
-          "hash": "10648062903366327139",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/technologies_page.schema.ts",
-          "hash": "15849461438071971045",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/schemas/value_proposition.schema.ts",
-          "hash": "13624807464366037527",
-          "deps": [
-            "npm:zod"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/social-links.ts",
-          "hash": "12762356840542481585",
-          "deps": [
-            "npm:lucide-react"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/store/ui.store.ts",
-          "hash": "5862123606734335923",
-          "deps": [
-            "npm:zustand@5.0.8"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/supabase/client.ts",
-          "hash": "10232640480796336577",
-          "deps": [
-            "npm:@supabase/ssr"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/types.ts",
-          "hash": "8274999411750532091"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/utils/link-helpers.ts",
-          "hash": "7235507348551998170"
-        },
-        {
-          "file": "apps/portfolio-web/src/lib/visuals/orbital-gallery-engine.ts",
-          "hash": "810899685007941162",
-          "deps": [
-            "npm:gl-matrix"
-          ]
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/about.json",
-          "hash": "15293215450471170598"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/ai_gallery_section.json",
-          "hash": "16994259213813782732"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/blog_page.json",
-          "hash": "14901909395429732446"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/cocreation_page.json",
-          "hash": "13882283457162882385"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/contact.json",
-          "hash": "6174542015711198622"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/contact_page.json",
-          "hash": "17418975439812639598"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/curriculum.json",
-          "hash": "879845149610528003"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/design_system_page.json",
-          "hash": "9605761358199947640"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/footer.json",
-          "hash": "1375370340108338326"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/header.json",
-          "hash": "9987498033230683187"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/hero.json",
-          "hash": "5583795858642628797"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/history.json",
-          "hash": "3580489517742031010"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/language_switcher.json",
-          "hash": "3464528149280134642"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/legal.json",
-          "hash": "10513652809680155968"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/lucide_page.json",
-          "hash": "14867643788439710095"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/maintenance.json",
-          "hash": "9129580819070920022"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/mission_vision.json",
-          "hash": "10419264238693648515"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/nav-links.json",
-          "hash": "9059858063148568147"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/not_found.json",
-          "hash": "3872770214218924075"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/quien_soy.json",
-          "hash": "17259288159666879313"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/server_error.json",
-          "hash": "5910526067850049423"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/technologies_page.json",
-          "hash": "8004774227811550510"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/value_proposition.json",
-          "hash": "11716003840090502374"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/en-US/visitor_hud.json",
-          "hash": "5799014928681645831"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/about.json",
-          "hash": "9753648695311280594"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/ai_gallery_section.json",
-          "hash": "119206057601192401"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/blog_page.json",
-          "hash": "13933368176886376771"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/cocreation_page.json",
-          "hash": "16870452471024662832"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/contact.json",
-          "hash": "13652583786432486816"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/contact_page.json",
-          "hash": "6764166508647982459"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/curriculum.json",
-          "hash": "6595301938139654338"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/design_system_page.json",
-          "hash": "13140372962513278031"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/footer.json",
-          "hash": "1240380613134788436"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/header.json",
-          "hash": "4406875474521756789"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/hero.json",
-          "hash": "14860454461044311579"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/history.json",
-          "hash": "1404480268570420285"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/homepage.json",
-          "hash": "6036514188355824868"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/language_switcher.json",
-          "hash": "9130222659498805504"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/legal.json",
-          "hash": "7166309512328145522"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/lucide_page.json",
-          "hash": "16536077723879833259"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/maintenance.json",
-          "hash": "7105105713778154878"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/mission_vision.json",
-          "hash": "14991795638450916565"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/nav-links.json",
-          "hash": "8222976686060254980"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/not_found.json",
-          "hash": "11778557790846060721"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/quien_soy.json",
-          "hash": "13263275252975484284"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/server_error.json",
-          "hash": "18271477883872981361"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/technologies_page.json",
-          "hash": "15894416433279400583"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/value_proposition.json",
-          "hash": "3901490855059407816"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/es-ES/visitor_hud.json",
-          "hash": "2508864032503125008"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/about.json",
-          "hash": "2755538333111275982"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/ai_gallery_section.json",
-          "hash": "2110855274438600971"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/blog_page.json",
-          "hash": "16090125246884647687"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/cocreation_page.json",
-          "hash": "1534708346235065688"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/contact.json",
-          "hash": "13059231980635350596"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/contact_page.json",
-          "hash": "3257323032491539370"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/curriculum.json",
-          "hash": "13152991160358999104"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/design_system_page.json",
-          "hash": "16623341106968094298"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/footer.json",
-          "hash": "11875768409460341010"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/header.json",
-          "hash": "17060280601576425035"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/hero.json",
-          "hash": "4971838657755596419"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/history.json",
-          "hash": "325040962573098132"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/language_switcher.json",
-          "hash": "9130222659498805504"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/legal.json",
-          "hash": "14757781464186193646"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/lucide_page.json",
-          "hash": "3807522539598458629"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/maintenance.json",
-          "hash": "14274858794567808932"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/mission_vision.json",
-          "hash": "9361526210612515096"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/nav-links.json",
-          "hash": "13256239063446236848"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/not_found.json",
-          "hash": "12740926420166495702"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/quien_soy.json",
-          "hash": "2574231428604447607"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/server_error.json",
-          "hash": "12052145390181985052"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/technologies_page.json",
-          "hash": "17931291490042432714"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/value_proposition.json",
-          "hash": "14130798979817569175"
-        },
-        {
-          "file": "apps/portfolio-web/src/messages/pt-BR/visitor_hud.json",
-          "hash": "11124113001189234106"
-        },
-        {
-          "file": "apps/portfolio-web/tailwind.config.js",
-          "hash": "2799656782067769588"
-        },
-        {
-          "file": "apps/portfolio-web/tsconfig.json",
-          "hash": "577709116875641440"
-        },
-        {
-          "file": "apps/portfolio-web/tsconfig.spec.json",
-          "hash": "9014227998795601242"
-        }
-      ],
-      "@metashark-cms/ui": [
-        {
-          "file": "packages/cms/ui/.babelrc",
-          "hash": "2946678488919325452"
-        },
-        {
-          "file": "packages/cms/ui/README.md",
-          "hash": "18357593699270166023"
-        },
-        {
-          "file": "packages/cms/ui/eslint.config.mjs",
-          "hash": "4114437769683499576",
-          "deps": [
-            "npm:typescript-eslint",
-            "npm:@nx/eslint-plugin",
-            "npm:eslint-plugin-react-hooks",
-            "npm:eslint-plugin-jest"
-          ]
-        },
-        {
-          "file": "packages/cms/ui/jest.config.ts",
-          "hash": "6132896995011689750"
-        },
-        {
-          "file": "packages/cms/ui/package.json",
-          "hash": "17538569403311526572"
-        },
-        {
-          "file": "packages/cms/ui/rollup.config.cjs",
-          "hash": "2956645583986469445",
-          "deps": [
-            "npm:@nx/rollup",
-            "npm:@rollup/plugin-url",
-            "npm:@svgr/rollup"
-          ]
-        },
-        {
-          "file": "packages/cms/ui/src/index.ts",
-          "hash": "5977848407072712979"
-        },
-        {
-          "file": "packages/cms/ui/src/lib/ui.spec.tsx",
-          "hash": "9256240028211718861",
-          "deps": [
-            "npm:@testing-library/react"
-          ]
-        },
-        {
-          "file": "packages/cms/ui/src/lib/ui.tsx",
-          "hash": "3963993538601663407"
-        },
-        {
-          "file": "packages/cms/ui/tsconfig.json",
-          "hash": "12188746804854295505"
-        },
-        {
-          "file": "packages/cms/ui/tsconfig.lib.json",
-          "hash": "4353089333964975449"
-        },
-        {
-          "file": "packages/cms/ui/tsconfig.spec.json",
-          "hash": "6879201920187279103"
-        }
-      ],
       "@portfolio/source": [
         {
           "file": ".docs/directrices-obligatorias.md",
@@ -2194,6 +869,10 @@
         {
           "file": ".docs/manifiesto-calidad-codigo.md",
           "hash": "3244421341483603138"
+        },
+        {
+          "file": ".docs/manifiesto-estado-global.md",
+          "hash": "15409691075961879946"
         },
         {
           "file": ".docs/manifiesto-pruebas.md",
@@ -2268,7 +947,7 @@
         },
         {
           "file": "package.json",
-          "hash": "17770101048344204123",
+          "hash": "9840753561786132344",
           "deps": [
             "npm:@babel/core",
             "npm:@babel/preset-react",
@@ -2380,6 +1059,7 @@
             "npm:mysql2",
             "npm:negotiator",
             "npm:next",
+            "npm:next-mdx-remote",
             "npm:next-themes",
             "npm:pg",
             "npm:pg-hstore",
@@ -2393,12 +1073,13 @@
             "npm:sequelize",
             "npm:sequelize-typescript",
             "npm:three",
-            "npm:uuid"
+            "npm:uuid",
+            "npm:zustand"
           ]
         },
         {
           "file": "pnpm-lock.yaml",
-          "hash": "15365283061049068726"
+          "hash": "15364312135654016666"
         },
         {
           "file": "pnpm-workspace.yaml",
@@ -2729,82 +1410,1408 @@
           "hash": "3091195692643263037"
         }
       ],
-      "@portfolio/testing-utils": [
+      "portfolio-web": [
         {
-          "file": "packages/testing-utils/.spec.swcrc",
-          "hash": "18201067170784284381"
+          "file": "apps/portfolio-web/.swcrc",
+          "hash": "2742566327615098680"
         },
         {
-          "file": "packages/testing-utils/README.md",
-          "hash": "16269602868918243062"
-        },
-        {
-          "file": "packages/testing-utils/eslint.config.mjs",
-          "hash": "7885312352449748209",
+          "file": "apps/portfolio-web/eslint.config.mjs",
+          "hash": "1983342572454620730",
           "deps": [
-            [
-              "npm:jsonc-eslint-parser",
-              "dynamic"
-            ]
+            "npm:typescript-eslint",
+            "npm:@next/eslint-plugin-next",
+            "npm:eslint-plugin-react-hooks",
+            "npm:eslint-plugin-jest"
           ]
         },
         {
-          "file": "packages/testing-utils/jest.config.ts",
-          "hash": "7602484459021342145"
+          "file": "apps/portfolio-web/index.d.ts",
+          "hash": "5498222895072842432"
         },
         {
-          "file": "packages/testing-utils/package.json",
-          "hash": "15569404560354003881",
+          "file": "apps/portfolio-web/jest.config.ts",
+          "hash": "2862187547245347636",
           "deps": [
-            "npm:tslib"
+            "npm:jest"
           ]
         },
         {
-          "file": "packages/testing-utils/src/index.ts",
-          "hash": "10496210136792617449"
-        },
-        {
-          "file": "packages/testing-utils/src/lib/factories/user.factory.ts",
-          "hash": "16366464358184771164",
+          "file": "apps/portfolio-web/middleware.ts",
+          "hash": "13216732766676330509",
           "deps": [
-            "npm:@faker-js/faker"
+            "npm:next",
+            "npm:@formatjs/intl-localematcher",
+            "npm:negotiator"
           ]
         },
         {
-          "file": "packages/testing-utils/src/lib/mocks/handlers.ts",
-          "hash": "6682892904495886246"
+          "file": "apps/portfolio-web/next-env.d.ts",
+          "hash": "1320675027584673186"
         },
         {
-          "file": "packages/testing-utils/src/lib/mocks/server.ts",
-          "hash": "5072969720175049260",
+          "file": "apps/portfolio-web/next.config.js",
+          "hash": "6156653129985466567",
           "deps": [
-            "npm:msw"
+            "npm:@nx/next"
           ]
         },
         {
-          "file": "packages/testing-utils/src/lib/rendering/custom-render.tsx",
-          "hash": "5941408186728530533",
+          "file": "apps/portfolio-web/postcss.config.js",
+          "hash": "11860505650263276733"
+        },
+        {
+          "file": "apps/portfolio-web/postprocessing.d.ts",
+          "hash": "7986205200324700090",
+          "deps": [
+            "npm:three"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/project.json",
+          "hash": "7678880221673671464"
+        },
+        {
+          "file": "apps/portfolio-web/public/Logo-portfolio-png.png",
+          "hash": "321806918914935842"
+        },
+        {
+          "file": "apps/portfolio-web/public/favicon.ico",
+          "hash": "6058699349852120907"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/ClashDisplay-Bold.woff2",
+          "hash": "11989498581320362949"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/ClashDisplay-Regular.woff2",
+          "hash": "9892300192117144466"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/Dicaten.woff2",
+          "hash": "14541492045793292995"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/PallomaSignature.woff2",
+          "hash": "16073802737102914867"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/Satoshi-Variable.woff2",
+          "hash": "5583310828694438789"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/Satoshi-VariableItalic.woff2",
+          "hash": "3431948276316487907"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/TimelessHandwriten.woff2",
+          "hash": "15044358037530843414"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/astor-futuristic.woff2",
+          "hash": "12965696738342616830"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/solitude-handrwitten.woff2",
+          "hash": "6989047234244552928"
+        },
+        {
+          "file": "apps/portfolio-web/public/fonts/sophisticoSignature.woff2",
+          "hash": "17549200935040998331"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/256x256-raz-podesta-avatar-curriculum-circular_png.png",
+          "hash": "1646847949225475868"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/abstract-architectural-geometry.jpg",
+          "hash": "11550297703248662164"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/aesthetic-editorial-fashion.jpg",
+          "hash": "1506623280311701329"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/concept-car-detail.jpg",
+          "hash": "12691786235940176512"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/cyberpunk-city-street.jpg",
+          "hash": "12328870707152575609"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/data-visualization-art.jpg",
+          "hash": "2264647514612983046"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/fluid-iridescent-shapes.jpg",
+          "hash": "15533439860227861898"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/luxury-perfume-gold.jpg",
+          "hash": "15040370361082534955"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/mechanical-insect-macro.jpg",
+          "hash": "4577678642024109520"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/minimalist-concrete-workspace.jpg",
+          "hash": "9502197344688714711"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/razbits-neon-typography.jpg",
+          "hash": "10783562822907530275"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/tech-badge-v2.jpg",
+          "hash": "16832422675086782141"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/ai-gallery/transparent-tech-gadget.jpg",
+          "hash": "10180787275683174848"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/newsletter-bg.jpg",
+          "hash": "6414318893567853737"
+        },
+        {
+          "file": "apps/portfolio-web/public/images/raz-podesta-avatar.jpg",
+          "hash": "4441800932748959602"
+        },
+        {
+          "file": "apps/portfolio-web/public/logo-animado.mp4.txt",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/portfolio-web/public/logo.png",
+          "hash": "3102827742882455360"
+        },
+        {
+          "file": "apps/portfolio-web/public/logos/Adobe Express - file (1).png",
+          "hash": "3506768066929299253"
+        },
+        {
+          "file": "apps/portfolio-web/public/logos/Adobe Express - file.png",
+          "hash": "11342158833987358381"
+        },
+        {
+          "file": "apps/portfolio-web/public/logos/logo-removebg-preview.png",
+          "hash": "3875461204031454565"
+        },
+        {
+          "file": "apps/portfolio-web/public/logos/logo.jpeg",
+          "hash": "16685765715564412016"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/01-homepage-hero-landing-pages.jpg",
+          "hash": "9419484589491325603"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/02-homepage-hero-ecommerce.jpg",
+          "hash": "6315599295759408489"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/03-homepage-hero-showrooms-corporativos.jpg",
+          "hash": "4243885217682539404"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/04-homepage-hero-hoteleria.jpg",
+          "hash": "6284757009741387495"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/05-homepage-hero-comunidades-online.jpg",
+          "hash": "1920364199166729256"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/06-homepage-hero-plataformas-ong.jpg",
+          "hash": "4517456676853573092"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/07-homepage-hero-portafolios-creativos.jpg",
+          "hash": "12984861648195520666"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/08-homepage-hero-revistas-digitales.jpg",
+          "hash": "7889456077143024878"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/09-homepage-hero-fashion-wear.jpg",
+          "hash": "1744549724577171076"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/hero-homepage-002.jpg",
+          "hash": "14858056555292545819"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/hero-homepage-003.jpg",
+          "hash": "15288317845194093806"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/zzzz.jpeg",
+          "hash": "14355859641316346882"
+        },
+        {
+          "file": "apps/portfolio-web/public/projects/zzzzcomunidades-online.jpg",
+          "hash": "513830164012156886"
+        },
+        {
+          "file": "apps/portfolio-web/public/robots.txt",
+          "hash": "16023991809247473460"
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx",
+          "hash": "2396459629318646393",
+          "deps": [
+            "npm:next",
+            "npm:next-mdx-remote"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/blog/page.tsx",
+          "hash": "1231330251547223424",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/blog/tag/[slug]/page.tsx",
+          "hash": "16229518522375498777",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/cocreacion/page.tsx",
+          "hash": "11558814891707336841",
+          "deps": [
+            "npm:next",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/curriculum/page.tsx",
+          "hash": "10542473121585711015",
+          "deps": [
+            "npm:next",
+            "npm:lucide-react",
+            "npm:@icons-pack/react-simple-icons"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/iconos/lucide/page.tsx",
+          "hash": "14342901316085021500",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/layout.tsx",
+          "hash": "14617095345358369014",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/legal/politica-de-privacidad/page.tsx",
+          "hash": "6924493224499551569",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/legal/terminos-de-servicio/page.tsx",
+          "hash": "3916007243053916639",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/maintenance/page.tsx",
+          "hash": "7730766306314094006",
+          "deps": [
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx",
+          "hash": "16911649137784491563",
+          "deps": [
+            "npm:next",
+            "npm:framer-motion",
+            "npm:lucide-react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/not-found.tsx",
+          "hash": "2355935623886000510",
+          "deps": [
+            "npm:next",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/page.tsx",
+          "hash": "674324481434129258",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/quien-soy/page.tsx",
+          "hash": "12616595146044236736",
+          "deps": [
+            "npm:next",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/servicios/desarrollo-frontend/page.tsx",
+          "hash": "3767050218451762245"
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/sistema-de-diseno/page.tsx",
+          "hash": "9106947810227080878",
+          "deps": [
+            "npm:next",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/subscribe/page.tsx",
+          "hash": "900549891172885326"
+        },
+        {
+          "file": "apps/portfolio-web/src/app/[lang]/tecnologias/page.tsx",
+          "hash": "15578510673291983886",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/api/visitor/route.ts",
+          "hash": "4726738655755538281",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/global.css",
+          "hash": "17877286607907412239"
+        },
+        {
+          "file": "apps/portfolio-web/src/app/layout.tsx",
+          "hash": "5047649017556764950",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/not-found.tsx",
+          "hash": "13200857469301497808",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/app/sitemap.ts",
+          "hash": "11256322446041843030",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/layout/Footer.tsx",
+          "hash": "11926427349302611125",
+          "deps": [
+            "npm:next",
+            "npm:framer-motion",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/layout/Header.tsx",
+          "hash": "11416387574530817162",
           "deps": [
             "npm:react",
-            "npm:@testing-library/react",
+            "npm:next",
+            "npm:framer-motion",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/layout/Providers.tsx",
+          "hash": "9244214823296698950",
+          "deps": [
+            "npm:react",
             "npm:next-themes"
           ]
         },
         {
-          "file": "packages/testing-utils/src/lib/testing-utils.ts",
-          "hash": "16045256856501043472"
+          "file": "apps/portfolio-web/src/components/razBits/BlurText.tsx",
+          "hash": "9502816176564851846",
+          "deps": [
+            "npm:framer-motion",
+            "npm:react"
+          ]
         },
         {
-          "file": "packages/testing-utils/tsconfig.json",
-          "hash": "12834038490315927699"
+          "file": "apps/portfolio-web/src/components/razBits/GridScan.tsx",
+          "hash": "3393244103977659207",
+          "deps": [
+            "npm:react",
+            "npm:postprocessing",
+            "npm:three"
+          ]
         },
         {
-          "file": "packages/testing-utils/tsconfig.lib.json",
-          "hash": "17741022809241267094"
+          "file": "apps/portfolio-web/src/components/razBits/LetterGlitch.tsx",
+          "hash": "989668515336452231",
+          "deps": [
+            "npm:react"
+          ]
         },
         {
-          "file": "packages/testing-utils/tsconfig.spec.json",
-          "hash": "12872603765494946759"
+          "file": "apps/portfolio-web/src/components/razBits/OrbitalGallery.tsx",
+          "hash": "6526688593539039840",
+          "deps": [
+            "npm:react",
+            "npm:gl-matrix",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/AboutSection.tsx",
+          "hash": "18039093987790751921",
+          "deps": [
+            "npm:framer-motion",
+            "npm:next",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/AiContentSection.tsx",
+          "hash": "1737980860989765241",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/ContactSection.tsx",
+          "hash": "4531087988187085060",
+          "deps": [
+            "npm:react-hook-form",
+            "npm:@hookform/resolvers",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/HeroCarousel.tsx",
+          "hash": "1578802574402716213",
+          "deps": [
+            "npm:react",
+            "npm:embla-carousel",
+            "npm:embla-carousel-react",
+            "npm:embla-carousel-autoplay",
+            "npm:embla-carousel-fade",
+            "npm:framer-motion",
+            "npm:next",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/HistorySection.tsx",
+          "hash": "3651792231322635310",
+          "deps": [
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/TechStackSection.tsx",
+          "hash": "4310764567190322518",
+          "deps": [
+            "npm:react",
+            "npm:@icons-pack/react-simple-icons"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/homepage/ValuePropositionSection.tsx",
+          "hash": "17102917276803920475",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/sections/technologies/TechGrid.tsx",
+          "hash": "6580889947478866505",
+          "deps": [
+            "npm:react",
+            "npm:lucide-react",
+            "npm:@icons-pack/react-simple-icons"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/shared/IconLibraryExplorer.tsx",
+          "hash": "18080617821123951556",
+          "deps": [
+            "npm:react",
+            "npm:lucide-react",
+            "npm:framer-motion",
+            "npm:@icons-pack/react-simple-icons"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/AnimatedQrCode.tsx",
+          "hash": "12075457120073847247",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/Avatar.tsx",
+          "hash": "13896893835020058355",
+          "deps": [
+            "npm:next",
+            "npm:class-variance-authority"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/BlogCard.tsx",
+          "hash": "10371921693305231302",
+          "deps": [
+            "npm:next",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/ColorWaveBar.tsx",
+          "hash": "5079201994321595259",
+          "deps": [
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/DropdownMenu.tsx",
+          "hash": "1999007480313222265",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/Flag.tsx",
+          "hash": "16023160280032683331",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/JsonLdScript.tsx",
+          "hash": "10483905999300904551"
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/LanguageSwitcher.tsx",
+          "hash": "10283941012924391469",
+          "deps": [
+            "npm:react",
+            "npm:next",
+            "npm:framer-motion",
+            "npm:cookies-next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/NestedDropdownContent.tsx",
+          "hash": "13763701650630338836",
+          "deps": [
+            "npm:next",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/NewsletterModal.tsx",
+          "hash": "16269670088775073484",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion",
+            "npm:next",
+            "npm:lucide-react",
+            "npm:cookies-next",
+            "npm:@icons-pack/react-simple-icons"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/PillarCard.tsx",
+          "hash": "12179850190851606163",
+          "deps": [
+            "npm:framer-motion",
+            "npm:lucide-react",
+            "npm:react",
+            "npm:class-variance-authority"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/PrintButton.tsx",
+          "hash": "18245542336972559818",
+          "deps": [
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/ProjectCard.tsx",
+          "hash": "9438460188129806411",
+          "deps": [
+            "npm:framer-motion",
+            "npm:next",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/QrCode.tsx",
+          "hash": "4316494862610620172",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/ShareButtons.tsx",
+          "hash": "10540936557355663531",
+          "deps": [
+            "npm:next",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/TestimonialCard.tsx",
+          "hash": "9725851156170685911",
+          "deps": [
+            "npm:framer-motion",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/ThemeToggle.tsx",
+          "hash": "5481063194310077646",
+          "deps": [
+            "npm:react",
+            "npm:next-themes",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/VisitorHud.tsx",
+          "hash": "5499786920940536700",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion",
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/config/i18n.config.ts",
+          "hash": "14970461292421340127"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/arquitectura-por-manifiesto.json",
+          "hash": "7560942535503420771"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/arquitectura-por-manifiesto.mdx",
+          "hash": "7929643232050859385"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/filosofia-mobile-first.json",
+          "hash": "4053489602559254710"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/filosofia-mobile-first.mdx",
+          "hash": "5897181121521234484"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/monorepo-con-nx.json",
+          "hash": "2537207330666711454"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/monorepo-con-nx.mdx",
+          "hash": "6678669588655501942"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/que-es-una-pwa.json",
+          "hash": "11585547580989053819"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/que-es-una-pwa.mdx",
+          "hash": "12699755048429685860"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/zod-fuente-de-verdad.json",
+          "hash": "17512293098222030944"
+        },
+        {
+          "file": "apps/portfolio-web/src/content/blog/zod-fuente-de-verdad.mdx",
+          "hash": "7782922721270786213"
+        },
+        {
+          "file": "apps/portfolio-web/src/data/ai-gallery.ts",
+          "hash": "1208269757933786836"
+        },
+        {
+          "file": "apps/portfolio-web/src/data/lucide-icons.json",
+          "hash": "17673932210316100464"
+        },
+        {
+          "file": "apps/portfolio-web/src/data/technologies.json",
+          "hash": "18362484720436406257"
+        },
+        {
+          "file": "apps/portfolio-web/src/dictionaries/en-US.json",
+          "hash": "15534676362876954742"
+        },
+        {
+          "file": "apps/portfolio-web/src/dictionaries/es-ES.json",
+          "hash": "6803561821195747357"
+        },
+        {
+          "file": "apps/portfolio-web/src/dictionaries/pt-BR.json",
+          "hash": "10430688385354163667"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/blog-api.ts",
+          "hash": "12088135229483940905"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/blog/actions.ts",
+          "hash": "308349332634338709"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/blog/index.ts",
+          "hash": "7167615456314149467"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/contexts/WidgetContext.tsx",
+          "hash": "12824906563685923661",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/get-dictionary.ts",
+          "hash": "14153738857916488850"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/graphql-client.ts",
+          "hash": "9542136821425983021"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/hooks/use-infinite-carousel-animation.ts",
+          "hash": "12585382888830928298",
+          "deps": [
+            "npm:react",
+            "npm:gsap"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/hooks/use-scroll-direction.ts",
+          "hash": "9425736971293164138",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/hooks/use-visitor-data.ts",
+          "hash": "8210173442210572230",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/nav-links.ts",
+          "hash": "3283739632341709003",
+          "deps": [
+            "npm:react",
+            "npm:lucide-react",
+            "npm:@icons-pack/react-simple-icons"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/projects-data.ts",
+          "hash": "7781559815077451679"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/route-guard.ts",
+          "hash": "7071182016508794870",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/about_section.schema.ts",
+          "hash": "5971916815360257220",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/blog.schema.ts",
+          "hash": "2045082120844892283",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/cocreation_page.schema.ts",
+          "hash": "8086291738832805468",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/contact.schema.ts",
+          "hash": "7354723360102795770",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/contact_page.schema.ts",
+          "hash": "10169555690903685206",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/curriculum.schema.ts",
+          "hash": "280612124189171341",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/design_system_page.schema.ts",
+          "hash": "17269037201337633962",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/dictionary.schema.ts",
+          "hash": "17838974570629893987",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/footer.schema.ts",
+          "hash": "14938499240781755239",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/header.schema.ts",
+          "hash": "7781447869449191235",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/hero.schema.ts",
+          "hash": "7076176526898208781",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/history_section.schema.ts",
+          "hash": "7749555322255298911",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/homepage.schema.ts",
+          "hash": "11714833132716074596",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/language_switcher.schema.ts",
+          "hash": "16990282183990765977",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/legal_page.schema.ts",
+          "hash": "11644625779996789522",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/library_page.schema.ts",
+          "hash": "1327964927600966111",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/mission_vision.schema.ts",
+          "hash": "10741551717241775966",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/nav-links.schema.ts",
+          "hash": "4512932407470154212",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/not_found.schema.ts",
+          "hash": "12689134203582275761",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/quien_soy.schema.ts",
+          "hash": "11246662676537323744",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/seo.schema.ts",
+          "hash": "10648062903366327139",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/technologies_page.schema.ts",
+          "hash": "15114581274253814620",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/value_proposition.schema.ts",
+          "hash": "13624807464366037527",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/social-links.ts",
+          "hash": "12762356840542481585",
+          "deps": [
+            "npm:lucide-react"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/store/ui.store.ts",
+          "hash": "6391434832149654435",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/supabase/client.ts",
+          "hash": "10232640480796336577",
+          "deps": [
+            "npm:@supabase/ssr"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/types.ts",
+          "hash": "8274999411750532091"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/utils/link-helpers.ts",
+          "hash": "7235507348551998170"
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/visuals/orbital-gallery-engine.ts",
+          "hash": "810899685007941162",
+          "deps": [
+            "npm:gl-matrix"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/about.json",
+          "hash": "15293215450471170598"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/ai_gallery_section.json",
+          "hash": "16994259213813782732"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/blog_page.json",
+          "hash": "14901909395429732446"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/cocreation_page.json",
+          "hash": "13882283457162882385"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/contact.json",
+          "hash": "6174542015711198622"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/contact_page.json",
+          "hash": "17418975439812639598"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/curriculum.json",
+          "hash": "879845149610528003"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/design_system_page.json",
+          "hash": "9605761358199947640"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/footer.json",
+          "hash": "1375370340108338326"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/header.json",
+          "hash": "9987498033230683187"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/hero.json",
+          "hash": "5583795858642628797"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/history.json",
+          "hash": "3580489517742031010"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/language_switcher.json",
+          "hash": "3464528149280134642"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/legal.json",
+          "hash": "10513652809680155968"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/lucide_page.json",
+          "hash": "14867643788439710095"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/maintenance.json",
+          "hash": "9129580819070920022"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/mission_vision.json",
+          "hash": "10419264238693648515"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/nav-links.json",
+          "hash": "9059858063148568147"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/not_found.json",
+          "hash": "3872770214218924075"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/quien_soy.json",
+          "hash": "17259288159666879313"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/server_error.json",
+          "hash": "5910526067850049423"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/technologies_page.json",
+          "hash": "5636028886033770310"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/value_proposition.json",
+          "hash": "11716003840090502374"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/en-US/visitor_hud.json",
+          "hash": "5799014928681645831"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/about.json",
+          "hash": "9753648695311280594"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/ai_gallery_section.json",
+          "hash": "119206057601192401"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/blog_page.json",
+          "hash": "13933368176886376771"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/cocreation_page.json",
+          "hash": "16870452471024662832"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/contact.json",
+          "hash": "13652583786432486816"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/contact_page.json",
+          "hash": "6764166508647982459"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/curriculum.json",
+          "hash": "6595301938139654338"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/design_system_page.json",
+          "hash": "13140372962513278031"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/footer.json",
+          "hash": "1240380613134788436"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/header.json",
+          "hash": "4406875474521756789"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/hero.json",
+          "hash": "14860454461044311579"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/history.json",
+          "hash": "1404480268570420285"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/homepage.json",
+          "hash": "6036514188355824868"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/language_switcher.json",
+          "hash": "9130222659498805504"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/legal.json",
+          "hash": "7166309512328145522"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/lucide_page.json",
+          "hash": "16536077723879833259"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/maintenance.json",
+          "hash": "7105105713778154878"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/mission_vision.json",
+          "hash": "14991795638450916565"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/nav-links.json",
+          "hash": "8222976686060254980"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/not_found.json",
+          "hash": "11778557790846060721"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/quien_soy.json",
+          "hash": "13263275252975484284"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/server_error.json",
+          "hash": "18271477883872981361"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/technologies_page.json",
+          "hash": "15894416433279400583"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/value_proposition.json",
+          "hash": "3901490855059407816"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/es-ES/visitor_hud.json",
+          "hash": "2508864032503125008"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/about.json",
+          "hash": "2755538333111275982"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/ai_gallery_section.json",
+          "hash": "2110855274438600971"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/blog_page.json",
+          "hash": "16090125246884647687"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/cocreation_page.json",
+          "hash": "1534708346235065688"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/contact.json",
+          "hash": "13059231980635350596"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/contact_page.json",
+          "hash": "3257323032491539370"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/curriculum.json",
+          "hash": "13152991160358999104"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/design_system_page.json",
+          "hash": "16623341106968094298"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/footer.json",
+          "hash": "11875768409460341010"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/header.json",
+          "hash": "17060280601576425035"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/hero.json",
+          "hash": "4971838657755596419"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/history.json",
+          "hash": "325040962573098132"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/language_switcher.json",
+          "hash": "9130222659498805504"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/legal.json",
+          "hash": "14757781464186193646"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/lucide_page.json",
+          "hash": "3807522539598458629"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/maintenance.json",
+          "hash": "14274858794567808932"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/mission_vision.json",
+          "hash": "9361526210612515096"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/nav-links.json",
+          "hash": "13256239063446236848"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/not_found.json",
+          "hash": "12740926420166495702"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/quien_soy.json",
+          "hash": "2574231428604447607"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/server_error.json",
+          "hash": "12052145390181985052"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/technologies_page.json",
+          "hash": "12665928909314686214"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/value_proposition.json",
+          "hash": "14130798979817569175"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/visitor_hud.json",
+          "hash": "11124113001189234106"
+        },
+        {
+          "file": "apps/portfolio-web/tailwind.config.js",
+          "hash": "2799656782067769588"
+        },
+        {
+          "file": "apps/portfolio-web/tsconfig.json",
+          "hash": "577709116875641440"
+        },
+        {
+          "file": "apps/portfolio-web/tsconfig.spec.json",
+          "hash": "9014227998795601242"
+        }
+      ],
+      "@metashark-cms/ui": [
+        {
+          "file": "packages/cms/ui/.babelrc",
+          "hash": "2946678488919325452"
+        },
+        {
+          "file": "packages/cms/ui/README.md",
+          "hash": "18357593699270166023"
+        },
+        {
+          "file": "packages/cms/ui/eslint.config.mjs",
+          "hash": "4114437769683499576",
+          "deps": [
+            "npm:typescript-eslint",
+            "npm:@nx/eslint-plugin",
+            "npm:eslint-plugin-react-hooks",
+            "npm:eslint-plugin-jest"
+          ]
+        },
+        {
+          "file": "packages/cms/ui/jest.config.ts",
+          "hash": "6132896995011689750"
+        },
+        {
+          "file": "packages/cms/ui/package.json",
+          "hash": "17538569403311526572"
+        },
+        {
+          "file": "packages/cms/ui/rollup.config.cjs",
+          "hash": "2956645583986469445",
+          "deps": [
+            "npm:@nx/rollup",
+            "npm:@rollup/plugin-url",
+            "npm:@svgr/rollup"
+          ]
+        },
+        {
+          "file": "packages/cms/ui/src/index.ts",
+          "hash": "5977848407072712979"
+        },
+        {
+          "file": "packages/cms/ui/src/lib/ui.spec.tsx",
+          "hash": "9256240028211718861",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "packages/cms/ui/src/lib/ui.tsx",
+          "hash": "3963993538601663407"
+        },
+        {
+          "file": "packages/cms/ui/tsconfig.json",
+          "hash": "12188746804854295505"
+        },
+        {
+          "file": "packages/cms/ui/tsconfig.lib.json",
+          "hash": "4353089333964975449"
+        },
+        {
+          "file": "packages/cms/ui/tsconfig.spec.json",
+          "hash": "6879201920187279103"
         }
       ],
       "cms-api": [
@@ -3208,5 +3215,5 @@
       ]
     }
   },
-  "externalNodesHash": "16819830078529882304"
+  "externalNodesHash": "7104675269239873576"
 }

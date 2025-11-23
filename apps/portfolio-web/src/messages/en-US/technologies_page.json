@@ -13,5 +13,16 @@
   "category_other": "Others",
   "showing_results": "Showing {count} technologies",
   "load_more_button": "Load More Technologies",
-  "view_official_site": "Official Site"
+  "view_official_site": "Official Site",
+  "library_help_btn": "Library Help",
+  "library_help_title": "Architecture Resource",
+  "library_help_desc": "This centralized index facilitates the selection of technologies for new projects, ensuring visual consistency and quick access to technical sources of truth.",
+  "btn_docs": "Icon Documentation",
+  "btn_repo": "GitHub Repository",
+  "modal_install_title": "Library Installation",
+  "modal_usage_title": "Implementation",
+  "modal_close": "Close",
+  "scroll_top": "Scroll Up",
+  "scroll_bottom": "Scroll Down",
+  "view_details": "View Details"
 }

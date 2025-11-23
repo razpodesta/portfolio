@@ -13,5 +13,16 @@
   "category_other": "Outros",
   "showing_results": "Exibindo {count} tecnologias",
   "load_more_button": "Carregar Mais Tecnologias",
-  "view_official_site": "Site Oficial"
+  "view_official_site": "Site Oficial",
+  "library_help_btn": "Ajuda da Biblioteca",
+  "library_help_title": "Recurso de Arquitetura",
+  "library_help_desc": "Este índice centralizado facilita a seleção de tecnologias para novos projetos, garantindo consistência visual e acesso rápido às fontes de verdade técnica.",
+  "btn_docs": "Documentação dos Ícones",
+  "btn_repo": "Repositório GitHub",
+  "modal_install_title": "Instalação da Biblioteca",
+  "modal_usage_title": "Implementação",
+  "modal_close": "Fechar",
+  "scroll_top": "Rolar para Cima",
+  "scroll_bottom": "Rolar para Baixo",
+  "view_details": "Ver Detalhes"
 }

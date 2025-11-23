@@ -52,5 +52,59 @@
       ],
       "command": "pnpm exec nx watch --projects @metashark-cms/ui --includeDependentProjects -- pnpm exec nx build-deps @metashark-cms/ui"
     }
+  },
+  "13839145323252826352": {
+    "build": {
+      "command": "rollup -c rollup.config.cjs",
+      "options": {
+        "cwd": "packages/cms/ui"
+      },
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "externalDependencies": [
+            "rollup"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/packages/cms/ui/dist"
+      ],
+      "metadata": {
+        "technologies": [
+          "rollup"
+        ],
+        "description": "Run Rollup",
+        "help": {
+          "command": "pnpm exec rollup --help",
+          "example": {
+            "options": {
+              "sourcemap": true,
+              "watch": true
+            }
+          }
+        }
+      },
+      "syncGenerators": [
+        "@nx/js:typescript-sync"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects @metashark-cms/ui --includeDependentProjects -- pnpm exec nx build-deps @metashark-cms/ui"
+    }
   }
 }
