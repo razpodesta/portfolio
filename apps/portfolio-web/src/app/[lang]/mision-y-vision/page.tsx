@@ -2,8 +2,9 @@
 
 /**
  * @file Página de Misión y Visión.
- * @version 2.0 - Next.js 15 Compliance
- * @description Actualización a params asíncronos y tipado robusto.
+ * @version 3.0 - Server Component Pureza & FadeIn Wrapper
+ * @description Eliminación de framer-motion directo para compatibilidad con RSC.
+ *              Uso de FadeIn para las animaciones de entrada.
  */
 
 import type { Metadata } from 'next';
@@ -11,7 +12,7 @@ import { type Locale } from '@/config/i18n.config';
 import { getDictionary } from '@/lib/get-dictionary';
 import { BlurText } from '@/components/razBits/BlurText';
 import { PillarCard } from '@/components/ui/PillarCard';
-import { motion } from 'framer-motion';
+import { FadeIn } from '@/components/ui/FadeIn'; // <-- Wrapper de Cliente
 import { BookOpen, BrainCircuit, Goal } from 'lucide-react';
 import React from 'react';
 import type { VisionPillar } from '@/lib/schemas/mission_vision.schema';
@@ -30,15 +31,6 @@ export async function generateMetadata(props: MissionVisionPageProps): Promise<M
   };
 }
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
 const pillarIcons = [BookOpen, BrainCircuit, Goal];
 
 export default async function MissionVisionPage(props: MissionVisionPageProps) {
@@ -55,14 +47,11 @@ export default async function MissionVisionPage(props: MissionVisionPageProps) {
             className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl justify-center mb-6"
             animateBy="words"
           />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: 'easeOut' }}
-            className="font-sans text-lg text-zinc-400"
-          >
-            {t.mission_description}
-          </motion.p>
+          <FadeIn delay={0.5}>
+            <p className="font-sans text-lg text-zinc-400">
+              {t.mission_description}
+            </p>
+          </FadeIn>
         </section>
 
         <div className="mx-auto my-20 h-px w-2/3 bg-zinc-800" />
@@ -73,24 +62,17 @@ export default async function MissionVisionPage(props: MissionVisionPageProps) {
             className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl justify-center mb-4"
             animateBy="words"
           />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: 'easeOut' }}
-            className="font-sans text-lg text-zinc-400 mb-20"
-          >
-            {t.vision_subtitle}
-          </motion.p>
+          <FadeIn delay={0.5}>
+            <p className="font-sans text-lg text-zinc-400 mb-20">
+              {t.vision_subtitle}
+            </p>
+          </FadeIn>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col md:flex-row items-center md:items-end justify-center gap-8"
-          >
+          {/* Contenedor de Pilares */}
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-8">
             {t.vision_pillars.map((pillar: VisionPillar, index: number) => (
               <React.Fragment key={pillar.title}>
+                {/* PillarCard ya es un Client Component ('use client'), así que es seguro renderizarlo aquí */}
                 <PillarCard
                   Icon={pillarIcons[index]}
                   title={pillar.title}
@@ -100,7 +82,7 @@ export default async function MissionVisionPage(props: MissionVisionPageProps) {
                 />
               </React.Fragment>
             ))}
-          </motion.div>
+          </div>
         </section>
       </main>
     </div>

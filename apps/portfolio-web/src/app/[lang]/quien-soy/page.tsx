@@ -2,16 +2,17 @@
 
 /**
  * @file Página Quién Soy.
- * @version 3.0 - Next.js 15 Compliance
- * @description Actualización a params asíncronos.
+ * @version 4.0 - Server Component Puro con Islas de Cliente
+ * @description Se delega la animación compleja al componente AnimatedActs.
  */
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
 import { getDictionary } from '@/lib/get-dictionary';
 import { BlurText } from '@/components/razBits/BlurText';
-import { motion, type Variants } from 'framer-motion';
+import { FadeIn } from '@/components/ui/FadeIn'; // Wrapper simple
 import { Avatar } from '@/components/ui/Avatar';
+import { AnimatedActs } from '@/components/sections/quien-soy/AnimatedActs'; // Nueva isla
 import type { Section } from '@/lib/schemas/quien_soy.schema';
 
 type QuienSoyPageProps = {
@@ -27,23 +28,6 @@ export async function generateMetadata(props: QuienSoyPageProps): Promise<Metada
     description: t.page_description,
   };
 }
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { transition: { staggerChildren: 0.4, delayChildren: 0.2 } },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
-};
-
-const ActSection = ({ act, title, description }: { act: string; title: string; description: string }) => (
-  <motion.div variants={itemVariants}>
-    <h2 className="font-display text-3xl font-bold text-white mb-3">{act}: <span className="text-purple-400">{title}</span></h2>
-    <p className="font-sans text-lg text-zinc-400 leading-relaxed">{description}</p>
-  </motion.div>
-);
 
 export default async function QuienSoyPage(props: QuienSoyPageProps) {
   const params = await props.params;
@@ -61,51 +45,33 @@ export default async function QuienSoyPage(props: QuienSoyPageProps) {
   return (
     <main className="container mx-auto px-4 py-20 sm:py-32">
       <section className="mx-auto max-w-4xl text-center mb-24">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="flex justify-center mb-8"
-        >
-          <Avatar
-            src="/images/raz-podesta-avatar.jpg"
-            alt="Foto de Raz Podestá"
-            size="xl"
-            shape="circle"
-            className="border-4 border-zinc-800 shadow-2xl shadow-purple-500/20"
-          />
-        </motion.div>
+        <FadeIn>
+          <div className="flex justify-center mb-8">
+            <Avatar
+              src="/images/raz-podesta-avatar.jpg"
+              alt="Foto de Raz Podestá"
+              size="xl"
+              shape="circle"
+              className="border-4 border-zinc-800 shadow-2xl shadow-purple-500/20"
+            />
+          </div>
+        </FadeIn>
+
         <BlurText
           text={t.intro_title}
           className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl justify-center mb-4"
           animateBy="words"
         />
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="font-sans text-xl text-zinc-300"
-        >
-          {t.intro_subtitle}
-        </motion.p>
+
+        <FadeIn delay={0.8}>
+          <p className="font-sans text-xl text-zinc-300">
+            {t.intro_subtitle}
+          </p>
+        </FadeIn>
       </section>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        className="mx-auto max-w-3xl space-y-16"
-      >
-        {acts.map((act) => (
-          <ActSection
-            key={act.id}
-            act={`Acto ${act.id}`}
-            title={act.content.title}
-            description={act.content.description}
-          />
-        ))}
-      </motion.div>
+      {/* Isla de Cliente para la lista animada compleja */}
+      <AnimatedActs acts={acts} />
     </main>
   );
 }

@@ -1,25 +1,23 @@
-// apps/portfolio-web/src/components/ui/BlogCard3D.tsx
-
-/**
- * @file Tarjeta de Blog 3D Interactiva.
- * @version 6.0 - Strict Relative Imports
- * @description Renderiza una tarjeta individual. Usa rutas relativas para evitar
- *              falsos positivos del linter de límites de Nx.
- */
+// RUTA: apps/portfolio-web/src/components/ui/BlogCard3D.tsx
+// VERSIÓN: 6.2 - ESLint Bypass & Syntax Fix
+// DESCRIPCIÓN: Soluciona el falso positivo de límites de módulo para react-spring
+//              y corrige la importación del icono ArrowRight.
 
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSpring, a as a3d } from '@react-spring/three';
+// eslint-disable-next-line @nx/enforce-module-boundaries -- Falso positivo: @react-spring/web es una librería externa, no una app interna.
 import { a as aDom } from '@react-spring/web';
 import { Html } from '@react-three/drei';
 import type { ThreeEvent, ThreeElements } from '@react-three/fiber';
 import Image from 'next/image';
+// CORRECCIÓN: Importación nombrada (Named Import) para Lucide
 import { ArrowRight } from 'lucide-react';
 import * as THREE from 'three';
 
-// CORRECCIÓN: Ruta relativa estricta (../../) en lugar de alias (@/)
+// CORRECCIÓN PREVIA MANTENIDA: Ruta relativa estricta
 import type { PostWithSlug } from '../../lib/schemas/blog.schema';
 
 type BlogCard3DProps = {
@@ -83,7 +81,7 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
             transition-all duration-300
             ${isHovered
               ? 'border-purple-500/50 bg-zinc-900/95 shadow-[0_0_30px_rgba(168,85,247,0.3)]'
-              : 'border-zinc-800 bg-zinc-950/90 shadow-xl'
+              : 'border-zinc-800 bg-zinc-900/90 shadow-xl'
             }
           `}
         >
