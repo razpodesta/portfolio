@@ -1,11 +1,14 @@
+// apps/portfolio-web/src/app/[lang]/page.tsx
+
 /**
  * @file Página de Inicio (Homepage).
- * @version 10.0 - Next.js 15 Compliance
- * @description Punto de entrada principal. Actualizado para params asíncronos.
+ * @version 11.0 - Font Cleanup
+ * @description Se elimina la carga local de fuentes (localFont) ya que ahora
+ *              se heredan globalmente desde el Layout.
  */
 
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+// import localFont removido - Ya está en el layout
 import { type Locale } from '@/config/i18n.config';
 import { getDictionary } from '@/lib/get-dictionary';
 import { HeroCarousel } from '@/components/sections/homepage/HeroCarousel';
@@ -16,16 +19,7 @@ import { ContactSection } from '@/components/sections/homepage/ContactSection';
 import { AiContentSection } from '@/components/sections/homepage/AiContentSection';
 import { JsonLdScript } from '@/components/ui/JsonLdScript';
 
-const fontClashDisplay = localFont({
-  src: [
-    { path: '../../../public/fonts/ClashDisplay-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../../../public/fonts/ClashDisplay-Bold.woff2', weight: '700', style: 'normal' },
-  ],
-  variable: '--font-display',
-  display: 'swap',
-});
-
-// --- DEFINICIÓN DE TIPOS SOBERANA ---
+// --- TIPADO SOBERANO ---
 type HomePageProps = {
   params: Promise<{ lang: Locale }>;
 };
@@ -56,7 +50,8 @@ export default async function HomePage(props: HomePageProps) {
   };
 
   return (
-    <div className={fontClashDisplay.variable}>
+    // Eliminamos className={fontClashDisplay.variable} ya que está en el body del layout
+    <div>
       <JsonLdScript data={personSchema} />
 
       <HeroCarousel dictionary={homepageDict.hero} />

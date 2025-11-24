@@ -976,9 +976,10 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/blog/page.tsx",
-          "hash": "9820144408008586530",
+          "hash": "10982977643255016036",
           "deps": [
-            "npm:next"
+            "npm:next",
+            "npm:next-mdx-remote"
           ]
         },
         {
@@ -1014,7 +1015,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/layout.tsx",
-          "hash": "16075829717093025415",
+          "hash": "2433176574608279317",
           "deps": [
             "npm:next"
           ]
@@ -1060,7 +1061,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/page.tsx",
-          "hash": "3944110778792692287",
+          "hash": "16121531299795842742",
           "deps": [
             "npm:next"
           ]
@@ -2726,7 +2727,7 @@
         },
         {
           "file": "README.md",
-          "hash": "6594613106620236161"
+          "hash": "8386416481799663910"
         },
         {
           "file": "eslint.config.mjs",

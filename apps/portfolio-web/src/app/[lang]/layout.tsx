@@ -1,7 +1,11 @@
+// apps/portfolio-web/src/app/[lang]/layout.tsx
 
-// RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
-// VERSIÓN: 15.0 - Next.js 15 Compliance (Async Params)
-// DESCRIPCIÓN: Layout raíz adaptado para params asíncronos.
+/**
+ * @file Layout Raíz del Portafolio.
+ * @version 16.0 - Centralización de Fuentes (Fix Build Error)
+ * @description Se centraliza la carga de TODAS las fuentes locales (Satoshi, Signature, Clash Display)
+ *              en este nivel para evitar errores de rutas relativas en páginas profundas.
+ */
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -13,6 +17,8 @@ import { Footer } from '@/components/layout/Footer';
 import { NewsletterModal } from '@/components/ui/NewsletterModal';
 import { VisitorHud } from '@/components/ui/VisitorHud';
 import '../global.css';
+
+// --- 1. CONFIGURACIÓN CENTRALIZADA DE FUENTES ---
 
 const fontSatoshi = localFont({
   src: [
@@ -28,6 +34,19 @@ const fontSignature = localFont({
     variable: '--font-signature',
     display: 'swap',
 });
+
+// MOVIDO AQUÍ: Clash Display ahora se carga globalmente desde el Layout.
+// La ruta relative '../../../' es correcta desde 'src/app/[lang]/layout.tsx'
+const fontClashDisplay = localFont({
+  src: [
+    { path: '../../../public/fonts/ClashDisplay-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../../../public/fonts/ClashDisplay-Bold.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+// ------------------------------------------------
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -69,7 +88,8 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <head />
       <body
-        className={`${fontSatoshi.variable} ${fontSignature.variable} font-sans bg-background text-foreground antialiased`}
+        // Inyectamos las 3 variables CSS de fuentes en el body
+        className={`${fontSatoshi.variable} ${fontSignature.variable} ${fontClashDisplay.variable} font-sans bg-background text-foreground antialiased`}
       >
         <Providers>
             <div className="flex min-h-screen flex-col">

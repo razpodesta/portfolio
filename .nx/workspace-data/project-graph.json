@@ -27477,6 +27477,11 @@
       },
       {
         "source": "portfolio-web",
+        "target": "npm:next-mdx-remote",
+        "type": "static"
+      },
+      {
+        "source": "portfolio-web",
         "target": "npm:framer-motion",
         "type": "static"
       },
@@ -66605,5 +66610,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1763996588739
+  "computedAt": 1763998033474
 }

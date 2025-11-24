@@ -1,58 +1,136 @@
+// apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx
+
 /**
- * @file Página Índice del Blog.
- * @version 2.0 - Next.js 15 Compliance
- * @description Listado de todos los artículos. Actualizado para params asíncronos.
+ * @file Página de Detalle de Artículo de Blog.
+ * @version 6.0 - Clean Architecture & Font Fix
+ * @description Se asegura que no existan importaciones de fuentes locales que rompan el build.
+ *              Confía en las variables CSS globales para la tipografía.
  */
 
 import type { Metadata } from 'next';
-import { type Locale } from '@/config/i18n.config';
-import { getDictionary } from '@/lib/get-dictionary';
-import { BlurText } from '@/components/razBits/BlurText';
-import { BlogCard } from '@/components/ui/BlogCard';
-import { getAllPosts } from '@/lib/blog';
-import type { PostWithSlug } from '@/lib/schemas/blog.schema';
+import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { i18n, type Locale } from '@/config/i18n.config';
+import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { JsonLdScript } from '@/components/ui/JsonLdScript';
+import { ShareButtons } from '@/components/ui/ShareButtons';
+import Image from 'next/image';
 
-// --- DEFINICIÓN DE TIPOS SOBERANA ---
-type BlogPageProps = {
-  params: Promise<{ lang: Locale }>;
+// --- TIPADO SOBERANO ---
+type PostPageProps = {
+  params: Promise<{ slug: string; lang: Locale }>;
 };
 
-export async function generateMetadata(props: BlogPageProps): Promise<Metadata> {
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+
+  return i18n.locales.flatMap((lang) =>
+    posts.map((post) => ({
+      lang,
+      slug: post.slug,
+    }))
+  );
+}
+
+export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
   const params = await props.params;
-  const dictionary = await getDictionary(params.lang);
-  const t = dictionary.blog_page;
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return { title: 'Artículo no encontrado' };
+  }
+
+  const { title, description, published_date } = post.metadata;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:4200';
+  const canonicalUrl = `${baseUrl}/${params.lang}/blog/${params.slug}`;
+  const imageUrl = `${baseUrl}/images/blog/${params.slug}.jpg`;
+
   return {
-    title: t.page_title,
-    description: t.page_description,
+    title: title,
+    description: description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: canonicalUrl,
+      images: [{ url: imageUrl, width: 1200, height: 630 }],
+      type: 'article',
+      publishedTime: published_date,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [imageUrl],
+    },
   };
 }
 
-export default async function BlogPage(props: BlogPageProps) {
+export default async function PostPage(props: PostPageProps) {
   const params = await props.params;
-  const dictionary = await getDictionary(params.lang);
-  const t = dictionary.blog_page;
-  const allPosts = await getAllPosts();
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const { title, author, published_date, tags } = post.metadata;
+  const imageUrl = `/images/blog/${params.slug}.jpg`;
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    author: { '@type': 'Person', name: author },
+    datePublished: published_date,
+    image: imageUrl,
+    description: post.metadata.description,
+  };
 
   return (
-    <main className="container mx-auto px-4 py-20 sm:py-24">
-      <header className="mx-auto max-w-2xl text-center mb-16">
-        <BlurText
-          text={t.all_posts_title}
-          className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl justify-center"
-        />
-      </header>
+    <>
+      <JsonLdScript data={articleSchema} />
+      <main className="container mx-auto max-w-3xl px-4 py-16 sm:py-24">
+        <article>
+          <header className="mb-8">
+            <div className="relative mb-8 h-60 w-full overflow-hidden rounded-xl md:h-80">
+              <Image
+                src={imageUrl}
+                alt={`Imagen destacada para ${title}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+            {/* Usamos 'font-display' que ahora mapea a la variable global --font-display */}
+            <h1 className="font-display text-4xl font-bold leading-tight text-white md:text-5xl">
+              {title}
+            </h1>
+            <div className="mt-4 flex items-center justify-between text-sm text-zinc-400">
+              <span>Por {author}</span>
+              <span>{new Date(published_date).toLocaleDateString(params.lang, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-zinc-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </header>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {allPosts.map((post: PostWithSlug) => (
-          <BlogCard
-            key={post.slug}
-            post={post.metadata}
-            slug={post.slug}
-            lang={params.lang}
-            ctaText={t.read_more_cta}
-          />
-        ))}
-      </div>
-    </main>
+          <div className="prose prose-invert prose-lg max-w-none font-sans">
+            <MDXRemote source={post.content} />
+          </div>
+
+          <footer className="mt-12 border-t border-zinc-800 pt-8">
+            <ShareButtons title={title} />
+          </footer>
+        </article>
+      </main>
+    </>
   );
 }
