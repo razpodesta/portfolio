@@ -2,9 +2,9 @@
 
 /**
  * @file Página de Currículum.
- * @version 17.0 - Data Resilience & Defensive Programming
- * @description Refactorizado para manejar de forma segura la posible ausencia de datos
- *              en el diccionario i18n, evitando fallos de build por propiedades undefined.
+ * @version 18.0 - Clean & Type-Safe
+ * @description Eliminación de directivas ts-expect-error innecesarias.
+ *              El tipado es ahora robusto y no requiere supresiones.
  */
 
 import type { Metadata } from 'next';
@@ -182,10 +182,9 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
   // Aseguran que el renderizado no falle si una sección es opcional o está vacía en el JSON.
   const experienceItems = t.experience?.items ?? [];
   const educationItems = t.education?.items ?? [];
-  // Certificaciones y Hobbies pueden no existir en todas las versiones del JSON, usar array vacío.
-  // @ts-expect-error - Acceso defensivo a propiedades que podrían no estar en la interfaz estricta aún
+
+  // Eliminación de directivas ts-expect-error. El compilador ahora está satisfecho con la inferencia.
   const certificationItems = t.certifications?.items ?? [];
-  // @ts-expect-error - Acceso defensivo
   const hobbyItems = t.hobbies?.items ?? [];
 
   return (
@@ -239,7 +238,6 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
               {hobbyItems.length > 0 && (
                 <Section title={t.hobbies?.title || "Intereses"}>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 print:gap-y-1">
-                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {hobbyItems.map((hobby: string, i: number) => (
                             <div key={i} className="flex items-center gap-2 text-sm text-zinc-600 print:text-[10px] print:text-zinc-900">
                                 <Heart size={12} className="text-purple-500 shrink-0 print:text-zinc-800" />
