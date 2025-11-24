@@ -1,9 +1,5 @@
 // RUTA: apps/portfolio-web/src/components/shared/IconLibraryExplorer.tsx
-// VERSIÓN: 6.3 - Lógica de i18n Unificada
-// DESCRIPCIÓN: Versión final que unifica la lógica de obtención de etiquetas de
-//              categoría para que funcione con ambos contratos de diccionario
-//              (lucide_page y technologies_page) sin errores de tipo.
-
+// VERSIÓN: 9.0 - Contratos y Sintaxis en Armonía Total
 'use client';
 
 import React, { useState, useMemo, type ComponentType } from 'react';
@@ -30,7 +26,6 @@ interface IconLibraryExplorerProps {
   libraryType: 'lucide' | 'simple-icons';
 }
 
-// Interfaces para Props de Modales (Type Safety)
 interface SharedModalProps {
   onClose: () => void;
   libraryType: 'lucide' | 'simple-icons';
@@ -42,7 +37,6 @@ interface InstallModalProps extends SharedModalProps {
   asset: LibraryAsset;
 }
 
-// Modal de Ayuda de Librería
 const LibraryHelpModal = ({ onClose, libraryType, dictionary, accentColor }: SharedModalProps) => {
   const libInfo = libraryType === 'lucide'
     ? { name: 'Lucide React', url: 'https://lucide.dev', repo: 'https://github.com/lucide-icons/lucide' }
@@ -51,7 +45,7 @@ const LibraryHelpModal = ({ onClose, libraryType, dictionary, accentColor }: Sha
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
+      className="fixed inset-0 z-110 flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
       onClick={onClose}
     >
       <motion.div
@@ -84,7 +78,6 @@ const LibraryHelpModal = ({ onClose, libraryType, dictionary, accentColor }: Sha
   );
 };
 
-// Modal de Detalle/Instalación
 const InstallModal = ({ asset, onClose, libraryType, dictionary, accentColor }: InstallModalProps) => {
   const installCmd = libraryType === 'lucide' ? 'pnpm add lucide-react' : 'pnpm add @icons-pack/react-simple-icons';
   const importCode = libraryType === 'lucide' ? `import { ${asset.id} } from 'lucide-react';` : `import { ${asset.id} } from '@icons-pack/react-simple-icons';`;
@@ -151,8 +144,6 @@ const InstallModal = ({ asset, onClose, libraryType, dictionary, accentColor }: 
   );
 };
 
-// --- COMPONENTE PRINCIPAL ---
-
 export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple', libraryType }: IconLibraryExplorerProps) {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -160,8 +151,15 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
   const [selectedAsset, setSelectedAsset] = useState<LibraryAsset | null>(null);
   const [showHelp, setShowHelp] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const IconLibrary: any = libraryType === 'lucide' ? LucideIcons : SimpleIcons;
+  const iconMap = useMemo(() => {
+    const library = libraryType === 'lucide' ? LucideIcons : SimpleIcons;
+    const componentEntries = Object.entries(library).filter(
+      ([key, value]) => typeof value === 'function' && key !== 'createLucideIcon'
+    );
+    return new Map<string, ComponentType<{ size?: number; className?: string }>>(
+      componentEntries as [string, ComponentType<{ size?: number; className?: string }>][]
+    );
+  }, [libraryType]);
 
   const uniqueCategories = useMemo(() => {
     const cats = new Set<string>();
@@ -186,7 +184,7 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
         (asset.tags && asset.tags.some(tag => tag.toLowerCase().includes(term)));
 
       const assetCats = asset.categories || (asset.category ? [asset.category] : ['Other']);
-      const matchesCategory = activeCategory === 'all' || assetCats.includes(activeCategory);
+      const matchesCategory = activeCategory === 'all' || assetCats.some(cat => cat.toLowerCase() === activeCategory.toLowerCase());
 
       return matchesSearch && matchesCategory;
     });
@@ -194,15 +192,10 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
 
   const visibleAssets = filteredAssets.slice(0, visibleCount);
 
-  // --- INICIO DE LA LÓGICA DE I18N UNIFICADA ---
   const getCategoryLabel = (catKey: string): string => {
     const key = `category_${catKey.toLowerCase()}`;
-    // Asumimos que el objeto `dictionary` SIEMPRE tendrá las claves que necesita.
-    // La aserción de tipo `as Record<string, string>` le da a TypeScript la confianza
-    // de que podemos indexar este objeto con un string dinámico.
     return (dictionary as Record<string, string>)[key] || catKey;
   };
-  // --- FIN DE LA LÓGICA DE I18N UNIFICADA ---
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const scrollToBottom = () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -247,9 +240,9 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
                 </button>
               ))}
             </div>
-             <p className="text-center text-[10px] text-zinc-600 uppercase tracking-widest">
-                {dictionary?.showing_count
-                  ? dictionary.showing_count.replace('{count}', visibleAssets.length.toString()).replace('{total}', filteredAssets.length.toString())
+             <p className="text-center text-[10px] text-zinc-600 uppercase tracking-wider">
+                {dictionary?.showing_results
+                  ? dictionary.showing_results.replace('{count}', visibleAssets.length.toString()).replace('{total}', filteredAssets.length.toString())
                   : `${visibleAssets.length} / ${filteredAssets.length}`}
              </p>
           </div>
@@ -260,7 +253,7 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
           <AnimatePresence mode='popLayout'>
             {visibleAssets.map((asset) => {
-              const IconComponent = IconLibrary[asset.id] || IconLibrary.HelpCircle || IconLibrary.SiDotenv;
+              const IconComponent = iconMap.get(asset.id) || LucideIcons.HelpCircle;
               return (
                 <motion.div
                   layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} key={asset.id}
@@ -290,7 +283,7 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
         {visibleCount < filteredAssets.length && (
           <div className="flex justify-center py-20">
             <button onClick={() => setVisibleCount(prev => prev + 60)} className={`group relative px-8 py-3 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 font-bold transition-all hover:bg-zinc-800 hover:text-white hover:border-${accentColor}-500/50 active:scale-95`}>
-              <span>{dictionary?.load_more || 'Cargar Más'}</span>
+              <span>{dictionary?.load_more_button || 'Cargar Más'}</span>
             </button>
           </div>
         )}

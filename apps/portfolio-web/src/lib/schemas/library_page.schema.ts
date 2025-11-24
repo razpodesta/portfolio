@@ -1,5 +1,5 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/library_page.schema.ts
-// VERSIÓN: 2.0 - Semántica Unificada
+// VERSIÓN: 4.0 - Sincronización Total
 import { z } from 'zod';
 
 export const libraryPageSchema = z.object({
@@ -8,8 +8,12 @@ export const libraryPageSchema = z.object({
   header_title: z.string(),
   header_subtitle: z.string(),
   search_placeholder: z.string(),
-  load_more: z.string(),
-  showing_count: z.string(),
+
+  // --- INICIO DE LA UNIFICACIÓN SEMÁNTICA FINAL ---
+  load_more_button: z.string(),
+  showing_results: z.string(),
+  // --- FIN DE LA UNIFICACIÓN SEMÁNTICA FINAL ---
+
   visit_official: z.string(),
   copy_import: z.string(),
   view_details: z.string(),
@@ -23,10 +27,5 @@ export const libraryPageSchema = z.object({
   library_help_desc: z.string(),
   btn_docs: z.string(),
   btn_repo: z.string(),
-
-  // --- INICIO DE LA UNIFICACIÓN SEMÁNTICA ---
-  // Se elimina el objeto anidado 'categories' y se usa una clave plana.
   category_all: z.string(),
-  // Se elimina .passthrough() ya que ahora todas las claves son explícitas.
-  // --- FIN DE LA UNIFICACIÓN SEMÁNTICA ---
 });

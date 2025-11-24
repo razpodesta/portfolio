@@ -1,5 +1,5 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/technologies_page.schema.ts
-// VERSIÓN: 2.1 - Semántica Unificada
+// VERSIÓN: 3.0 - Sincronización Total
 import { z } from 'zod';
 
 export const technologiesPageSchema = z.object({
@@ -8,12 +8,12 @@ export const technologiesPageSchema = z.object({
   title: z.string(),
   subtitle: z.string(),
   search_placeholder: z.string(),
+
+  // --- INICIO DE LA UNIFICACIÓN SEMÁNTICA FINAL ---
   load_more_button: z.string(),
   showing_results: z.string(),
-
-  // --- INICIO DE LA CORRECCIÓN SEMÁNTICA ---
-  visit_official: z.string(), // Clave unificada. Reemplaza a 'view_official_site'.
-  // --- FIN DE LA CORRECCIÓN SEMÁNTICA ---
+  visit_official: z.string(),
+  // --- FIN DE LA UNIFICACIÓN SEMÁNTICA FINAL ---
 
   category_all: z.string(),
   category_frontend: z.string(),
@@ -22,7 +22,6 @@ export const technologiesPageSchema = z.object({
   category_ai: z.string(),
   category_design: z.string(),
   category_other: z.string(),
-
   library_help_btn: z.string(),
   library_help_title: z.string(),
   library_help_desc: z.string(),
