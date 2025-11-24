@@ -969,7 +969,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx",
-          "hash": "2396459629318646393",
+          "hash": "5828781343951725131",
           "deps": [
             "npm:next",
             "npm:next-mdx-remote"
@@ -999,7 +999,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/curriculum/page.tsx",
-          "hash": "10542473121585711015",
+          "hash": "13182593435550069940",
           "deps": [
             "npm:next",
             "npm:lucide-react",

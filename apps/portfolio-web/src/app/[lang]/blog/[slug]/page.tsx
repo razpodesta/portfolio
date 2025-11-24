@@ -1,8 +1,8 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx
-// VERSIÓN: 3.0 - Soberana, Optimizada para SEO y SSG (Ultra-Holística)
-// DESCRIPCIÓN: Implementación completa de la página de artículo. Genera páginas estáticas
-//              (SSG), inyecta metadatos SEO dinámicos (Open Graph, JSON-LD), renderiza
-//              contenido MDX desde el CMS y habilita la compartición social.
+// VERSIÓN: 4.0 - Tipado de Props Soberano
+// DESCRIPCIÓN: Se corrige la definición de tipo de 'PostPageProps' para que la
+//              propiedad 'params' sea un objeto simple, alineándose con la
+//              forma en que Next.js App Router pasa las props a los componentes de página.
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -13,16 +13,15 @@ import { JsonLdScript } from '@/components/ui/JsonLdScript';
 import { ShareButtons } from '@/components/ui/ShareButtons';
 import Image from 'next/image';
 
+// --- INICIO DE LA CORRECCIÓN DE TIPO SOBERANA ---
 type PostPageProps = {
   params: { slug: string; lang: Locale };
 };
+// --- FIN DE LA CORRECCIÓN DE TIPO SOBERANA ---
 
-// --- PASO 1: Generación de Páginas Estáticas (SSG) ---
-// Se ejecuta en el build para decirle a Next.js qué páginas de blog pre-renderizar.
 export async function generateStaticParams() {
   const posts = await getAllPosts();
 
-  // Genera una ruta para cada post en cada idioma soportado.
   return i18n.locales.flatMap((lang) =>
     posts.map((post) => ({
       lang,
@@ -31,8 +30,6 @@ export async function generateStaticParams() {
   );
 }
 
-// --- PASO 2: Generación de Metadatos Dinámicos para SEO ---
-// Se ejecuta en el servidor para cada página, creando metadatos únicos por artículo.
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
 
@@ -68,11 +65,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   };
 }
 
-// --- PASO 3: El Componente de la Página (Server Component) ---
 export default async function PostPage({ params }: PostPageProps) {
   const post = await getPostBySlug(params.slug);
 
-  // Si el post no se encuentra en la base de datos, renderiza la página 404.
   if (!post) {
     notFound();
   }
@@ -80,7 +75,6 @@ export default async function PostPage({ params }: PostPageProps) {
   const { title, author, published_date, tags } = post.metadata;
   const imageUrl = `/images/blog/${params.slug}.jpg`;
 
-  // Datos Estructurados para Google Rich Snippets.
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',

@@ -1,7 +1,9 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/curriculum/page.tsx
-// VERSIÓN: 13.0 - Estética Limpia (White Minimalist) + Contenido Completo
-// DESCRIPCIÓN: Recupera el diseño visual limpio y profesional, integrando las nuevas
-//              secciones de Certificaciones y Hobbies sin sacrificar la elegancia.
+// VERSIÓN: 14.0 - Tipado de Props Soberano y Desplegable
+// DESCRIPCIÓN: Versión final y completa que corrige el contrato de tipos de las props
+//              de la página ('params'), alineándolo con la arquitectura de Next.js App Router.
+//              Se elimina el uso de 'Promise' en el tipo de 'params' para resolver el
+//              error de compilación y garantizar un despliegue exitoso.
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -22,7 +24,11 @@ import type { Curriculum } from '@/lib/schemas/curriculum.schema';
 // ===================================================================================
 // TIPOS Y PROPS
 // ===================================================================================
-type CurriculumPageProps = { params: Promise<{ lang: Locale }> };
+
+// --- INICIO DE LA CORRECCIÓN DE TIPO SOBERANA ---
+type CurriculumPageProps = { params: { lang: Locale } };
+// --- FIN DE LA CORRECCIÓN DE TIPO SOBERANA ---
+
 type SectionProps = { title: string; children: React.ReactNode; className?: string };
 type ExperienceItemProps = { item: Curriculum['experience']['items'][0] };
 type ContactInfoProps = { icon: React.ElementType; text: string; href?: string; isBold?: boolean };
@@ -33,7 +39,7 @@ type SkillCategoryProps = { title: string; skills: TechItem[] };
 // METADATOS
 // ===================================================================================
 export async function generateMetadata({ params }: CurriculumPageProps): Promise<Metadata> {
-  const { lang } = await params;
+  const { lang } = params; // 'await' eliminado
   const dictionary = await getDictionary(lang);
   const t = dictionary.curriculum;
   if (!t) return { title: "Currículum" };
@@ -93,7 +99,6 @@ const skillCategories: { title: string; skills: TechItem[] }[] = [
 // ===================================================================================
 const Section = ({ title, children, className = '' }: SectionProps) => (
   <section className={className}>
-    {/* Estilo de título limpio: Borde inferior gris suave, texto oscuro */}
     <h2 className="font-display text-xs font-bold uppercase tracking-[0.2em] text-zinc-900 border-b-2 border-zinc-100 pb-2 mb-4 print:text-[10px] print:mb-3 print:border-zinc-300">
       {title}
     </h2>
@@ -113,7 +118,6 @@ const ExperienceItem = ({ item }: ExperienceItemProps) => (
         <p className="font-semibold text-purple-700 text-xs print:text-zinc-800 print:font-bold">{item.company}</p>
         <p className="text-[10px] text-zinc-500 print:text-zinc-600">{item.location}</p>
     </div>
-    {/* Texto justificado para orden visual */}
     <ul className="mt-2 list-disc list-outside ml-3 space-y-1 text-zinc-700 text-justify print:text-zinc-900 print:text-[11px] print:leading-snug">
       {item.duties.map((duty, i) => <li key={i} className="pl-1">{duty}</li>)}
     </ul>
@@ -133,7 +137,6 @@ const ContactInfo = ({ icon: Icon, text, href, isBold = false }: ContactInfoProp
   </div>
 );
 
-// Layout Híbrido: Grid en Web, Píldoras Fluidas en Impresión
 const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
   <div className="break-inside-avoid mb-5 print:mb-3">
     <h4 className="font-bold text-[10px] uppercase text-zinc-500 mb-2 tracking-wider print:text-zinc-700">{title}</h4>
@@ -165,7 +168,7 @@ const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
 // COMPONENTE PRINCIPAL
 // ===================================================================================
 export default async function CurriculumPage({ params }: CurriculumPageProps) {
-  const { lang } = await params;
+  const { lang } = params; // 'await' eliminado
   const dictionary = await getDictionary(lang);
   const t = dictionary.curriculum;
   const portfolioUrl = `https://www.razpodesta.com/${lang}`;
@@ -177,8 +180,6 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
     <>
       <main id="curriculum-content" className="font-sans bg-white text-zinc-800 min-h-screen">
         <div className="container mx-auto max-w-[210mm] p-6 md:p-12 print:p-0 print:max-w-none">
-
-          {/* ================= HEADER LIMPIO (ESTILO ORIGINAL) ================= */}
           <header className="flex flex-col sm:flex-row justify-between items-start gap-6 border-b-2 border-zinc-100 pb-8 mb-10 print:border-zinc-300 print:pb-6 print:mb-6">
             <div className="flex gap-5 items-center">
               <div className="relative shrink-0">
@@ -200,7 +201,6 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
                 </h2>
               </div>
             </div>
-
             <div className="flex flex-col gap-1.5 sm:items-end min-w-[200px] print:gap-1">
               <ContactInfo icon={SiWhatsapp} text={t.header.phone} href={`https://wa.me/${t.header.phone.replace(/\D/g, '')}`} isBold />
               <ContactInfo icon={Mail} text={t.header.email} href={`mailto:${t.header.email}`} isBold />
@@ -210,27 +210,18 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
             </div>
           </header>
 
-          {/* ================= CONTENIDO A 2 COLUMNAS ================= */}
           <div className="grid grid-cols-1 md:grid-cols-[1fr_240px] gap-12 print:grid print:grid-cols-[1fr_65mm] print:gap-8">
-
-            {/* --- COLUMNA IZQUIERDA (Principal) --- */}
             <div className="space-y-10 print:space-y-6">
-
-              {/* Resumen */}
               <Section title={t.summary.title}>
                 <p className="text-sm text-zinc-700 leading-relaxed text-justify print:text-zinc-900 print:text-[11px] print:leading-normal">
                     {t.summary.content}
                 </p>
               </Section>
-
-              {/* Experiencia */}
               <Section title={t.experience.title}>
                 <div className="space-y-1">
                     {t.experience.items.map((item) => <ExperienceItem key={item.company} item={item} />)}
                 </div>
               </Section>
-
-              {/* Hobbies e Intereses (Ubicado aquí para balancear contenido) */}
               {t.hobbies && (
                 <Section title={t.hobbies.title}>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 print:gap-y-1">
@@ -245,17 +236,13 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
               )}
             </div>
 
-            {/* --- COLUMNA DERECHA (Lateral) --- */}
             <aside className="space-y-10 print:space-y-6">
-
-              {/* Habilidades */}
               <Section title={t.skills_section.title}>
                 <div className="space-y-2">
                     {skillCategories.map(cat => <SkillCategory key={cat.title} title={cat.title} skills={cat.skills} />)}
                 </div>
               </Section>
 
-              {/* Educación */}
               <Section title={t.education.title}>
                 <div className="space-y-5 print:space-y-3">
                     {t.education.items.map((item) => (
@@ -270,7 +257,6 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
                 </div>
               </Section>
 
-              {/* Certificaciones */}
               {t.certifications && (
                 <Section title={t.certifications.title}>
                     <div className="space-y-3 print:space-y-2">
@@ -293,8 +279,6 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
                     </div>
                 </Section>
               )}
-
-              {/* QR Code */}
               <Section title="Portafolio" className="print-hidden">
                   <div className="flex flex-col items-center text-center bg-zinc-50 p-4 rounded-xl border border-zinc-100 shadow-sm">
                       <p className="text-[10px] font-bold uppercase tracking-widest mb-2 text-zinc-400">Portafolio Web</p>
@@ -306,8 +290,6 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
               </Section>
             </aside>
           </div>
-
-          {/* ================= FOOTER DE IMPRESIÓN ================= */}
           <div id="print-footer" className="hidden print:flex flex-col items-start mt-8 pt-2 border-t border-zinc-200">
             <div className="flex justify-between w-full text-[8px] text-zinc-500 uppercase tracking-wider">
                 <span>{t.header.name} - Currículum Vitae</span>
@@ -319,7 +301,6 @@ export default async function CurriculumPage({ params }: CurriculumPageProps) {
                 </span>
             </div>
           </div>
-
         </div>
       </main>
       <PrintButton text={t.print_button} />
