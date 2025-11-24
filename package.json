@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "author": "RaZ Podestá - MetaShark Tech",
-  "scripts": {
+   "scripts": {
     "generate:assets": "concurrently \"node ./scripts/generate-lucide-manifest.mjs\" \"node ./scripts/generate-tech-manifest.mjs\"",
     "prebuild:web": "pnpm run generate:assets && node ./scripts/prebuild-portfolio-web.mjs",
     "prebuild:admin": "node ./scripts/prebuild-cms-admin.mjs",
+
     "build:portfolio-prod": "pnpm run prebuild:web && npx nx build portfolio-web --prod",
+    "vercel-build": "pnpm run build:portfolio-prod",
+
     "build:api-prod": "echo 'API Build Managed by Vercel Serverless Functions'",
     "build:admin-prod": "pnpm run prebuild:admin && npx nx build cms-admin --prod",
     "dev:web": "pnpm run prebuild:web && nx serve portfolio-web --with-deps",

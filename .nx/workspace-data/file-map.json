@@ -812,7 +812,7 @@
         },
         {
           "file": "apps/portfolio-web/next.config.js",
-          "hash": "17907692309546367036",
+          "hash": "10273293674254833477",
           "deps": [
             "npm:@nx/next"
           ]
@@ -2725,7 +2725,7 @@
         },
         {
           "file": "package.json",
-          "hash": "18143279983309917938",
+          "hash": "12210445023676547485",
           "deps": [
             "npm:@babel/core",
             "npm:@babel/preset-react",
