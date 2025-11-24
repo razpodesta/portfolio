@@ -1,7 +1,10 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/curriculum/page.tsx
-// VERSIÓN: 15.0 - Next.js 15 Compliance (Async Params)
-// DESCRIPCIÓN: Actualización crítica para tratar 'params' como Promesa en
-//              generateMetadata y el componente de página.
+// apps/portfolio-web/src/app/[lang]/curriculum/page.tsx
+
+/**
+ * @file Página de Currículum.
+ * @version 16.0 - Type-Safe Icon Props
+ * @description Soluciona el error de asignación de tipos en componentes de íconos dinámicos.
+ */
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -18,14 +21,19 @@ import {
     SiVtex, SiMeta, SiGoogleads, SiJest, SiWhatsapp, SiUdemy, SiGoogle
 } from '@icons-pack/react-simple-icons';
 import type { Curriculum } from '@/lib/schemas/curriculum.schema';
+import type { ComponentType, SVGProps } from 'react';
 
 // --- TIPADO SOBERANO ---
 type CurriculumPageProps = { params: Promise<{ lang: Locale }> };
 
+// Definición robusta para un componente de icono
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string; title?: string }>;
+
 type SectionProps = { title: string; children: React.ReactNode; className?: string };
 type ExperienceItemProps = { item: Curriculum['experience']['items'][0] };
-type ContactInfoProps = { icon: React.ElementType; text: string; href?: string; isBold?: boolean };
-type TechItem = { name: string; icon: React.ElementType; url: string };
+// CORRECCIÓN: Uso de IconComponent en lugar de React.ElementType
+type ContactInfoProps = { icon: IconComponent; text: string; href?: string; isBold?: boolean };
+type TechItem = { name: string; icon: IconComponent; url: string };
 type SkillCategoryProps = { title: string; skills: TechItem[] };
 
 // ===================================================================================
@@ -40,10 +48,8 @@ export async function generateMetadata(props: CurriculumPageProps): Promise<Meta
 }
 
 // ===================================================================================
-// BASE DE DATOS DE HABILIDADES (Se mantiene igual, omitida por brevedad en la copia,
-// pero debe incluirse completa en el archivo final)
+// BASE DE DATOS DE HABILIDADES
 // ===================================================================================
-// ... (skillCategories array) ...
 const skillCategories: { title: string; skills: TechItem[] }[] = [
     {
         title: "Frontend & Diseño",
@@ -90,7 +96,7 @@ const skillCategories: { title: string; skills: TechItem[] }[] = [
 ];
 
 // ===================================================================================
-// SUB-COMPONENTES DE UI (Se mantienen igual)
+// SUB-COMPONENTES DE UI
 // ===================================================================================
 const Section = ({ title, children, className = '' }: SectionProps) => (
   <section className={className}>
