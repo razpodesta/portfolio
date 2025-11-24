@@ -1,24 +1,37 @@
 // RUTA: apps/portfolio-web/src/components/ui/PillarCard.tsx
-// VERSIÓN: 4.0 - RSC Compatible (Icon Mapping)
-// DESCRIPCIÓN: Refactorizado para recibir el nombre del icono (string) en lugar
-//              del componente funcional, evitando errores de serialización en RSC.
+// VERSIÓN: 4.1 - Icon Mapping Extendido
+// DESCRIPCIÓN: Se amplía el mapa de iconos para soportar tanto la página de
+//              Misión/Visión como la Homepage, unificando la API mediante strings.
 
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
 import { cva } from 'class-variance-authority';
-// Importamos los iconos aquí, en el cliente, donde es seguro usarlos.
-import { BookOpen, BrainCircuit, Goal, LucideIcon } from 'lucide-react';
+// Importamos TODOS los iconos necesarios para las diferentes secciones
+import {
+  BookOpen,
+  BrainCircuit,
+  Goal,
+  Blocks,
+  Sparkles,
+  TrendingUp,
+  LucideIcon
+} from 'lucide-react';
 
-// Mapa de iconos disponibles para este componente
+// Mapa maestro de iconos disponibles para PillarCard
 const ICON_MAP: Record<string, LucideIcon> = {
+  // Misión y Visión
   'book-open': BookOpen,
   'brain-circuit': BrainCircuit,
   'goal': Goal,
+  // Homepage (Value Proposition)
+  'blocks': Blocks,
+  'sparkles': Sparkles,
+  'trending-up': TrendingUp,
 };
 
 type PillarCardProps = {
-  iconName: string; // <-- CAMBIO: String serializable en lugar de componente
+  iconName: string; // API unificada basada en strings (RSC Safe)
   title: string;
   description: string;
   sequence: number;
@@ -57,8 +70,8 @@ const pillarVariants: Variants = {
 export function PillarCard({ iconName, title, description, sequence, className = '' }: PillarCardProps) {
   const formattedSequence = sequence.toString().padStart(2, '0');
 
-  // Resolución segura del icono con fallback
-  const Icon = ICON_MAP[iconName] || BookOpen;
+  // Resolución segura con fallback a 'blocks' si no se encuentra
+  const Icon = ICON_MAP[iconName] || Blocks;
 
   return (
     <motion.div

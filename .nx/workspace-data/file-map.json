@@ -1308,7 +1308,7 @@
         },
         {
           "file": "apps/portfolio-web/src/components/sections/homepage/ValuePropositionSection.tsx",
-          "hash": "17102917276803920475",
+          "hash": "3220561398280796875",
           "deps": [
             "npm:react",
             "npm:framer-motion",
@@ -1444,7 +1444,7 @@
         },
         {
           "file": "apps/portfolio-web/src/components/ui/PillarCard.tsx",
-          "hash": "12215810149481529269",
+          "hash": "15403349629747241514",
           "deps": [
             "npm:framer-motion",
             "npm:class-variance-authority",
