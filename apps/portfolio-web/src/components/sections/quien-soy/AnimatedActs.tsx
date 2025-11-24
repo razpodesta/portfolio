@@ -2,9 +2,7 @@
 
 /**
  * @file Lista Animada de Actos (Isla de Cliente).
- * @version 1.1 - Strict Typing Fix
- * @description Renderiza la lista de actos de la página "Quién Soy" con animaciones
- *              orquestadas. Se corrige la inferencia de tipos de variantes de animación.
+ * @version 1.3 - Bulletproof Typing
  */
 
 'use client';
@@ -12,7 +10,6 @@
 import { motion, type Variants } from 'framer-motion';
 import type { Section } from '@/lib/schemas/quien_soy.schema';
 
-// CORRECCIÓN: Tipado explícito para evitar la inferencia laxa de 'string'
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -30,8 +27,10 @@ const itemVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: 'easeOut' // Ahora TS sabe que esto es un Easing válido, no un string genérico
-    }
+      // SOLUCIÓN DEFINITIVA: 'as const' fuerza el tipo literal "easeOut"
+      // en lugar de string, satisfaciendo la unión de tipos de Easing.
+      ease: 'easeOut' as const,
+    },
   },
 };
 
