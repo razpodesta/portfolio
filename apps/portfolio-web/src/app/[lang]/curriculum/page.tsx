@@ -2,8 +2,9 @@
 
 /**
  * @file Página de Currículum.
- * @version 16.0 - Type-Safe Icon Props
- * @description Soluciona el error de asignación de tipos en componentes de íconos dinámicos.
+ * @version 17.0 - Data Resilience & Defensive Programming
+ * @description Refactorizado para manejar de forma segura la posible ausencia de datos
+ *              en el diccionario i18n, evitando fallos de build por propiedades undefined.
  */
 
 import type { Metadata } from 'next';
@@ -31,7 +32,6 @@ type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number | s
 
 type SectionProps = { title: string; children: React.ReactNode; className?: string };
 type ExperienceItemProps = { item: Curriculum['experience']['items'][0] };
-// CORRECCIÓN: Uso de IconComponent en lugar de React.ElementType
 type ContactInfoProps = { icon: IconComponent; text: string; href?: string; isBold?: boolean };
 type TechItem = { name: string; icon: IconComponent; url: string };
 type SkillCategoryProps = { title: string; skills: TechItem[] };
@@ -178,6 +178,16 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
 
   if (!t) notFound();
 
+  // HELPERS DEFENSIVOS:
+  // Aseguran que el renderizado no falle si una sección es opcional o está vacía en el JSON.
+  const experienceItems = t.experience?.items ?? [];
+  const educationItems = t.education?.items ?? [];
+  // Certificaciones y Hobbies pueden no existir en todas las versiones del JSON, usar array vacío.
+  // @ts-expect-error - Acceso defensivo a propiedades que podrían no estar en la interfaz estricta aún
+  const certificationItems = t.certifications?.items ?? [];
+  // @ts-expect-error - Acceso defensivo
+  const hobbyItems = t.hobbies?.items ?? [];
+
   return (
     <>
       <main id="curriculum-content" className="font-sans bg-white text-zinc-800 min-h-screen">
@@ -221,13 +231,16 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
               </Section>
               <Section title={t.experience.title}>
                 <div className="space-y-1">
-                    {t.experience.items.map((item) => <ExperienceItem key={item.company} item={item} />)}
+                    {experienceItems.map((item) => <ExperienceItem key={item.company} item={item} />)}
                 </div>
               </Section>
-              {t.hobbies && (
-                <Section title={t.hobbies.title}>
+
+              {/* Renderizado Condicional Defensivo */}
+              {hobbyItems.length > 0 && (
+                <Section title={t.hobbies?.title || "Intereses"}>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 print:gap-y-1">
-                        {t.hobbies.items.map((hobby, i) => (
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {hobbyItems.map((hobby: string, i: number) => (
                             <div key={i} className="flex items-center gap-2 text-sm text-zinc-600 print:text-[10px] print:text-zinc-900">
                                 <Heart size={12} className="text-purple-500 shrink-0 print:text-zinc-800" />
                                 <span>{hobby}</span>
@@ -247,7 +260,7 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
 
               <Section title={t.education.title}>
                 <div className="space-y-5 print:space-y-3">
-                    {t.education.items.map((item) => (
+                    {educationItems.map((item) => (
                         <div key={item.university} className="text-sm break-inside-avoid">
                             <h3 className="font-bold text-zinc-900 text-[13px] leading-snug print:text-[11px]">{item.degree}</h3>
                             <p className="font-medium text-purple-700 text-xs mt-0.5 print:text-zinc-800 print:text-[10px]">{item.university}</p>
@@ -259,10 +272,12 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
                 </div>
               </Section>
 
-              {t.certifications && (
-                <Section title={t.certifications.title}>
+              {/* Renderizado Condicional Defensivo para Certificaciones */}
+              {certificationItems.length > 0 && (
+                <Section title={t.certifications?.title || "Certificaciones"}>
                     <div className="space-y-3 print:space-y-2">
-                        {t.certifications.items.map((cert, idx) => {
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {certificationItems.map((cert: any, idx: number) => {
                             const Icon = cert.issuer.includes('Google') ? SiGoogle : cert.issuer.includes('Udemy') ? SiUdemy : Award;
                             return (
                                 <div key={idx} className="flex gap-2 items-start break-inside-avoid">
