@@ -1,75 +1,136 @@
+// apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx
+
 /**
- * @file Página de Inicio (Homepage).
- * @version 10.0 - Next.js 15 Compliance
- * @description Punto de entrada principal. Actualizado para params asíncronos.
+ * @file Página de Detalle de Artículo de Blog.
+ * @version 6.0 - Clean Architecture & Font Fix
+ * @description Se asegura que no existan importaciones de fuentes locales que rompan el build.
+ *              Confía en las variables CSS globales para la tipografía.
  */
 
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import { type Locale } from '@/config/i18n.config';
-import { getDictionary } from '@/lib/get-dictionary';
-import { HeroCarousel } from '@/components/sections/homepage/HeroCarousel';
-import { AboutSection } from '@/components/sections/homepage/AboutSection';
-import { TechStackSection } from '@/components/sections/homepage/TechStackSection';
-import { ValuePropositionSection } from '@/components/sections/homepage/ValuePropositionSection';
-import { ContactSection } from '@/components/sections/homepage/ContactSection';
-import { AiContentSection } from '@/components/sections/homepage/AiContentSection';
+import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { i18n, type Locale } from '@/config/i18n.config';
+import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { JsonLdScript } from '@/components/ui/JsonLdScript';
+import { ShareButtons } from '@/components/ui/ShareButtons';
+import Image from 'next/image';
 
-const fontClashDisplay = localFont({
-  src: [
-    { path: '../../../public/fonts/ClashDisplay-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../../../public/fonts/ClashDisplay-Bold.woff2', weight: '700', style: 'normal' },
-  ],
-  variable: '--font-display',
-  display: 'swap',
-});
-
-// --- DEFINICIÓN DE TIPOS SOBERANA ---
-type HomePageProps = {
-  params: Promise<{ lang: Locale }>;
+// --- TIPADO SOBERANO ---
+type PostPageProps = {
+  params: Promise<{ slug: string; lang: Locale }>;
 };
 
-export async function generateMetadata(props: HomePageProps): Promise<Metadata> {
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+
+  return i18n.locales.flatMap((lang) =>
+    posts.map((post) => ({
+      lang,
+      slug: post.slug,
+    }))
+  );
+}
+
+export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
   const params = await props.params;
-  const dictionary = await getDictionary(params.lang);
-  const heroTranslations = dictionary.homepage.hero;
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return { title: 'Artículo no encontrado' };
+  }
+
+  const { title, description, published_date } = post.metadata;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:4200';
+  const canonicalUrl = `${baseUrl}/${params.lang}/blog/${params.slug}`;
+  const imageUrl = `${baseUrl}/images/blog/${params.slug}.jpg`;
 
   return {
-    title: heroTranslations.page_title,
-    description: heroTranslations.page_description,
+    title: title,
+    description: description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: canonicalUrl,
+      images: [{ url: imageUrl, width: 1200, height: 630 }],
+      type: 'article',
+      publishedTime: published_date,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [imageUrl],
+    },
   };
 }
 
-export default async function HomePage(props: HomePageProps) {
+export default async function PostPage(props: PostPageProps) {
   const params = await props.params;
-  const dictionary = await getDictionary(params.lang);
-  const homepageDict = dictionary.homepage;
+  const post = await getPostBySlug(params.slug);
 
-  const personSchema = {
+  if (!post) {
+    notFound();
+  }
+
+  const { title, author, published_date, tags } = post.metadata;
+  const imageUrl = `/images/blog/${params.slug}.jpg`;
+
+  const articleSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Raz Podestá',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:4200',
-    jobTitle: 'Arquitecto de Soluciones Creativas e Inteligentes',
-    knowsAbout: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Artificial Intelligence', 'Creative Development'],
+    '@type': 'Article',
+    headline: title,
+    author: { '@type': 'Person', name: author },
+    datePublished: published_date,
+    image: imageUrl,
+    description: post.metadata.description,
   };
 
   return (
-    <div className={fontClashDisplay.variable}>
-      <JsonLdScript data={personSchema} />
+    <>
+      <JsonLdScript data={articleSchema} />
+      <main className="container mx-auto max-w-3xl px-4 py-16 sm:py-24">
+        <article>
+          <header className="mb-8">
+            <div className="relative mb-8 h-60 w-full overflow-hidden rounded-xl md:h-80">
+              <Image
+                src={imageUrl}
+                alt={`Imagen destacada para ${title}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+            {/* Usamos 'font-display' que ahora mapea a la variable global --font-display */}
+            <h1 className="font-display text-4xl font-bold leading-tight text-white md:text-5xl">
+              {title}
+            </h1>
+            <div className="mt-4 flex items-center justify-between text-sm text-zinc-400">
+              <span>Por {author}</span>
+              <span>{new Date(published_date).toLocaleDateString(params.lang, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-zinc-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </header>
 
-      <HeroCarousel dictionary={homepageDict.hero} />
+          <div className="prose prose-invert prose-lg max-w-none font-sans">
+            <MDXRemote source={post.content} />
+          </div>
 
-      <AboutSection dictionary={homepageDict.about_section} />
-
-      <TechStackSection dictionary={homepageDict.value_proposition_section} />
-
-      <ValuePropositionSection dictionary={homepageDict.value_proposition_section} />
-
-      <AiContentSection dictionary={homepageDict.ai_gallery_section} />
-
-      <ContactSection dictionary={homepageDict.contact} />
-    </div>
+          <footer className="mt-12 border-t border-zinc-800 pt-8">
+            <ShareButtons title={title} />
+          </footer>
+        </article>
+      </main>
+    </>
   );
 }
