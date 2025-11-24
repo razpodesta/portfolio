@@ -1,11 +1,12 @@
 // RUTA: apps/portfolio-web/src/components/shared/IconLibraryExplorer.tsx
-// VERSIÓN: 6.2 - Strict Typing & Tailwind v4 Compliance
-// DESCRIPCIÓN: Se eliminan los tipos 'any' explícitos en los modales mediante interfaces
-//              y se actualizan las clases de utilidad a la sintaxis canónica de Tailwind v4.
+// VERSIÓN: 6.3 - Lógica de i18n Unificada
+// DESCRIPCIÓN: Versión final que unifica la lógica de obtención de etiquetas de
+//              categoría para que funcione con ambos contratos de diccionario
+//              (lucide_page y technologies_page) sin errores de tipo.
 
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, type ComponentType } from 'react';
 import { Search, ExternalLink, Copy, Check, X, ArrowUp, ArrowDown, Terminal, BookOpen, Github, HelpCircle, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Dictionary } from '@/lib/schemas/dictionary.schema';
@@ -29,7 +30,7 @@ interface IconLibraryExplorerProps {
   libraryType: 'lucide' | 'simple-icons';
 }
 
-// --- Interfaces para Props de Modales (Type Safety) ---
+// Interfaces para Props de Modales (Type Safety)
 interface SharedModalProps {
   onClose: () => void;
   libraryType: 'lucide' | 'simple-icons';
@@ -41,7 +42,7 @@ interface InstallModalProps extends SharedModalProps {
   asset: LibraryAsset;
 }
 
-// --- Modal de Ayuda de Librería ---
+// Modal de Ayuda de Librería
 const LibraryHelpModal = ({ onClose, libraryType, dictionary, accentColor }: SharedModalProps) => {
   const libInfo = libraryType === 'lucide'
     ? { name: 'Lucide React', url: 'https://lucide.dev', repo: 'https://github.com/lucide-icons/lucide' }
@@ -50,8 +51,7 @@ const LibraryHelpModal = ({ onClose, libraryType, dictionary, accentColor }: Sha
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      // CORRECCIÓN TAILWIND: z-[110] -> z-110
-      className="fixed inset-0 z-110 flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
+      className="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
       onClick={onClose}
     >
       <motion.div
@@ -84,7 +84,7 @@ const LibraryHelpModal = ({ onClose, libraryType, dictionary, accentColor }: Sha
   );
 };
 
-// --- Modal de Detalle/Instalación ---
+// Modal de Detalle/Instalación
 const InstallModal = ({ asset, onClose, libraryType, dictionary, accentColor }: InstallModalProps) => {
   const installCmd = libraryType === 'lucide' ? 'pnpm add lucide-react' : 'pnpm add @icons-pack/react-simple-icons';
   const importCode = libraryType === 'lucide' ? `import { ${asset.id} } from 'lucide-react';` : `import { ${asset.id} } from '@icons-pack/react-simple-icons';`;
@@ -151,7 +151,7 @@ const InstallModal = ({ asset, onClose, libraryType, dictionary, accentColor }: 
   );
 };
 
-// --- Componente Principal ---
+// --- COMPONENTE PRINCIPAL ---
 
 export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple', libraryType }: IconLibraryExplorerProps) {
   const [search, setSearch] = useState('');
@@ -194,11 +194,15 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
 
   const visibleAssets = filteredAssets.slice(0, visibleCount);
 
+  // --- INICIO DE LA LÓGICA DE I18N UNIFICADA ---
   const getCategoryLabel = (catKey: string): string => {
-    const key = catKey.toLowerCase();
-    const categoriesMap = dictionary?.categories ?? {};
-    return (categoriesMap as Record<string, string>)[key] || catKey;
+    const key = `category_${catKey.toLowerCase()}`;
+    // Asumimos que el objeto `dictionary` SIEMPRE tendrá las claves que necesita.
+    // La aserción de tipo `as Record<string, string>` le da a TypeScript la confianza
+    // de que podemos indexar este objeto con un string dinámico.
+    return (dictionary as Record<string, string>)[key] || catKey;
   };
+  // --- FIN DE LA LÓGICA DE I18N UNIFICADA ---
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const scrollToBottom = () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -272,7 +276,6 @@ export function IconLibraryExplorer({ assets, dictionary, accentColor = 'purple'
                     <span className="w-full truncate px-3 text-center text-[10px] font-medium text-zinc-500 transition-opacity duration-300 group-hover:opacity-0 absolute bottom-4 font-mono">
                       {asset.name}
                     </span>
-                    {/* CORRECCIÓN TAILWIND: bg-gradient-to-t -> bg-linear-to-t */}
                     <div className={`absolute inset-x-0 bottom-0 pt-8 pb-3 flex flex-col items-center justify-end opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-t from-${accentColor}-900/80 to-transparent`}>
                          <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-white mb-1">
                             {dictionary?.view_details || 'Ver'} <ExternalLink size={10} />

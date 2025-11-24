@@ -8,7 +8,16 @@
   "showing_count": "Exibindo {count} de {total} ícones",
   "visit_official": "Ver Documentação",
   "copy_import": "Copiar JSX",
-  "categories": {
-    "all": "Todos"
-  }
+  "category_all": "Todos",
+  "view_details": "Ver Detalhes",
+  "modal_install_title": "Instalação da Biblioteca",
+  "modal_usage_title": "Implementação",
+  "modal_close": "Fechar",
+  "scroll_top": "Rolar para Cima",
+  "scroll_bottom": "Rolar para Baixo",
+  "library_help_btn": "Ajuda da Biblioteca",
+  "library_help_title": "Recurso de Arquitetura",
+  "library_help_desc": "Este índice centralizado facilita a seleção de ícones para novos projetos.",
+  "btn_docs": "Documentação dos Ícones",
+  "btn_repo": "Repositório GitHub"
 }

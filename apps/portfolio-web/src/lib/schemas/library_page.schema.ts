@@ -1,4 +1,5 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/library_page.schema.ts
+// VERSIÓN: 2.0 - Semántica Unificada
 import { z } from 'zod';
 
 export const libraryPageSchema = z.object({
@@ -17,14 +18,15 @@ export const libraryPageSchema = z.object({
   modal_close: z.string(),
   scroll_top: z.string(),
   scroll_bottom: z.string(),
-  // --- NUEVOS CAMPOS ---
   library_help_btn: z.string(),
   library_help_title: z.string(),
   library_help_desc: z.string(),
   btn_docs: z.string(),
   btn_repo: z.string(),
-  // ---------------------
-  categories: z.object({
-    all: z.string(),
-  }).passthrough(),
+
+  // --- INICIO DE LA UNIFICACIÓN SEMÁNTICA ---
+  // Se elimina el objeto anidado 'categories' y se usa una clave plana.
+  category_all: z.string(),
+  // Se elimina .passthrough() ya que ahora todas las claves son explícitas.
+  // --- FIN DE LA UNIFICACIÓN SEMÁNTICA ---
 });

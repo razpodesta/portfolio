@@ -8,7 +8,16 @@
   "showing_count": "Showing {count} of {total} icons",
   "visit_official": "View Documentation",
   "copy_import": "Copy JSX",
-  "categories": {
-    "all": "All"
-  }
+  "category_all": "All",
+  "view_details": "View Details",
+  "modal_install_title": "Library Installation",
+  "modal_usage_title": "Implementation",
+  "modal_close": "Close",
+  "scroll_top": "Scroll Up",
+  "scroll_bottom": "Scroll Down",
+  "library_help_btn": "Library Help",
+  "library_help_title": "Architecture Resource",
+  "library_help_desc": "This centralized index facilitates icon selection for new projects.",
+  "btn_docs": "Icon Documentation",
+  "btn_repo": "GitHub Repository"
 }
