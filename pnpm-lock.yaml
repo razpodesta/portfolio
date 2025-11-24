@@ -47,6 +47,9 @@ importers:
       '@react-spring/three':
         specifier: ^10.0.3
         version: 10.0.3(@react-three/fiber@9.4.0(@types/react@19.2.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.181.1))(react@19.2.0)(three@0.181.1)
+      '@react-spring/web':
+        specifier: ^10.0.3
+        version: 10.0.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@react-three/drei':
         specifier: ^10.7.7
         version: 10.7.7(@react-three/fiber@9.4.0(@types/react@19.2.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.181.1))(@types/react@19.2.3)(@types/three@0.181.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.181.1)
@@ -59,6 +62,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.80.0
         version: 2.81.1
+      '@use-gesture/react':
+        specifier: ^10.3.1
+        version: 10.3.1(react@19.2.0)
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3
@@ -2913,6 +2919,12 @@ packages:
 
   '@react-spring/types@10.0.3':
     resolution: {integrity: sha512-H5Ixkd2OuSIgHtxuHLTt7aJYfhMXKXT/rK32HPD/kSrOB6q6ooeiWAXkBy7L8F3ZxdkBb9ini9zP9UwnEFzWgQ==}
+
+  '@react-spring/web@10.0.3':
+    resolution: {integrity: sha512-ndU+kWY81rHsT7gTFtCJ6mrVhaJ6grFmgTnENipzmKqot4HGf5smPNK+cZZJqoGeDsj9ZsiWPW4geT/NyD484A==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   '@react-three/drei@10.7.7':
     resolution: {integrity: sha512-ff+J5iloR0k4tC++QtD/j9u3w5fzfgFAWDtAGQah9pF2B1YgOq/5JxqY0/aVoQG5r3xSZz0cv5tk2YuBob4xEQ==}
@@ -16417,6 +16429,15 @@ snapshots:
       three: 0.181.1
 
   '@react-spring/types@10.0.3': {}
+
+  '@react-spring/web@10.0.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@react-spring/animated': 10.0.3(react@19.2.0)
+      '@react-spring/core': 10.0.3(react@19.2.0)
+      '@react-spring/shared': 10.0.3(react@19.2.0)
+      '@react-spring/types': 10.0.3
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
 
   '@react-three/drei@10.7.7(@react-three/fiber@9.4.0(@types/react@19.2.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.181.1))(@types/react@19.2.3)(@types/three@0.181.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.181.1)':
     dependencies:

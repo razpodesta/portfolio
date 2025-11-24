@@ -7,16 +7,13 @@
     "//--- TAREAS DE PRE-CONSTRUCCIÓN (CORE) ---//": "",
     "generate:assets": "concurrently \"node ./scripts/generate-lucide-manifest.mjs\" \"node ./scripts/generate-tech-manifest.mjs\"",
     "prebuild:web": "pnpm run generate:assets && node ./scripts/prebuild-portfolio-web.mjs",
-
     "//--- BUILD & PRODUCCIÓN (VERCEL) ---//": "",
     "// CORRECCIÓN ÉLITE: --with-deps asegura que cms/ui y cms/core se construyan antes que la web": "",
     "vercel-build": "pnpm run prebuild:web && npx nx build portfolio-web --prod --with-deps",
-
     "//--- DESARROLLO LOCAL ---//": "",
     "// También aplicamos --with-deps en local para evitar errores de arranque": "",
     "dev:web": "pnpm run prebuild:web && nx serve portfolio-web --with-deps",
     "build:web": "pnpm run prebuild:web && nx build portfolio-web --with-deps",
-
     "//--- OTROS SCRIPTS ---//": "",
     "prebuild:admin": "node ./scripts/prebuild-cms-admin.mjs",
     "predev:admin": "pnpm run prebuild:admin",
@@ -44,6 +41,7 @@
     "@graphql-tools/schema": "^10.0.29",
     "@hookform/resolvers": "^5.2.2",
     "@react-spring/three": "^10.0.3",
+    "@react-spring/web": "^10.0.3",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.0",
     "@supabase/ssr": "^0.7.0",

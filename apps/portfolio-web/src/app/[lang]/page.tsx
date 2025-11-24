@@ -2,24 +2,25 @@
 
 /**
  * @file Página de Inicio (Homepage).
- * @version 11.0 - Font Cleanup
- * @description Se elimina la carga local de fuentes (localFont) ya que ahora
- *              se heredan globalmente desde el Layout.
+ * @version 13.0 - Relative Imports
+ * @description Usa rutas relativas para importar componentes, evitando errores de Nx.
  */
 
 import type { Metadata } from 'next';
-// import localFont removido - Ya está en el layout
 import { type Locale } from '@/config/i18n.config';
 import { getDictionary } from '@/lib/get-dictionary';
-import { HeroCarousel } from '@/components/sections/homepage/HeroCarousel';
-import { AboutSection } from '@/components/sections/homepage/AboutSection';
-import { TechStackSection } from '@/components/sections/homepage/TechStackSection';
-import { ValuePropositionSection } from '@/components/sections/homepage/ValuePropositionSection';
-import { ContactSection } from '@/components/sections/homepage/ContactSection';
-import { AiContentSection } from '@/components/sections/homepage/AiContentSection';
-import { JsonLdScript } from '@/components/ui/JsonLdScript';
+import { getAllPosts } from '@/lib/blog';
 
-// --- TIPADO SOBERANO ---
+// CORRECCIÓN: Rutas relativas estrictas (subiendo 3 niveles hasta src)
+import { HeroCarousel } from '../../components/sections/homepage/HeroCarousel';
+import { AboutSection } from '../../components/sections/homepage/AboutSection';
+import { TechStackSection } from '../../components/sections/homepage/TechStackSection';
+import { ValuePropositionSection } from '../../components/sections/homepage/ValuePropositionSection';
+import { BlogSection3D } from '../../components/sections/homepage/BlogSection3D';
+import { AiContentSection } from '../../components/sections/homepage/AiContentSection';
+import { ContactSection } from '../../components/sections/homepage/ContactSection';
+import { JsonLdScript } from '../../components/ui/JsonLdScript';
+
 type HomePageProps = {
   params: Promise<{ lang: Locale }>;
 };
@@ -40,6 +41,8 @@ export default async function HomePage(props: HomePageProps) {
   const dictionary = await getDictionary(params.lang);
   const homepageDict = dictionary.homepage;
 
+  const latestPosts = await getAllPosts();
+
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -50,7 +53,6 @@ export default async function HomePage(props: HomePageProps) {
   };
 
   return (
-    // Eliminamos className={fontClashDisplay.variable} ya que está en el body del layout
     <div>
       <JsonLdScript data={personSchema} />
 
@@ -61,6 +63,12 @@ export default async function HomePage(props: HomePageProps) {
       <TechStackSection dictionary={homepageDict.value_proposition_section} />
 
       <ValuePropositionSection dictionary={homepageDict.value_proposition_section} />
+
+      <BlogSection3D
+        posts={latestPosts}
+        dictionary={dictionary.blog_page}
+        lang={params.lang}
+      />
 
       <AiContentSection dictionary={homepageDict.ai_gallery_section} />
 
