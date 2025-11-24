@@ -1,8 +1,20 @@
+// apps/portfolio-web/src/app/[lang]/maintenance/page.tsx
+
+/**
+ * @file Página de Mantenimiento.
+ * @version 2.0 - Next.js 15 Compliance
+ */
+
 import { getDictionary } from '@/lib/get-dictionary';
 import { Locale } from '@/config/i18n.config';
 import { AlertOctagon } from 'lucide-react';
 
-export default async function MaintenancePage({ params }: { params: { lang: Locale } }) {
+type MaintenancePageProps = {
+  params: Promise<{ lang: Locale }>;
+};
+
+export default async function MaintenancePage(props: MaintenancePageProps) {
+  const params = await props.params;
   const dict = await getDictionary(params.lang);
   const t = dict.maintenance;
 

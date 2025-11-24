@@ -1,7 +1,7 @@
+
 // RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
-// VERSIÓN: 14.0 - Eliminación de Context API (Zustand Migration)
-// DESCRIPCIÓN: Se ha eliminado 'WidgetProvider'. La gestión de estado ahora es
-//              desacoplada y manejada por 'ui.store.ts'.
+// VERSIÓN: 15.0 - Next.js 15 Compliance (Async Params)
+// DESCRIPCIÓN: Layout raíz adaptado para params asíncronos.
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -12,7 +12,6 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { NewsletterModal } from '@/components/ui/NewsletterModal';
 import { VisitorHud } from '@/components/ui/VisitorHud';
-// import { WidgetProvider } from '@/lib/contexts/WidgetContext'; // <-- ELIMINADO
 import '../global.css';
 
 const fontSatoshi = localFont({
@@ -73,7 +72,6 @@ export default async function RootLayout({
         className={`${fontSatoshi.variable} ${fontSignature.variable} font-sans bg-background text-foreground antialiased`}
       >
         <Providers>
-          {/* WidgetProvider eliminado: Zustand maneja el estado globalmente */}
             <div className="flex min-h-screen flex-col">
               <Header dictionary={dictionary} />
               <main className="grow">{children}</main>

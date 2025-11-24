@@ -1,7 +1,10 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/cocreacion/page.tsx
-// VERSIÓN: 1.0 - Boilerplate para la Página de Co-creación.
-// DESCRIPCIÓN: Página placeholder que detallará el framework de colaboración y
-//              metodología de trabajo para proyectos.
+// apps/portfolio-web/src/app/[lang]/cocreacion/page.tsx
+
+/**
+ * @file Página de Co-creación.
+ * @version 2.0 - Next.js 15 Compliance
+ * @description Actualización a params asíncronos para compatibilidad con el nuevo App Router.
+ */
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
@@ -10,10 +13,11 @@ import { BlurText } from '@/components/razBits/BlurText';
 import { motion } from 'framer-motion';
 
 type CocreationPageProps = {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 };
 
-export async function generateMetadata({ params }: CocreationPageProps): Promise<Metadata> {
+export async function generateMetadata(props: CocreationPageProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.cocreation_page;
   return {
@@ -22,7 +26,8 @@ export async function generateMetadata({ params }: CocreationPageProps): Promise
   };
 }
 
-export default async function CocreationPage({ params }: CocreationPageProps) {
+export default async function CocreationPage(props: CocreationPageProps) {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.cocreation_page;
 

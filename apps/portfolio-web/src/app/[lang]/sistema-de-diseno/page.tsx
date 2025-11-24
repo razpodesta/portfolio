@@ -1,7 +1,9 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/sistema-de-diseno/page.tsx
-// VERSIÓN: 1.0 - Boilerplate para el Sistema de Diseño.
-// DESCRIPCIÓN: Página placeholder que servirá como escaparate público de los
-//              componentes de UI, tipografía y paleta de colores del proyecto.
+// apps/portfolio-web/src/app/[lang]/sistema-de-diseno/page.tsx
+
+/**
+ * @file Página de Sistema de Diseño.
+ * @version 2.0 - Next.js 15 Compliance
+ */
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
@@ -10,10 +12,11 @@ import { BlurText } from '@/components/razBits/BlurText';
 import { motion } from 'framer-motion';
 
 type DesignSystemPageProps = {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 };
 
-export async function generateMetadata({ params }: DesignSystemPageProps): Promise<Metadata> {
+export async function generateMetadata(props: DesignSystemPageProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.design_system_page;
   return {
@@ -22,7 +25,8 @@ export async function generateMetadata({ params }: DesignSystemPageProps): Promi
   };
 }
 
-export default async function DesignSystemPage({ params }: DesignSystemPageProps) {
+export default async function DesignSystemPage(props: DesignSystemPageProps) {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.design_system_page;
 

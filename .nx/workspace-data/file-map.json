@@ -969,29 +969,28 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx",
-          "hash": "5828781343951725131",
+          "hash": "3944110778792692287",
           "deps": [
-            "npm:next",
-            "npm:next-mdx-remote"
+            "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/blog/page.tsx",
-          "hash": "1231330251547223424",
+          "hash": "9820144408008586530",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/blog/tag/[slug]/page.tsx",
-          "hash": "16229518522375498777",
+          "hash": "5324759205780418782",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/cocreacion/page.tsx",
-          "hash": "11558814891707336841",
+          "hash": "5176057256922598085",
           "deps": [
             "npm:next",
             "npm:framer-motion"
@@ -999,7 +998,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/curriculum/page.tsx",
-          "hash": "13182593435550069940",
+          "hash": "1871232417817447582",
           "deps": [
             "npm:next",
             "npm:lucide-react",
@@ -1015,35 +1014,35 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/layout.tsx",
-          "hash": "14617095345358369014",
+          "hash": "16075829717093025415",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/legal/politica-de-privacidad/page.tsx",
-          "hash": "6924493224499551569",
+          "hash": "17083304310519957284",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/legal/terminos-de-servicio/page.tsx",
-          "hash": "3916007243053916639",
+          "hash": "17889595098658273076",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/maintenance/page.tsx",
-          "hash": "7730766306314094006",
+          "hash": "5134674605322281641",
           "deps": [
             "npm:lucide-react"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx",
-          "hash": "16911649137784491563",
+          "hash": "12396810935024373057",
           "deps": [
             "npm:next",
             "npm:framer-motion",
@@ -1061,14 +1060,14 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/page.tsx",
-          "hash": "674324481434129258",
+          "hash": "3944110778792692287",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/quien-soy/page.tsx",
-          "hash": "12616595146044236736",
+          "hash": "3523229988962447599",
           "deps": [
             "npm:next",
             "npm:framer-motion"
@@ -1080,7 +1079,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/sistema-de-diseno/page.tsx",
-          "hash": "9106947810227080878",
+          "hash": "498750421636937333",
           "deps": [
             "npm:next",
             "npm:framer-motion"
@@ -2696,6 +2695,10 @@
         {
           "file": ".docs/posicionamiento-seo-obligatorio.md",
           "hash": "15794258972312383831"
+        },
+        {
+          "file": ".docs/protocolo-auditoria-elite.md",
+          "hash": "4869371507036709285"
         },
         {
           "file": ".docs/roadmap-portafolio.md",

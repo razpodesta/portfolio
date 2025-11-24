@@ -1,8 +1,10 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx
-// VERSIÓN: 1.1 - Tipado explícito y robusto.
-// DESCRIPCIÓN: Se importa y utiliza el tipo `VisionPillar` para añadir tipado
-//              explícito al método .map(), eliminando errores de 'implicit any'
-//              y mejorando la robustez y legibilidad del código.
+// apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx
+
+/**
+ * @file Página de Misión y Visión.
+ * @version 2.0 - Next.js 15 Compliance
+ * @description Actualización a params asíncronos y tipado robusto.
+ */
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
@@ -12,17 +14,16 @@ import { PillarCard } from '@/components/ui/PillarCard';
 import { motion } from 'framer-motion';
 import { BookOpen, BrainCircuit, Goal } from 'lucide-react';
 import React from 'react';
-// --- INICIO DE LA MEJORA DE ROBUSTEZ ---
 import type { VisionPillar } from '@/lib/schemas/mission_vision.schema';
-// --- FIN DE LA MEJORA DE ROBUSTEZ ---
 
 type MissionVisionPageProps = {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 };
 
-export async function generateMetadata({ params }: MissionVisionPageProps): Promise<Metadata> {
+export async function generateMetadata(props: MissionVisionPageProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
-  const t = dictionary.mission_vision; // Esto funcionará después del prebuild
+  const t = dictionary.mission_vision;
   return {
     title: `${t.mission_title} & ${t.vision_title}`,
     description: t.mission_description,
@@ -40,14 +41,14 @@ const containerVariants = {
 
 const pillarIcons = [BookOpen, BrainCircuit, Goal];
 
-export default async function MissionVisionPage({ params }: MissionVisionPageProps) {
+export default async function MissionVisionPage(props: MissionVisionPageProps) {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
-  const t = dictionary.mission_vision; // Esto funcionará después del prebuild
+  const t = dictionary.mission_vision;
 
   return (
     <div className={`font-display ${'var(--font-display)'}`}>
       <main className="container mx-auto px-4 py-20 sm:py-32">
-        {/* Sección de Misión */}
         <section className="mx-auto max-w-4xl text-center">
           <BlurText
             text={t.mission_title}
@@ -64,10 +65,8 @@ export default async function MissionVisionPage({ params }: MissionVisionPagePro
           </motion.p>
         </section>
 
-        {/* Separador Visual */}
         <div className="mx-auto my-20 h-px w-2/3 bg-zinc-800" />
 
-        {/* Sección de Visión */}
         <section className="mx-auto max-w-5xl text-center">
           <BlurText
             text={t.vision_title}
@@ -90,9 +89,7 @@ export default async function MissionVisionPage({ params }: MissionVisionPagePro
             viewport={{ once: true, amount: 0.2 }}
             className="flex flex-col md:flex-row items-center md:items-end justify-center gap-8"
           >
-            {/* --- INICIO DE LA MEJORA DE ROBUSTEZ --- */}
             {t.vision_pillars.map((pillar: VisionPillar, index: number) => (
-            // --- FIN DE LA MEJORA DE ROBUSTEZ ---
               <React.Fragment key={pillar.title}>
                 <PillarCard
                   Icon={pillarIcons[index]}

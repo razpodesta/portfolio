@@ -1,9 +1,7 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/curriculum/page.tsx
-// VERSIÓN: 14.0 - Tipado de Props Soberano y Desplegable
-// DESCRIPCIÓN: Versión final y completa que corrige el contrato de tipos de las props
-//              de la página ('params'), alineándolo con la arquitectura de Next.js App Router.
-//              Se elimina el uso de 'Promise' en el tipo de 'params' para resolver el
-//              error de compilación y garantizar un despliegue exitoso.
+// VERSIÓN: 15.0 - Next.js 15 Compliance (Async Params)
+// DESCRIPCIÓN: Actualización crítica para tratar 'params' como Promesa en
+//              generateMetadata y el componente de página.
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -21,13 +19,8 @@ import {
 } from '@icons-pack/react-simple-icons';
 import type { Curriculum } from '@/lib/schemas/curriculum.schema';
 
-// ===================================================================================
-// TIPOS Y PROPS
-// ===================================================================================
-
-// --- INICIO DE LA CORRECCIÓN DE TIPO SOBERANA ---
-type CurriculumPageProps = { params: { lang: Locale } };
-// --- FIN DE LA CORRECCIÓN DE TIPO SOBERANA ---
+// --- TIPADO SOBERANO ---
+type CurriculumPageProps = { params: Promise<{ lang: Locale }> };
 
 type SectionProps = { title: string; children: React.ReactNode; className?: string };
 type ExperienceItemProps = { item: Curriculum['experience']['items'][0] };
@@ -38,17 +31,19 @@ type SkillCategoryProps = { title: string; skills: TechItem[] };
 // ===================================================================================
 // METADATOS
 // ===================================================================================
-export async function generateMetadata({ params }: CurriculumPageProps): Promise<Metadata> {
-  const { lang } = params; // 'await' eliminado
-  const dictionary = await getDictionary(lang);
+export async function generateMetadata(props: CurriculumPageProps): Promise<Metadata> {
+  const params = await props.params;
+  const dictionary = await getDictionary(params.lang);
   const t = dictionary.curriculum;
   if (!t) return { title: "Currículum" };
   return { title: t.page_title, description: t.page_description };
 }
 
 // ===================================================================================
-// BASE DE DATOS DE HABILIDADES
+// BASE DE DATOS DE HABILIDADES (Se mantiene igual, omitida por brevedad en la copia,
+// pero debe incluirse completa en el archivo final)
 // ===================================================================================
+// ... (skillCategories array) ...
 const skillCategories: { title: string; skills: TechItem[] }[] = [
     {
         title: "Frontend & Diseño",
@@ -95,7 +90,7 @@ const skillCategories: { title: string; skills: TechItem[] }[] = [
 ];
 
 // ===================================================================================
-// SUB-COMPONENTES DE UI (ESTILO LIMPIO)
+// SUB-COMPONENTES DE UI (Se mantienen igual)
 // ===================================================================================
 const Section = ({ title, children, className = '' }: SectionProps) => (
   <section className={className}>
@@ -167,8 +162,9 @@ const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
 // ===================================================================================
 // COMPONENTE PRINCIPAL
 // ===================================================================================
-export default async function CurriculumPage({ params }: CurriculumPageProps) {
-  const { lang } = params; // 'await' eliminado
+export default async function CurriculumPage(props: CurriculumPageProps) {
+  const params = await props.params;
+  const { lang } = params;
   const dictionary = await getDictionary(lang);
   const t = dictionary.curriculum;
   const portfolioUrl = `https://www.razpodesta.com/${lang}`;

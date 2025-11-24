@@ -1,8 +1,10 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/quien-soy/page.tsx
-// VERSIÓN: 2.1 - Tipado de Variantes Corregido.
-// DESCRIPCIÓN: Se importa el tipo 'Variants' de Framer Motion y se aplica a las
-//              constantes de animación para garantizar la seguridad de tipos
-//              y resolver errores de compilación.
+// apps/portfolio-web/src/app/[lang]/quien-soy/page.tsx
+
+/**
+ * @file Página Quién Soy.
+ * @version 3.0 - Next.js 15 Compliance
+ * @description Actualización a params asíncronos.
+ */
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
@@ -13,10 +15,11 @@ import { Avatar } from '@/components/ui/Avatar';
 import type { Section } from '@/lib/schemas/quien_soy.schema';
 
 type QuienSoyPageProps = {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 };
 
-export async function generateMetadata({ params }: QuienSoyPageProps): Promise<Metadata> {
+export async function generateMetadata(props: QuienSoyPageProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.quien_soy;
   return {
@@ -25,7 +28,6 @@ export async function generateMetadata({ params }: QuienSoyPageProps): Promise<M
   };
 }
 
-// --- CORRECCIÓN DE TIPO ---
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { transition: { staggerChildren: 0.4, delayChildren: 0.2 } },
@@ -35,9 +37,7 @@ const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
 };
-// --- FIN DE LA CORRECCIÓN ---
 
-// Componente de Acto para evitar repetición de código
 const ActSection = ({ act, title, description }: { act: string; title: string; description: string }) => (
   <motion.div variants={itemVariants}>
     <h2 className="font-display text-3xl font-bold text-white mb-3">{act}: <span className="text-purple-400">{title}</span></h2>
@@ -45,7 +45,8 @@ const ActSection = ({ act, title, description }: { act: string; title: string; d
   </motion.div>
 );
 
-export default async function QuienSoyPage({ params }: QuienSoyPageProps) {
+export default async function QuienSoyPage(props: QuienSoyPageProps) {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.quien_soy;
 

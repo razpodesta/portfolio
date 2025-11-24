@@ -1,9 +1,8 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/blog/tag/[slug]/page.tsx
-// VERSIÓN: 2.0 - "Página de Archivo de Tags" (Dinámica, Robusta y Optimizada para SEO)
-// DESCRIPCIÓN: Este Server Component dinámico consume la capa de datos para obtener
-//              posts filtrados por una etiqueta. Genera metadatos SEO específicos para
-//              la página de archivo y reutiliza componentes de UI para mantener una
-//              consistencia visual y de experiencia de usuario impecable.
+/**
+ * @file Página de Archivo de Etiquetas (Tags).
+ * @version 3.0 - Next.js 15 Compliance
+ * @description Muestra posts filtrados por etiqueta. Actualizado para params asíncronos.
+ */
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -13,14 +12,15 @@ import { getPostsByTag } from '@/lib/blog';
 import { BlogCard } from '@/components/ui/BlogCard';
 import { BlurText } from '@/components/razBits/BlurText';
 
+// --- DEFINICIÓN DE TIPOS SOBERANA ---
 type TagPageProps = {
-  params: { slug: string; lang: Locale };
+  params: Promise<{ slug: string; lang: Locale }>;
 };
 
-// Genera metadatos SEO dinámicos y específicos para la página de la etiqueta.
-export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
+export async function generateMetadata(props: TagPageProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
-  const tagName = decodeURIComponent(params.slug).replace(/-/g, ' '); // Decodifica y formatea el nombre.
+  const tagName = decodeURIComponent(params.slug).replace(/-/g, ' ');
   const blogTitle = dictionary.blog_page.page_title.split(' | ')[1] || 'Blog';
 
   return {
@@ -32,13 +32,12 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
   };
 }
 
-// Renderiza la página de archivo.
-export default async function TagPage({ params }: TagPageProps) {
+export default async function TagPage(props: TagPageProps) {
+  const params = await props.params;
   const { lang, slug } = params;
   const dictionary = await getDictionary(lang);
   const posts = await getPostsByTag(slug);
 
-  // Si no se encuentran posts para esa etiqueta, se muestra la página 404.
   if (!posts || posts.length === 0) {
     notFound();
   }

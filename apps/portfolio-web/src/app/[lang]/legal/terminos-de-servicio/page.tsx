@@ -1,24 +1,27 @@
-// RUTA: apps/portfolio-web/src/app/[lang]/legal/terminos-de-servicio/page.tsx
-// VERSIÓN: 1.1 - Higienizado.
-// DESCRIPCIÓN: Se elimina la importación no utilizada de 'legalPageSchema' para
-//              resolver las advertencias y mantener la pureza del código.
+// apps/portfolio-web/src/app/[lang]/legal/terminos-de-servicio/page.tsx
+
+/**
+ * @file Página de Términos de Servicio.
+ * @version 2.0 - Next.js 15 Compliance
+ */
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
 import { getDictionary } from '@/lib/get-dictionary';
-// import type { legalPageSchema } from '@/lib/schemas/legal_page.schema'; // <-- LÍNEA ELIMINADA
 
 type TermsPageProps = {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 };
 
-export async function generateMetadata({ params }: TermsPageProps): Promise<Metadata> {
+export async function generateMetadata(props: TermsPageProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.legal.terms_of_service;
   return { title: t.title };
 }
 
-export default async function TermsOfServicePage({ params }: TermsPageProps) {
+export default async function TermsOfServicePage(props: TermsPageProps) {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
   const t = dictionary.legal.terms_of_service;
 
