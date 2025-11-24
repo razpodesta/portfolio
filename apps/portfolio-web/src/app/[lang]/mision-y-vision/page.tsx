@@ -1,19 +1,14 @@
-// apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx
-
-/**
- * @file Página de Misión y Visión.
- * @version 3.0 - Server Component Pureza & FadeIn Wrapper
- * @description Eliminación de framer-motion directo para compatibilidad con RSC.
- *              Uso de FadeIn para las animaciones de entrada.
- */
+// RUTA: apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx
+// VERSIÓN: 4.0 - Serialización Corregida
+// DESCRIPCIÓN: Se pasan cadenas de texto para identificar los iconos en lugar de
+//              funciones, permitiendo que el Server Component serialice las props correctamente.
 
 import type { Metadata } from 'next';
 import { type Locale } from '@/config/i18n.config';
 import { getDictionary } from '@/lib/get-dictionary';
 import { BlurText } from '@/components/razBits/BlurText';
 import { PillarCard } from '@/components/ui/PillarCard';
-import { FadeIn } from '@/components/ui/FadeIn'; // <-- Wrapper de Cliente
-import { BookOpen, BrainCircuit, Goal } from 'lucide-react';
+import { FadeIn } from '@/components/ui/FadeIn';
 import React from 'react';
 import type { VisionPillar } from '@/lib/schemas/mission_vision.schema';
 
@@ -31,7 +26,8 @@ export async function generateMetadata(props: MissionVisionPageProps): Promise<M
   };
 }
 
-const pillarIcons = [BookOpen, BrainCircuit, Goal];
+// IDs de iconos mapeados como strings simples
+const PILLAR_ICONS = ['book-open', 'brain-circuit', 'goal'];
 
 export default async function MissionVisionPage(props: MissionVisionPageProps) {
   const params = await props.params;
@@ -68,13 +64,11 @@ export default async function MissionVisionPage(props: MissionVisionPageProps) {
             </p>
           </FadeIn>
 
-          {/* Contenedor de Pilares */}
           <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-8">
             {t.vision_pillars.map((pillar: VisionPillar, index: number) => (
               <React.Fragment key={pillar.title}>
-                {/* PillarCard ya es un Client Component ('use client'), así que es seguro renderizarlo aquí */}
                 <PillarCard
-                  Icon={pillarIcons[index]}
+                  iconName={PILLAR_ICONS[index]} // <-- CAMBIO: Pasamos string
                   title={pillar.title}
                   description={pillar.description}
                   sequence={index + 1}

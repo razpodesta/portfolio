@@ -1097,10 +1097,9 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/mision-y-vision/page.tsx",
-          "hash": "9826872120166043108",
+          "hash": "15250447755903279331",
           "deps": [
             "npm:next",
-            "npm:lucide-react",
             "npm:react"
           ]
         },
@@ -1445,12 +1444,11 @@
         },
         {
           "file": "apps/portfolio-web/src/components/ui/PillarCard.tsx",
-          "hash": "12179850190851606163",
+          "hash": "12215810149481529269",
           "deps": [
             "npm:framer-motion",
-            "npm:lucide-react",
-            "npm:react",
-            "npm:class-variance-authority"
+            "npm:class-variance-authority",
+            "npm:lucide-react"
           ]
         },
         {

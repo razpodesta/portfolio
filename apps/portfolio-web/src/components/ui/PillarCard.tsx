@@ -1,19 +1,24 @@
 // RUTA: apps/portfolio-web/src/components/ui/PillarCard.tsx
-// VERSIÓN: 3.2 - Tipado de Variantes Verificado y Sintaxis Canónica.
-// DESCRIPCIÓN: Verificado para asegurar que 'pillarVariants' está explícitamente
-//              tipado con 'Variants' de Framer Motion. Se corrige la sintaxis
-//              del modificador de importancia (!) para cumplir con la forma canónica
-//              de Tailwind CSS, asegurando la pureza del código.
+// VERSIÓN: 4.0 - RSC Compatible (Icon Mapping)
+// DESCRIPCIÓN: Refactorizado para recibir el nombre del icono (string) en lugar
+//              del componente funcional, evitando errores de serialización en RSC.
 
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import type { LucideProps } from 'lucide-react';
-import type { ForwardRefExoticComponent, RefAttributes } from 'react';
 import { cva } from 'class-variance-authority';
+// Importamos los iconos aquí, en el cliente, donde es seguro usarlos.
+import { BookOpen, BrainCircuit, Goal, LucideIcon } from 'lucide-react';
+
+// Mapa de iconos disponibles para este componente
+const ICON_MAP: Record<string, LucideIcon> = {
+  'book-open': BookOpen,
+  'brain-circuit': BrainCircuit,
+  'goal': Goal,
+};
 
 type PillarCardProps = {
-  Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+  iconName: string; // <-- CAMBIO: String serializable en lugar de componente
   title: string;
   description: string;
   sequence: number;
@@ -40,21 +45,20 @@ const cardStyle = cva(
   }
 );
 
-// --- TIPADO VERIFICADO ---
-export const pillarVariants: Variants = {
+const pillarVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
+    transition: { duration: 0.6, ease: 'easeOut' },
   },
 };
 
-export function PillarCard({ Icon, title, description, sequence, className = '' }: PillarCardProps) {
+export function PillarCard({ iconName, title, description, sequence, className = '' }: PillarCardProps) {
   const formattedSequence = sequence.toString().padStart(2, '0');
+
+  // Resolución segura del icono con fallback
+  const Icon = ICON_MAP[iconName] || BookOpen;
 
   return (
     <motion.div
@@ -62,29 +66,18 @@ export function PillarCard({ Icon, title, description, sequence, className = '' 
       className={`${cardStyle({
         sequence: sequence === 3 ? 'highlighted' : 'default',
         size: sequence as 1 | 2 | 3
-      })}
-      ${className}
-      hover:border-pink-500/60! hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-pink-500/20`}
+      })} ${className} hover:border-pink-500/60 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-pink-500/20`}
     >
-      <div
-        className="absolute inset-0 -z-10 bg-linear-to-br from-purple-900/40 to-pink-900/40 opacity-0 blur-2xl transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
-        aria-hidden="true"
-      />
-
+      <div className="absolute inset-0 -z-10 bg-linear-to-br from-purple-900/40 to-pink-900/40 opacity-0 blur-2xl transition-all duration-500 group-hover:opacity-100 group-hover:scale-110" aria-hidden="true" />
       <div className="absolute top-4 right-6 font-display text-7xl font-bold text-zinc-800/80 transition-colors duration-300 group-hover:text-zinc-700/80">
         {formattedSequence}
       </div>
-
       <div className="relative z-10">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-800/80 mb-6 border border-zinc-700 transition-all duration-300 group-hover:border-pink-500/50 group-hover:bg-zinc-800">
           <Icon className="h-8 w-8 text-zinc-400 transition-colors duration-300 group-hover:text-pink-400" />
         </div>
-        <h3 className="font-display text-2xl font-bold text-white">
-          {title}
-        </h3>
-        <p className="mt-2 text-zinc-400">
-          {description}
-        </p>
+        <h3 className="font-display text-2xl font-bold text-white">{title}</h3>
+        <p className="mt-2 text-zinc-400">{description}</p>
       </div>
     </motion.div>
   );
