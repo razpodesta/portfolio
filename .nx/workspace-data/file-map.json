@@ -812,7 +812,7 @@
         },
         {
           "file": "apps/portfolio-web/next.config.js",
-          "hash": "10273293674254833477",
+          "hash": "9617971678545490684",
           "deps": [
             "npm:@nx/next"
           ]
