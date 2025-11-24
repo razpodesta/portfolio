@@ -1,3 +1,5 @@
+// RUTA: apps/portfolio-web/next.config.js
+// VERSIÓN: 3.0 - Clean & Production Ready
 // @ts-check
 const { composePlugins, withNx } = require('@nx/next');
 
@@ -5,7 +7,9 @@ const { composePlugins, withNx } = require('@nx/next');
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  nx: {},
+  nx: {
+    // svgr: false <-- ELIMINADO PARA EVITAR ERROR TS2353
+  },
   output: 'standalone',
   images: {
     remotePatterns: [

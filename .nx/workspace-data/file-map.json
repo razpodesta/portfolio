@@ -2725,7 +2725,7 @@
         },
         {
           "file": "package.json",
-          "hash": "12210445023676547485",
+          "hash": "12787263012509458463",
           "deps": [
             "npm:@babel/core",
             "npm:@babel/preset-react",
