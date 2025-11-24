@@ -107,4 +107,4 @@ El código, los manifiestos de arquitectura, el diseño y el contenido de este r
 
 -   **LinkedIn**: [linkedin.com/in/razpodesta](https://linkedin.com/in/razpodesta)
 -   **GitHub**: [github.com/razpodesta](https://github.com/razpodesta)
--   **Sitio Web**: [razpodesta.com](https://www.razpodesta.com) (URL del proyecto desplegado)
+-   **Sitio Web**: [razpodesta.com](https://www.razpodesta.com) (URL del proyecto desplegado) 
