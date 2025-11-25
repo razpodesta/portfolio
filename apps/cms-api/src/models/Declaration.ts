@@ -1,7 +1,13 @@
-// Interface
-import { iDeclaration, iDataTypes } from '../interfaces'
+// RUTA: apps/cms-api/src/models/Declaration.ts
+// VERSIÓN: 2.0 - Type Safe Refactor
+// AUTOR: Raz Podestá - MetaShark Tech
+// DESCRIPCIÓN: Eliminación de 'any' en la definición del modelo Declaration.
+//              Se utiliza el tipo 'Sequelize' explícito para el conector de base de datos.
 
-export default (sequelize: any, DataTypes: iDataTypes): iDeclaration => {
+import { Sequelize } from 'sequelize';
+import { iDeclaration, iDataTypes } from '../interfaces';
+
+export default (sequelize: Sequelize, DataTypes: iDataTypes): iDeclaration => {
   const Declaration = sequelize.define('Declaration', {
     id: {
       primaryKey: true,
@@ -26,7 +32,9 @@ export default (sequelize: any, DataTypes: iDataTypes): iDeclaration => {
       type: DataTypes.STRING,
       allowNull: true
     }
-  })
+  });
 
-  return Declaration
-}
+  // Realizamos un casting seguro para cumplir con la firma de retorno iDeclaration
+  // ya que Sequelize retorna un ModelCtor<Model> que difiere ligeramente de la interfaz.
+  return Declaration as unknown as iDeclaration;
+};

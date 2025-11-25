@@ -1,5 +1,5 @@
 {
-  "17183311390228271594": {
+  "17099216075497349964": {
     "build": {
       "command": "next build",
       "options": {
@@ -22,9 +22,6 @@
       "outputs": [
         "{workspaceRoot}/apps/cms-admin/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/cms-admin/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -32,10 +29,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/cms-admin"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -70,7 +64,7 @@
       "command": "pnpm exec nx watch --projects cms-admin --includeDependentProjects -- pnpm exec nx build-deps cms-admin"
     }
   },
-  "16108300218576814357": {
+  "15000701622380492502": {
     "build": {
       "command": "next build",
       "options": {
@@ -93,9 +87,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -103,10 +94,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -141,7 +129,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "4016381569235554174": {
+  "17886842155654319709": {
     "build": {
       "command": "next build",
       "options": {
@@ -164,9 +152,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -174,10 +159,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -212,7 +194,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "9397794998783152218": {
+  "3354416904813692644": {
     "build": {
       "command": "next build",
       "options": {
@@ -235,9 +217,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -245,10 +224,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -283,7 +259,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "10614775834545004016": {
+  "8684603774906130095": {
     "build": {
       "command": "next build",
       "options": {
@@ -306,9 +282,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -316,10 +289,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -354,7 +324,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "15337080566795732258": {
+  "17699553240238011195": {
     "build": {
       "command": "next build",
       "options": {
@@ -377,9 +347,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -387,10 +354,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -425,7 +389,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "16580197193899887745": {
+  "4345975079884442882": {
     "build": {
       "command": "next build",
       "options": {
@@ -448,9 +412,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -458,10 +419,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -496,7 +454,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "15737745498610720936": {
+  "16157367650794927617": {
     "build": {
       "command": "next build",
       "options": {
@@ -519,9 +477,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -529,10 +484,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -567,7 +519,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "4367223876778309304": {
+  "625283658515140031": {
     "build": {
       "command": "next build",
       "options": {
@@ -590,9 +542,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -600,10 +549,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -638,7 +584,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "4284117116167439910": {
+  "16549575043220840937": {
     "build": {
       "command": "next build",
       "options": {
@@ -661,9 +607,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -671,10 +614,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -709,7 +649,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "16186209463302659823": {
+  "10697696811414937589": {
     "build": {
       "command": "next build",
       "options": {
@@ -732,9 +672,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -742,10 +679,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -780,7 +714,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "3877228487865317394": {
+  "11031063421330354611": {
     "build": {
       "command": "next build",
       "options": {
@@ -803,9 +737,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -813,10 +744,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -851,7 +779,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "4323064041210598085": {
+  "12038369466517039128": {
     "build": {
       "command": "next build",
       "options": {
@@ -874,9 +802,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -884,10 +809,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -922,7 +844,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "11753742633679499104": {
+  "5243408668057548145": {
     "build": {
       "command": "next build",
       "options": {
@@ -945,9 +867,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -955,10 +874,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -993,7 +909,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "1179508424547368599": {
+  "2948606384233566123": {
     "build": {
       "command": "next build",
       "options": {
@@ -1016,9 +932,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1026,10 +939,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1064,7 +974,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "11623637674306761726": {
+  "877221398046835449": {
     "build": {
       "command": "next build",
       "options": {
@@ -1087,9 +997,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1097,10 +1004,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1135,78 +1039,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "2790690452802468627": {
-    "build": {
-      "command": "next build",
-      "options": {
-        "cwd": "apps/cms-admin",
-        "tty": false
-      },
-      "dependsOn": [
-        "^build"
-      ],
-      "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        {
-          "externalDependencies": [
-            "next"
-          ]
-        }
-      ],
-      "outputs": [
-        "{workspaceRoot}/apps/cms-admin/.next/!(cache)/**/*",
-        "{workspaceRoot}/apps/cms-admin/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
-    },
-    "dev": {
-      "continuous": true,
-      "command": "next dev",
-      "options": {
-        "cwd": "apps/cms-admin"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
-    },
-    "start": {
-      "continuous": true,
-      "command": "next start",
-      "options": {
-        "cwd": "apps/cms-admin"
-      },
-      "dependsOn": [
-        "build"
-      ]
-    },
-    "serve-static": {
-      "continuous": true,
-      "command": "next start",
-      "options": {
-        "cwd": "apps/cms-admin"
-      },
-      "dependsOn": [
-        "build"
-      ]
-    },
-    "build-deps": {
-      "dependsOn": [
-        "^build"
-      ]
-    },
-    "watch-deps": {
-      "continuous": true,
-      "dependsOn": [
-        "build-deps"
-      ],
-      "command": "pnpm exec nx watch --projects cms-admin --includeDependentProjects -- pnpm exec nx build-deps cms-admin"
-    }
-  },
-  "7270719721210346683": {
+  "8467380415505919307": {
     "build": {
       "command": "next build",
       "options": {
@@ -1229,9 +1062,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1239,10 +1069,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1277,7 +1104,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "12055720791507682613": {
+  "1361650451959866674": {
     "build": {
       "command": "next build",
       "options": {
@@ -1300,9 +1127,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1310,10 +1134,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1348,78 +1169,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "10326560825871769474": {
-    "build": {
-      "command": "next build",
-      "options": {
-        "cwd": "apps/cms-admin",
-        "tty": false
-      },
-      "dependsOn": [
-        "^build"
-      ],
-      "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        {
-          "externalDependencies": [
-            "next"
-          ]
-        }
-      ],
-      "outputs": [
-        "{workspaceRoot}/apps/cms-admin/.next/!(cache)/**/*",
-        "{workspaceRoot}/apps/cms-admin/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
-    },
-    "dev": {
-      "continuous": true,
-      "command": "next dev",
-      "options": {
-        "cwd": "apps/cms-admin"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
-    },
-    "start": {
-      "continuous": true,
-      "command": "next start",
-      "options": {
-        "cwd": "apps/cms-admin"
-      },
-      "dependsOn": [
-        "build"
-      ]
-    },
-    "serve-static": {
-      "continuous": true,
-      "command": "next start",
-      "options": {
-        "cwd": "apps/cms-admin"
-      },
-      "dependsOn": [
-        "build"
-      ]
-    },
-    "build-deps": {
-      "dependsOn": [
-        "^build"
-      ]
-    },
-    "watch-deps": {
-      "continuous": true,
-      "dependsOn": [
-        "build-deps"
-      ],
-      "command": "pnpm exec nx watch --projects cms-admin --includeDependentProjects -- pnpm exec nx build-deps cms-admin"
-    }
-  },
-  "12965215232855709291": {
+  "10964633440085881581": {
     "build": {
       "command": "next build",
       "options": {
@@ -1442,9 +1192,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1452,10 +1199,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1490,7 +1234,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "6577662024732519198": {
+  "14805428249785929417": {
     "build": {
       "command": "next build",
       "options": {
@@ -1513,9 +1257,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1523,10 +1264,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1561,7 +1299,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "2145793679166181174": {
+  "10316650058379070547": {
     "build": {
       "command": "next build",
       "options": {
@@ -1584,9 +1322,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1594,10 +1329,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1632,7 +1364,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "13433827182490912545": {
+  "16709702318176045841": {
     "build": {
       "command": "next build",
       "options": {
@@ -1655,9 +1387,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1665,10 +1394,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1703,7 +1429,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "2218409922539553536": {
+  "16508815266231486583": {
     "build": {
       "command": "next build",
       "options": {
@@ -1726,9 +1452,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1736,10 +1459,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1774,7 +1494,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "11365613301153694949": {
+  "2483914450246884485": {
     "build": {
       "command": "next build",
       "options": {
@@ -1797,9 +1517,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1807,10 +1524,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -1845,7 +1559,7 @@
       "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
     }
   },
-  "5265918995069474212": {
+  "9669806798305800329": {
     "build": {
       "command": "next build",
       "options": {
@@ -1868,9 +1582,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -1878,10 +1589,787 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
       },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
+      "dependsOn": [
+        "build"
       ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "11565047203913155923": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "27631405914377397": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "8145854450221059949": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "154712230498884282": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "8531734018119591700": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "8793597996740999326": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "6081712442920674903": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "14949565535508397582": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "9358049787231084519": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "16880704572869949399": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "12689158765921330842": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
+    },
+    "start": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "continuous": true,
+      "command": "next start",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "continuous": true,
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "pnpm exec nx watch --projects portfolio-web --includeDependentProjects -- pnpm exec nx build-deps portfolio-web"
+    }
+  },
+  "7444720579218702034": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/portfolio-web",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
+        "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "continuous": true,
+      "command": "next dev",
+      "options": {
+        "cwd": "apps/portfolio-web"
+      }
     },
     "start": {
       "continuous": true,

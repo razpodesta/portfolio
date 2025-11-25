@@ -1,53 +1,23 @@
-// apps/portfolio-web/src/app/[lang]/layout.tsx
-
-/**
- * @file Layout Raíz del Portafolio.
- * @version 16.0 - Centralización de Fuentes (Fix Build Error)
- * @description Se centraliza la carga de TODAS las fuentes locales (Satoshi, Signature, Clash Display)
- *              en este nivel para evitar errores de rutas relativas en páginas profundas.
- */
+// RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
+// VERSIÓN: 20.0 - "The Content Orchestrator"
+// DESCRIPCIÓN: Wrapper semántico para rutas localizadas.
+//              Eliminada la definición de html/body para evitar conflictos de hidratación.
 
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import { i18n, type Locale } from '@/config/i18n.config';
-import { getDictionary } from '@/lib/get-dictionary';
-import { Providers } from '@/components/layout/Providers';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { NewsletterModal } from '@/components/ui/NewsletterModal';
-import { VisitorHud } from '@/components/ui/VisitorHud';
-import '../global.css';
+import { i18n, type Locale } from '../../config/i18n.config';
+import { getDictionary } from '../../lib/get-dictionary';
 
-// --- 1. CONFIGURACIÓN CENTRALIZADA DE FUENTES ---
+// --- COMPONENTES DE ESTRUCTURA ---
+import { Providers } from '../../components/layout/Providers';
+import { Header } from '../../components/layout/Header';
+import { Footer } from '../../components/layout/Footer';
 
-const fontSatoshi = localFont({
-  src: [
-    { path: '../../../public/fonts/Satoshi-Variable.woff2', style: 'normal' },
-    { path: '../../../public/fonts/Satoshi-VariableItalic.woff2', style: 'italic' },
-  ],
-  variable: '--font-sans',
-  display: 'swap',
-});
+// --- COMPONENTES DE INTELIGENCIA & UI GLOBAL ---
+import { NewsletterModal } from '../../components/ui/NewsletterModal';
+import { VisitorHud } from '../../components/ui/VisitorHud';
+import { NavigationTracker } from '../../components/layout/NavigationTracker';
 
-const fontSignature = localFont({
-    src: '../../../public/fonts/Dicaten.woff2',
-    variable: '--font-signature',
-    display: 'swap',
-});
-
-// MOVIDO AQUÍ: Clash Display ahora se carga globalmente desde el Layout.
-// La ruta relative '../../../' es correcta desde 'src/app/[lang]/layout.tsx'
-const fontClashDisplay = localFont({
-  src: [
-    { path: '../../../public/fonts/ClashDisplay-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../../../public/fonts/ClashDisplay-Bold.woff2', weight: '700', style: 'normal' },
-  ],
-  variable: '--font-display',
-  display: 'swap',
-});
-
-// ------------------------------------------------
-
+// --- METADATOS SEO (Se mantienen aquí para ser específicos por idioma) ---
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
@@ -67,14 +37,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       default: 'Portafolio de Desarrollo y Creatividad | Raz Podestá',
     },
     description: 'Explora una colección de proyectos en desarrollo web, IA, música y diseño.',
+    metadataBase: new URL(baseUrl),
     alternates: {
       canonical: `${baseUrl}/${currentLanguage}`,
       languages: languageAlternates,
     },
+    openGraph: {
+      type: 'website',
+      siteName: 'Raz Podestá Portfolio',
+    },
   };
 }
 
-export default async function RootLayout({
+// --- LAYOUT DE CONTENIDO ---
+export default async function LocalizedLayout({
   children,
   params,
 }: {
@@ -85,26 +61,29 @@ export default async function RootLayout({
   const dictionary = await getDictionary(lang);
 
   return (
-    <html lang={lang} suppressHydrationWarning>
-      <head />
-      <body
-        // Inyectamos las 3 variables CSS de fuentes en el body
-        className={`${fontSatoshi.variable} ${fontSignature.variable} ${fontClashDisplay.variable} font-sans bg-background text-foreground antialiased`}
-      >
-        <Providers>
-            <div className="flex min-h-screen flex-col">
-              <Header dictionary={dictionary} />
-              <main className="grow">{children}</main>
-              <Footer
-                content={dictionary.footer}
-                navLabels={dictionary['nav-links'].nav_links}
-                tagline={dictionary.header.tagline}
-              />
-            </div>
-            <NewsletterModal />
-            <VisitorHud dictionary={dictionary.visitor_hud} />
-        </Providers>
-      </body>
-    </html>
+    <Providers>
+        {/* 1. Rastreo Silencioso (Protocolo Ariadna) */}
+        <NavigationTracker />
+
+        {/* 2. Estructura Visual Principal (Sticky Footer) */}
+        <div className="flex min-h-screen flex-col">
+          <Header dictionary={dictionary} />
+
+          {/* 'grow' empuja el footer hacia abajo si hay poco contenido */}
+          <main className="grow relative z-0">
+            {children}
+          </main>
+
+          <Footer
+            content={dictionary.footer}
+            navLabels={dictionary['nav-links'].nav_links}
+            tagline={dictionary.header.tagline}
+          />
+        </div>
+
+        {/* 3. Capa de UI Global (Overlays) */}
+        <NewsletterModal />
+        <VisitorHud dictionary={dictionary.visitor_hud} />
+    </Providers>
   );
 }

@@ -51,6 +51,15 @@
     "sistema_de_diseno": "Sistema de Diseño",
     "recursos": "Recursos",
     "lucide_icons": "Iconografía Lucide",
-    "tech_icons": "Arsenal Tecnológico"
+    "tech_icons": "Arsenal Tecnológico",
+
+    "landing_pages": "Landing Pages CRO",
+    "fashion_wear": "Moda de Lujo",
+    "showrooms": "Showrooms Corp.",
+    "hospitality": "Hotelería y Reservas",
+    "communities": "Comunidades",
+    "ngo": "ONGs e Impacto",
+    "portfolios": "Portafolios Creativos",
+    "magazines": "Revistas Digitales"
   }
 }

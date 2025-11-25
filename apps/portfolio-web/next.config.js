@@ -1,5 +1,5 @@
 // RUTA: apps/portfolio-web/next.config.js
-// VERSIÓN: 3.0 - Clean & Production Ready
+// VERSIÓN: 3.1 - Deprecation Fix
 // @ts-check
 const { composePlugins, withNx } = require('@nx/next');
 
@@ -8,7 +8,7 @@ const { composePlugins, withNx } = require('@nx/next');
  **/
 const nextConfig = {
   nx: {
-    // svgr: false <-- ELIMINADO PARA EVITAR ERROR TS2353
+    // Svgr eliminado previamente
   },
   output: 'standalone',
   images: {
@@ -22,9 +22,7 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  devIndicators: {
-    appIsrStatus: false,
-  },
+  // devIndicators eliminado por deprecación en Next.js 15
 };
 
 module.exports = composePlugins(withNx)(nextConfig);

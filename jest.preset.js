@@ -1,6 +1,4 @@
-// RUTA: /jest.preset.js
-// VERSIÓN: 4.0 - "La Única Fuente de Verdad"
-
+// RUTA: jest.preset.js
 const { pathsToModuleNameMapper } = require('ts-jest');
 const { compilerOptions } = require('./tsconfig.base.json');
 
@@ -15,8 +13,9 @@ module.exports = {
       swcrc: false,
     }],
   },
+  // CORRECCIÓN MAESTRA: Offset para proyectos a 2 niveles de profundidad
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/',
+    prefix: '<rootDir>/../../',
   }),
   coverageReporters: ['html', 'text'],
   passWithNoTests: true,

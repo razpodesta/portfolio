@@ -41,7 +41,8 @@ const FILES = [
   'technologies_page',
   'lucide_page',
   'ai_gallery_section',
-  'visitor_hud' // <--- NUEVO ARCHIVO AÑADIDO AQUÍ
+  'visitor_hud',
+  'profile_page'
 ];
 
 // MAPEO ESTRUCTURAL

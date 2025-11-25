@@ -1,31 +1,41 @@
-// RUTA: apps/cms-api/config/index.ts
-// VERSIÓN: 3.0 - "Adaptado a Supabase"
-// DESCRIPCIÓN: Se refactoriza para leer las variables de entorno 'DATABASE_URL' y
-//              'SECURITY_SECRET_KEY' del archivo .env, preparando la API para
-//              la cohesión total con la infraestructura de Supabase.
+// RUTA: apps/cms-api/src/config/index.ts
+// VERSIÓN: 5.0 - Zod Powered Configuration
+// DESCRIPCIÓN: Carga, valida y exporta la configuración. Falla inmediatamente si el entorno es inválido.
 
 import dotenv from 'dotenv';
 import path from 'path';
-import config from './config.json';
+import { envSchema, type EnvConfig } from './env.schema.js';
 
-// Carga las variables de entorno desde el archivo .env en la raíz de la app cms-api
-dotenv.config({ path: path.resolve(process.cwd(), 'apps/cms-api/.env') });
+// 1. Carga de variables de entorno (Prioridad: Sistema > .env local)
+// Resolvemos la ruta absoluta para garantizar que funcione en monorepo
+const envPath = path.resolve(process.cwd(), 'apps/cms-api/.env');
+dotenv.config({ path: envPath });
 
-interface iSecurity { secretKey: string; expiresIn: string; }
-interface iServer { port: number; }
+// 2. Validación Estricta (Fail-Fast)
+const parsed = envSchema.safeParse(process.env);
 
-const {
-  DATABASE_URL = '',
-  SECURITY_SECRET_KEY = ''
-} = process.env;
-
-if (!DATABASE_URL || !SECURITY_SECRET_KEY) {
-  throw new Error("CRITICAL ERROR: 'DATABASE_URL' o 'SECURITY_SECRET_KEY' no están definidas en apps/cms-api/.env. La API no puede iniciar.");
+if (!parsed.success) {
+  console.error('❌ [CMS-API] Error Crítico de Configuración:');
+  console.error(JSON.stringify(parsed.error.format(), null, 2));
+  process.exit(1); // Detenemos la ejecución si el entorno no es seguro
 }
 
-const { security, server } = config;
-security.secretKey = SECURITY_SECRET_KEY;
+const env: EnvConfig = parsed.data;
 
-export const $dbUrl: string = DATABASE_URL;
-export const $security: iSecurity = security;
-export const $server: iServer = server;
+// 3. Exportación de Objetos de Configuración Estructurados
+export const $server = {
+  port: env.PORT,
+  nodeEnv: env.NODE_ENV,
+  isDev: env.NODE_ENV === 'development',
+  isProd: env.NODE_ENV === 'production',
+  corsOrigin: env.CORS_ORIGIN,
+};
+
+export const $db = {
+  url: env.DATABASE_URL,
+};
+
+export const $security = {
+  secretKey: env.SECURITY_SECRET_KEY,
+  expiresIn: env.JWT_EXPIRES_IN,
+};

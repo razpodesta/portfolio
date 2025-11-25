@@ -1,15 +1,32 @@
-// RUTA: /apps/cms-api/jest.config.ts
-// VERSIÓN: 3.0 - Definitiva, con Entorno Específico de Backend
+/**
+ * @file Configuración de Jest para cms-api.
+ * @description Configuración optimizada para entorno Backend (Node.js).
+ * @version 3.0.0 - Elite Standard
+ */
+
 export default {
   displayName: 'cms-api',
   preset: '../../jest.preset.js',
+  testEnvironment: 'node', // CRÍTICO: Entorno puro de backend
+  rootDir: '.',
 
-  // --- INICIO DE LA CORRECCIÓN ARQUITECTÓNICA ---
-  // Se especifica 'node' como el entorno de pruebas, ya que esta es una API
-  // y no tiene acceso al DOM del navegador.
-  testEnvironment: 'node',
-  // --- FIN DE LA CORRECCIÓN ARQUITECTÓNICA ---
+  // 1. ARQUITECTURA DE ESPEJO
+  roots: [
+    '<rootDir>/src',
+    '<rootDir>/../../tests/apps/cms-api'
+  ],
 
-  coverageDirectory: 'test-output/jest/coverage',
-  testMatch: ['<rootDir>/../../tests/apps/cms-api/**/*.spec.ts?(x)'],
+  // 2. COBERTURA
+  coverageDirectory: '../../coverage/apps/cms-api',
+
+  // 3. TRANSFORMACIÓN
+  transform: {
+    '^.+\\.[tj]s$': ['@swc/jest', { jsc: { target: 'es2022' } }]
+  },
+
+  // 4. PATRONES DE ARCHIVOS
+  testMatch: [
+    '**/*.spec.ts',
+    '**/*.test.ts'
+  ],
 };

@@ -3,19 +3,16 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "author": "RaZ Podestá - MetaShark Tech",
-   "scripts": {
+  "scripts": {
     "generate:assets": "concurrently \"node ./scripts/generate-lucide-manifest.mjs\" \"node ./scripts/generate-tech-manifest.mjs\"",
     "prebuild:web": "pnpm run generate:assets && node ./scripts/prebuild-portfolio-web.mjs",
     "prebuild:admin": "node ./scripts/prebuild-cms-admin.mjs",
-
     "//--- COMANDOS DE PRODUCCIÓN ---//": "",
     "build:portfolio-prod": "pnpm run prebuild:web && npx nx build portfolio-web --prod",
     "// ALIAS PARA VERCEL (CRÍTICO)": "",
     "vercel-build": "pnpm run build:portfolio-prod",
-
     "build:api-prod": "echo 'API Build Managed by Vercel Serverless Functions'",
     "build:admin-prod": "pnpm run prebuild:admin && npx nx build cms-admin --prod",
-
     "//--- DESARROLLO ---//": "",
     "dev:web": "pnpm run prebuild:web && nx serve portfolio-web --with-deps",
     "dev:admin": "pnpm run prebuild:admin && nx serve cms-admin",
@@ -24,12 +21,17 @@
     "lint": "nx run-many --target=lint",
     "format": "nx format:write",
     "test": "nx run-many --target=test",
-    "graph": "nx graph"
+    "graph": "nx graph",
+
+    "//--- PRUEBAS ---//":"",
+    "test:all": "pnpm run prebuild:web && pnpm run prebuild:admin && pnpm nx run-many --target=test --parallel=false --skip-nx-cache"
+
   },
   "private": true,
   "dependencies": {
     "@apollo/client": "4.0.9",
     "@apollo/server": "^5.1.0",
+    "@as-integrations/next": "^4.1.0",
     "@contentpi/core": "1.0.5",
     "@contentpi/ui": "1.3.0",
     "@contentpi/utils": "1.1.1",
@@ -123,6 +125,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/negotiator": "^0.6.4",
     "@types/node": "20.19.9",
+    "@types/pg": "^8.15.6",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/three": "^0.181.0",

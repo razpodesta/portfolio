@@ -1,5 +1,5 @@
 {
-  "11724706935357494116": {
+  "714096842543299801": {
     "build": {
       "command": "rollup -c rollup.config.cjs",
       "options": {
@@ -35,10 +35,7 @@
             }
           }
         }
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "build-deps": {
       "dependsOn": [

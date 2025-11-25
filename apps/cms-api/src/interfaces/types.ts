@@ -1,41 +1,50 @@
 // RUTA: apps/cms-api/src/interfaces/types.ts
-// VERSIÓN: 5.1 - "La Constitución de Tipos del Ecosistema Completo"
-// @author: Raz Podestá - MetaShark Tech
-// @description: Fuente de verdad soberana y completa para todos los tipos del backend.
-//               Se corrige la definición de los tipos base de las entidades para que no
-//               incluyan propiedades generadas por la base de datos (como 'id'), resolviendo
-//               conflictos de tipo en las operaciones de creación de Sequelize.
+// VERSIÓN: 5.0 - Strict Typing & Linting Hygiene
+// DESCRIPCIÓN: Contratos de Tipos Soberanos para el Backend.
+//              Se han eliminado las importaciones no utilizadas y erradicado el tipo 'any'.
 
-import type { Model as SequelizeModel, ModelStatic, Sequelize } from 'sequelize';
+import type {
+  Model,
+  ModelStatic,
+  Sequelize,
+  AbstractDataTypeConstructor,
+} from 'sequelize';
 
 // ===================================================================================
-// SECCIÓN 1: TIPOS BASE DE LAS ENTIDADES (REPRESENTAN DATOS PUROS DE CREACIÓN)
+// 1. Interfaces de Dominio (DTOs Puros)
 // ===================================================================================
 
-export type App = {
+export interface BaseEntity {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date | null;
+}
+
+export interface App {
   appName: string;
   identifier: string;
   icon: string;
   description: string;
   userId: string;
-};
+}
 
-export type Declaration = {
+export interface Declaration {
   declaration: string;
   icon: string;
   description: string;
   color: string;
-};
+}
 
-export type Enumeration = {
+export interface Enumeration {
   enumerationName: string;
   identifier: string;
   description: string;
   values: string;
   appId: string;
-};
+}
 
-export type Field = {
+export interface Field {
   type: string;
   fieldName: string;
   identifier: string;
@@ -50,85 +59,155 @@ export type Field = {
   isPrimaryKey: boolean;
   modelId: string;
   modelName: string;
-};
+}
 
-export type I18n = {
+export interface I18n {
   key: string;
   value: string;
   language: string;
-};
+}
 
-export type Model = {
+export interface ModelType {
   modelName: string;
   identifier: string;
   description: string;
   appId: string;
-};
+}
 
-export type Reference = {
+export interface Reference {
   parentModel: string;
   targetModel: string;
-};
+}
 
-export type User = {
+export interface User {
   username: string;
-  password: string;
+  password?: string; // Virtual field for creation
   email: string;
   privilege: 'god' | 'admin' | 'editor' | 'user';
   active: boolean;
-};
+  // Campos extendidos para autenticación y perfil
+  role?: 'ADMIN' | 'EDITOR' | 'VISITOR';
+  firstName?: string;
+  lastName?: string;
+  lastLogin?: Date;
+  preferences?: Record<string, unknown>; // Tipado seguro en lugar de 'object' genérico
+  avatarUrl?: string;
+  passwordHash?: string;
+  salt?: string;
+}
 
-export type Value = {
+export interface Value {
   entry: string;
   value: string;
   fieldIdentifier: string;
   fieldId: string;
-};
+}
 
-// --- Tipos para el Dominio del Blog (CORREGIDOS) ---
-export type Post = {
+// --- Dominio Blog ---
+export interface Post {
   title: string;
   slug: string;
   description: string;
   content: string;
   published_date: Date;
   featuredImageId?: string | null;
-};
+}
 
-export type Tag = {
+export interface Tag {
   name: string;
   slug: string;
-};
+}
 
-export type Comment = {
+export interface Comment {
   content: string;
   authorId: string;
   postId: string;
-};
+}
+
+// --- Protocolo 33 (Gamificación) ---
+export interface Artifact {
+  slug: string;
+  house: string;
+  rarity: string;
+  name: Record<string, unknown>; // i18n object
+  lore: Record<string, unknown>; // i18n object
+  visualData: Record<string, unknown>;
+  baseValue: number;
+  maxSupply?: number | null;
+}
+
+export interface Inventory {
+  userId: string;
+  artifactId: string;
+  acquiredAt: Date;
+  isEquipped: boolean;
+  metadata?: Record<string, unknown>;
+}
 
 // ===================================================================================
-// SECCIÓN 2: TIPOS PARA INSTANCIAS DE MODELOS DE SEQUELIZE (CON 'id')
+// 2. Interfaces de Instancia (Sequelize Instances)
 // ===================================================================================
 
-export type AppInstance = SequelizeModel<App, App> & App & { id: string };
-export type DeclarationInstance = SequelizeModel<Declaration, Declaration> & Declaration & { id: string };
-export type EnumerationInstance = SequelizeModel<Enumeration, Enumeration> & Enumeration & { id: string };
-export type FieldInstance = SequelizeModel<Field, Field> & Field & { id: string };
-export type I18nInstance = SequelizeModel<I18n, I18n> & I18n & { id: string };
-export type ModelInstance = SequelizeModel<Model, Model> & Model & { id: string };
-export type ReferenceInstance = SequelizeModel<Reference, Reference> & Reference & { id: string };
-export type UserInstance = SequelizeModel<User, User> & User & { id: string };
-export type ValueInstance = SequelizeModel<Value, Value> & Value & { id: string };
-export type PostInstance = SequelizeModel<Post, Post> & Post & { id: string; getPosts: (options?: unknown) => Promise<PostInstance[]> };
-export type TagInstance = SequelizeModel<Tag, Tag> & Tag & { id: string; getPosts: (options?: unknown) => Promise<PostInstance[]> };
-export type CommentInstance = SequelizeModel<Comment, Comment> & Comment & { id: string };
+/**
+ * Interfaz genérica para modelos sin tipado estricto definido.
+ * Utiliza Record<string, unknown> para obligar a la verificación de tipos antes del acceso.
+ */
+export interface GenericInstance extends Model<Record<string, unknown>, Record<string, unknown>> {
+  [key: string]: unknown;
+}
+
+export interface UserInstance extends Model<User, Partial<User>>, User, BaseEntity {
+  validatePassword: (password: string) => boolean;
+  getApps: () => Promise<AppInstance[]>;
+  createApp: (app: App) => Promise<AppInstance>;
+}
+
+export interface AppInstance extends Model<App, Partial<App>>, App, BaseEntity {}
+export interface DeclarationInstance extends Model<Declaration, Partial<Declaration>>, Declaration, BaseEntity {}
+export interface EnumerationInstance extends Model<Enumeration, Partial<Enumeration>>, Enumeration, BaseEntity {}
+export interface FieldInstance extends Model<Field, Partial<Field>>, Field, BaseEntity {}
+export interface I18nInstance extends Model<I18n, Partial<I18n>>, I18n, BaseEntity {}
+export interface ModelInstance extends Model<ModelType, Partial<ModelType>>, ModelType, BaseEntity {}
+export interface ReferenceInstance extends Model<Reference, Partial<Reference>>, Reference, BaseEntity {}
+export interface ValueInstance extends Model<Value, Partial<Value>>, Value, BaseEntity {}
+
+export interface PostInstance extends Model<Post, Partial<Post>>, Post, BaseEntity {
+  getTags: () => Promise<TagInstance[]>;
+  getComments: () => Promise<CommentInstance[]>;
+}
+
+export interface TagInstance extends Model<Tag, Partial<Tag>>, Tag, BaseEntity {
+  getPosts: () => Promise<PostInstance[]>;
+}
+
+export interface CommentInstance extends Model<Comment, Partial<Comment>>, Comment, BaseEntity {
+  getAuthor: () => Promise<UserInstance>;
+  getPost: () => Promise<PostInstance>;
+}
+
+export interface ArtifactInstance extends Model<Artifact, Partial<Artifact>>, Artifact, BaseEntity {
+  getOwners: () => Promise<InventoryInstance[]>;
+}
+
+export interface InventoryInstance extends Model<Inventory, Partial<Inventory>>, Inventory, BaseEntity {
+  artifact?: ArtifactInstance;
+  user?: UserInstance;
+}
 
 // ===================================================================================
-// SECCIÓN 3: CONTRATO DE MODELOS DE BASE DE DATOS Y CONTEXTO GRAPHQL
+// 3. Contrato de la Base de Datos (The Brain)
 // ===================================================================================
 
+/**
+ * Representa el objeto 'db' exportado por models/index.ts.
+ * Utilizamos ModelStatic<Model> en el index signature para evitar 'any',
+ * indicando que cualquier propiedad dinámica es, como mínimo, un Modelo de Sequelize.
+ */
 export interface DbModels {
   sequelize: Sequelize;
+  Sequelize: typeof Sequelize;
+
+  // Modelos del Sistema Core
   App: ModelStatic<AppInstance>;
   Declaration: ModelStatic<DeclarationInstance>;
   Enumeration: ModelStatic<EnumerationInstance>;
@@ -138,103 +217,90 @@ export interface DbModels {
   Reference: ModelStatic<ReferenceInstance>;
   User: ModelStatic<UserInstance>;
   Value: ModelStatic<ValueInstance>;
+
+  // Modelos de Dominio (Blog & Gamificación)
   Post: ModelStatic<PostInstance>;
   Tag: ModelStatic<TagInstance>;
   Comment: ModelStatic<CommentInstance>;
+  Artifact: ModelStatic<ArtifactInstance>;
+  Inventory: ModelStatic<InventoryInstance>;
+
+  // Index signature para acceso dinámico seguro.
+  // 'unknown' es la opción más segura aquí para obligar al casting explícito
+  // cuando se accede dinámicamente a un modelo desconocido.
+  [key: string]: ModelStatic<Model> | Sequelize | typeof Sequelize | unknown;
 }
+
+// ===================================================================================
+// 4. Utilidades de Inyección y Contexto
+// ===================================================================================
+
+// Definición estricta de DataTypes para inyección en factories legacy
+export interface iDataTypes {
+  UUID: AbstractDataTypeConstructor;
+  UUIDV4: AbstractDataTypeConstructor;
+  STRING: AbstractDataTypeConstructor;
+  BOOLEAN: AbstractDataTypeConstructor;
+  TEXT: AbstractDataTypeConstructor;
+  INTEGER: AbstractDataTypeConstructor;
+  DATE: AbstractDataTypeConstructor;
+  FLOAT: AbstractDataTypeConstructor;
+  NOW: AbstractDataTypeConstructor;
+  JSONB: AbstractDataTypeConstructor;
+  ENUM: AbstractDataTypeConstructor;
+}
+
+// Alias para compatibilidad con código legacy que usa estos nombres
+export type iModels = DbModels;
+export type iUser = UserInstance;
+export type iApp = AppInstance;
+export type iDeclaration = DeclarationInstance;
+export type iEnumeration = EnumerationInstance;
+export type iField = FieldInstance;
+export type iI18n = I18nInstance;
+export type iModel = ModelInstance;
+export type iValue = ValueInstance;
 
 export interface GraphQLContext {
   models: DbModels;
   user?: UserInstance;
+  req?: unknown;
 }
 
-// ===================================================================================
-// SECCIÓN 4: TIPOS PARA ARGUMENTOS DE RESOLVERS (COMPLETO)
-// ===================================================================================
-
-export type DeleteByIdArgs = {
-  id: string;
-};
-
-// --- Tipos para Mutaciones de 'App' ---
-export type CreateAppArgs = {
-  input: App;
-};
-
-// --- Tipos para Mutaciones de 'Declaration' ---
-export type CreateDeclarationArgs = {
-  input: Declaration;
-};
-
-// --- Tipos para Mutaciones de 'Enumeration' ---
-export type CreateEnumerationArgs = {
-  input: Enumeration;
-};
-export type EditEnumerationArgs = {
-  id: string;
-  input: Enumeration;
-};
-
-// --- Tipos para Mutaciones de 'Field' ---
-export type CreateFieldArgs = {
-  input: Field;
-};
+// Inputs para Mutaciones (Reflejan los args de los Resolvers)
+export type DeleteByIdArgs = { id: string; };
+export type CreateAppArgs = { input: App };
+export type CreateDeclarationArgs = { input: Declaration };
+export type CreateEnumerationArgs = { input: Enumeration };
+export type EditEnumerationArgs = { id: string; input: Enumeration };
+export type CreateFieldArgs = { input: Field };
 export type UpdateFieldInput = Omit<Field, 'modelId' | 'modelName' | 'defaultValue'>;
-export type EditFieldArgs = {
-  id: string;
-  input: UpdateFieldInput;
-};
+export type EditFieldArgs = { id: string; input: UpdateFieldInput };
+export type CreateModelArgs = { input: ModelType };
+export type EditModelArgs = { id: string; input: Pick<ModelType, 'modelName' | 'identifier' | 'description'> };
+export type CreateUserArgs = { input: User };
+export type LoginArgs = { input: Pick<User, 'email' | 'password'> };
+export type EntriesInput = { id: string; checked: boolean; status: string };
+export type CreateValuesArgs = { input: Value[] };
+export type FindUniqueValuesArgs = { input: { value: string }[] };
+export type UpdateValuesArgs = { entry: string; input: Value[] };
+export type DeleteValuesArgs = { entries: EntriesInput[] };
+export type PublishOrUnpublishEntriesArgs = { entries: EntriesInput[]; action: 'publish' | 'unpublish' };
+export type CreatePostArgs = { input: Post };
+export type CreateCommentArgs = { input: { postId: string; content: string } };
+export type GrantArtifactArgs = { userId: string; artifactSlug: string };
+export type ToggleEquipArtifactArgs = { inventoryId: string };
 
-// --- Tipos para Mutaciones de 'Model' ---
-export type CreateModelArgs = {
-  input: Model;
-};
-export type EditModelArgs = {
-  id: string;
-  input: Pick<Model, 'modelName' | 'identifier' | 'description'>;
-};
-
-// --- Tipos para Mutaciones de 'User' ---
-export type CreateUserArgs = {
-  input: User;
-};
-export type LoginArgs = {
-  input: Pick<User, 'email' | 'password'>;
-};
-
-// --- Tipos para Mutaciones de 'Value' ---
-export type EntriesInput = {
-  id: string;
-  checked: boolean;
-  status: string;
-};
-export type CreateValuesArgs = {
-  input: Value[];
-};
-export type FindUniqueValuesArgs = {
-  input: { value: string }[];
-};
-export type UpdateValuesArgs = {
-  entry: string;
-  input: Value[];
-};
-export type DeleteValuesArgs = {
-  entries: EntriesInput[];
-};
-export type PublishOrUnpublishEntriesArgs = {
-  entries: EntriesInput[];
-  action: 'publish' | 'unpublish';
-};
-
-// --- Tipos para Mutaciones de 'Post' ---
-export type CreatePostArgs = {
-  input: Post; // El tipo 'Post' base (sin 'id') ahora es perfecto para la creación.
-};
-
-// --- Tipos para Mutaciones de 'Comment' ---
-export type CreateCommentArgs = {
-  input: {
-    postId: string;
-    content: string;
-  };
-};
+// Alias de Inputs Legacy
+export type iCreateAppInput = App;
+export type iCreateI18nInput = I18n;
+export type iCreateDeclarationInput = Declaration;
+export type iCreateOrEditEnumerationInput = Enumeration;
+export type iCreateFieldInput = Field;
+export type iCreateOrUpdateValueInput = Value;
+export type iValueInput = { value: string };
+export type iCreateModelInput = ModelType;
+export type iEditModelInput = ModelType;
+export type iCreateUserInput = User;
+export type iLoginInput = LoginArgs['input'];
+export type iAuthPayload = { token: string };

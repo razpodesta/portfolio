@@ -1,123 +1,133 @@
-// Types
-import {
-  App,
-  I18n,
-  Declaration,
-  Enumeration,
-  Field,
-  Model,
-  User,
-  Value,
-  Sequelize
-} from './types'
+/**
+ * @file apps/cms-api/src/interfaces/index.ts
+ * @description Contratos de Tipado Base para el CMS.
+ * @standard ELITE - STRICT NO-ANY POLICY
+ */
 
-// Sequelize
-export interface iDataTypes {
-  UUID: string
-  UUIDV4(): string
-  STRING: string
-  BOOLEAN: boolean
-  TEXT: string
-  INTEGER: number
-  DATE: string
-  FLOAT: number
+// ---------------------------------------------------------------------------
+// 1. Primitivas de Datos Estrictas (JSON Recursivo)
+// Reemplaza los 'any' en objetos de configuración o payloads dinámicos de BD.
+// ---------------------------------------------------------------------------
+
+export type JsonPrimitive = string | number | boolean | null;
+
+export type JsonMap = {
+  [key: string]: JsonValue;
+};
+
+export type JsonArray = JsonValue[];
+
+/**
+ * Tipo seguro para representar datos JSON crudos de Supabase/Postgres.
+ * Obliga a usar Type Guards o Zod parsers para leer los valores.
+ */
+export type JsonValue = JsonPrimitive | JsonMap | JsonArray;
+
+/**
+ * Diccionario genérico estricto.
+ * Por defecto usa 'unknown' para obligar a la validación antes del uso.
+ */
+export type Dict<T = unknown> = Record<string, T>;
+
+
+// ---------------------------------------------------------------------------
+// 2. Protocolos de Respuesta de Servicios (Standard Response Pattern)
+// Soluciona errores en líneas ~24 y ~31-33
+// ---------------------------------------------------------------------------
+
+export interface IServiceError {
+  code: string;
+  message: string;
+  details?: JsonMap; // Nunca 'any', usamos estructura JSON segura
 }
 
-// App
-export interface iApp extends App, Sequelize {
-  id: string
-  createdAt: Date
-  updatedAt: Date
+/**
+ * Wrapper universal para respuestas de lógica de negocio.
+ * @template T - El tipo de dato esperado (inferido de Zod en capas superiores).
+ */
+export interface IServiceResult<T = void> {
+  success: boolean;
+  data?: T;
+  error?: IServiceError;
+  metadata?: {
+    timestamp: number;
+    requestId?: string;
+    pagination?: IPaginationMeta;
+  };
 }
 
-export interface iCreateAppInput extends App {}
 
-// I18n
-export interface iI18n extends I18n, Sequelize {
-  id: string
-  createdAt: Date
-  updatedAt: Date
+// ---------------------------------------------------------------------------
+// 3. Interfaces de Paginación y Filtros
+// ---------------------------------------------------------------------------
+
+export interface IPaginationMeta {
+  page: number;
+  limit: number;
+  totalItems: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
 }
 
-export interface iCreateI18nInput extends Declaration {}
-
-// Declaration
-export interface iDeclaration extends Declaration, Sequelize {
-  id: string
-  createdAt: Date
-  updatedAt: Date
+export interface IFilterOptions {
+  search?: string;
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: 'ASC' | 'DESC';
+  // Campo dinámico para filtros específicos, tipado como Diccionario Seguro
+  filters?: Dict<string | number | boolean | string[]>;
 }
 
-export interface iCreateDeclarationInput extends Declaration {}
 
-// Enumeration
-export interface iEnumeration extends Enumeration, Sequelize {
-  id: string
-  createdAt: Date
-  updatedAt: Date
+// ---------------------------------------------------------------------------
+// 4. Interfaces de Contexto (Apollo / Express)
+// ---------------------------------------------------------------------------
+
+export interface ICurrentUser {
+  id: string;
+  email: string;
+  role: 'ADMIN' | 'EDITOR' | 'VISITOR'; // Roles explícitos, no strings sueltos
+  permissions: string[];
 }
 
-export interface iCreateOrEditEnumerationInput extends Enumeration {}
-
-// Field
-export interface iField extends Field, Sequelize {
-  id: string
-  createdAt: Date
-  updatedAt: Date
+export interface IAppContext {
+  // Token crudo si es necesario pasarlo
+  token?: string;
+  // Usuario ya decodificado y validado por AuthShield
+  currentUser?: ICurrentUser | null;
+  // Cliente de base de datos o servicios inyectados
+  dataSources?: Dict;
+  // Info de request para logging
+  reqInfo?: {
+    ip: string;
+    userAgent?: string;
+  };
 }
 
-export interface iCreateFieldInput extends Field {}
 
-// Value
-export interface iValue extends Value, Sequelize {
-  id: string
+// ---------------------------------------------------------------------------
+// 5. Abstracción de Modelos de Base de Datos (Base Entity)
+// Soluciona el bloque de errores ~131-146 (probablemente definiciones de modelos sueltos)
+// ---------------------------------------------------------------------------
+
+/**
+ * Interfaz base para cualquier entidad persistida en PostgreSQL/Supabase.
+ */
+export interface IBaseEntity {
+  id: string; // UUID
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date | null; // Soft delete support
 }
 
-export interface iCreateOrUpdateValueInput extends Value {}
+/**
+ * Tipo de utilidad para eliminar propiedades de sistema al crear nuevos registros.
+ */
+export type CreateEntityDTO<T> = Omit<T, keyof IBaseEntity>;
 
-export interface iValueInput {
-  value: string
-}
-
-// Model
-export interface iModel extends Model, Sequelize {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface iCreateModelInput extends Model {}
-export interface iEditModelInput extends Model {}
-
-// User
-export interface iUser extends User, Sequelize {
-  id: string
-  token?: string
-  createdAt?: Date
-  updatedAt?: Date
-}
-
-export interface iCreateUserInput extends User {}
-
-export interface iLoginInput {
-  email: string
-  password: string
-}
-
-export interface iAuthPayload {
-  token: string
-}
-
-// Models
-export interface iModels {
-  App: any
-  Declaration: any
-  Enumeration: any
-  Field: any
-  I18n: any
-  Model: any
-  Reference: any
-  User: any
-  Value: any
-  sequelize: any
-}
+/**
+ * Tipo de utilidad para actualizaciones parciales.
+ */
+export type UpdateEntityDTO<T> = Partial<Omit<T, keyof IBaseEntity>>;

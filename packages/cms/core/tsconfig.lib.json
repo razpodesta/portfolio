@@ -1,15 +1,11 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "src",
-    "outDir": "dist",
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "composite": true,
+    "outDir": "../../../dist/out-tsc",
     "emitDeclarationOnly": false,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "tsBuildInfoFile": "../../../dist/out-tsc/packages/cms/core/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }

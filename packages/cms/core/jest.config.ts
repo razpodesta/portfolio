@@ -1,5 +1,38 @@
 export default {
   displayName: '@metashark-cms/core',
   preset: '../../../jest.preset.js',
-  coverageDirectory: 'test-output/jest/coverage',
+  testEnvironment: 'node',
+  rootDir: '.',
+
+  // 1. ARQUITECTURA ESPEJO
+  roots: [
+    '<rootDir>/src',
+    '<rootDir>/../../../tests/packages/cms/core'
+  ],
+
+  // 2. TRANSFORMACIÓN DEFENSIVA
+  transformIgnorePatterns: [
+    "node_modules/(?!.*(@faker-js|msw|until-async))"
+  ],
+
+  transform: {
+    '^.+\\.[tj]s$': ['@swc/jest', { jsc: { transform: { react: { runtime: 'automatic' } } } }]
+  },
+
+  // 3. MAPEO MANUAL DE RUTAS (Depth Fix para paquetes anidados nivel 3)
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/../../../apps/portfolio-web/src/$1',
+    '^@portfolio/testing-utils$': '<rootDir>/../../../packages/testing-utils/src/index.ts',
+    '^@razpodesta/auth-shield$': '<rootDir>/../../../packages/auth-shield/src/index.ts',
+    '^@razpodesta/protocol-33$': '<rootDir>/../../../packages/protocol-33/src/index.ts',
+    '^@metashark-cms/ui$': '<rootDir>/../../../packages/cms/ui/src/index.ts',
+    '^@metashark-cms/core$': '<rootDir>/../../../packages/cms/core/src/index.ts'
+  },
+
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../../coverage/packages/cms/core',
+  testMatch: [
+    '**/*.spec.ts',
+    '**/*.test.ts'
+  ],
 };

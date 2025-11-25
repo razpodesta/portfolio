@@ -1,8 +1,7 @@
 // RUTA: apps/portfolio-web/src/components/razBits/OrbitalGallery.tsx
-// VERSIÓN: 3.2.0 - Bulletproof Shader Compilation
-// DESCRIPCIÓN: Solución definitiva al error de compilación de shaders.
-//              Se fuerza la directiva #version como primera línea estricta.
-//              Se mejora el manejo de errores de WebGL para evitar crashes.
+// VERSIÓN: 3.3.0 - WebGL Type Safety Fix
+// DESCRIPCIÓN: Corrección crítica de tipos para el build de producción.
+//              Se añade casting explícito a Float32Array para matrices gl-matrix.
 
 'use client';
 
@@ -307,7 +306,6 @@ class RenderEngine {
 
       if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
         const info = gl.getShaderInfoLog(s);
-        // CORRECCIÓN DE ÉLITE: Manejo explícito de log nulo
         const errorMsg = info || "Error desconocido (Driver retornó log nulo). Revisa la directiva #version.";
 
         console.error(`❌ Error compilando ${name}:`, errorMsg);
@@ -584,9 +582,13 @@ class RenderEngine {
     mat4.fromQuat(this.worldMatrix, this.controller.orientation);
     mat4.lookAt(this.viewMatrix, [0, 0, 3], [0, 0, 0], [0, 1, 0]);
 
-    if (uWorld) gl.uniformMatrix4fv(uWorld, false, this.worldMatrix);
-    if (uView) gl.uniformMatrix4fv(uView, false, this.viewMatrix);
-    if (uProj) gl.uniformMatrix4fv(uProj, false, this.projectionMatrix);
+    // --- CORRECCIÓN CRÍTICA DE TIPOS ---
+    // Forzamos el casting a Float32Array para satisfacer la firma estricta de WebGL.
+    // gl-matrix 'mat4' es compatible en runtime, pero TS requiere Float32List.
+    if (uWorld) gl.uniformMatrix4fv(uWorld, false, this.worldMatrix as Float32Array);
+    if (uView) gl.uniformMatrix4fv(uView, false, this.viewMatrix as Float32Array);
+    if (uProj) gl.uniformMatrix4fv(uProj, false, this.projectionMatrix as Float32Array);
+    // -----------------------------------
 
     if (uRot) gl.uniform4f(uRot,
         this.controller.rotationAxis[0],

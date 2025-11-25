@@ -1,73 +1,100 @@
 // RUTA: apps/cms-api/src/lib/auth.ts
-// VERSIÓN: 2.0 - "Guardián de Autenticación Soberano"
-// @author: Raz Podestá - MetaShark Tech
-// @description: Lógica de autenticación de élite, refactorizada para Apollo Server 4.
-//               Utiliza tipos seguros, manejo de errores moderno con GraphQLError y dependencias correctas.
-//               Se erradican todas las importaciones obsoletas y variables sin usar.
+// VERSIÓN: 5.0 - AuthShield Integration & Sequelize Strict Fix
+// DESCRIPCIÓN: Orquestador de autenticación. Delega la criptografía a la librería
+//              soberana y utiliza métodos optimizados de Sequelize para evitar
+//              conflictos de tipado en claves primarias.
 
-import bcrypt from 'bcryptjs';
 import { GraphQLError } from 'graphql';
-import { verifyToken, generateToken, CustomPayload } from './jwt';
-import models from '../models';
-import type { UserInstance } from '../interfaces/types';
-import type { Request } from 'express';
+import { TokenManager, type AuthPayload } from '@razpodesta/auth-shield';
+import { $security } from '../config/index.js';
+import type { iAuthPayload, iModels, UserInstance } from '../interfaces/types.js';
+
+// Inicialización del Gestor de Tokens con la configuración global validada
+const tokenManager = new TokenManager({
+  secret: $security.secretKey,
+  expiresIn: $security.expiresIn
+});
 
 /**
- * @description Obtiene el usuario autenticado a partir del token en las cabeceras de la petición.
- * @param {Request} req El objeto de la petición de Express.
- * @returns {Promise<UserInstance | null>} La instancia del usuario encontrado en la DB o null.
+ * Ejecuta el flujo de inicio de sesión completo.
+ *
+ * @param email Correo electrónico del usuario.
+ * @param password Contraseña en texto plano.
+ * @param models Acceso a la capa de datos (Inyección de Dependencias).
  */
-export const getUserFromRequest = async (req: Request): Promise<UserInstance | null> => {
-  const authorization = req.headers.authorization;
-  if (authorization) {
-    try {
-      const token = authorization.replace('Bearer ', '');
-      const decodedPayload = verifyToken(token);
+export const doLogin = async (
+  email: string,
+  password: string,
+  models: iModels
+): Promise<iAuthPayload> => {
+  // 1. Búsqueda del Usuario por Email
+  // Sequelize infiere correctamente que 'email' existe en los atributos de User.
+  const user = await models.User.findOne({
+    where: { email, active: true }
+  });
 
-      if (decodedPayload?.userId) {
-        const user = await models.User.findByPk(decodedPayload.userId);
-        return user;
-      }
-    } catch (error) {
-      console.error('[AUTH] Error procesando token:', error);
-      return null;
-    }
+  // Protección contra enumeración de usuarios: Mensaje genérico
+  if (!user) {
+    throw new GraphQLError('Credenciales inválidas.', {
+      extensions: { code: 'UNAUTHENTICATED' },
+    });
   }
-  return null;
+
+  // 2. Validación de Credenciales
+  // El modelo User encapsula la lógica de comparación de hash (Rich Domain Model).
+  const isValid = user.validatePassword(password);
+
+  if (!isValid) {
+    throw new GraphQLError('Credenciales inválidas.', {
+      extensions: { code: 'UNAUTHENTICATED' },
+    });
+  }
+
+  // 3. Construcción del Payload Seguro
+  // Mapeamos los datos del modelo de BD al contrato de token de AuthShield.
+  const payload: AuthPayload = {
+    userId: user.id,
+    email: user.email,
+    role: user.role || 'VISITOR' // Fallback seguro si el rol es undefined
+  };
+
+  // 4. Firma del Token
+  const token = tokenManager.sign(payload);
+
+  return {
+    token
+  };
 };
 
 /**
- * @description Realiza el proceso de login, validando credenciales y generando un token.
- * @param {string} email El email del usuario.
- * @param {string} password La contraseña del usuario.
- * @returns {Promise<string>} El token JWT generado.
- * @throws {GraphQLError} Si las credenciales son inválidas o el usuario no existe.
+ * Recupera una instancia de usuario basada en los datos del token decodificado.
+ * Utilizado principalmente por el middleware de contexto de GraphQL.
+ *
+ * @param userData Payload decodificado del JWT.
+ * @param models Capa de acceso a datos.
  */
-export const authenticateUser = async (email: string, password: string): Promise<string> => {
-  const user = await models.User.findOne({ where: { email } });
+export const getUserBy = async (
+  userData: AuthPayload,
+  models: iModels
+): Promise<UserInstance | null> => {
+  if (!userData.userId) return null;
 
-  // Guardián de Contrato: Verifica si el usuario existe.
-  if (!user) {
-    throw new GraphQLError('Credenciales incorrectas.', {
-      extensions: { code: 'UNAUTHENTICATED' },
-    });
+  // CORRECCIÓN DE ÉLITE (TS2769):
+  // En lugar de usar 'findOne' con 'where: { id }', usamos 'findByPk'.
+  // Esto es semánticamente correcto para búsquedas por ID, más performante,
+  // y evita la fricción de tipos de Sequelize respecto a la herencia de 'id'.
+  const user = await models.User.findByPk(userData.userId);
+
+  // Validación lógica: El usuario debe existir y estar activo.
+  if (user && user.active) {
+    return user;
   }
 
-  // Guardián de Contrato: Compara la contraseña.
-  const isValidPassword = await bcrypt.compare(password, user.password);
-  if (!isValidPassword) {
-    throw new GraphQLError('Credenciales incorrectas.', {
-      extensions: { code: 'UNAUTHENTICATED' },
-    });
-  }
+  return null;
+};
 
-  // Creación del payload soberano.
-  const tokenPayload: CustomPayload = {
-    userId: user.id,
-    email: user.email,
-  };
-
-  const token = generateToken(tokenPayload, { expiresIn: '7d' });
-
-  return token;
+// Re-exportamos la utilidad de verificación para uso en middlewares o resolvers
+// Mantenemos la interfaz limpia exportando solo lo necesario.
+export const verifyToken = (token: string): AuthPayload | null => {
+  return tokenManager.verify(token);
 };

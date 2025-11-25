@@ -1,16 +1,16 @@
-// RUTA: /apps/cms-api/tsconfig.spec.json
-// VERSIÓN: 2.0 - Definitiva y Alineada con la Arquitectura de Espejo
 {
-  "extends": "./tsconfig.json", // <-- INICIO DE LA CORRECCIÓN 1/2
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"]
   },
-  // --- INICIO DE LA CORRECCIÓN 2/2 ---
   "include": [
+    "jest.config.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts",
     "../../tests/apps/cms-api/**/*.spec.ts",
     "../../tests/apps/cms-api/**/*.test.ts"
   ]
-  // --- FIN DE LA CORRECCIÓN 2/2 ---
 }

@@ -1,102 +1,98 @@
-import { Console } from 'console'
+// RUTA: apps/cms-api/src/api/resolvers/query.ts
+// VERSIÓN: 3.2 - Strict Typing & Zero Any
+// AUTOR: Raz Podestá - MetaShark Tech
+// DESCRIPCIÓN: Resolver para consultas dinámicas EAV. Refactorizado para eliminar
+//              el tipo 'any' explícito, utilizando las interfaces de dominio
+//              y tipos de utilidad de TypeScript.
+
+import type { GraphQLContext, FieldInstance, ValueInstance } from '../../interfaces/types.js';
+
+// Definición estricta de los parámetros de entrada
+type GetQueryInput = {
+  input: {
+    model: string;
+    operation: string;
+    params?: Record<string, unknown>; // Diccionario seguro en lugar de 'any'
+  };
+};
+
+// Estructura para el objeto reconstruido (Fila de base de datos dinámica)
+type DynamicEntry = Record<string, unknown>;
+
+// Mapa para agrupar valores por ID de entrada
+type EntriesMap = Record<string, DynamicEntry>;
 
 export default {
   Query: {
     getQuery: async (
-      _: any,
-      {
-        input: { model, operation, params = {} }
-      }: { input: { model: string; operation: string; params: any } },
-      { models }: { models: any }
+      _: unknown,
+      { input: { model: modelName } }: GetQueryInput,
+      { models }: GraphQLContext
     ) => {
-      const Model = await models.Model.findAll({
-        where: {
-          modelName: model
-        }
-      })
+      // 1. Verificar si el modelo existe en la base de datos
+      const targetModel = await models.Model.findOne({
+        where: { modelName }
+      });
 
-      if (Model.length === 1) {
-        const Fields = await models.Field.findAll({
-          where: {
-            modelName: model
-          }
-        })
-
-        const promises: any = []
-        const fields: any = []
-        const fieldsData: any = {}
-
-        if (Fields.length > 0) {
-          Fields.forEach((field: any) => {
-            const { id: fieldId, identifier: fieldName } = field.dataValues
-            fields.push(fieldName)
-
-            const Value = models.Value.findAll({
-              where: {
-                fieldId
-              }
-            })
-
-            promises.push(
-              new Promise(resolve => {
-                resolve(Value)
-              })
-            )
-          })
-
-          console.log('FIELDS====>>>', fields)
-
-          const promiseData = await Promise.all(promises)
-            .then(resolvedValues => {
-              resolvedValues.forEach((fieldValues, index) => {
-                const values = fieldValues.map((value: any) => {
-                  const { entry, value: fieldValue } = value.dataValues
-                  return {
-                    entry,
-                    fieldValue
-                  }
-                })
-
-                fieldsData[fields[index]] = values
-              })
-
-              return fieldsData
-            })
-            .then((response: any) => {
-              console.log('RESPONSE====>>>', response)
-              const entries: any = {}
-
-              Object.keys(response).forEach(field => {
-                response[field].forEach((value: any) => {
-                  const { entry, fieldValue } = value
-                  if (entries[entry]) {
-                    entries[entry][field] = fieldValue
-                  } else {
-                    entries[entry] = {
-                      [field]: fieldValue
-                    }
-                  }
-                })
-              })
-
-              const data: any = []
-
-              Object.keys(entries).forEach(entry => {
-                data.push(entries[entry])
-              })
-
-              return {
-                data
-              }
-            })
-
-          return promiseData
-        }
+      if (!targetModel) {
+        return { data: {} };
       }
+
+      // 2. Obtener todos los campos asociados al modelo
+      // Sequelize retorna un array tipado de FieldInstance
+      const fields = await models.Field.findAll({
+        where: { modelName }
+      });
+
+      if (fields.length === 0) {
+        return { data: {} };
+      }
+
+      // 3. Mapeo de IDs de campos a sus identificadores (slugs)
+      const fieldMap = new Map<string, string>();
+      const fieldIds: string[] = [];
+
+      fields.forEach((f: FieldInstance) => {
+        fieldMap.set(f.id, f.identifier);
+        fieldIds.push(f.id);
+      });
+
+      // 4. Obtener todos los valores (EAV) asociados a estos campos
+      // Sequelize retorna un array tipado de ValueInstance
+      const allValues = await models.Value.findAll({
+        where: {
+          fieldId: fieldIds
+        }
+      });
+
+      // 5. Reconstrucción de Entidades (Pivoting)
+      // Agrupamos los valores dispersos en objetos coherentes
+      const entriesMap: EntriesMap = {};
+
+      allValues.forEach((v: ValueInstance) => {
+        const entryId = v.entry;
+        const fieldIdentifier = fieldMap.get(v.fieldId);
+
+        // Si el valor apunta a un campo que no mapeamos (edge case), lo ignoramos
+        if (!fieldIdentifier) return;
+
+        // Inicializamos el objeto de la entrada si es la primera vez que lo vemos
+        if (!entriesMap[entryId]) {
+          entriesMap[entryId] = { id: entryId };
+        }
+
+        // Asignamos el valor a la propiedad dinámica correspondiente
+        entriesMap[entryId][fieldIdentifier] = v.value;
+      });
+
+      // 6. Serialización de la respuesta
+      const data = Object.values(entriesMap);
 
       return {
-        data: {}
-      }
+        // GraphQL espera un escalar JSON, que suele serializarse como string o objeto
+        // dependiendo de la implementación del scalar. Aquí enviamos string para seguridad.
+        data: JSON.stringify(data)
+      };
     }
   }
-}
+};

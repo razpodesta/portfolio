@@ -1,59 +1,41 @@
-// RUTA: apps/portfolio-web/tsconfig.json
-// VERSIÓN: Definitiva de Producción (Con Declaraciones Personalizadas)
-// DESCRIPCIÓN: Se añade el nuevo archivo 'postprocessing.d.ts' al array 'include'
-//              para que TypeScript lo descubra y utilice sus tipos en todo el proyecto.
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    // --- Opciones de Next.js y React ---
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-    // --- Configuraciones Modernas de Módulos ---
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    // --- Reglas de Calidad de Código ---
-    "strict": true,
-    "noEmit": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    // --- Manejo de Rutas ---
-    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./src/*"
+        "src/*"
+      ],
+      "@razpodesta/*": [
+        "../../packages/*/src/index.ts"
       ]
-    },
-    // --- Optimización ---
-    "incremental": true
+    }
   },
-  // --- Inclusión Explícita de Archivos ---
   "include": [
+    "**/*.ts",
+    "**/*.tsx",
     ".next/types/**/*.ts",
-    "next-env.d.ts", // <-- INICIO DE LA MEJORA
-    "postprocessing.d.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
+    "next-env.d.ts",
     "../../dist/apps/portfolio-web/.next/types/**/*.ts"
   ],
-  // --- Exclusión de Archivos de Prueba ---
   "exclude": [
     "node_modules",
     "jest.config.ts",
-    "specs",
+    "jest.setup.ts",
     "**/*.spec.ts",
-    "**/*.spec.tsx"
-  ],
-  "references": []
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

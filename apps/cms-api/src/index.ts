@@ -1,64 +1,69 @@
-// RUTA: apps/cms-api/src/index.ts
-// VERSIÓN: 2.0 - "El Orquestador de la API" (Ultra-Holístico y Type-Safe)
-// DESCRIPCIÓN: Versión refactorizada que resuelve todas las inconsistencias de tipos
-//              y rutas. Se alinea con la nueva estructura de carpetas, erradica 'any'
-//              y establece un estándar de élite para la inicialización del servidor.
+// RUTA: apps/cms-api/src/models/index.ts
+// VERSIÓN: 7.0 - Clean & Polymorphic
+import { Sequelize, DataTypes, type ModelStatic } from 'sequelize'; // Removed Model, added type
+import { $dbUrl } from '../config/index.js';
+import type { DbModels } from '../interfaces/types.js';
 
-import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
-import express from 'express';
-import cors from 'cors';
-import http from 'http';
+// Factories
+import AppFactory from './App.js';
+import DeclarationFactory from './Declaration.js';
+import EnumerationFactory from './Enumeration.js';
+import FieldFactory from './Field.js';
+import I18nFactory from './I18n.js';
+import ModelFactory from './Model.js';
+import ReferenceFactory from './Reference.js';
+import UserFactory from './User.js';
+import ValueFactory from './Value.js';
+import PostFactory from './Post.js';
+import TagFactory from './Tag.js';
+import CommentFactory from './Comment.js';
 
-import typeDefs from './graphql/types';
-import resolvers from './graphql/resolvers';
-import models from './models'; // La importación a la capa de datos es ahora limpia.
-import { $server } from './config'; // Importación corregida tras la reubicación.
-import { setInitialData } from './data';
-import type { GraphQLContext } from './interfaces/types';
-
-async function startApolloServer() {
-  const app = express();
-  const httpServer = http.createServer(app);
-
-  console.log('🚀 [CMS-API] Iniciando servidor Apollo...');
-
-  const server = new ApolloServer<GraphQLContext>({
-    typeDefs,
-    resolvers,
-  });
-
-  await server.start();
-
-  app.use(
-    '/graphql',
-    cors<cors.CorsRequest>(),
-    express.json(),
-    // El middleware de Apollo se integra con Express.
-    // El contexto ahora se tipa correctamente con GraphQLContext.
-    expressMiddleware(server, {
-      context: async ({ req }) => {
-        // En un futuro, aquí se decodificará el token JWT del header 'Authorization'
-        // para obtener el usuario y añadirlo al contexto.
-        // const token = req.headers.authorization || '';
-        // const user = await getUserFromToken(token);
-        return { models /*, user */ };
-      },
-    })
-  );
-
-  await new Promise<void>((resolve) =>
-    httpServer.listen({ port: $server.port }, resolve)
-  );
-
-  // Sincronización con la Base de Datos y siembra de datos iniciales.
-  await models.sequelize.sync();
-  await setInitialData();
-
-  console.log(`✅ [CMS-API] Servidor GraphQL listo y escuchando en http://localhost:${$server.port}/graphql`);
-}
-
-startApolloServer().catch(error => {
-  console.error('💥 [CMS-API] Error crítico al iniciar el servidor:', error);
-  process.exit(1);
+const sequelize = new Sequelize($dbUrl, {
+  dialect: 'postgres',
+  logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  pool: { max: 5, min: 0, acquire: 30000, idle: 10000 },
 });
+
+// Uso de 'unknown' para mayor seguridad en el casting intermedio
+const initModel = (factory: unknown): ModelStatic<any> => {
+  // Casting a Function para invocación dinámica segura
+  const fn = factory as (s: Sequelize, d: typeof DataTypes) => ModelStatic<any>;
+  return fn(sequelize, DataTypes);
+};
+
+const db: DbModels = {
+  sequelize,
+  Sequelize,
+
+  App: initModel(AppFactory),
+  Declaration: initModel(DeclarationFactory),
+  Enumeration: initModel(EnumerationFactory),
+  Field: initModel(FieldFactory),
+  I18n: initModel(I18nFactory),
+  Model: initModel(ModelFactory),
+  Reference: initModel(ReferenceFactory),
+  User: initModel(UserFactory),
+  Value: initModel(ValueFactory),
+
+  Post: initModel(PostFactory),
+  Tag: initModel(TagFactory),
+  Comment: initModel(CommentFactory),
+};
+
+Object.keys(db).forEach((modelName) => {
+  if (modelName === 'sequelize' || modelName === 'Sequelize') return;
+
+  const model = db[modelName];
+  // Verificación de método 'associate'
+  if (model && 'associate' in model && typeof (model as any).associate === 'function') {
+    (model as any).associate(db);
+  }
+});
+
+export default db;

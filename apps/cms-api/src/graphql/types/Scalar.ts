@@ -1,4 +1,6 @@
-import gql from 'graphql-tag'
+// RUTA: apps/cms-api/src/graphql/types/Scalar.ts
+// VERSIÓN: 2.0 - Soberano
+import gql from '../../lib/gql.js';
 
 export default gql`
   "UUID"
@@ -7,4 +9,4 @@ export default gql`
   scalar Datetime
   "JSON"
   scalar JSON
-`
+`;

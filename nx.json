@@ -26,7 +26,11 @@
           "targetName": "typecheck"
         }
       },
-      "exclude": ["packages/cms/core/*", "packages/testing-utils/*"]
+      "exclude": [
+        "packages/cms/core/*",
+        "packages/testing-utils/*",
+        "packages/auth-shield/*"
+      ]
     },
     {
       "plugin": "@nx/next/plugin",
@@ -59,7 +63,11 @@
     },
     {
       "plugin": "@nx/js/typescript",
-      "include": ["packages/cms/core/*", "packages/testing-utils/*"],
+      "include": [
+        "packages/cms/core/*",
+        "packages/testing-utils/*",
+        "packages/auth-shield/*"
+      ],
       "options": {
         "typecheck": {
           "targetName": "typecheck"

@@ -1,4 +1,9 @@
-import gql from 'graphql-tag'
+// RUTA: apps/cms-api/src/graphql/types/App.ts
+// VERSIÓN: 2.0 - Dependencia Soberana
+// DESCRIPCIÓN: Definición del esquema GraphQL para la entidad 'App'.
+//              Utiliza la utilidad local 'gql' para evitar errores de build.
+
+import gql from '../../lib/gql.js';
 
 export default gql`
   type App {
@@ -30,4 +35,4 @@ export default gql`
     description: String!
     userId: UUID!
   }
-`
+`;

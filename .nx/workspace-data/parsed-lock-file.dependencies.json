@@ -340,6 +340,16 @@
     "type": "static"
   },
   {
+    "source": "npm:@as-integrations/next",
+    "target": "npm:@apollo/server",
+    "type": "static"
+  },
+  {
+    "source": "npm:@as-integrations/next",
+    "target": "npm:next",
+    "type": "static"
+  },
+  {
     "source": "npm:@asamuzakjp/css-color",
     "target": "npm:@csstools/css-calc",
     "type": "static"
@@ -9592,6 +9602,21 @@
   {
     "source": "npm:@types/node",
     "target": "npm:undici-types",
+    "type": "static"
+  },
+  {
+    "source": "npm:@types/pg",
+    "target": "npm:@types/node",
+    "type": "static"
+  },
+  {
+    "source": "npm:@types/pg",
+    "target": "npm:pg-protocol",
+    "type": "static"
+  },
+  {
+    "source": "npm:@types/pg",
+    "target": "npm:pg-types",
     "type": "static"
   },
   {

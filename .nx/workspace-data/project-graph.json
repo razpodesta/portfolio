@@ -79,7 +79,7 @@
               }
             ],
             "outputs": [
-              "{projectRoot}\\test-output\\jest\\coverage"
+              "{workspaceRoot}\\coverage\\packages\\testing-utils"
             ],
             "executor": "nx:run-commands",
             "configurations": {},
@@ -100,6 +100,9 @@
             "cache": true,
             "inputs": [
               "production",
+              "!{workspaceRoot}/node_modules",
+              "!{workspaceRoot}/tmp",
+              "!{workspaceRoot}/dist",
               {
                 "dependentTasksOutputFiles": "**/*.d.ts"
               }
@@ -137,20 +140,21 @@
             "cache": true,
             "inputs": [
               "{projectRoot}/package.json",
+              "{projectRoot}/tsconfig.json",
               "{workspaceRoot}/tsconfig.base.json",
               "{projectRoot}/tsconfig.lib.json",
               "{projectRoot}/src/**/*.ts",
               "{projectRoot}/src/**/*.tsx",
               "!{projectRoot}/jest.config.ts",
               "!{projectRoot}/src/**/*.spec.ts",
-              "!{projectRoot}/src/**/*.spec.tsx",
               "!{projectRoot}/src/**/*.test.ts",
+              "!{projectRoot}/src/**/*.spec.tsx",
+              "!{projectRoot}/src/**/*.test.tsx",
               "^production"
             ],
             "outputs": [
-              "{workspaceRoot}/dist/out-tsc/**/*.d.ts",
-              "{workspaceRoot}/dist/out-tsc/**/*.d.ts.map",
-              "{workspaceRoot}/dist/out-tsc/tsconfig.lib.tsbuildinfo"
+              "{workspaceRoot}/dist/out-tsc",
+              "{workspaceRoot}/dist/out-tsc/packages/testing-utils/*.tsbuildinfo"
             ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
@@ -228,6 +232,389 @@
         "implicitDependencies": []
       }
     },
+    "@razpodesta/auth-shield": {
+      "name": "@razpodesta/auth-shield",
+      "type": "lib",
+      "data": {
+        "root": "packages/auth-shield",
+        "targets": {
+          "lint": {
+            "cache": true,
+            "options": {
+              "cwd": "packages/auth-shield",
+              "command": "eslint ."
+            },
+            "inputs": [
+              "default",
+              "^default",
+              "{workspaceRoot}/eslint.config.mjs",
+              "{workspaceRoot}/packages/auth-shield/eslint.config.mjs",
+              "{workspaceRoot}/tools/eslint-rules/**/*",
+              {
+                "externalDependencies": [
+                  "eslint"
+                ]
+              }
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "metadata": {
+              "technologies": [
+                "eslint"
+              ],
+              "description": "Runs ESLint on project",
+              "help": {
+                "command": "pnpm exec eslint --help",
+                "example": {
+                  "options": {
+                    "max-warnings": 0
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "test": {
+            "options": {
+              "cwd": "packages/auth-shield",
+              "env": {
+                "TS_NODE_COMPILER_OPTIONS": "{\"moduleResolution\":\"node10\",\"module\":\"commonjs\",\"customConditions\":null}"
+              },
+              "command": "jest"
+            },
+            "metadata": {
+              "technologies": [
+                "jest"
+              ],
+              "description": "Run Jest Tests",
+              "help": {
+                "command": "pnpm exec jest --help",
+                "example": {
+                  "options": {
+                    "coverage": true
+                  }
+                }
+              }
+            },
+            "cache": true,
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}\\jest.preset.js",
+              {
+                "externalDependencies": [
+                  "jest"
+                ]
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}\\coverage\\packages\\auth-shield"
+            ],
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true,
+            "dependsOn": [
+              "^build"
+            ]
+          },
+          "typecheck": {
+            "dependsOn": [
+              "build",
+              "^typecheck"
+            ],
+            "options": {
+              "cwd": "packages/auth-shield",
+              "command": "tsc --build --emitDeclarationOnly"
+            },
+            "cache": true,
+            "inputs": [
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/src/**/*.ts",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.ts",
+              {
+                "dependentTasksOutputFiles": "**/*.d.ts"
+              }
+            ],
+            "outputs": [
+              "{projectRoot}/**/*.js",
+              "{projectRoot}/**/*.cjs",
+              "{projectRoot}/**/*.mjs",
+              "{projectRoot}/**/*.jsx",
+              "{projectRoot}/**/*.js.map",
+              "{projectRoot}/**/*.jsx.map",
+              "{projectRoot}/**/*.d.ts",
+              "{projectRoot}/**/*.d.cts",
+              "{projectRoot}/**/*.d.mts",
+              "{projectRoot}/**/*.d.ts.map",
+              "{projectRoot}/**/*.d.cts.map",
+              "{projectRoot}/**/*.d.mts.map",
+              "{projectRoot}/tsconfig.tsbuildinfo"
+            ],
+            "syncGenerators": [
+              "@nx/js:typescript-sync"
+            ],
+            "metadata": {
+              "technologies": [
+                "typescript"
+              ],
+              "description": "Runs type-checking for the project.",
+              "help": {
+                "command": "pnpm exec tsc --build --help",
+                "example": {
+                  "args": [
+                    "--force"
+                  ]
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "options": {
+              "cwd": "packages/auth-shield",
+              "command": "tsc --build tsconfig.lib.json"
+            },
+            "cache": true,
+            "inputs": [
+              "{projectRoot}/package.json",
+              "{projectRoot}/tsconfig.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.lib.json",
+              "{projectRoot}/src/**/*.ts",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.ts",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/out-tsc"
+            ],
+            "syncGenerators": [
+              "@nx/js:typescript-sync"
+            ],
+            "metadata": {
+              "technologies": [
+                "typescript"
+              ],
+              "description": "Builds the project with `tsc`.",
+              "help": {
+                "command": "pnpm exec tsc --build --help",
+                "example": {
+                  "args": [
+                    "--force"
+                  ]
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "pnpm exec nx watch --projects @razpodesta/auth-shield --includeDependentProjects -- pnpm exec nx build-deps @razpodesta/auth-shield"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "nx-release-publish": {
+            "executor": "@nx/js:release-publish",
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "options": {},
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "name": "@razpodesta/auth-shield",
+        "tags": [
+          "npm:public"
+        ],
+        "metadata": {
+          "targetGroups": {},
+          "js": {
+            "packageName": "@razpodesta/auth-shield",
+            "packageVersion": "0.0.1",
+            "packageExports": {
+              "./package.json": "./package.json",
+              ".": {
+                "types": "./dist/index.d.ts",
+                "import": "./dist/index.js",
+                "default": "./dist/index.js"
+              }
+            },
+            "packageMain": "./dist/index.js",
+            "isInPackageManagerWorkspaces": true
+          }
+        },
+        "implicitDependencies": []
+      }
+    },
+    "@razpodesta/protocol-33": {
+      "name": "@razpodesta/protocol-33",
+      "type": "lib",
+      "data": {
+        "root": "packages/protocol-33",
+        "targets": {
+          "typecheck": {
+            "dependsOn": [
+              "^typecheck"
+            ],
+            "options": {
+              "cwd": "packages/protocol-33",
+              "command": "tsc --build --emitDeclarationOnly"
+            },
+            "cache": true,
+            "inputs": [
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/src/**/*.ts",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.ts",
+              {
+                "dependentTasksOutputFiles": "**/*.d.ts"
+              }
+            ],
+            "outputs": [
+              "{projectRoot}/**/*.js",
+              "{projectRoot}/**/*.cjs",
+              "{projectRoot}/**/*.mjs",
+              "{projectRoot}/**/*.jsx",
+              "{projectRoot}/**/*.js.map",
+              "{projectRoot}/**/*.jsx.map",
+              "{projectRoot}/**/*.d.ts",
+              "{projectRoot}/**/*.d.cts",
+              "{projectRoot}/**/*.d.mts",
+              "{projectRoot}/**/*.d.ts.map",
+              "{projectRoot}/**/*.d.cts.map",
+              "{projectRoot}/**/*.d.mts.map",
+              "{projectRoot}/tsconfig.tsbuildinfo"
+            ],
+            "syncGenerators": [
+              "@nx/js:typescript-sync"
+            ],
+            "metadata": {
+              "technologies": [
+                "typescript"
+              ],
+              "description": "Runs type-checking for the project.",
+              "help": {
+                "command": "pnpm exec tsc --build --help",
+                "example": {
+                  "args": [
+                    "--force"
+                  ]
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "lint": {
+            "executor": "@nx/eslint:lint",
+            "options": {},
+            "configurations": {},
+            "parallelism": true
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": [
+              "{workspaceRoot}/coverage/packages/protocol-33"
+            ],
+            "options": {
+              "jestConfig": "packages/protocol-33/jest.config.ts"
+            },
+            "configurations": {},
+            "parallelism": true,
+            "dependsOn": [
+              "^build"
+            ]
+          },
+          "nx-release-publish": {
+            "executor": "@nx/js:release-publish",
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "options": {},
+            "configurations": {},
+            "parallelism": true
+          },
+          "build": {
+            "executor": "@nx/js:tsc",
+            "outputs": [
+              "{options.outputPath}"
+            ],
+            "options": {
+              "outputPath": "dist/packages/protocol-33",
+              "main": "packages/protocol-33/src/index.ts",
+              "tsConfig": "packages/protocol-33/tsconfig.lib.json",
+              "assets": [
+                "packages/protocol-33/*.md"
+              ]
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "name": "@razpodesta/protocol-33",
+        "tags": [
+          "npm:public",
+          "scope:shared",
+          "type:util"
+        ],
+        "metadata": {
+          "targetGroups": {},
+          "js": {
+            "packageName": "@razpodesta/protocol-33",
+            "packageVersion": "0.0.1",
+            "packageExports": {
+              ".": {
+                "types": "./dist/index.d.ts",
+                "import": "./dist/index.js",
+                "default": "./dist/index.js"
+              },
+              "./package.json": "./package.json"
+            },
+            "packageMain": "./dist/index.js",
+            "isInPackageManagerWorkspaces": true
+          }
+        },
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "packages/protocol-33/src",
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
     "portfolio-web": {
       "name": "portfolio-web",
       "type": "app",
@@ -257,9 +644,6 @@
               "cwd": "apps/portfolio-web",
               "command": "next dev"
             },
-            "syncGenerators": [
-              "@nx/js:typescript-sync"
-            ],
             "executor": "nx:run-commands",
             "configurations": {},
             "parallelism": true
@@ -444,7 +828,7 @@
               }
             ],
             "outputs": [
-              "{projectRoot}\\test-output\\jest\\coverage"
+              "{workspaceRoot}\\coverage\\packages\\cms\\core"
             ],
             "executor": "nx:run-commands",
             "configurations": {},
@@ -464,12 +848,32 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/src/**/*.ts",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.ts",
               {
                 "dependentTasksOutputFiles": "**/*.d.ts"
               }
             ],
-            "outputs": [],
+            "outputs": [
+              "{projectRoot}/**/*.js",
+              "{projectRoot}/**/*.cjs",
+              "{projectRoot}/**/*.mjs",
+              "{projectRoot}/**/*.jsx",
+              "{projectRoot}/**/*.js.map",
+              "{projectRoot}/**/*.jsx.map",
+              "{projectRoot}/**/*.d.ts",
+              "{projectRoot}/**/*.d.cts",
+              "{projectRoot}/**/*.d.mts",
+              "{projectRoot}/**/*.d.ts.map",
+              "{projectRoot}/**/*.d.cts.map",
+              "{projectRoot}/**/*.d.mts.map",
+              "{projectRoot}/tsconfig.tsbuildinfo"
+            ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
             ],
@@ -502,16 +906,17 @@
             "cache": true,
             "inputs": [
               "{projectRoot}/package.json",
+              "{projectRoot}/tsconfig.json",
               "{workspaceRoot}/tsconfig.base.json",
               "{projectRoot}/tsconfig.lib.json",
               "{projectRoot}/src/**/*.ts",
               "!{projectRoot}/jest.config.ts",
-              "!{projectRoot}/src/**/*.spec.ts",
-              "!{projectRoot}/src/**/*.test.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.ts",
               "^production"
             ],
             "outputs": [
-              "{projectRoot}/dist"
+              "{workspaceRoot}/dist/out-tsc"
             ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
@@ -605,12 +1010,22 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/src/**/*.ts",
+              "{projectRoot}/src/**/*.tsx",
+              "!{projectRoot}/jest.config.ts",
+              "!{projectRoot}/**/*.spec.ts",
+              "!{projectRoot}/**/*.test.tsx",
               {
                 "dependentTasksOutputFiles": "**/*.d.ts"
               }
             ],
-            "outputs": [],
+            "outputs": [
+              "{projectRoot}/dist/**/*.d.ts",
+              "{projectRoot}/dist/packages/cms/ui/*.tsbuildinfo"
+            ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
             ],
@@ -705,7 +1120,7 @@
               }
             ],
             "outputs": [
-              "{projectRoot}\\test-output\\jest\\coverage"
+              "{workspaceRoot}\\coverage\\packages\\cms\\ui"
             ],
             "executor": "nx:run-commands",
             "configurations": {},
@@ -750,9 +1165,6 @@
                 }
               }
             },
-            "syncGenerators": [
-              "@nx/js:typescript-sync"
-            ],
             "executor": "nx:run-commands",
             "configurations": {},
             "parallelism": true
@@ -836,9 +1248,6 @@
               "cwd": "apps/cms-admin",
               "command": "next dev"
             },
-            "syncGenerators": [
-              "@nx/js:typescript-sync"
-            ],
             "executor": "nx:run-commands",
             "configurations": {},
             "parallelism": true
@@ -929,7 +1338,9 @@
                 ]
               }
             ],
-            "outputs": [],
+            "outputs": [
+              "{workspaceRoot}\\coverage\\apps\\cms-admin"
+            ],
             "executor": "nx:run-commands",
             "configurations": {},
             "parallelism": true,
@@ -981,6 +1392,8 @@
               "{workspaceRoot}/tsconfig.base.json",
               "{projectRoot}/tsconfig.json",
               "{projectRoot}/src/**/*.ts",
+              "{projectRoot}/src/**/*.json",
+              "{projectRoot}/api/**/*.ts",
               "!{projectRoot}/node_modules",
               "!{projectRoot}/jest.config.ts",
               "!{projectRoot}/**/*.spec.ts",
@@ -989,8 +1402,7 @@
             ],
             "outputs": [
               "{workspaceRoot}/dist/out-tsc/**/*.d.ts",
-              "{workspaceRoot}/dist/out-tsc/**/*.d.ts.map",
-              "{workspaceRoot}/dist/out-tsc/tsconfig.tsbuildinfo"
+              "{workspaceRoot}/dist/out-tsc/apps/cms-api/*.tsbuildinfo"
             ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
@@ -1053,7 +1465,7 @@
               }
             ],
             "outputs": [
-              "{projectRoot}\\test-output\\jest\\coverage"
+              "{workspaceRoot}\\coverage\\apps\\cms-api"
             ],
             "executor": "nx:run-commands",
             "configurations": {},
@@ -1373,6 +1785,15 @@
         "version": "3.0.0",
         "packageName": "@apollo/utils.withrequired",
         "hash": "sha512-aaxeavfJ+RHboh7c2ofO5HHtQobGX4AgUujXP4CXpREHp9fQ9jPi6K9T1jrAKe7HIipoP0OJ1gd6JamSkFIpvA=="
+      }
+    },
+    "npm:@as-integrations/next": {
+      "type": "npm",
+      "name": "npm:@as-integrations/next",
+      "data": {
+        "version": "4.1.0",
+        "packageName": "@as-integrations/next",
+        "hash": "sha512-QZ+bGlLn1ahYpVt60CofkgJUB0XhG6JghkoCywCnzueQM9qoQct0WPGMNZuWXyfBxXJGCbeF/tsIlATlHT1HoQ=="
       }
     },
     "npm:@asamuzakjp/css-color": {
@@ -7223,6 +7644,15 @@
         "version": "4.0.2",
         "packageName": "@types/parse-json",
         "hash": "sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw=="
+      }
+    },
+    "npm:@types/pg": {
+      "type": "npm",
+      "name": "npm:@types/pg",
+      "data": {
+        "version": "8.15.6",
+        "packageName": "@types/pg",
+        "hash": "sha512-NoaMtzhxOrubeL/7UZuNTrejB4MPAJ0RpxZqXQf2qXuVlTPuG6Y8p4u9dKRaue4yjmC7ZhzVO2/Yyyn25znrPQ=="
       }
     },
     "npm:@types/phoenix": {
@@ -27400,7 +27830,22 @@
       {
         "source": "@portfolio/testing-utils",
         "target": "npm:jsonc-eslint-parser",
-        "type": "dynamic"
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/testing-utils",
+        "target": "npm:isomorphic-fetch",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/testing-utils",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/testing-utils",
+        "target": "npm:react-dom",
+        "type": "static"
       },
       {
         "source": "@portfolio/testing-utils",
@@ -27419,17 +27864,41 @@
       },
       {
         "source": "@portfolio/testing-utils",
-        "target": "npm:react",
-        "type": "static"
-      },
-      {
-        "source": "@portfolio/testing-utils",
         "target": "npm:@testing-library/react",
         "type": "static"
       },
       {
         "source": "@portfolio/testing-utils",
         "target": "npm:next-themes",
+        "type": "static"
+      }
+    ],
+    "@razpodesta/auth-shield": [
+      {
+        "source": "@razpodesta/auth-shield",
+        "target": "npm:jsonc-eslint-parser",
+        "type": "dynamic"
+      },
+      {
+        "source": "@razpodesta/auth-shield",
+        "target": "npm:tslib",
+        "type": "static"
+      },
+      {
+        "source": "@razpodesta/auth-shield",
+        "target": "npm:bcryptjs",
+        "type": "static"
+      },
+      {
+        "source": "@razpodesta/auth-shield",
+        "target": "npm:jsonwebtoken",
+        "type": "static"
+      }
+    ],
+    "@razpodesta/protocol-33": [
+      {
+        "source": "@razpodesta/protocol-33",
+        "target": "npm:@nx/eslint-plugin",
         "type": "static"
       }
     ],
@@ -27456,7 +27925,12 @@
       },
       {
         "source": "portfolio-web",
-        "target": "npm:jest",
+        "target": "npm:isomorphic-fetch",
+        "type": "static"
+      },
+      {
+        "source": "portfolio-web",
+        "target": "npm:@testing-library/jest-dom",
         "type": "static"
       },
       {
@@ -27507,6 +27981,21 @@
       {
         "source": "portfolio-web",
         "target": "npm:framer-motion",
+        "type": "static"
+      },
+      {
+        "source": "portfolio-web",
+        "target": "npm:@supabase/ssr",
+        "type": "static"
+      },
+      {
+        "source": "portfolio-web",
+        "target": "npm:class-variance-authority",
+        "type": "static"
+      },
+      {
+        "source": "portfolio-web",
+        "target": "npm:cookies-next",
         "type": "static"
       },
       {
@@ -27571,11 +28060,6 @@
       },
       {
         "source": "portfolio-web",
-        "target": "npm:class-variance-authority",
-        "type": "static"
-      },
-      {
-        "source": "portfolio-web",
         "target": "npm:@react-spring/web",
         "type": "static"
       },
@@ -27586,7 +28070,7 @@
       },
       {
         "source": "portfolio-web",
-        "target": "npm:cookies-next",
+        "target": "@razpodesta/protocol-33",
         "type": "static"
       },
       {
@@ -27602,11 +28086,6 @@
       {
         "source": "portfolio-web",
         "target": "npm:zustand",
-        "type": "static"
-      },
-      {
-        "source": "portfolio-web",
-        "target": "npm:@supabase/ssr",
         "type": "static"
       }
     ],
@@ -27650,6 +28129,16 @@
       },
       {
         "source": "@metashark-cms/ui",
+        "target": "npm:isomorphic-fetch",
+        "type": "static"
+      },
+      {
+        "source": "@metashark-cms/ui",
+        "target": "npm:@testing-library/jest-dom",
+        "type": "static"
+      },
+      {
+        "source": "@metashark-cms/ui",
         "target": "npm:@nx/rollup",
         "type": "static"
       },
@@ -27688,6 +28177,16 @@
       {
         "source": "cms-admin",
         "target": "npm:eslint-plugin-jest",
+        "type": "static"
+      },
+      {
+        "source": "cms-admin",
+        "target": "npm:isomorphic-fetch",
+        "type": "static"
+      },
+      {
+        "source": "cms-admin",
+        "target": "npm:@testing-library/jest-dom",
         "type": "static"
       },
       {
@@ -27737,11 +28236,6 @@
       },
       {
         "source": "cms-admin",
-        "target": "npm:isomorphic-fetch",
-        "type": "static"
-      },
-      {
-        "source": "cms-admin",
         "target": "npm:jsonwebtoken",
         "type": "static"
       },
@@ -27760,6 +28254,16 @@
       {
         "source": "cms-api",
         "target": "npm:@apollo/server",
+        "type": "static"
+      },
+      {
+        "source": "cms-api",
+        "target": "npm:@as-integrations/next",
+        "type": "static"
+      },
+      {
+        "source": "cms-api",
+        "target": "npm:next",
         "type": "static"
       },
       {
@@ -27784,7 +28288,7 @@
       },
       {
         "source": "cms-api",
-        "target": "npm:graphql-tag",
+        "target": "npm:zod",
         "type": "static"
       },
       {
@@ -27794,12 +28298,12 @@
       },
       {
         "source": "cms-api",
-        "target": "npm:@contentpi/utils",
+        "target": "npm:graphql",
         "type": "static"
       },
       {
         "source": "cms-api",
-        "target": "npm:graphql",
+        "target": "@razpodesta/protocol-33",
         "type": "static"
       },
       {
@@ -27814,27 +28318,17 @@
       },
       {
         "source": "cms-api",
-        "target": "npm:express",
+        "target": "npm:graphql-tag",
         "type": "static"
       },
       {
         "source": "cms-api",
-        "target": "npm:cors",
-        "type": "static"
-      },
-      {
-        "source": "cms-api",
-        "target": "npm:bcryptjs",
+        "target": "@razpodesta/auth-shield",
         "type": "static"
       },
       {
         "source": "cms-api",
         "target": "npm:jsonwebtoken",
-        "type": "static"
-      },
-      {
-        "source": "cms-api",
-        "target": "npm:sequelize-mock",
         "type": "static"
       }
     ],
@@ -28026,6 +28520,11 @@
       },
       {
         "source": "@portfolio/source",
+        "target": "npm:@types/pg",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
         "target": "npm:@types/react",
         "type": "static"
       },
@@ -28202,6 +28701,11 @@
       {
         "source": "@portfolio/source",
         "target": "npm:@apollo/server",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "npm:@as-integrations/next",
         "type": "static"
       },
       {
@@ -28477,6 +28981,36 @@
       {
         "source": "@portfolio/source",
         "target": "npm:zustand",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "@portfolio/testing-utils",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "@razpodesta/protocol-33",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "@razpodesta/auth-shield",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "portfolio-web",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "@metashark-cms/core",
+        "type": "static"
+      },
+      {
+        "source": "@portfolio/source",
+        "target": "@metashark-cms/ui",
         "type": "static"
       }
     ],
@@ -28845,6 +29379,18 @@
       {
         "source": "npm:@apollo/utils.usagereporting",
         "target": "npm:graphql",
+        "type": "static"
+      }
+    ],
+    "npm:@as-integrations/next": [
+      {
+        "source": "npm:@as-integrations/next",
+        "target": "npm:@apollo/server",
+        "type": "static"
+      },
+      {
+        "source": "npm:@as-integrations/next",
+        "target": "npm:next",
         "type": "static"
       }
     ],
@@ -38748,6 +39294,23 @@
       {
         "source": "npm:@types/node",
         "target": "npm:undici-types",
+        "type": "static"
+      }
+    ],
+    "npm:@types/pg": [
+      {
+        "source": "npm:@types/pg",
+        "target": "npm:@types/node",
+        "type": "static"
+      },
+      {
+        "source": "npm:@types/pg",
+        "target": "npm:pg-protocol",
+        "type": "static"
+      },
+      {
+        "source": "npm:@types/pg",
+        "target": "npm:pg-types",
         "type": "static"
       }
     ],
@@ -66686,5 +67249,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1764020556775
+  "computedAt": 1764114602286
 }

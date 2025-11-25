@@ -1,18 +1,18 @@
-// RUTA: /apps/cms-admin/tsconfig.spec.json
-// VERSIÓN: 3.0 - Definitiva y a Prueba de Errores de Contexto
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node", "@testing-library/jest-dom"]
+    "types": ["jest", "node", "react", "react-dom"]
   },
   "include": [
-    // 1. ADOPTAMOS EL SETUP: Al incluir este archivo, TypeScript lo analizará
-    //    con el contexto de "types" y "paths" de este tsconfig.
+    "jest.config.ts",
     "jest.setup.ts",
-
-    // 2. MANTENEMOS LOS ARCHIVOS DE PRUEBA: Seguimos apuntando a la estructura de espejo.
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.tsx",
+    "src/**/*.d.ts",
     "../../tests/apps/cms-admin/**/*.spec.ts",
     "../../tests/apps/cms-admin/**/*.spec.tsx"
   ]

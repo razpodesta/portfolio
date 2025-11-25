@@ -1,7 +1,13 @@
-// Interface
-import { iValue, iDataTypes } from '../interfaces'
+// RUTA: apps/cms-api/src/models/Reference.ts
+// VERSIÓN: 2.0 - Type Safe Refactor
+// AUTOR: Raz Podestá - MetaShark Tech
+// DESCRIPCIÓN: Refactorización para seguridad de tipos. Se reemplaza 'any' por 'Sequelize'
+//              y se asegura que el retorno cumpla con la interfaz 'iValue'.
 
-export default (sequelize: any, DataTypes: iDataTypes): iValue => {
+import { Sequelize } from 'sequelize';
+import { iValue, iDataTypes } from '../interfaces';
+
+export default (sequelize: Sequelize, DataTypes: iDataTypes): iValue => {
   const Reference = sequelize.define('Reference', {
     id: {
       primaryKey: true,
@@ -17,7 +23,9 @@ export default (sequelize: any, DataTypes: iDataTypes): iValue => {
       type: DataTypes.UUID,
       allowNull: false
     }
-  })
+  });
 
-  return Reference
-}
+  // Casting seguro: Convertimos el modelo de Sequelize a la interfaz de dominio iValue
+  // para mantener la consistencia con el resto de la aplicación legado.
+  return Reference as unknown as iValue;
+};

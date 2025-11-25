@@ -1,9 +1,9 @@
 // RUTA: apps/portfolio-web/src/components/layout/Footer.tsx
-// VERSIÓN: 4.1 - Alineado con el Contrato de Datos Soberano
-// DESCRIPCIÓN: Se corrige el tipo de la prop 'navLabels' para que apunte a la
-//              sección correcta del diccionario ('nav-links' en lugar de 'header'),
-//              resolviendo el error de tipo TS2339 y restaurando la integridad
-//              del contrato de datos del componente.
+// VERSIÓN: 5.0 - Full Semantic Theming & Zod Integration
+// AUTOR: Raz Podestá - MetaShark Tech
+// DESCRIPCIÓN: Pie de página principal de la aplicación.
+//              Implementa diseño adaptativo (Dark/Light) utilizando tokens CSS semánticos.
+//              Consume contenido estrictamente tipado desde los diccionarios de i18n.
 
 'use client';
 
@@ -17,14 +17,17 @@ import { footerNavStructure } from '@/lib/nav-links';
 import { getLocalizedHref } from '@/lib/utils/link-helpers';
 import { i18n, type Locale } from '@/config/i18n.config';
 
-// --- INICIO DE LA CORRECCIÓN CRÍTICA ---
+/**
+ * Props del Footer.
+ * Utiliza tipos inferidos de Zod para garantizar la integridad de los datos.
+ */
 type FooterProps = {
   content: Dictionary['footer'];
-  navLabels: Dictionary['nav-links']['nav_links']; // Corregido para apuntar a la fuente de verdad correcta.
+  navLabels: Dictionary['nav-links']['nav_links'];
   tagline: string;
 };
-// --- FIN DE LA CORRECCIÓN CRÍTICA ---
 
+// Variantes de animación optimizadas para no bloquear el hilo principal
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -52,22 +55,30 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
-      className="border-t border-zinc-800 bg-black text-zinc-400"
+      // THEMED: Fondo y bordes semánticos
+      className="border-t border-border bg-background text-muted-foreground"
     >
       <div className="container mx-auto px-4 pt-16 pb-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+
+          {/* Columna de Branding */}
           <motion.div variants={itemVariants} className="col-span-2 md:col-span-2">
-            <Link href={`/${currentLang}`} className="font-signature text-5xl text-white transition-colors hover:text-zinc-300">
+            <Link
+              href={`/${currentLang}`}
+              // THEMED: Texto principal adaptativo
+              className="font-signature text-5xl text-foreground transition-colors hover:text-primary"
+            >
               Raz Podestá
             </Link>
-            <p className="mt-4 max-w-xs text-sm">
+            <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               {tagline}
             </p>
           </motion.div>
 
+          {/* Columnas de Navegación Dinámicas */}
           {footerNavStructure.map((column) => (
             <motion.div variants={itemVariants} key={column.columnKey}>
-              <h2 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
+              <h2 className="text-sm font-semibold tracking-wider text-foreground uppercase">
                 {t[column.columnKey as keyof typeof t]}
               </h2>
               <ul className="mt-4 space-y-3">
@@ -76,8 +87,13 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
 
                   return (
                     <li key={link.labelKey}>
-                      <Link href={finalHref} className="flex items-center gap-2 text-sm transition-colors hover:text-white hover:underline">
-                        {link.Icon && <link.Icon size={14} className="shrink-0 text-zinc-500 group-hover:text-white transition-colors" />}
+                      <Link
+                        href={finalHref}
+                        className="flex items-center gap-2 text-sm transition-colors hover:text-foreground hover:underline decoration-primary/50 underline-offset-4"
+                      >
+                        {link.Icon && (
+                          <link.Icon size={14} className="shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+                        )}
                         <span>{navLabels[link.labelKey as keyof typeof navLabels]}</span>
                       </Link>
                     </li>
@@ -88,22 +104,25 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
           ))}
         </div>
 
-        <motion.div variants={itemVariants} className="mt-12 border-t border-zinc-800 pt-8">
+        {/* Sección de Newsletter */}
+        <motion.div variants={itemVariants} className="mt-12 border-t border-border pt-8">
           <div className="flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h3 className="text-lg font-bold text-white">{t.newsletter_title}</h3>
-              <p className="text-sm text-zinc-500">Recibe insights y actualizaciones directamente.</p>
+              <h3 className="text-lg font-bold text-foreground">{t.newsletter_title}</h3>
+              <p className="text-sm text-muted-foreground">Recibe insights y actualizaciones directamente.</p>
             </div>
             <form className="flex w-full max-w-md gap-2">
               <input
                 type="email"
                 placeholder={t.newsletter_placeholder}
-                className="w-full rounded-md border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:ring-purple-500"
+                // THEMED: Inputs con fondo secundario y borde de input
+                className="w-full rounded-md border border-input bg-secondary px-4 py-2 text-sm text-foreground placeholder-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 aria-label={t.newsletter_placeholder}
               />
               <button
                 type="submit"
-                className="shrink-0 rounded-md bg-white px-4 py-2 text-sm font-bold text-black transition-transform hover:scale-105"
+                // THEMED: Botón primario con texto invertido
+                className="shrink-0 rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-transform hover:scale-105 hover:bg-primary/90"
                 aria-label={t.newsletter_button}
               >
                 <ArrowRight size={18} />
@@ -112,10 +131,11 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="mt-12 flex flex-col-reverse items-center justify-between gap-6 border-t border-zinc-800 pt-8 md:flex-row">
+        {/* Copyright y Redes Sociales */}
+        <motion.div variants={itemVariants} className="mt-12 flex flex-col-reverse items-center justify-between gap-6 border-t border-border pt-8 md:flex-row">
           <div className="text-center text-sm md:text-left">
-            <p>{t.rights_reserved}</p>
-            <p className="text-zinc-500">{t.made_by}</p>
+            <p className="text-foreground font-medium">{t.rights_reserved}</p>
+            <p className="text-muted-foreground text-xs mt-1">{t.made_by}</p>
           </div>
           <div className="flex items-center gap-4">
             {socialLinks.map(({ href, label, icon: Icon }) => (
@@ -125,7 +145,8 @@ export function Footer({ content, navLabels, tagline }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Visita mi perfil de ${label}`}
-                className="rounded-full p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
+                // THEMED: Botones sociales circulares
+                className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 <Icon size={20} />
               </a>

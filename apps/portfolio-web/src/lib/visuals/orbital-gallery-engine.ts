@@ -1,4 +1,9 @@
 // RUTA: apps/portfolio-web/src/lib/visuals/orbital-gallery-engine.ts
+// VERSIÓN: 3.4 - WebGL Type Safety & Strict Casting
+// DESCRIPCIÓN: Se aplica casting explícito 'as Float32Array' a las matrices de
+//              gl-matrix para satisfacer la firma estricta de WebGL2RenderingContext
+//              en TypeScript 5+.
+
 import { mat4, quat, vec2, vec3 } from 'gl-matrix';
 
 // --- SHADERS (Inmutables) ---
@@ -364,9 +369,14 @@ export class OrbitalGalleryEngine {
     const view = mat4.lookAt(mat4.create(), [0, 0, 6], [0, 0, 0], [0, 1, 0]);
     const world = mat4.create(); // La rotación ya está en las matrices de instancia
 
-    this.gl.uniformMatrix4fv(uProj, false, projection);
-    this.gl.uniformMatrix4fv(uView, false, view);
-    this.gl.uniformMatrix4fv(uWorld, false, world);
+    // --- CORRECCIÓN CRÍTICA DE TIPOS ---
+    // El error "Argument of type 'mat4' is not assignable to parameter of type 'Float32List'"
+    // ocurre porque gl-matrix usa Float32Array, pero TypeScript espera Float32List (que es una unión).
+    // Hacemos casting explícito para asegurar compatibilidad.
+    this.gl.uniformMatrix4fv(uProj, false, projection as Float32Array);
+    this.gl.uniformMatrix4fv(uView, false, view as Float32Array);
+    this.gl.uniformMatrix4fv(uWorld, false, world as Float32Array);
+    // -----------------------------------
 
     // Texture Uniforms
     const uItemCount = this.gl.getUniformLocation(this.program, 'uItemCount');

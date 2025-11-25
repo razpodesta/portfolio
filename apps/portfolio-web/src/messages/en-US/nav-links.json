@@ -51,6 +51,15 @@
     "sistema_de_diseno": "Design System",
     "recursos": "Resources",
     "lucide_icons": "Lucide Icons",
-    "tech_icons": "Tech Stack"
+    "tech_icons": "Tech Stack",
+
+    "landing_pages": "CRO Landing Pages",
+    "fashion_wear": "Luxury Fashion",
+    "showrooms": "Corp. Showrooms",
+    "hospitality": "Hospitality & Booking",
+    "communities": "Communities",
+    "ngo": "NGOs & Impact",
+    "portfolios": "Creative Portfolios",
+    "magazines": "Digital Magazines"
   }
 }

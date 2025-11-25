@@ -1,5 +1,5 @@
 {
-  "17183311390228271594": {
+  "17099216075497349964": {
     "build": {
       "command": "next build",
       "options": {
@@ -22,9 +22,6 @@
       "outputs": [
         "{workspaceRoot}/apps/cms-admin/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/cms-admin/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -32,10 +29,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/cms-admin"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,
@@ -70,7 +64,7 @@
       "command": "pnpm exec nx watch --projects cms-admin --includeDependentProjects -- pnpm exec nx build-deps cms-admin"
     }
   },
-  "14188236774929591008": {
+  "15000701622380492502": {
     "build": {
       "command": "next build",
       "options": {
@@ -93,9 +87,6 @@
       "outputs": [
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)/**/*",
         "{workspaceRoot}/apps/portfolio-web/.next/!(cache)"
-      ],
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
       ]
     },
     "dev": {
@@ -103,10 +94,7 @@
       "command": "next dev",
       "options": {
         "cwd": "apps/portfolio-web"
-      },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ]
+      }
     },
     "start": {
       "continuous": true,

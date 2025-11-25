@@ -1,7 +1,19 @@
-// Interface
-import { iField, iModels, iDataTypes } from '../interfaces'
+// RUTA: apps/cms-api/src/models/Field.ts
+// VERSIÓN: 2.1 - Boolean DataType Fix
+// AUTOR: Raz Podestá - MetaShark Tech
+// DESCRIPCIÓN: Se corrige el error de tipado en las definiciones de columnas booleanas.
+//              La interfaz 'iDataTypes' devuelve un primitivo boolean que es incompatible
+//              con la definición de modelos de Sequelize. Se aplica casting a 'DataType'.
 
-export default (sequelize: any, DataTypes: iDataTypes): iField => {
+import { Sequelize, Model, ModelStatic, DataType } from 'sequelize';
+import { iField, iModels, iDataTypes } from '../interfaces';
+
+// Definimos el tipo para la "Clase Estática" del modelo Field
+type FieldModelDefinition = ModelStatic<Model> & {
+  associate: (models: iModels) => void;
+};
+
+export default (sequelize: Sequelize, DataTypes: iDataTypes): iField => {
   const Field = sequelize.define('Field', {
     id: {
       primaryKey: true,
@@ -36,32 +48,33 @@ export default (sequelize: any, DataTypes: iDataTypes): iField => {
       defaultValue: ''
     },
     isMedia: {
-      type: DataTypes.BOOLEAN,
+      // CORRECCIÓN: Casting explícito para corregir la inferencia de 'boolean' a 'DataType'
+      type: DataTypes.BOOLEAN as unknown as DataType,
       allowNull: false,
       defaultValue: false
     },
     isRequired: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN as unknown as DataType,
       allowNull: false,
       defaultValue: false
     },
     isUnique: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN as unknown as DataType,
       allowNull: false,
       defaultValue: false
     },
     isHide: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN as unknown as DataType,
       allowNull: false,
       defaultValue: false
     },
     isSystem: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN as unknown as DataType,
       allowNull: false,
       defaultValue: false
     },
     isPrimaryKey: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN as unknown as DataType,
       allowNull: false,
       defaultValue: false
     },
@@ -69,18 +82,18 @@ export default (sequelize: any, DataTypes: iDataTypes): iField => {
       type: DataTypes.STRING,
       allowNull: false
     }
-  })
+  }) as unknown as FieldModelDefinition;
 
   Field.associate = (models: iModels): void => {
-    Field.hasMany(models.Value, {
+    Field.hasMany(models.Value as unknown as ModelStatic<Model>, {
       foreignKey: {
         name: 'fieldId',
         field: 'field_id'
       },
       as: 'values',
       onDelete: 'CASCADE'
-    })
-  }
+    });
+  };
 
-  return Field
-}
+  return Field as unknown as iField;
+};

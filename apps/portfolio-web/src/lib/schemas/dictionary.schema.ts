@@ -1,11 +1,9 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/dictionary.schema.ts
-// VERSIÓN: 20.0 - Inclusión de Visitor HUD
-// DESCRIPCIÓN: Se añade el sub-esquema 'visitor_hud' para garantizar la
-//              cobertura de i18n en el widget flotante.
+// VERSIÓN: 22.0 - Integración de Detalles de Proyecto
+// DESCRIPCIÓN: Registro oficial del esquema 'project_details' en el contrato global.
 
 import { z } from 'zod';
 
-// ... (Importaciones anteriores se mantienen igual) ...
 import { headerSchema } from './header.schema';
 import { navLinksSchema } from './nav-links.schema';
 import { footerSchema } from './footer.schema';
@@ -22,19 +20,22 @@ import { legalPageSchema } from './legal_page.schema';
 import { curriculumSchema } from './curriculum.schema';
 import { technologiesPageSchema } from './technologies_page.schema';
 import { libraryPageSchema } from './library_page.schema';
+import { profilePageSchema } from './profile_page.schema';
 
-// --- NUEVO ESQUEMA GRANULAR ---
+// --- IMPORTACIÓN NUEVA ---
+import { projectDetailsDictionarySchema } from './project_details.schema';
+
 const visitorHudSchema = z.object({
-  label_visitor_info: z.string(), // Reemplaza a label_system
-  label_ip_visitor: z.string(),   // Nueva etiqueta específica
-  footer_credits: z.string(),     // Nuevo footer
+  label_visitor_info: z.string(),
+  label_ip_visitor: z.string(),
+  footer_credits: z.string(),
   status_calibrating: z.string(),
   status_error: z.string(),
   label_location: z.string(),
   label_weather: z.string(),
-  weather_sunny: z.string(),      // Estado Clima
-  weather_rainy: z.string(),      // Estado Clima
-  weather_cloudy: z.string(),     // Estado Clima
+  weather_sunny: z.string(),
+  weather_rainy: z.string(),
+  weather_cloudy: z.string(),
   label_time: z.string(),
   coords_format: z.string(),
 });
@@ -49,10 +50,7 @@ export const dictionarySchema = z.object({
   'nav-links': navLinksSchema,
   footer: footerSchema,
   language_switcher: languageSwitcherSchema,
-
-  // --- NUEVA PROPIEDAD ---
   visitor_hud: visitorHudSchema,
-
   homepage: homepageSchema,
   mission_vision: missionVisionSchema,
   quien_soy: quienSoySchema,
@@ -64,6 +62,11 @@ export const dictionarySchema = z.object({
   legal: legalContentSchema,
   technologies_page: technologiesPageSchema,
   lucide_page: libraryPageSchema,
+  profile_page: profilePageSchema,
+
+  // --- REGISTRO SOBERANO DE LA NUEVA SECCIÓN ---
+  project_details: projectDetailsDictionarySchema,
+
   not_found: notFoundSchema,
   server_error: serverErrorSchema,
   maintenance: maintenanceSchema,

@@ -1,46 +1,67 @@
 // RUTA: apps/cms-api/src/lib/jwt.ts
-// VERSIÓN: 2.0 - "Contrato de Token Soberano y Type-Safe"
-// @author: Raz Podestá - MetaShark Tech
-// @description: Versión refactorizada y corregida del manejador de JSON Web Tokens.
-//               Se exporta la interfaz 'CustomPayload' y se corrige la firma de 'generateToken'
-//               para cumplir con la API de 'jsonwebtoken' y restaurar la seguridad de tipos.
+// VERSIÓN: 3.0 - Strict Typing & Linter Compliance
+// DESCRIPCIÓN: Servicio de verificación de tokens JWT con tipado genérico seguro.
+//              Elimina el uso de 'any' y corrige las definiciones de interfaces conflictivas.
 
-import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
-import { $security } from '../config';
+import * as jwt from 'jsonwebtoken';
+import { $security } from '../config/index.js';
 
 /**
- * @description Interfaz soberana que define la estructura del payload de nuestros tokens de autenticación.
- *              Se exporta para ser utilizada en todo el ecosistema de la API.
+ * Estructura interna esperada del Payload del JWT en este sistema.
+ * Extiende el tipo base de la librería para incluir la propiedad custom 'data'.
  */
-export interface CustomPayload extends JwtPayload {
-  userId: string;
-  email: string;
+interface LegacyJwtPayload extends jwt.JwtPayload {
+  data?: unknown;
 }
 
 /**
- * @description Verifica un token JWT y devuelve su payload si es válido.
- * @param {string} token El JWT string a verificar.
- * @returns {CustomPayload | null} El payload del token o null si es inválido.
+ * Tipo para el callback de verificación.
+ * @template T El tipo de dato esperado dentro del payload.
  */
-export const verifyToken = (token: string): CustomPayload | null => {
-  try {
-    const decoded = jwt.verify(token, $security.secretKey);
-    if (typeof decoded === 'object' && decoded !== null) {
-      return decoded as CustomPayload;
-    }
-    return null;
-  } catch {
-    console.error('[AUTH] La verificación del token falló.');
-    return null;
-  }
-};
+type VerifyCallback<T> = (data: T | null) => void;
 
 /**
- * @description Genera un nuevo token JWT.
- * @param {object} payload El objeto a incluir en el token.
- * @param {SignOptions} options Las opciones de firma, como 'expiresIn'.
- * @returns {string} Un string con el token JWT firmado.
+ * Verifica un token JWT de forma asíncrona y extrae su carga útil.
+ *
+ * @template T El tipo de dato que se espera recuperar (ej: User).
+ * @param accessToken El token JWT (string) a verificar.
+ * @param cb Función de callback que recibe los datos decodificados (T) o null si falla.
  */
-export const generateToken = (payload: object, options: SignOptions): string => {
-  return jwt.sign(payload, $security.secretKey, options);
-};
+export function jwtVerify<T = unknown>(accessToken: string, cb: VerifyCallback<T>): void {
+  jwt.verify(accessToken, $security.secretKey, (error, decoded) => {
+    // 1. Manejo de errores de firma o expiración
+    if (error) {
+      return cb(null);
+    }
+
+    // 2. Validación de estructura (Type Guard implícito)
+    if (typeof decoded !== 'object' || decoded === null) {
+      return cb(null);
+    }
+
+    // 3. Casting seguro a nuestra estructura conocida
+    const payload = decoded as LegacyJwtPayload;
+
+    // 4. Extracción de la propiedad 'data' específica de la lógica legacy
+    if (!payload.data) {
+      return cb(null);
+    }
+
+    // 5. Retorno del dato tipado
+    return cb(payload.data as T);
+  });
+}
+
+/**
+ * Wrapper basado en Promesas para obtener datos del usuario desde un token.
+ * Facilita el uso en funciones async/await.
+ *
+ * @template T El tipo de dato que se espera recuperar.
+ * @param accessToken El token JWT.
+ * @returns Una promesa que resuelve con los datos (T) o null si el token es inválido.
+ */
+export async function getUserData<T = unknown>(accessToken: string): Promise<T | null> {
+  return new Promise((resolve) => {
+    jwtVerify<T>(accessToken, (data) => resolve(data));
+  });
+}

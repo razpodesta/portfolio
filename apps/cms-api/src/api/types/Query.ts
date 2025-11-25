@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from '../../lib/gql.js'
 
 export default gql`
   type Query {
