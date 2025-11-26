@@ -1,8 +1,7 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/proyectos/[slug]/page.tsx
-// VERSIÓN: 1.1 - Arquitectura Híbrida & Sintaxis Tailwind v4
-// DESCRIPCIÓN: Página de arquetipo dinámica.
-//              - Corrección de imports a rutas relativas estrictas.
-//              - Actualización a sintaxis canónica de Tailwind v4 para variables CSS.
+// VERSIÓN: 1.2 - Build-Safe (Defensive Coding)
+// DESCRIPCIÓN: Se añade lógica defensiva en generateStaticParams para evitar
+//              que el build falle si el diccionario no se carga correctamente.
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -23,23 +22,38 @@ type ProjectPageProps = {
 
 // 1. Generación Estática de Rutas (SSG)
 export async function generateStaticParams() {
-  // Para obtener las claves, cargamos el diccionario por defecto (pt-BR es nuestra base)
-  const dict = await getDictionary(i18n.defaultLocale);
-  const projectKeys = Object.keys(dict.project_details);
+  try {
+    // Para obtener las claves, cargamos el diccionario por defecto
+    const dict = await getDictionary(i18n.defaultLocale);
 
-  return i18n.locales.flatMap((lang) =>
-    projectKeys.map((slug) => ({
-      lang,
-      slug,
-    }))
-  );
+    // --- DEFENSA CONTRA DICCIONARIO INCOMPLETO ---
+    if (!dict || !dict.project_details) {
+      console.warn('⚠️ [SSG] Diccionario de detalles de proyecto no disponible. Saltando generación estática.');
+      return [];
+    }
+    // ---------------------------------------------
+
+    const projectKeys = Object.keys(dict.project_details);
+
+    return i18n.locales.flatMap((lang) =>
+      projectKeys.map((slug) => ({
+        lang,
+        slug,
+      }))
+    );
+  } catch (error) {
+    console.error('❌ [SSG] Error generando params estáticos para proyectos:', error);
+    return []; // Fallback seguro: No generar páginas estáticas, dejar que se generen on-demand (ISR)
+  }
 }
 
 // 2. Metadatos Dinámicos SEO
-export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
-  const params = await props.params;
-  const dict = await getDictionary(params.lang);
-  const project = dict.project_details[params.slug];
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale; slug: string }> }): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const dict = await getDictionary(lang);
+
+  // Acceso seguro con optional chaining
+  const project = dict?.project_details?.[slug];
 
   if (!project) return { title: 'Proyecto No Encontrado' };
 
@@ -47,16 +61,18 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
     title: `${project.title} | Arquetipo Digital`,
     description: project.subtitle,
     openGraph: {
-      images: [`/images/projects/${params.slug}/og-1200x630-preview.jpg`],
+      images: [`/images/projects/${slug}/og-1200x630-preview.jpg`],
     },
   };
 }
 
 // 3. Componente de Página
-export default async function ProjectArchetypePage(props: ProjectPageProps) {
-  const params = await props.params;
-  const dict = await getDictionary(params.lang);
-  const project = dict.project_details[params.slug];
+export default async function ProjectArchetypePage({ params }: ProjectPageProps) {
+  const { lang, slug } = await params;
+  const dict = await getDictionary(lang);
+
+  // Acceso seguro
+  const project = dict?.project_details?.[slug];
 
   // Protección contra 404 si el slug no existe en el diccionario
   if (!project) {
@@ -68,7 +84,7 @@ export default async function ProjectArchetypePage(props: ProjectPageProps) {
   const fontBodyClass = getFontClassName(project.branding.font_body);
 
   // Rutas de Assets (Convención estricta)
-  const heroImage = `/images/projects/${params.slug}/hero-1920x1080.jpg`;
+  const heroImage = `/images/projects/${slug}/hero-1920x1080.jpg`;
 
   return (
     // Inyección de variables CSS para colores específicos del proyecto

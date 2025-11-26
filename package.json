@@ -4,28 +4,27 @@
   "license": "UNLICENSED",
   "author": "RaZ Podestá - MetaShark Tech",
   "scripts": {
+    "//--- COMANDOS DE DESPLIEGUE (TU BOTÓN ROJO) ---//": "",
+    "deploy:prod": "git add . && git commit -m \"chore(release): Despliegue a Producción - $(date +%Y-%m-%d_%H-%M)\" && git push origin main",
+
+    "//--- COMANDOS DE CONSTRUCCIÓN PARA VERCEL (CLOUD) ---//": "",
+    "vercel:build:web": "pnpm run prebuild:web && npx nx build portfolio-web --prod",
+    "vercel:build:admin": "pnpm run prebuild:admin && npx nx build cms-admin --prod",
+    "vercel:build:api": "npx nx build cms-api --prod",
+
+    "//--- PRE-REQUISITOS ---//": "",
     "generate:assets": "concurrently \"node ./scripts/generate-lucide-manifest.mjs\" \"node ./scripts/generate-tech-manifest.mjs\"",
     "prebuild:web": "pnpm run generate:assets && node ./scripts/prebuild-portfolio-web.mjs",
     "prebuild:admin": "node ./scripts/prebuild-cms-admin.mjs",
-    "//--- COMANDOS DE PRODUCCIÓN ---//": "",
-    "build:portfolio-prod": "pnpm run prebuild:web && npx nx build portfolio-web --prod",
-    "// ALIAS PARA VERCEL (CRÍTICO)": "",
-    "vercel-build": "pnpm run build:portfolio-prod",
-    "build:api-prod": "echo 'API Build Managed by Vercel Serverless Functions'",
-    "build:admin-prod": "pnpm run prebuild:admin && npx nx build cms-admin --prod",
+
     "//--- DESARROLLO ---//": "",
+    "dev:all": "concurrently \"nx serve:dev cms-api\" \"pnpm run prebuild:admin && nx serve cms-admin\" \"pnpm run prebuild:web && nx serve portfolio-web --with-deps\"",
     "dev:web": "pnpm run prebuild:web && nx serve portfolio-web --with-deps",
-    "dev:admin": "pnpm run prebuild:admin && nx serve cms-admin",
     "dev:api": "nx serve:dev cms-api",
-    "dev:all": "concurrently \"pnpm:dev:api\" \"pnpm:dev:admin\" \"pnpm:dev:web\"",
+
+    "//--- MANTENIMIENTO ---//": "",
     "lint": "nx run-many --target=lint",
-    "format": "nx format:write",
-    "test": "nx run-many --target=test",
-    "graph": "nx graph",
-
-    "//--- PRUEBAS ---//":"",
-    "test:all": "pnpm run prebuild:web && pnpm run prebuild:admin && pnpm nx run-many --target=test --parallel=false --skip-nx-cache"
-
+    "test": "nx run-many --target=test"
   },
   "private": true,
   "dependencies": {
