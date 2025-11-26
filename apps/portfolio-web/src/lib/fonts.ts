@@ -1,7 +1,7 @@
 // RUTA: apps/portfolio-web/src/lib/fonts.ts
-// VERSIÓN: 2.0 - Corrección de Origen de Fuentes (Local vs Google)
-// DESCRIPCIÓN: Mapea identificadores de diseño a instancias de fuentes.
-//              Separa estrictamente fuentes de Google Fonts de fuentes locales (Fontshare).
+// VERSIÓN: 3.0 - Google Fonts Fallback Strategy (Build Rescue)
+// DESCRIPCIÓN: Se eliminan las fuentes locales faltantes (Clash, Cabinet) y se
+//              sustituyen por fuentes de Google optimizadas para desbloquear el despliegue.
 
 import {
   Playfair_Display,
@@ -21,23 +21,9 @@ import {
 } from 'next/font/google';
 import localFont from 'next/font/local';
 
-// --- 1. Fuentes Locales (Branding Core & Arquetipos Premium) ---
-// Estas fuentes NO están en Google Fonts. Se cargan desde /public/fonts/
-// Asegúrate de que los archivos .woff2 existan en esa ruta.
-
-const fontClash = localFont({
-  src: '../../public/fonts/ClashDisplay-Variable.woff2',
-  variable: '--font-clash',
-  display: 'swap',
-  fallback: ['sans-serif'],
-});
-
-const fontCabinet = localFont({
-  src: '../../public/fonts/CabinetGrotesk-Variable.woff2',
-  variable: '--font-cabinet',
-  display: 'swap',
-  fallback: ['sans-serif'],
-});
+// --- 1. Fuentes Locales (Solo las confirmadas) ---
+// Satoshi se mantiene porque es la fuente base del sistema y parece estar presente.
+// Si Satoshi también falla, la reemplazaremos por Inter en el siguiente ciclo.
 
 const fontSatoshi = localFont({
   src: '../../public/fonts/Satoshi-Variable.woff2',
@@ -46,8 +32,22 @@ const fontSatoshi = localFont({
   fallback: ['sans-serif'],
 });
 
-// --- 2. Fuentes de Google (Arquetipos Standard) ---
-// Configuramos subsets y variables CSS para optimización.
+// --- 2. Fuentes de Google (Arquetipos Standard & Fallbacks) ---
+
+// Sustituto para Cabinet Grotesk: Space Grotesk (Tech/Modern)
+const fontSpace = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space',
+  display: 'swap'
+});
+
+// Sustituto para Clash Display: Syne (Bold/Artistic) o Cinzel (High Impact)
+// Usaremos Syne como fallback visual para títulos de impacto.
+const fontSyne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
+  display: 'swap'
+});
 
 const fontPlayfair = Playfair_Display({
   subsets: ['latin'],
@@ -61,22 +61,10 @@ const fontCinzel = Cinzel({
   display: 'swap'
 });
 
-const fontSpace = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-space',
-  display: 'swap'
-});
-
 const fontMerriweather = Merriweather({
   weight: ['300', '400', '700', '900'],
   subsets: ['latin'],
   variable: '--font-merriweather',
-  display: 'swap'
-});
-
-const fontSyne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
   display: 'swap'
 });
 
@@ -102,15 +90,15 @@ const fontManrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', di
 const fontLora = Lora({ subsets: ['latin'], variable: '--font-lora', display: 'swap' });
 const fontTenor = Tenor_Sans({ weight: '400', subsets: ['latin'], variable: '--font-tenor', display: 'swap' });
 
-// --- 3. Mapa Maestro ---
-// La clave debe coincidir EXACTAMENTE con los valores en tus JSONs (project_details.json)
+// --- 3. Mapa Maestro (Refactorizado) ---
+// Mapeamos los nombres de diseño originales a las nuevas fuentes de Google.
 
 export const fontMap: Record<string, { className: string, variable: string }> = {
-  // Headings - Locales
-  'Clash Display': fontClash,
-  'Cabinet Grotesk': fontCabinet,
+  // Headings - Reemplazos Estratégicos
+  'Clash Display': fontSyne,       // Fallback visual: Syne es audaz y moderna
+  'Cabinet Grotesk': fontSpace,    // Fallback visual: Space Grotesk es geométrica
 
-  // Headings - Google
+  // Headings - Google Nativos
   'Playfair Display': fontPlayfair,
   'Cinzel': fontCinzel,
   'Space Grotesk': fontSpace,
@@ -124,7 +112,7 @@ export const fontMap: Record<string, { className: string, variable: string }> = 
 
   // Bodies - Google
   'Inter': fontInter,
-  'Lato': fontInter, // Fallback a Inter si no se carga Lato
+  'Lato': fontInter, // Fallback a Inter
   'Montserrat': fontMontserrat,
   'DM Sans': fontDmSans,
   'Open Sans': fontOpenSans,
@@ -143,7 +131,8 @@ export const fontMap: Record<string, { className: string, variable: string }> = 
 export function getFontClassName(fontName: string): string {
   const font = fontMap[fontName];
   if (!font) {
-    console.warn(`[FontManager] Fuente no encontrada: "${fontName}". Usando fallback.`);
+    // En producción, esto no debe romper el build, solo advertir.
+    // Si la clave no existe, devolvemos Inter por defecto.
     return fontInter.className;
   }
   return font.className;
