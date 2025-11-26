@@ -3,28 +3,36 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "author": "RaZ Podestá - MetaShark Tech",
-  "scripts": {
-    "//--- COMANDOS DE DESPLIEGUE (TU BOTÓN ROJO) ---//": "",
-    "deploy:prod": "git add . && git commit -m \"chore(release): Despliegue a Producción - $(date +%Y-%m-%d_%H-%M)\" && git push origin main",
-
-    "//--- COMANDOS DE CONSTRUCCIÓN PARA VERCEL (CLOUD) ---//": "",
+   "scripts": {
+    "//--- COMANDOS CRÍTICOS VERCEL (LEGACY & PROD) ---//": "",
+    "vercel-build": "pnpm run vercel:build:web",
     "vercel:build:web": "pnpm run prebuild:web && npx nx build portfolio-web --prod",
     "vercel:build:admin": "pnpm run prebuild:admin && npx nx build cms-admin --prod",
     "vercel:build:api": "npx nx build cms-api --prod",
 
-    "//--- PRE-REQUISITOS ---//": "",
+    "//--- DESPLIEGUE ---//": "",
+    "deploy:prod": "git add . && git commit -m \"fix(build): Restaurar comando vercel-build para compatibilidad CI/CD\" && git push origin main",
+
+    "//--- PRE-REQUISITOS & ASSETS ---//": "",
     "generate:assets": "concurrently \"node ./scripts/generate-lucide-manifest.mjs\" \"node ./scripts/generate-tech-manifest.mjs\"",
     "prebuild:web": "pnpm run generate:assets && node ./scripts/prebuild-portfolio-web.mjs",
     "prebuild:admin": "node ./scripts/prebuild-cms-admin.mjs",
 
+    "//--- SIMULACIÓN DE PRODUCCIÓN LOCAL ---//": "",
+    "build:all": "pnpm run prebuild:web && pnpm run prebuild:admin && nx run-many --target=build --all --configuration=production",
+    "serve:all": "concurrently \"nx start portfolio-web\" \"nx start cms-admin\" \"node dist/apps/cms-api/src/index.js\"",
+    "prod:sim": "pnpm run build:all && pnpm run serve:all",
+
     "//--- DESARROLLO ---//": "",
     "dev:all": "concurrently \"nx serve:dev cms-api\" \"pnpm run prebuild:admin && nx serve cms-admin\" \"pnpm run prebuild:web && nx serve portfolio-web --with-deps\"",
     "dev:web": "pnpm run prebuild:web && nx serve portfolio-web --with-deps",
+    "dev:admin": "pnpm run prebuild:admin && nx serve cms-admin",
     "dev:api": "nx serve:dev cms-api",
 
     "//--- MANTENIMIENTO ---//": "",
     "lint": "nx run-many --target=lint",
-    "test": "nx run-many --target=test"
+    "test": "nx run-many --target=test",
+    "test:all": "pnpm run prebuild:web && pnpm run prebuild:admin && pnpm nx run-many --target=test --parallel=false --skip-nx-cache"
   },
   "private": true,
   "dependencies": {
