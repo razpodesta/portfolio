@@ -1,23 +1,26 @@
-// RUTA: apps/portfolio-web/src/components/ui/BlogCard3D.tsx
-// VERSIÓN: 6.2 - ESLint Bypass & Syntax Fix
-// DESCRIPCIÓN: Soluciona el falso positivo de límites de módulo para react-spring
-//              y corrige la importación del icono ArrowRight.
+// apps/portfolio-web/src/components/ui/BlogCard3D.tsx
+
+/**
+ * @file Tarjeta de Blog 3D (Híbrida WebGL/HTML).
+ * @version 8.0 - Clean, Lint-Free & Relative Imports
+ * @description Componente de visualización avanzada. Utiliza 'react-spring' para
+ *              animaciones físicas. El contenido HTML se proyecta dentro del Canvas
+ *              mediante 'Drei Html' para permitir selección de texto y accesibilidad.
+ */
 
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSpring, a as a3d } from '@react-spring/three';
-// eslint-disable-next-line @nx/enforce-module-boundaries -- Falso positivo: @react-spring/web es una librería externa, no una app interna.
 import { a as aDom } from '@react-spring/web';
 import { Html } from '@react-three/drei';
 import type { ThreeEvent, ThreeElements } from '@react-three/fiber';
 import Image from 'next/image';
-// CORRECCIÓN: Importación nombrada (Named Import) para Lucide
 import { ArrowRight } from 'lucide-react';
 import * as THREE from 'three';
 
-// CORRECCIÓN PREVIA MANTENIDA: Ruta relativa estricta
+// IMPORTACIÓN RELATIVA ESTRICTA (Cumplimiento de Nx Boundaries)
 import type { PostWithSlug } from '../../lib/schemas/blog.schema';
 
 type BlogCard3DProps = {
@@ -30,6 +33,7 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
+  // Animación de resorte física
   const { scale, opacity } = useSpring({
     scale: isHovered ? 1.1 : 1,
     opacity: isHovered ? 1 : 0.85,
@@ -52,6 +56,7 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
     router.push(`/${lang}/blog/${post.slug}`);
   };
 
+  // Ruta canónica de la imagen (asumiendo convención de nombres)
   const imageUrl = `/images/blog/${post.slug}.jpg`;
 
   return (
@@ -62,17 +67,19 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
       onPointerOut={handlePointerOut}
       onClick={handleClick}
     >
+      {/* Mesh invisible para capturar eventos de puntero en toda el área */}
       <mesh>
         <planeGeometry args={[3.2, 4.4]} />
         <meshBasicMaterial transparent opacity={0} side={THREE.DoubleSide} />
       </mesh>
 
+      {/* Proyección HTML dentro del espacio 3D */}
       <Html
         transform
         occlude="blending"
         center
         distanceFactor={4}
-        className="w-[320px] h-[440px] select-none"
+        className="w-[320px] h-[440px] select-none pointer-events-none" // pointer-events-none para que el mesh capture el click
       >
         <aDom.div
           style={{ opacity }}
@@ -85,6 +92,7 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
             }
           `}
         >
+          {/* Imagen Hero */}
           <div className="relative h-48 w-full overflow-hidden shrink-0">
             <Image
               src={imageUrl}
@@ -96,6 +104,7 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
             <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent opacity-90" />
           </div>
 
+          {/* Contenido Textual */}
           <div className="flex grow flex-col p-6">
             <div className="mb-3">
                <span className="rounded-full bg-purple-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400 border border-purple-500/20">
@@ -112,6 +121,7 @@ export function BlogCard3D({ post, lang, ctaText, ...props }: BlogCard3DProps) {
             </p>
           </div>
 
+          {/* Footer de Tarjeta */}
           <div className="border-t border-zinc-800/50 p-4 flex justify-between items-center bg-zinc-900/30">
             <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">
               {post.metadata.published_date}

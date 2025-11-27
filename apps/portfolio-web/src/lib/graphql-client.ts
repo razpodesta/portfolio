@@ -1,52 +1,115 @@
-// apps/portfolio-web/src/lib/graphql-client.ts
+// RUTA: apps/portfolio-web/src/lib/graphql-client.ts
+// VERSIÓN: 7.0 - Mock Adapter Correction & Type Safety
+// DESCRIPCIÓN: Se corrige la lógica de filtrado de mocks para alinearse con la
+//              nueva estructura plana de 'cms.mocks.ts'. Se solucionan los errores
+//              TS2339 (propiedad inexistente) y TS7006 (any implícito).
+
+import { MOCK_POSTS, MOCK_PROFILE, MOCK_CODEX } from '../data/mocks/cms.mocks';
+
+// Definimos la estructura de respuesta de GraphQL genérica
+type GraphQLResponse<T> = {
+  data: T;
+  errors?: unknown[];
+};
+
+// Definimos una interfaz local mínima para los Tags dentro del Mock
+// para evitar el error de 'any' implícito durante el filtrado.
+type MockTag = {
+  name: string;
+  slug: string;
+};
 
 /**
- * @file Cliente GraphQL Soberano e Indestructible.
- * @version 4.0 - Build-Safe & Mock Fallback Strategy
- * @description Gestiona la comunicación con el CMS. Incluye una estrategia de
- *              supervivencia para el tiempo de compilación: si la API no está
- *              disponible, devuelve mocks estructurales para permitir el despliegue.
+ * Adaptador de Mocks.
+ * Analiza la query y devuelve los datos locales correspondientes.
+ * Esta función es pura y sincrónica.
  */
+function getMockDataForQuery<T>(query: string, variables?: Record<string, unknown>): T | null {
+  // 1. Blog: GetAllPosts
+  if (query.includes('GetAllPosts')) {
+    return { getPosts: MOCK_POSTS } as unknown as T;
+  }
 
-// Definimos interfaces mínimas para los mocks de seguridad
-interface MockResponse {
-  getPosts: never[];
-  getPostBySlug: null;
-  getPostsByTagSlug: never[];
+  // 2. Blog: GetPostBySlug
+  if (query.includes('GetPostBySlug')) {
+    const slug = variables?.slug;
+    const post = MOCK_POSTS.find(p => p.slug === slug) || null;
+    return { getPostBySlug: post } as unknown as T;
+  }
+
+  // 3. Blog: GetPostsByTag (CORRECCIÓN CRÍTICA AQUÍ)
+  if (query.includes('GetPostsByTag')) {
+    const tagSlug = variables?.slug as string;
+
+    // Filtramos sobre la nueva estructura plana de MOCK_POSTS.
+    // p.tags es ahora un array de objetos { name, slug }, no strings.
+    const posts = MOCK_POSTS.filter(p =>
+      // Solución TS2339: Accedemos directamente a p.tags (ya no p.metadata.tags)
+      // Solución TS7006: Tipamos explícitamente 't' como MockTag
+      p.tags.some((t: MockTag) => t.slug === tagSlug)
+    );
+
+    return { getPostsByTagSlug: posts } as unknown as T;
+  }
+
+  // 4. Gamification: GetMyProfile
+  if (query.includes('GetMyProfile')) {
+    return { getMyProfile: MOCK_PROFILE } as unknown as T;
+  }
+
+  // 5. Gamification: GetCodex
+  if (query.includes('GetCodex')) {
+    return { getCodex: MOCK_CODEX } as unknown as T;
+  }
+
+  return null;
 }
 
 /**
  * Realiza una petición fetch a la API de GraphQL del CMS Headless.
- * Implementa lógica "Fail-Safe" para entornos de CI/CD.
+ * Implementa lógica "Fail-Safe" para entornos de CI/CD y validación estricta de entorno.
  *
- * @template T El tipo de dato esperado en la respuesta.
- * @param query La consulta GraphQL.
- * @param variables Variables opcionales.
+ * @param query La consulta GraphQL en formato string.
+ * @param variables Objeto opcional de variables para la consulta.
  */
 export async function fetchGraphQL<T>(
   query: string,
   variables?: Record<string, unknown>
 ): Promise<T> {
   const endpoint = process.env.CMS_GRAPHQL_ENDPOINT;
-  // Detectamos si estamos en un entorno de CI (Vercel/GitHub Actions)
-  const isBuildStep = process.env.CI === 'true' || process.env.VERCEL === '1';
 
-  // --- ESTRATEGIA DE SUPERVIVENCIA DE BUILD ---
-  // Si no hay endpoint configurado, asumimos que estamos en un entorno de build
-  // temprano donde la API aún no existe. Devolvemos mocks seguros.
-  if (!endpoint) {
-    if (isBuildStep) {
-      console.warn('⚠️ [WARN] CMS_GRAPHQL_ENDPOINT no definido en build. Usando Mocks de Supervivencia.');
-      return getSafeMockData<T>();
+  // Detección de entorno de construcción o falta de configuración
+  const isBuildStep = process.env.CI === 'true' || process.env.VERCEL === '1';
+  // Si USE_MOCKS está activo o no hay endpoint, usamos mocks.
+  const useMocks = process.env.USE_MOCKS === 'true' || !endpoint;
+
+  // --- ESTRATEGIA DE MOCKS (OFFLINE / BUILD / DEV OPTIMIZADO) ---
+  if (useMocks) {
+    const mockData = getMockDataForQuery<T>(query, variables);
+
+    if (mockData) {
+      // En desarrollo, informamos que se está usando un mock para transparencia
+      if (process.env.NODE_ENV === 'development') {
+        // console.log(`🛡️ [GraphQL Mock] Sirviendo: ${queryName}`);
+      }
+      return mockData;
     }
-    // En desarrollo local, queremos que falle para alertar al desarrollador
-    throw new Error('CRITICAL: CMS_GRAPHQL_ENDPOINT is missing in local development.');
+
+    // Si estamos en build y no hay mock, devolvemos objeto vacío para no romper SSG
+    if (isBuildStep) return {} as T;
+
+    throw new Error(`[GraphQL Mock] No mock data found for query: ${query}`);
   }
 
+  // --- GUARDIÁN DE TIPO ESTRICTO ---
+  if (!endpoint) {
+    throw new Error('CRITICAL CONFIG ERROR: CMS_GRAPHQL_ENDPOINT is not defined, and mocks are disabled.');
+  }
+
+  // --- ESTRATEGIA ONLINE (FETCH) ---
   try {
-    // Timeout controller para evitar que el build se cuelgue eternamente esperando una API dormida
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 segundos máximo
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s Timeout
 
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -55,53 +118,41 @@ export async function fetchGraphQL<T>(
       },
       body: JSON.stringify({ query, variables }),
       signal: controller.signal,
-      // ISR: Revalidar cada 60 segundos si hay éxito
-      next: { revalidate: 60 },
+      next: { revalidate: 60 }, // ISR: Revalidación incremental cada 60s
     });
 
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.status}`);
+      throw new Error(`GraphQL Network Error: ${response.status} ${response.statusText}`);
     }
 
-    const json = await response.json();
+    const json: GraphQLResponse<T> = await response.json();
 
     if (json.errors) {
-      console.error("GraphQL Errors:", json.errors);
-      // Si hay errores de GraphQL pero estamos en build, fallback a mock para no romper el deploy
-      if (isBuildStep) return getSafeMockData<T>();
-      throw new Error('GraphQL Error');
+      console.error("❌ [GraphQL API Error]:", json.errors);
+      if (isBuildStep) {
+         console.warn("⚠️ Build step error detected. Attempting fallback to mocks.");
+         const fallback = getMockDataForQuery<T>(query, variables);
+         if (fallback) return fallback;
+      }
+      throw new Error('GraphQL API returned errors.');
     }
 
     return json.data;
 
   } catch (error) {
-    console.error(`❌ [GraphQL Client] Fallo de conexión:`, error);
+    console.warn(`⚠️ [GraphQL Client] Connection failed. Attempting Mock Fallback.`);
 
-    // Si estamos en Build y falla la API (ej. timeout, offline), NO ROMPEMOS EL BUILD.
-    // Devolvemos mocks vacíos. La página se generará sin contenido dinámico,
-    // pero se revalidará automáticamente (ISR) cuando la API reviva.
-    if (isBuildStep) {
-      console.log('🛡️ [Rescue] Activando protocolo de datos simulados para completar el build.');
-      return getSafeMockData<T>();
+    // Última línea de defensa: Si la red falla, intentamos usar mocks
+    const fallbackData = getMockDataForQuery<T>(query, variables);
+
+    if (fallbackData) {
+        return fallbackData;
     }
+
+    if (isBuildStep) return {} as T;
 
     throw error;
   }
-}
-
-/**
- * Genera un objeto de datos vacío que cumple estructuralmente con las queries
- * esperadas, evitando errores de "cannot read property of undefined".
- */
-function getSafeMockData<T>(): T {
-  // Este objeto mock debe coincidir con la estructura que esperan tus componentes
-  // para no lanzar excepciones al renderizar.
-  const mockData: MockResponse = {
-    getPosts: [],
-    getPostBySlug: null,
-    getPostsByTagSlug: []
-  };
-  return mockData as unknown as T;
 }

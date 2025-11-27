@@ -2,30 +2,5 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": [
-    {
-      "path": "./apps/portfolio-web"
-    },
-    {
-      "path": "./packages/cms/ui"
-    },
-    {
-      "path": "./packages/cms/core"
-    },
-    {
-      "path": "./packages/testing-utils"
-    },
-    {
-      "path": "./apps/cms-admin"
-    },
-    {
-      "path": "./apps/cms-api"
-    },
-    {
-      "path": "./packages/protocol-33"
-    },
-    {
-      "path": "./packages/auth-shield"
-    }
-  ]
+  "references": []
 }

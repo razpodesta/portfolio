@@ -2,18 +2,13 @@
 
 /**
  * @file Página de Currículum.
- * @version 18.0 - Clean & Type-Safe
- * @description Eliminación de directivas ts-expect-error innecesarias.
- *              El tipado es ahora robusto y no requiere supresiones.
+ * @version 18.1 - Lint Fixed
+ * @description Corrección de rutas relativas (3 niveles).
  */
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { type Locale } from '@/config/i18n.config';
-import { getDictionary } from '@/lib/get-dictionary';
-import { PrintButton } from '@/components/ui/PrintButton';
-import { AnimatedQrCode } from '@/components/ui/AnimatedQrCode';
 import { Mail, Linkedin, MapPin, Globe, Calendar, Award, Heart } from 'lucide-react';
 import {
     SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, SiPostgresql, SiMongodb,
@@ -21,24 +16,25 @@ import {
     SiPython, SiTensorflow, SiSolidity, SiPrestashop, SiShopify, SiWoocommerce,
     SiVtex, SiMeta, SiGoogleads, SiJest, SiWhatsapp, SiUdemy, SiGoogle
 } from '@icons-pack/react-simple-icons';
-import type { Curriculum } from '@/lib/schemas/curriculum.schema';
 import type { ComponentType, SVGProps } from 'react';
+
+// CORRECCIÓN: 3 niveles hacia arriba
+import { type Locale } from '../../../config/i18n.config';
+import { getDictionary } from '../../../lib/get-dictionary';
+import { PrintButton } from '../../../components/ui/PrintButton';
+import { AnimatedQrCode } from '../../../components/ui/AnimatedQrCode';
+import type { Curriculum } from '../../../lib/schemas/curriculum.schema';
 
 // --- TIPADO SOBERANO ---
 type CurriculumPageProps = { params: Promise<{ lang: Locale }> };
-
-// Definición robusta para un componente de icono
 type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string; title?: string }>;
-
 type SectionProps = { title: string; children: React.ReactNode; className?: string };
 type ExperienceItemProps = { item: Curriculum['experience']['items'][0] };
 type ContactInfoProps = { icon: IconComponent; text: string; href?: string; isBold?: boolean };
 type TechItem = { name: string; icon: IconComponent; url: string };
 type SkillCategoryProps = { title: string; skills: TechItem[] };
 
-// ===================================================================================
 // METADATOS
-// ===================================================================================
 export async function generateMetadata(props: CurriculumPageProps): Promise<Metadata> {
   const params = await props.params;
   const dictionary = await getDictionary(params.lang);
@@ -47,9 +43,7 @@ export async function generateMetadata(props: CurriculumPageProps): Promise<Meta
   return { title: t.page_title, description: t.page_description };
 }
 
-// ===================================================================================
 // BASE DE DATOS DE HABILIDADES
-// ===================================================================================
 const skillCategories: { title: string; skills: TechItem[] }[] = [
     {
         title: "Frontend & Diseño",
@@ -95,9 +89,7 @@ const skillCategories: { title: string; skills: TechItem[] }[] = [
     }
 ];
 
-// ===================================================================================
-// SUB-COMPONENTES DE UI
-// ===================================================================================
+// SUB-COMPONENTES UI
 const Section = ({ title, children, className = '' }: SectionProps) => (
   <section className={className}>
     <h2 className="font-display text-xs font-bold uppercase tracking-[0.2em] text-zinc-900 border-b-2 border-zinc-100 pb-2 mb-4 print:text-[10px] print:mb-3 print:border-zinc-300">
@@ -148,14 +140,7 @@ const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
             target="_blank"
             rel="noopener noreferrer"
             key={name}
-            className="
-                inline-flex items-center gap-1.5
-                bg-zinc-50 rounded-full
-                px-2.5 py-1
-                border border-zinc-100
-                hover:border-purple-200 hover:bg-purple-50 transition-colors
-                print:bg-white print:border-zinc-300 print:px-2 print:py-0.5 print:no-underline
-            "
+            className="inline-flex items-center gap-1.5 bg-zinc-50 rounded-full px-2.5 py-1 border border-zinc-100 hover:border-purple-200 hover:bg-purple-50 transition-colors print:bg-white print:border-zinc-300 print:px-2 print:py-0.5 print:no-underline"
         >
           <Icon className="h-3.5 w-3.5 text-zinc-600 shrink-0 print:text-zinc-900 print:w-3 print:h-3" />
           <span className="text-[11px] font-medium text-zinc-700 whitespace-nowrap print:text-zinc-900 print:text-[10px]">{name}</span>
@@ -165,9 +150,6 @@ const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
   </div>
 );
 
-// ===================================================================================
-// COMPONENTE PRINCIPAL
-// ===================================================================================
 export default async function CurriculumPage(props: CurriculumPageProps) {
   const params = await props.params;
   const { lang } = params;
@@ -178,12 +160,8 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
 
   if (!t) notFound();
 
-  // HELPERS DEFENSIVOS:
-  // Aseguran que el renderizado no falle si una sección es opcional o está vacía en el JSON.
   const experienceItems = t.experience?.items ?? [];
   const educationItems = t.education?.items ?? [];
-
-  // Eliminación de directivas ts-expect-error. El compilador ahora está satisfecho con la inferencia.
   const certificationItems = t.certifications?.items ?? [];
   const hobbyItems = t.hobbies?.items ?? [];
 
@@ -234,7 +212,6 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
                 </div>
               </Section>
 
-              {/* Renderizado Condicional Defensivo */}
               {hobbyItems.length > 0 && (
                 <Section title={t.hobbies?.title || "Intereses"}>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 print:gap-y-1">
@@ -270,7 +247,6 @@ export default async function CurriculumPage(props: CurriculumPageProps) {
                 </div>
               </Section>
 
-              {/* Renderizado Condicional Defensivo para Certificaciones */}
               {certificationItems.length > 0 && (
                 <Section title={t.certifications?.title || "Certificaciones"}>
                     <div className="space-y-3 print:space-y-2">

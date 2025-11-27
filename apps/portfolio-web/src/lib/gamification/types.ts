@@ -1,8 +1,13 @@
 // RUTA: apps/portfolio-web/src/lib/gamification/types.ts
-// VERSIÓN: 1.0 - Contrato de Frontend
-// DESCRIPCIÓN: Tipos de datos para el consumo de la API de Gamificación.
+// VERSIÓN: 2.0 - Tipos Locales (Desacoplado de Backend)
+// DESCRIPCIÓN: Definiciones de tipos para el consumo de la API de Gamificación.
+//              Se han internalizado los tipos 'House' y 'Rarity' ya que el paquete
+//              'protocol-33' ha sido desacoplado del repositorio frontend.
 
-import type { House, Rarity } from '@razpodesta/protocol-33';
+// --- TIPOS INTERNALIZADOS (Antes importados de @razpodesta/protocol-33) ---
+export type House = 'ARCHITECTS' | 'WEAVERS' | 'ANOMALIES';
+export type Rarity = 'COMMON' | 'RARE' | 'LEGENDARY' | 'MYTHIC' | 'UNIQUE';
+// --------------------------------------------------------------------------
 
 export type Artifact = {
   id: string;

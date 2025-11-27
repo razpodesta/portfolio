@@ -4,12 +4,7 @@
     "composite": true,
     "outDir": "../../../dist/out-tsc",
     "emitDeclarationOnly": false,
-    "tsBuildInfoFile": "../../../dist/out-tsc/packages/cms/ui/tsconfig.lib.tsbuildinfo",
-    "types": [
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ]
+    "tsBuildInfoFile": "../../../dist/out-tsc/packages/cms/ui/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": [

@@ -13,9 +13,7 @@ export default {
   // 2. CONFIGURACIÓN DEL SETUP
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
-  // 3. TRANSFORMACIÓN DE DEPENDENCIAS (LA SOLUCIÓN)
-  // Le decimos a Jest: "Ignora node_modules, EXCEPTO si el path contiene:
-  // @faker-js, msw, @mswjs, o until-async". Esto fuerza la compilación de todos ellos.
+  // 3. TRANSFORMACIÓN DE DEPENDENCIAS
   transformIgnorePatterns: [
     "node_modules/(?!.*(@faker-js|msw|@mswjs|until-async))"
   ],
@@ -33,6 +31,13 @@ export default {
         },
       },
     ],
+  },
+
+  // 4. MAPEO DE RUTAS (LIMPIO DE BACKEND)
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/../../apps/portfolio-web/src/$1',
+    '^@metashark-cms/ui$': '<rootDir>/../../packages/cms/ui/src/index.ts',
+    '^@metashark-cms/core$': '<rootDir>/../../packages/cms/core/src/index.ts'
   },
 
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

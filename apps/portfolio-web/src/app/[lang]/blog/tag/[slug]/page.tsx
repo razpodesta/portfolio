@@ -1,18 +1,21 @@
+// apps/portfolio-web/src/app/[lang]/blog/tag/[slug]/page.tsx
+
 /**
  * @file Página de Archivo de Etiquetas (Tags).
- * @version 3.0 - Next.js 15 Compliance
- * @description Muestra posts filtrados por etiqueta. Actualizado para params asíncronos.
+ * @version 3.1 - Lint Fixed
+ * @description Corrección de rutas relativas (5 niveles).
  */
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { type Locale } from '@/config/i18n.config';
-import { getDictionary } from '@/lib/get-dictionary';
-import { getPostsByTag } from '@/lib/blog';
-import { BlogCard } from '@/components/ui/BlogCard';
-import { BlurText } from '@/components/razBits/BlurText';
 
-// --- DEFINICIÓN DE TIPOS SOBERANA ---
+// CORRECCIÓN: 5 niveles hacia arriba
+import { type Locale } from '../../../../../config/i18n.config';
+import { getDictionary } from '../../../../../lib/get-dictionary';
+import { getPostsByTag } from '../../../../../lib/blog';
+import { BlogCard } from '../../../../../components/ui/BlogCard';
+import { BlurText } from '../../../../../components/razBits/BlurText';
+
 type TagPageProps = {
   params: Promise<{ slug: string; lang: Locale }>;
 };

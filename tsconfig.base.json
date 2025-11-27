@@ -14,13 +14,13 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "paths": {
-      "@/*": ["apps/portfolio-web/src/*"],
-      "@portfolio/testing-utils": ["packages/testing-utils/src/index.ts"],
-      "@razpodesta/auth-shield": ["packages/auth-shield/src/index.ts"],
-      "@razpodesta/protocol-33": ["packages/protocol-33/src/index.ts"],
-      "@metashark-cms/ui": ["packages/cms/ui/src/index.ts"],
-      "@metashark-cms/core": ["packages/cms/core/src/index.ts"]
-    }
+  "@/*": ["apps/portfolio-web/src/*"],
+  "@portfolio/testing-utils": ["packages/testing-utils/src/index.ts"],
+  "@metashark-cms/ui": ["packages/cms/ui/src/index.ts"],
+  "@metashark-cms/core": ["packages/cms/core/src/index.ts"],
+  "@razpodesta/protocol-33": ["packages/protocol-33/src/index.ts"],
+  "@razpodesta/auth-shield": ["packages/auth-shield/src/index.ts"]
+}
   },
   "exclude": ["node_modules", "tmp", "dist"]
 }

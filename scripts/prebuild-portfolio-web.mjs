@@ -1,7 +1,7 @@
 // RUTA: scripts/prebuild-portfolio-web.mjs
-// VERSIÓN: 4.0 - Inclusión de Visitor HUD
-// DESCRIPCIÓN: Script de Node.js actualizado para incluir 'visitor_hud.json'
-//              en el proceso de ensamblaje de diccionarios.
+// VERSIÓN: 4.1 - Fix Critical Data Leak
+// DESCRIPCIÓN: Se añade 'project_details' a la lista de archivos para asegurar
+//              que los detalles de los proyectos se incluyan en el diccionario final.
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -42,7 +42,8 @@ const FILES = [
   'lucide_page',
   'ai_gallery_section',
   'visitor_hud',
-  'profile_page'
+  'profile_page',
+  'project_details' // <--- 🔴 ESTA LÍNEA FALTABA Y CAUSABA EL CRASH
 ];
 
 // MAPEO ESTRUCTURAL
@@ -53,7 +54,6 @@ const FILE_MAPPING = {
   'contact': ['homepage', 'contact'],
   'history': ['homepage', 'history_section'],
   'ai_gallery_section': ['homepage', 'ai_gallery_section']
-  // 'visitor_hud' no necesita mapeo, irá a la raíz como 'visitor_hud'
 };
 
 // Función auxiliar para asignar valores en objetos anidados

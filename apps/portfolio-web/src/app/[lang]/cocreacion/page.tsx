@@ -2,16 +2,17 @@
 
 /**
  * @file Página de Co-creación.
- * @version 3.0 - Arquitectura Híbrida (Server Page + Client Motion)
- * @description Refactorizado para eliminar la importación directa de 'framer-motion'
- *              en un Server Component. Se utiliza el wrapper 'FadeIn'.
+ * @version 3.1 - Lint Fixed
+ * @description Corrección de rutas relativas (3 niveles).
  */
 
 import type { Metadata } from 'next';
-import { type Locale } from '@/config/i18n.config';
-import { getDictionary } from '@/lib/get-dictionary';
-import { BlurText } from '@/components/razBits/BlurText';
-import { FadeIn } from '@/components/ui/FadeIn'; // <-- Usamos el wrapper seguro
+
+// CORRECCIÓN: 3 niveles hacia arriba
+import { type Locale } from '../../../config/i18n.config';
+import { getDictionary } from '../../../lib/get-dictionary';
+import { BlurText } from '../../../components/razBits/BlurText';
+import { FadeIn } from '../../../components/ui/FadeIn';
 
 type CocreationPageProps = {
   params: Promise<{ lang: Locale }>;

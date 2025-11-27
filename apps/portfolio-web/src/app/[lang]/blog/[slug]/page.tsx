@@ -2,19 +2,20 @@
 
 /**
  * @file Página de Detalle de Artículo de Blog.
- * @version 6.0 - Clean Architecture & Font Fix
- * @description Se asegura que no existan importaciones de fuentes locales que rompan el build.
- *              Confía en las variables CSS globales para la tipografía.
+ * @version 6.1 - Lint Fixed (Relative Paths)
+ * @description Importaciones relativas estrictas para cumplir con Nx Module Boundaries.
  */
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { i18n, type Locale } from '@/config/i18n.config';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
-import { JsonLdScript } from '@/components/ui/JsonLdScript';
-import { ShareButtons } from '@/components/ui/ShareButtons';
 import Image from 'next/image';
+
+// CORRECCIÓN: Rutas relativas estrictas (4 niveles hacia arriba para llegar a src)
+import { i18n, type Locale } from '../../../../config/i18n.config';
+import { getAllPosts, getPostBySlug } from '../../../../lib/blog';
+import { JsonLdScript } from '../../../../components/ui/JsonLdScript';
+import { ShareButtons } from '../../../../components/ui/ShareButtons';
 
 // --- TIPADO SOBERANO ---
 type PostPageProps = {
@@ -105,7 +106,6 @@ export default async function PostPage(props: PostPageProps) {
                 priority
               />
             </div>
-            {/* Usamos 'font-display' que ahora mapea a la variable global --font-display */}
             <h1 className="font-display text-4xl font-bold leading-tight text-white md:text-5xl">
               {title}
             </h1>

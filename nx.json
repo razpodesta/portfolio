@@ -28,8 +28,7 @@
       },
       "exclude": [
         "packages/cms/core/*",
-        "packages/testing-utils/*",
-        "packages/auth-shield/*"
+        "packages/testing-utils/*"
       ]
     },
     {
@@ -65,8 +64,7 @@
       "plugin": "@nx/js/typescript",
       "include": [
         "packages/cms/core/*",
-        "packages/testing-utils/*",
-        "packages/auth-shield/*"
+        "packages/testing-utils/*"
       ],
       "options": {
         "typecheck": {

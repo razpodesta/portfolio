@@ -1,5 +1,5 @@
 // RUTA: apps/portfolio-web/next.config.js
-// VERSIÓN: 3.1 - Deprecation Fix
+// VERSIÓN: 3.2 - Optimized Build
 // @ts-check
 const { composePlugins, withNx } = require('@nx/next');
 
@@ -8,9 +8,17 @@ const { composePlugins, withNx } = require('@nx/next');
  **/
 const nextConfig = {
   nx: {
-    // Svgr eliminado previamente
+    svgr: false,
   },
   output: 'standalone',
+  // --- MEJORA CRÍTICA: Transpilación directa de librerías locales ---
+  // Esto permite eliminar Rollup y builds intermedios.
+  transpilePackages: [
+    '@metashark-cms/ui',
+    '@metashark-cms/core',
+    '@razpodesta/protocol-33',
+    '@razpodesta/auth-shield'
+  ],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'flagcdn.com' },
@@ -22,7 +30,6 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  // devIndicators eliminado por deprecación en Next.js 15
 };
 
 module.exports = composePlugins(withNx)(nextConfig);

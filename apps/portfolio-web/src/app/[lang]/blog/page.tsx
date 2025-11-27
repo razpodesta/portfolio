@@ -1,136 +1,105 @@
-// apps/portfolio-web/src/app/[lang]/blog/[slug]/page.tsx
+// apps/portfolio-web/src/app/[lang]/blog/page.tsx
 
 /**
- * @file Página de Detalle de Artículo de Blog.
- * @version 6.0 - Clean Architecture & Font Fix
- * @description Se asegura que no existan importaciones de fuentes locales que rompan el build.
- *              Confía en las variables CSS globales para la tipografía.
+ * @file Hub de Contenidos del Blog.
+ * @version 2.1 - Lint Fixed
+ * @description Corrección de rutas relativas (3 niveles).
  */
 
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { i18n, type Locale } from '@/config/i18n.config';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
-import { JsonLdScript } from '@/components/ui/JsonLdScript';
-import { ShareButtons } from '@/components/ui/ShareButtons';
-import Image from 'next/image';
 
-// --- TIPADO SOBERANO ---
-type PostPageProps = {
-  params: Promise<{ slug: string; lang: Locale }>;
+// CORRECCIÓN: 3 niveles hacia arriba
+import { getDictionary } from '../../../lib/get-dictionary';
+import { getAllPosts } from '../../../lib/blog';
+import { BlogCard } from '../../../components/ui/BlogCard';
+import { BlurText } from '../../../components/razBits/BlurText';
+import { type Locale, i18n } from '../../../config/i18n.config';
+
+type BlogIndexProps = {
+  params: Promise<{ lang: Locale }>;
 };
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
-
-  return i18n.locales.flatMap((lang) =>
-    posts.map((post) => ({
-      lang,
-      slug: post.slug,
-    }))
-  );
+  return i18n.locales.map((lang) => ({ lang }));
 }
 
-export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
+export async function generateMetadata(props: BlogIndexProps): Promise<Metadata> {
   const params = await props.params;
-  const post = await getPostBySlug(params.slug);
-
-  if (!post) {
-    return { title: 'Artículo no encontrado' };
-  }
-
-  const { title, description, published_date } = post.metadata;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:4200';
-  const canonicalUrl = `${baseUrl}/${params.lang}/blog/${params.slug}`;
-  const imageUrl = `${baseUrl}/images/blog/${params.slug}.jpg`;
+  const dictionary = await getDictionary(params.lang);
 
   return {
-    title: title,
-    description: description,
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      url: canonicalUrl,
-      images: [{ url: imageUrl, width: 1200, height: 630 }],
-      type: 'article',
-      publishedTime: published_date,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: title,
-      description: description,
-      images: [imageUrl],
-    },
+    title: dictionary.blog_page.page_title,
+    description: dictionary.blog_page.page_description,
   };
 }
 
-export default async function PostPage(props: PostPageProps) {
+export default async function BlogIndexPage(props: BlogIndexProps) {
   const params = await props.params;
-  const post = await getPostBySlug(params.slug);
+  const dictionary = await getDictionary(params.lang);
+  const t = dictionary.blog_page;
 
-  if (!post) {
-    notFound();
-  }
-
-  const { title, author, published_date, tags } = post.metadata;
-  const imageUrl = `/images/blog/${params.slug}.jpg`;
-
-  const articleSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: title,
-    author: { '@type': 'Person', name: author },
-    datePublished: published_date,
-    image: imageUrl,
-    description: post.metadata.description,
-  };
+  const posts = await getAllPosts();
+  const [featuredPost, ...restPosts] = posts;
 
   return (
-    <>
-      <JsonLdScript data={articleSchema} />
-      <main className="container mx-auto max-w-3xl px-4 py-16 sm:py-24">
-        <article>
-          <header className="mb-8">
-            <div className="relative mb-8 h-60 w-full overflow-hidden rounded-xl md:h-80">
-              <Image
-                src={imageUrl}
-                alt={`Imagen destacada para ${title}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 768px"
-                priority
-              />
+    <main className="min-h-screen bg-black text-white selection:bg-purple-500/30">
+      <section className="relative overflow-hidden pt-32 pb-16">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(120,119,198,0.1),transparent_50%)]" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <span className="inline-block py-1 px-3 rounded-full bg-zinc-900/50 border border-zinc-800 text-[10px] font-bold tracking-widest text-zinc-400 uppercase mb-4 backdrop-blur-md">
+            {t.page_title.split('|')[0]}
+          </span>
+          <BlurText
+            text="Bitácora de Ingeniería"
+            className="font-display text-4xl md:text-6xl font-bold justify-center mb-6"
+            delay={50}
+          />
+          <p className="max-w-2xl mx-auto text-zinc-400 text-lg leading-relaxed font-sans">
+            {t.page_description}
+          </p>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 pb-24">
+        {featuredPost && (
+          <section className="mb-20">
+            <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-8 border-b border-zinc-800 pb-2">
+              {t.featured_title}
+            </h2>
+            <div className="transform transition-all hover:scale-[1.01] duration-500">
+                <BlogCard
+                    post={featuredPost.metadata}
+                    slug={featuredPost.slug}
+                    lang={params.lang}
+                    ctaText={t.read_more_cta}
+                />
             </div>
-            {/* Usamos 'font-display' que ahora mapea a la variable global --font-display */}
-            <h1 className="font-display text-4xl font-bold leading-tight text-white md:text-5xl">
-              {title}
-            </h1>
-            <div className="mt-4 flex items-center justify-between text-sm text-zinc-400">
-              <span>Por {author}</span>
-              <span>{new Date(published_date).toLocaleDateString(params.lang, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-zinc-300">
-                  {tag}
-                </span>
+          </section>
+        )}
+
+        <section>
+          <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-8 border-b border-zinc-800 pb-2">
+            {t.all_posts_title}
+          </h2>
+          {restPosts.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {restPosts.map((post) => (
+                <BlogCard
+                  key={post.slug}
+                  post={post.metadata}
+                  slug={post.slug}
+                  lang={params.lang}
+                  ctaText={t.read_more_cta}
+                />
               ))}
             </div>
-          </header>
-
-          <div className="prose prose-invert prose-lg max-w-none font-sans">
-            <MDXRemote source={post.content} />
-          </div>
-
-          <footer className="mt-12 border-t border-zinc-800 pt-8">
-            <ShareButtons title={title} />
-          </footer>
-        </article>
-      </main>
-    </>
+          ) : (
+            <div className="text-center py-20 border border-dashed border-zinc-800 rounded-xl">
+              <p className="text-zinc-500">No hay más artículos disponibles en este momento.</p>
+            </div>
+          )}
+        </section>
+      </div>
+    </main>
   );
 }
