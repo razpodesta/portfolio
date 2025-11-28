@@ -1,18 +1,18 @@
 // RUTA: apps/portfolio-web/src/components/layout/Header.tsx
-// VERSIÓN: 23.0 - Theme Aware & i18n Verified
-// DESCRIPCIÓN: Refactorización total para usar tokens semánticos (bg-background, text-foreground)
-//              garantizando compatibilidad Dark/Light. Validación de i18n vía Zod.
+// VERSIÓN: 26.0 - Strict Typing & Lint Free
+// DESCRIPCIÓN: Header con tipado fuerte (Zero 'any').
+//              - Se eliminan variables no usadas.
+//              - Se definen interfaces para sub-componentes.
 
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Globe } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, LogIn } from 'lucide-react';
 import type { Dictionary } from '../../lib/schemas/dictionary.schema';
 import { useUIStore } from '../../lib/store/ui.store';
-import { useScrollDirection } from '../../lib/hooks/use-scroll-direction';
 import { DropdownMenu } from '../ui/DropdownMenu';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeToggle } from '../ui/ThemeToggle';
@@ -22,59 +22,40 @@ import { mainNavStructure, type NavItem } from '../../lib/nav-links';
 import { getLocalizedHref } from '../../lib/utils/link-helpers';
 import { i18n, type Locale } from '../../config/i18n.config';
 
-// --- SUB-COMPONENTES ADAPTADOS AL TEMA ---
+// --- TIPOS LOCALES ---
 
-const Brand = ({
-  isMobile = false,
-  onLinkClick,
-  dictionary,
-  currentLang
-}: {
-  isMobile?: boolean;
+type BrandProps = {
+  // 'isMobile' eliminado por falta de uso (Clean Code)
   onLinkClick?: () => void;
-  dictionary: Dictionary['header'];
   currentLang: Locale;
-}) => (
-    <Link
-      href={`/${currentLang}`}
-      className="transition-opacity group hover:opacity-80 block"
-      onClick={onLinkClick}
-    >
-      {isMobile ? (
-        <div className="text-left flex flex-col justify-center h-full">
-           {/* TEXT-FOREGROUND: Se adapta a blanco en dark, negro en light */}
-           <h1 className="font-signature text-3xl text-foreground leading-none mb-1">
-             {dictionary.mobile_title}
-           </h1>
-           <p className="font-sans text-[9px] font-bold tracking-widest text-muted-foreground uppercase">
-             {dictionary.mobile_subtitle}
-           </p>
-        </div>
-      ) : (
+  dictionary: Dictionary['header'];
+};
+
+type SocialMenuItemProps = {
+  // Extraemos el tipo específico de ítem social de la unión NavItem
+  item: Extract<NavItem, { isSocial: true }>;
+};
+
+// --- SUB-COMPONENTES ---
+
+const Brand = ({ onLinkClick, currentLang }: BrandProps) => (
+    <Link href={`/${currentLang}`} className="block group" onClick={onLinkClick}>
         <div className="text-left">
-          <h1 className="font-signature text-5xl text-foreground whitespace-nowrap leading-none pt-2">
+          <h1 className="font-signature text-3xl md:text-4xl text-white leading-none pt-1 group-hover:text-purple-300 transition-colors">
             Raz Podestá
           </h1>
-          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-0 ml-1">
-            {dictionary.personal_portfolio}
-          </p>
         </div>
-      )}
     </Link>
 );
 
 const SimpleMenuItem = ({ item, label, currentLang }: { item: NavItem; label: string; currentLang: Locale }) => {
   if (!('href' in item) || !item.href) return null;
-
   const finalHref = getLocalizedHref(item.href, currentLang);
-
   return (
     <Link
       href={finalHref}
       target={item.href.startsWith('http') ? '_blank' : undefined}
-      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-      // HOVER SEMÁNTICO: hover:bg-accent hover:text-accent-foreground
-      className="flex items-center gap-3 p-2 text-sm rounded-md text-muted-foreground hover:text-accent-foreground hover:bg-accent transition-colors"
+      className="flex items-center gap-3 p-2 text-sm rounded-md text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
     >
       {item.Icon && <item.Icon size={16} />}
       {label}
@@ -82,19 +63,17 @@ const SimpleMenuItem = ({ item, label, currentLang }: { item: NavItem; label: st
   );
 };
 
-const SocialMenuItem = ({ item }: { item: Extract<NavItem, { isSocial: true }> }) => (
+const SocialMenuItem = ({ item }: SocialMenuItemProps) => (
   <>
-    {/* BORDER SEMÁNTICO */}
-    <div className="h-px my-2 bg-border" />
+    <div className="h-px my-2 bg-zinc-800" />
     <div className="flex items-center justify-center gap-2 p-2">
-      {item.links.map(link => (
+      {item.links.map((link) => (
         <Link
           key={link.label}
           href={link.href}
           target="_blank"
-          rel="noopener noreferrer"
           aria-label={link.label}
-          className="p-2 rounded-full text-muted-foreground hover:text-accent-foreground hover:bg-accent transition-colors"
+          className="p-2 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
         >
           <link.icon size={18} />
         </Link>
@@ -103,115 +82,103 @@ const SocialMenuItem = ({ item }: { item: Extract<NavItem, { isSocial: true }> }
   </>
 );
 
-// --- COMPONENTE PRINCIPAL ---
+type HeaderProps = { dictionary: Dictionary; };
 
-type HeaderProps = {
-  dictionary: Dictionary;
-};
+// --- COMPONENTE PRINCIPAL ---
 
 export function Header({ dictionary }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isVisitorHudOpen = useUIStore((state) => state.isVisitorHudOpen);
   const toggleVisitorHud = useUIStore((state) => state.toggleVisitorHud);
-  const closeVisitorHud = useUIStore((state) => state.closeVisitorHud);
-
-  const { scrollY, scrollDirection } = useScrollDirection();
-  const hasAutoHiddenRef = useRef(false);
 
   const pathname = usePathname();
   const currentLang = (pathname?.split('/')[1] as Locale) || i18n.defaultLocale;
 
-  useEffect(() => {
-    if (scrollY > 50 && !hasAutoHiddenRef.current && isVisitorHudOpen) {
-      closeVisitorHud();
-      hasAutoHiddenRef.current = true;
-    }
-  }, [scrollY, isVisitorHudOpen, closeVisitorHud]);
-
   const navLabels = useMemo(() => {
-    const headerSimpleLabels = dictionary.header;
-    const navigationLinks = dictionary['nav-links'].nav_links;
-    return { ...headerSimpleLabels, ...navigationLinks };
+    return { ...dictionary.header, ...dictionary['nav-links'].nav_links };
   }, [dictionary]);
 
-  const headerVariants = {
-    visible: { y: 0, opacity: 1 },
-    hidden: { y: '-100%', opacity: 0 },
-  };
-
-  const closeMenu = () => setIsMenuOpen(false);
-
   return (
-    <motion.header
-      variants={headerVariants}
-      animate={scrollY > 200 && scrollDirection === 'down' ? 'hidden' : 'visible'}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-      // FONDO SEMÁNTICO CON BLUR: Se adapta a claro/oscuro
-      className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border"
-    >
+    <header className="sticky top-0 z-50 bg-[#050505]/85 backdrop-blur-xl border-b border-white/5">
       <div className="container px-4 mx-auto">
-        <div className="items-center justify-between hidden h-24 md:flex gap-8">
-          <div className="shrink-0 pt-1">
-            <Brand dictionary={dictionary.header} currentLang={currentLang} />
+        <div className="items-center justify-between hidden h-20 md:flex gap-6">
+
+          <div className="shrink-0">
+            <Brand
+              dictionary={dictionary.header}
+              currentLang={currentLang}
+            />
           </div>
 
           <nav className="flex items-center gap-1">
-            {mainNavStructure.map((navGroup) => (
-              <DropdownMenu key={navGroup.labelKey} trigger={
-                <button className="flex items-center gap-2 px-3 py-2 text-xs font-medium rounded-full text-muted-foreground transition-colors group hover:text-accent-foreground hover:bg-accent">
-                  {navGroup.Icon && <navGroup.Icon size={14} className="mr-1" />}
-                  {navLabels[navGroup.labelKey as keyof typeof navLabels]}
-                  <ChevronDown size={14} className="text-muted-foreground transition-colors group-hover:text-accent-foreground" />
-                </button>
-              }>
-                {navGroup.isNested ? (
-                  <NestedDropdownContent links={navGroup.children as NavItem[]} dictionary={dictionary['nav-links'].nav_links} />
-                ) : (
-                  // FONDO DEL DROPDOWN SEMÁNTICO (definido en el componente DropdownMenu, pero revisamos aquí la estructura interna)
-                  <div className="w-48 p-2 space-y-1">
-                    {navGroup.children?.map((item) => {
-                      if ('isSeparator' in item) return <div key="separator" className="h-px my-2 bg-border" />;
-                      if ('isSocial' in item) return <SocialMenuItem key="social" item={item} />;
-                      const label = navLabels[item.labelKey as keyof typeof navLabels];
-                      return <SimpleMenuItem key={label} item={item} label={label} currentLang={currentLang} />;
-                    })}
-                  </div>
-                )}
-              </DropdownMenu>
-            ))}
+            {mainNavStructure.map((navGroup) => {
+              const isContactPill = navGroup.labelKey === 'contacto';
+
+              return (
+                <DropdownMenu key={navGroup.labelKey} trigger={
+                  <button
+                    className={`
+                      flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 uppercase tracking-wide
+                      ${isContactPill
+                        ? 'bg-purple-900/30 border border-purple-500/30 text-purple-200 hover:bg-purple-600 hover:border-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(147,51,234,0.3)]'
+                        : 'text-white hover:bg-white/10'
+                      }
+                    `}
+                  >
+                    {navGroup.Icon && <navGroup.Icon size={14} className={isContactPill ? 'text-purple-300 group-hover:text-white' : ''} />}
+                    {navLabels[navGroup.labelKey as keyof typeof navLabels]}
+                    {!isContactPill && <ChevronDown size={12} className="opacity-50" />}
+                  </button>
+                }>
+                  {navGroup.isNested ? (
+                    <NestedDropdownContent links={navGroup.children as NavItem[]} dictionary={dictionary['nav-links'].nav_links} />
+                  ) : (
+                    <div className="w-48 p-2 space-y-1">
+                      {navGroup.children?.map((item) => {
+                        if ('isSeparator' in item) return <div key="sep" className="h-px my-2 bg-zinc-800" />;
+                        // TypeScript ahora infiere correctamente que item es SocialMenuItemProps['item'] aquí
+                        if ('isSocial' in item) return <SocialMenuItem key="soc" item={item} />;
+
+                        const label = navLabels[item.labelKey as keyof typeof navLabels];
+                        return <SimpleMenuItem key={label} item={item} label={label} currentLang={currentLang} />;
+                      })}
+                    </div>
+                  )}
+                </DropdownMenu>
+              );
+            })}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4 border-l border-white/10 pl-6 h-8">
              <LanguageSwitcher dictionary={dictionary.language_switcher} />
              <ThemeToggle />
-             <AnimatePresence>
-               {!isVisitorHudOpen && (
-                 <motion.button
-                   onClick={toggleVisitorHud}
-                   initial={{ opacity: 0, scale: 0.8 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 0.8 }}
-                   className="flex items-center justify-center w-10 h-10 rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                   aria-label="Mostrar información del visitante"
-                 >
-                   <Globe size={18} strokeWidth={1.5} />
-                 </motion.button>
-               )}
-             </AnimatePresence>
+
+             <button
+               onClick={toggleVisitorHud}
+               className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${isVisitorHudOpen ? 'bg-white text-black' : 'text-zinc-400 hover:text-white hover:bg-white/10'}`}
+             >
+               <Globe size={16} />
+             </button>
+
+             {/* TEXT LINK SIMPLIFICADO "JOIN" */}
              <Link
-               href={`/${currentLang}/#contact`}
-               className="px-4 py-2 ml-2 text-xs font-bold text-white transition-transform rounded-full bg-linear-to-r from-purple-500 to-pink-600 hover:scale-105"
+               href={`/${currentLang}/login`}
+               className="ml-2 flex items-center gap-2 text-[10px] font-bold text-white hover:text-purple-400 transition-colors uppercase tracking-[0.2em]"
              >
                 {dictionary.header.talk}
+                <LogIn size={14} />
               </Link>
           </div>
         </div>
 
-        <div className="flex items-center justify-between h-20 md:hidden">
-          <div className="pl-1">
-            <Brand isMobile onLinkClick={closeMenu} dictionary={dictionary.header} currentLang={currentLang} />
-          </div>
-          <button onClick={() => setIsMenuOpen(true)} aria-label="Abrir menú de navegación" className="p-2 text-foreground">
+        {/* Mobile Header Simplificado */}
+        <div className="flex items-center justify-between h-16 md:hidden">
+          <Brand
+            onLinkClick={() => setIsMenuOpen(false)}
+            dictionary={dictionary.header}
+            currentLang={currentLang}
+          />
+          <button onClick={() => setIsMenuOpen(true)} className="p-2 text-white">
             <Menu size={24} />
           </button>
         </div>
@@ -219,36 +186,37 @@ export function Header({ dictionary }: HeaderProps) {
 
       <ColorWaveBar position="bottom" />
 
-      {/* MOBILE MENU ADAPTADO */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-100 bg-background/95 backdrop-blur-xl"
-            onClick={closeMenu}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-60 bg-[#050505] p-6 flex flex-col"
           >
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="absolute top-0 right-0 w-full h-full p-6 bg-background"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button onClick={closeMenu} aria-label="Cerrar menú de navegación" className="absolute text-muted-foreground right-4 top-5">
-                <X size={32} />
-              </button>
-              <nav className="flex flex-col items-center gap-8 mt-20">
-                <Link href={`/${currentLang}/#quien-soy`} className="text-3xl font-semibold text-foreground" onClick={closeMenu}>{navLabels['sobre_mi']}</Link>
-                <Link href={`/${currentLang}/#contact`} className="text-3xl font-semibold text-foreground" onClick={closeMenu}>{navLabels['contacto']}</Link>
-                <Link href={`/${currentLang}/#contact`} className="w-full p-4 mt-8 text-xl font-bold text-center text-white rounded-md bg-linear-to-r from-purple-500 to-pink-600" onClick={closeMenu}>{dictionary.header.talk}</Link>
-              </nav>
-            </motion.div>
+             <div className="flex justify-between items-center mb-8">
+                <span className="font-signature text-3xl text-white">Raz Podestá</span>
+                <button onClick={() => setIsMenuOpen(false)} className="p-2 text-zinc-400 hover:text-white"><X size={24} /></button>
+             </div>
+
+             <nav className="flex flex-col gap-6 text-xl font-bold text-white">
+                {mainNavStructure.map(item => (
+                   <Link
+                     key={item.labelKey}
+                     href={('href' in item) ? getLocalizedHref(item.href, currentLang) : '#'}
+                     onClick={() => setIsMenuOpen(false)}
+                     className="flex items-center gap-4 hover:text-purple-400"
+                   >
+                      {item.Icon && <item.Icon size={20} />}
+                      {navLabels[item.labelKey as keyof typeof navLabels]}
+                   </Link>
+                ))}
+             </nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

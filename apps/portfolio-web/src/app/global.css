@@ -1,40 +1,31 @@
 /* RUTA: apps/portfolio-web/src/app/global.css */
 @import "tailwindcss";
 
-/* Definimos la variante 'dark' para que funcione con next-themes */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Tipografía Soberana */
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Tipografía: Priorizamos Inter para la UI moderna y bold */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-signature: var(--font-signature), cursive;
 
-  /* PALETA SEMÁNTICA (Token System oklch) */
+  /* Paleta Semántica */
   --color-background: oklch(var(--background));
   --color-foreground: oklch(var(--foreground));
-
   --color-card: oklch(var(--card));
   --color-card-foreground: oklch(var(--card-foreground));
-
   --color-popover: oklch(var(--popover));
   --color-popover-foreground: oklch(var(--popover-foreground));
-
   --color-primary: oklch(var(--primary));
   --color-primary-foreground: oklch(var(--primary-foreground));
-
   --color-secondary: oklch(var(--secondary));
   --color-secondary-foreground: oklch(var(--secondary-foreground));
-
   --color-muted: oklch(var(--muted));
   --color-muted-foreground: oklch(var(--muted-foreground));
-
   --color-accent: oklch(var(--accent));
   --color-accent-foreground: oklch(var(--accent-foreground));
-
   --color-destructive: oklch(var(--destructive));
   --color-destructive-foreground: oklch(var(--destructive-foreground));
-
   --color-border: oklch(var(--border));
   --color-input: oklch(var(--input));
   --color-ring: oklch(var(--ring));
@@ -42,7 +33,6 @@
 
 @layer base {
   :root {
-    /* TEMA CLARO */
     --background: 98.5% 0 0;
     --foreground: 20% 0.02 260;
     --card: 100% 0 0;
@@ -66,7 +56,6 @@
   }
 
   .dark {
-    /* TEMA OSCURO */
     --background: 10% 0.01 260;
     --foreground: 98% 0 0;
     --card: 12% 0.01 260;
@@ -90,12 +79,8 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground font-sans antialiased transition-colors duration-300;
-  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased transition-colors duration-300; }
 }
 
 /* Animación para el Ticker Infinito */
@@ -105,10 +90,9 @@
 }
 
 .animate-infinite-scroll {
-  animation: infinite-scroll 40s linear infinite;
+  animation: infinite-scroll 120s linear infinite; /* 120s = Lento y suave */
 }
 
-/* Utilidades específicas */
 @media print {
   body { @apply bg-white text-black; }
   .print-hidden { display: none !important; }

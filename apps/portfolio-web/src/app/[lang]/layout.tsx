@@ -1,41 +1,29 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
-// VERSIÓN: 22.0 - System Status Integration
-// DESCRIPCIÓN: Layout Raíz localizado con SystemStatusTicker integrado.
+// VERSIÓN: 25.0 - Final Polish
+// DESCRIPCIÓN: Layout con Google Inter, Ticker informativo y estructura S.O.L.I.D.
 
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Inter } from 'next/font/google';
 
-// --- Imports de Infraestructura ---
 import { i18n, type Locale } from '../../config/i18n.config';
 import { getDictionary } from '../../lib/get-dictionary';
-
-// --- Componentes de Estructura ---
 import { Providers } from '../../components/layout/Providers';
 import { Header } from '../../components/layout/Header';
 import { Footer } from '../../components/layout/Footer';
-import { SystemStatusTicker } from '../../components/ui/SystemStatusTicker'; // <-- NUEVO COMPONENTE
-
-// --- Componentes de Inteligencia & UI Global ---
+import { SystemStatusTicker } from '../../components/ui/SystemStatusTicker';
 import { NewsletterModal } from '../../components/ui/NewsletterModal';
 import { VisitorHud } from '../../components/ui/VisitorHud';
 import { NavigationTracker } from '../../components/layout/NavigationTracker';
-
-// --- Estilos Globales ---
 import '../global.css';
 
-// ===================================================================================
-// 1. SISTEMA DE TIPOGRAFÍA
-// ===================================================================================
-
-const fontSatoshi = localFont({
-  src: [
-    { path: '../../../public/fonts/Satoshi-Variable.woff2', style: 'normal' },
-    { path: '../../../public/fonts/Satoshi-VariableItalic.woff2', style: 'italic' },
-  ],
-  variable: '--font-sans',
+// --- 1. FUENTES ---
+const fontInter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
   display: 'swap',
-  preload: true,
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 const fontSignature = localFont({
@@ -55,10 +43,6 @@ const fontClashDisplay = localFont({
   preload: true,
 });
 
-// ===================================================================================
-// 2. GENERACIÓN ESTÁTICA Y SEO
-// ===================================================================================
-
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
@@ -74,25 +58,17 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 
   return {
     title: {
-      template: '%s | Portafolio de Raz Podestá',
-      default: 'Portafolio de Desarrollo y Creatividad | Raz Podestá',
+      template: '%s | Raz Podestá',
+      default: 'Raz Podestá | Portafolio & Ecosistema Digital',
     },
-    description: 'Explora una colección de proyectos en desarrollo web, IA, música y diseño.',
+    description: 'Explora un ecosistema digital en evolución. Desarrollo web, IA y estrategia.',
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: `${baseUrl}/${currentLanguage}`,
       languages: languageAlternates,
     },
-    openGraph: {
-      type: 'website',
-      siteName: 'Raz Podestá Portfolio',
-    },
   };
 }
-
-// ===================================================================================
-// 3. LAYOUT RAÍZ
-// ===================================================================================
 
 export default async function RootLayout({
   children,
@@ -108,21 +84,16 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <head />
       <body
-        className={`${fontSatoshi.variable} ${fontSignature.variable} ${fontClashDisplay.variable} font-sans bg-background text-foreground antialiased selection:bg-purple-500/30`}
+        className={`${fontInter.variable} ${fontSignature.variable} ${fontClashDisplay.variable} font-sans bg-background text-foreground antialiased selection:bg-purple-500/30`}
       >
         <Providers>
-            {/* 1. Rastreo Silencioso */}
             <Suspense fallback={null}>
               <NavigationTracker />
             </Suspense>
 
-            {/* 2. Estructura Visual Principal */}
             <div className="flex min-h-screen flex-col">
               <Header dictionary={dictionary} />
-
-              {/* --- ZONA DE NOTIFICACIÓN DE SISTEMA --- */}
               <SystemStatusTicker dictionary={dictionary.system_status} />
-              {/* --------------------------------------- */}
 
               <main className="grow relative z-0">
                 {children}
@@ -135,7 +106,6 @@ export default async function RootLayout({
               />
             </div>
 
-            {/* 3. Capa de UI Global */}
             <Suspense fallback={null}>
               <NewsletterModal />
             </Suspense>

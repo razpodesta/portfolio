@@ -1,6 +1,6 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/dictionary.schema.ts
-// VERSIÓN: 24.0 - Integración de System Status Ticker
-// DESCRIPCIÓN: Se añade 'system_status' al contrato global de i18n.
+// VERSIÓN: 25.0 - Production Ready
+// DESCRIPCIÓN: Contrato de datos completo. Incluye 'system_status' para el ticker.
 
 import { z } from 'zod';
 
@@ -22,7 +22,12 @@ import { technologiesPageSchema } from './technologies_page.schema';
 import { libraryPageSchema } from './library_page.schema';
 import { profilePageSchema } from './profile_page.schema';
 import { projectDetailsDictionarySchema } from './project_details.schema';
-import { systemStatusSchema } from './system_status.schema';
+
+// Esquema local para el Ticker (si no está en archivo separado, lo definimos aquí para robustez)
+const systemStatusSchema = z.object({
+  items: z.array(z.string()),
+  aria_label: z.string(),
+});
 
 const visitorHudSchema = z.object({
   label_visitor_info: z.string(),
@@ -64,7 +69,7 @@ export const dictionarySchema = z.object({
   profile_page: profilePageSchema,
   project_details: projectDetailsDictionarySchema,
 
-  // --- NUEVA SECCIÓN REGISTRADA ---
+  // --- REGISTRO CRÍTICO ---
   system_status: systemStatusSchema,
 
   not_found: notFoundSchema,

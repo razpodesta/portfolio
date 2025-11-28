@@ -12,7 +12,7 @@ onlyBuiltDependencies:
   - core-js-pure
   - esbuild
   - husky
-  - msw
+  - msw 
   - nx
   - sharp
   - unrs-resolver

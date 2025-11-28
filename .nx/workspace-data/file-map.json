@@ -665,7 +665,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/layout.tsx",
-          "hash": "4922735789031782109",
+          "hash": "6120018032079033046",
           "deps": [
             "npm:react",
             "npm:next"
@@ -759,7 +759,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/proyectos/fashion-wear-de-lujo/page.tsx",
-          "hash": "3936189584962813691",
+          "hash": "5638505307669617724",
           "deps": [
             "npm:next"
           ]
@@ -810,7 +810,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/global.css",
-          "hash": "6546612631286715431"
+          "hash": "14690647674919681694"
         },
         {
           "file": "apps/portfolio-web/src/app/layout.tsx",
@@ -861,7 +861,7 @@
         },
         {
           "file": "apps/portfolio-web/src/components/layout/Header.tsx",
-          "hash": "13445036515843452403",
+          "hash": "12454264083233860829",
           "deps": [
             "npm:react",
             "npm:next",
@@ -1172,7 +1172,7 @@
         },
         {
           "file": "apps/portfolio-web/src/components/ui/SystemStatusTicker.tsx",
-          "hash": "11456732974357923138"
+          "hash": "10498827270167745359"
         },
         {
           "file": "apps/portfolio-web/src/components/ui/TestimonialCard.tsx",
@@ -1312,7 +1312,7 @@
         },
         {
           "file": "apps/portfolio-web/src/lib/graphql-client.ts",
-          "hash": "15282979953130086934"
+          "hash": "8739803894264877874"
         },
         {
           "file": "apps/portfolio-web/src/lib/hooks/use-infinite-carousel-animation.ts",
@@ -1407,7 +1407,7 @@
         },
         {
           "file": "apps/portfolio-web/src/lib/schemas/dictionary.schema.ts",
-          "hash": "13910790621911802018",
+          "hash": "2440868891358315156",
           "deps": [
             "npm:zod"
           ]
@@ -2448,7 +2448,7 @@
         },
         {
           "file": "pnpm-workspace.yaml",
-          "hash": "6916871840902249469"
+          "hash": "11975410146767547395"
         },
         {
           "file": "reports/asset-inventories/lucide-icons-list.txt",
@@ -2767,7 +2767,7 @@
         },
         {
           "file": "scripts/prebuild-portfolio-web.mjs",
-          "hash": "12143944983500693691"
+          "hash": "15207513194200508303"
         },
         {
           "file": "scripts/verify-build-readiness.mjs",

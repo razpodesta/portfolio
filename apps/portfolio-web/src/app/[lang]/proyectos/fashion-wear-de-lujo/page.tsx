@@ -1,11 +1,10 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/proyectos/fashion-wear-de-lujo/page.tsx
-// VERSIÓN: 1.1 - Corrección de Límites de Módulo (Nx Compliance)
-// DESCRIPCIÓN: Se reemplazan los alias '@/' por rutas relativas estrictas
-//              para satisfacer las reglas de linting del monorepo.
+// VERSIÓN: 2.0 - Next.js 15 Compliant (Viewport API)
+// DESCRIPCIÓN: Se separa 'themeColor' en un export 'viewport' dedicado.
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
-// --- CORRECCIÓN DE IMPORTACIONES (Rutas Relativas Estrictas) ---
+// --- CORRECCIÓN DE IMPORTACIONES ---
 import { getDictionary } from '../../../../lib/get-dictionary';
 import type { Locale } from '../../../../config/i18n.config';
 import { FadeIn } from '../../../../components/ui/FadeIn';
@@ -20,6 +19,13 @@ type PageProps = {
   params: Promise<{ lang: Locale }>;
 };
 
+// --- VIEWPORT (Next.js 15 Standard) ---
+export const viewport: Viewport = {
+  themeColor: '#000000',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 // --- METADATOS SEO ---
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { lang } = await params;
@@ -29,17 +35,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: project?.title || 'Noir Éternel | Luxury Fashion',
     description: project?.subtitle || 'Experiencia de moda inmersiva y vanguardista.',
-    themeColor: '#000000',
+    // themeColor eliminado de aquí
   };
 }
 
 export default async function FashionPage({ params }: PageProps) {
   const { lang } = await params;
-
-  // Carga de fuentes (Clases ya disponibles globalmente en layout.tsx)
-  // --font-display (Clash/Italiana)
-  // --font-body (Satoshi/Tenor)
-  // --font-signature (Signature)
 
   return (
     <main className="bg-white min-h-screen selection:bg-black selection:text-white">
