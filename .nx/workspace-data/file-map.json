@@ -209,7 +209,7 @@
         },
         {
           "file": "apps/portfolio-web/next.config.js",
-          "hash": "7693543135689909641",
+          "hash": "14763142032235727876",
           "deps": [
             "npm:@nx/next"
           ]
@@ -665,7 +665,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/[lang]/layout.tsx",
-          "hash": "13767696692223439076",
+          "hash": "4922735789031782109",
           "deps": [
             "npm:react",
             "npm:next"
@@ -810,7 +810,7 @@
         },
         {
           "file": "apps/portfolio-web/src/app/global.css",
-          "hash": "15825487221291195944"
+          "hash": "6546612631286715431"
         },
         {
           "file": "apps/portfolio-web/src/app/layout.tsx",
@@ -948,13 +948,12 @@
         },
         {
           "file": "apps/portfolio-web/src/components/sections/homepage/BlogSection3D.tsx",
-          "hash": "5540207105366767793",
+          "hash": "17641405080943886074",
           "deps": [
             "npm:react",
-            "npm:@react-three/fiber",
-            "npm:@react-spring/three",
+            "npm:framer-motion",
             "npm:lucide-react",
-            "npm:@use-gesture/react"
+            "npm:next"
           ]
         },
         {
@@ -1170,6 +1169,10 @@
             "npm:next",
             "npm:lucide-react"
           ]
+        },
+        {
+          "file": "apps/portfolio-web/src/components/ui/SystemStatusTicker.tsx",
+          "hash": "11456732974357923138"
         },
         {
           "file": "apps/portfolio-web/src/components/ui/TestimonialCard.tsx",
@@ -1404,7 +1407,7 @@
         },
         {
           "file": "apps/portfolio-web/src/lib/schemas/dictionary.schema.ts",
-          "hash": "17750174563894585193",
+          "hash": "13910790621911802018",
           "deps": [
             "npm:zod"
           ]
@@ -1510,6 +1513,13 @@
         {
           "file": "apps/portfolio-web/src/lib/schemas/seo.schema.ts",
           "hash": "10648062903366327139",
+          "deps": [
+            "npm:zod"
+          ]
+        },
+        {
+          "file": "apps/portfolio-web/src/lib/schemas/system_status.schema.ts",
+          "hash": "16714513026168124699",
           "deps": [
             "npm:zod"
           ]
@@ -1657,6 +1667,10 @@
           "hash": "5910526067850049423"
         },
         {
+          "file": "apps/portfolio-web/src/messages/en-US/system_status.json",
+          "hash": "2785240430919232187"
+        },
+        {
           "file": "apps/portfolio-web/src/messages/en-US/technologies_page.json",
           "hash": "6158077713172075245"
         },
@@ -1765,6 +1779,10 @@
           "hash": "18271477883872981361"
         },
         {
+          "file": "apps/portfolio-web/src/messages/es-ES/system_status.json",
+          "hash": "9203747619968692249"
+        },
+        {
           "file": "apps/portfolio-web/src/messages/es-ES/technologies_page.json",
           "hash": "15894416433279400583"
         },
@@ -1867,6 +1885,10 @@
         {
           "file": "apps/portfolio-web/src/messages/pt-BR/server_error.json",
           "hash": "12052145390181985052"
+        },
+        {
+          "file": "apps/portfolio-web/src/messages/pt-BR/system_status.json",
+          "hash": "7950515386390175580"
         },
         {
           "file": "apps/portfolio-web/src/messages/pt-BR/technologies_page.json",

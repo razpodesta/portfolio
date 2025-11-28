@@ -1,36 +1,33 @@
 // RUTA: apps/portfolio-web/src/app/[lang]/layout.tsx
-// VERSIÓN: 21.0 - Nx Compliance & Suspense Safety
-// DESCRIPCIÓN: Layout Raíz localizado.
-//              - Corrección de importaciones relativas para pasar el linter de Nx.
-//              - Mantenimiento de Suspense para useSearchParams (Next.js 15).
+// VERSIÓN: 22.0 - System Status Integration
+// DESCRIPCIÓN: Layout Raíz localizado con SystemStatusTicker integrado.
 
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-// --- CORRECCIÓN DE IMPORTACIONES (Rutas Relativas Estrictas) ---
+// --- Imports de Infraestructura ---
 import { i18n, type Locale } from '../../config/i18n.config';
 import { getDictionary } from '../../lib/get-dictionary';
-// --------------------------------------------------------------
 
-// --- COMPONENTES DE ESTRUCTURA ---
+// --- Componentes de Estructura ---
 import { Providers } from '../../components/layout/Providers';
 import { Header } from '../../components/layout/Header';
 import { Footer } from '../../components/layout/Footer';
+import { SystemStatusTicker } from '../../components/ui/SystemStatusTicker'; // <-- NUEVO COMPONENTE
 
-// --- COMPONENTES DE INTELIGENCIA & UI GLOBAL ---
+// --- Componentes de Inteligencia & UI Global ---
 import { NewsletterModal } from '../../components/ui/NewsletterModal';
 import { VisitorHud } from '../../components/ui/VisitorHud';
 import { NavigationTracker } from '../../components/layout/NavigationTracker';
 
-// --- ESTILOS GLOBALES (Tailwind v4) ---
+// --- Estilos Globales ---
 import '../global.css';
 
 // ===================================================================================
-// 1. SISTEMA DE TIPOGRAFÍA (Local Fonts para Performance Extrema)
+// 1. SISTEMA DE TIPOGRAFÍA
 // ===================================================================================
 
-// Satoshi: Cuerpo de texto y UI (Legibilidad técnica)
 const fontSatoshi = localFont({
   src: [
     { path: '../../../public/fonts/Satoshi-Variable.woff2', style: 'normal' },
@@ -41,7 +38,6 @@ const fontSatoshi = localFont({
   preload: true,
 });
 
-// Signature: Branding personal (Estilo manuscrito)
 const fontSignature = localFont({
   src: '../../../public/fonts/Dicaten.woff2',
   variable: '--font-signature',
@@ -49,7 +45,6 @@ const fontSignature = localFont({
   preload: true,
 });
 
-// Clash Display: Títulos de alto impacto (Brutalismo refinado)
 const fontClashDisplay = localFont({
   src: [
     { path: '../../../public/fonts/ClashDisplay-Regular.woff2', weight: '400', style: 'normal' },
@@ -72,7 +67,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
   const { lang: currentLanguage } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:4200';
 
-  // Generación dinámica de etiquetas 'alternate' para SEO internacional
   const languageAlternates = i18n.locales.reduce((accumulator, locale) => {
     accumulator[locale] = `${baseUrl}/${locale}`;
     return accumulator;
@@ -97,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 }
 
 // ===================================================================================
-// 3. LAYOUT RAÍZ (SERVER COMPONENT)
+// 3. LAYOUT RAÍZ
 // ===================================================================================
 
 export default async function RootLayout({
@@ -114,20 +108,22 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <head />
       <body
-        // Inyección de variables CSS de fuentes en el contexto global
         className={`${fontSatoshi.variable} ${fontSignature.variable} ${fontClashDisplay.variable} font-sans bg-background text-foreground antialiased selection:bg-purple-500/30`}
       >
         <Providers>
-            {/* 1. Rastreo Silencioso (Protocolo Ariadna) - ENVUELTO EN SUSPENSE */}
+            {/* 1. Rastreo Silencioso */}
             <Suspense fallback={null}>
               <NavigationTracker />
             </Suspense>
 
-            {/* 2. Estructura Visual Principal (Sticky Footer) */}
+            {/* 2. Estructura Visual Principal */}
             <div className="flex min-h-screen flex-col">
               <Header dictionary={dictionary} />
 
-              {/* 'grow' empuja el footer hacia abajo si hay poco contenido */}
+              {/* --- ZONA DE NOTIFICACIÓN DE SISTEMA --- */}
+              <SystemStatusTicker dictionary={dictionary.system_status} />
+              {/* --------------------------------------- */}
+
               <main className="grow relative z-0">
                 {children}
               </main>
@@ -139,7 +135,7 @@ export default async function RootLayout({
               />
             </div>
 
-            {/* 3. Capa de UI Global (Overlays) */}
+            {/* 3. Capa de UI Global */}
             <Suspense fallback={null}>
               <NewsletterModal />
             </Suspense>

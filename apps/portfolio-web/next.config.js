@@ -1,24 +1,30 @@
 // RUTA: apps/portfolio-web/next.config.js
-// VERSIÓN: 3.2 - Optimized Build
+// VERSIÓN: 3.4 - Type Safety & Stability Fix
+// DESCRIPCIÓN: Se reemplaza el tipo interno roto de @nx/next por el estándar
+//              de Next.js para eliminar el error TS2306.
+
 // @ts-check
 const { composePlugins, withNx } = require('@nx/next');
 
 /**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
+ * @type {import('next').NextConfig}
  **/
 const nextConfig = {
+  // El objeto 'nx' se mantiene implícito para que el plugin lo maneje,
+  // pero ya no bloquea el tipado estático.
   nx: {
-    svgr: false,
+    // Configuración limpia.
   },
   output: 'standalone',
-  // --- MEJORA CRÍTICA: Transpilación directa de librerías locales ---
-  // Esto permite eliminar Rollup y builds intermedios.
+
+  // --- OPTIMIZACIÓN DE BUILD ---
   transpilePackages: [
     '@metashark-cms/ui',
     '@metashark-cms/core',
     '@razpodesta/protocol-33',
     '@razpodesta/auth-shield'
   ],
+
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'flagcdn.com' },

@@ -1,7 +1,7 @@
 /* RUTA: apps/portfolio-web/src/app/global.css */
 @import "tailwindcss";
 
-/* Definimos la variante 'dark' para que funcione con la clase que inyecta next-themes */
+/* Definimos la variante 'dark' para que funcione con next-themes */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -10,11 +10,7 @@
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-signature: var(--font-signature), cursive;
 
-  /*
-     PALETA SEMÁNTICA (Token System)
-     Usamos oklch() para gamas de colores perceptualmente uniformes.
-     La variable CSS solo contiene los valores numéricos para permitir opacidad en Tailwind.
-  */
+  /* PALETA SEMÁNTICA (Token System oklch) */
   --color-background: oklch(var(--background));
   --color-foreground: oklch(var(--foreground));
 
@@ -44,72 +40,50 @@
   --color-ring: oklch(var(--ring));
 }
 
-/*
-   DEFINICIÓN DE VALORES (THEMING)
-   Aquí ocurre la magia. Definimos los valores para :root (Light por defecto)
-   y para .dark (Dark Mode).
-*/
 @layer base {
   :root {
-    /* TEMA CLARO (Light Mode) */
-    --background: 98.5% 0 0;      /* Blanco casi puro */
-    --foreground: 20% 0.02 260;   /* Gris muy oscuro, casi negro */
-
+    /* TEMA CLARO */
+    --background: 98.5% 0 0;
+    --foreground: 20% 0.02 260;
     --card: 100% 0 0;
     --card-foreground: 20% 0.02 260;
-
     --popover: 100% 0 0;
     --popover-foreground: 20% 0.02 260;
-
-    --primary: 45% 0.20 270;      /* Púrpura Intenso */
+    --primary: 45% 0.20 270;
     --primary-foreground: 98% 0 0;
-
     --secondary: 96% 0.01 260;
     --secondary-foreground: 20% 0.02 260;
-
-    --muted: 96% 0.01 260;        /* Gris muy suave */
-    --muted-foreground: 55% 0.02 260; /* Gris medio */
-
-    --accent: 94% 0.02 260;       /* Gris para hovers en light */
+    --muted: 96% 0.01 260;
+    --muted-foreground: 55% 0.02 260;
+    --accent: 94% 0.02 260;
     --accent-foreground: 20% 0.02 260;
-
     --destructive: 50% 0.20 25;
     --destructive-foreground: 98% 0 0;
-
-    --border: 90% 0.01 260;       /* Gris claro para bordes */
+    --border: 90% 0.01 260;
     --input: 90% 0.01 260;
     --ring: 45% 0.20 270;
-
     --radius: 0.75rem;
   }
 
   .dark {
-    /* TEMA OSCURO (Dark Mode - Estética Cyberpunk/Elite original) */
-    --background: 10% 0.01 260;   /* Zinc 950 profundo */
-    --foreground: 98% 0 0;        /* Blanco */
-
-    --card: 12% 0.01 260;         /* Zinc 900 */
+    /* TEMA OSCURO */
+    --background: 10% 0.01 260;
+    --foreground: 98% 0 0;
+    --card: 12% 0.01 260;
     --card-foreground: 98% 0 0;
-
     --popover: 10% 0.01 260;
     --popover-foreground: 98% 0 0;
-
-    --primary: 65% 0.25 270;      /* Púrpura Neón */
+    --primary: 65% 0.25 270;
     --primary-foreground: 10% 0.01 260;
-
     --secondary: 20% 0.02 260;
     --secondary-foreground: 98% 0 0;
-
     --muted: 20% 0.02 260;
     --muted-foreground: 70% 0.01 260;
-
-    --accent: 20% 0.02 260;       /* Zinc 800 para hovers */
+    --accent: 20% 0.02 260;
     --accent-foreground: 98% 0 0;
-
     --destructive: 30% 0.20 25;
     --destructive-foreground: 98% 0 0;
-
-    --border: 20% 0.02 260;       /* Zinc 800 */
+    --border: 20% 0.02 260;
     --input: 20% 0.02 260;
     --ring: 65% 0.25 270;
   }
@@ -124,7 +98,17 @@
   }
 }
 
-/* Utilidades específicas para impresión y casos borde */
+/* Animación para el Ticker Infinito */
+@keyframes infinite-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 40s linear infinite;
+}
+
+/* Utilidades específicas */
 @media print {
   body { @apply bg-white text-black; }
   .print-hidden { display: none !important; }

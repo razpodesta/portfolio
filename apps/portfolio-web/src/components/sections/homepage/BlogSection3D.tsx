@@ -1,28 +1,25 @@
-// apps/portfolio-web/src/components/sections/homepage/BlogSection3D.tsx
-
-/**
- * @file Sección del Blog con Carrusel 3D (Orbital).
- * @version 3.5 - Relative Imports (Linter Safe)
- * @description Carrusel 3D interactivo. Usa rutas relativas para todos los componentes
- *              internos, satisfaciendo las reglas de límites de módulo de Nx.
- */
+// RUTA: apps/portfolio-web/src/components/sections/homepage/BlogSection3D.tsx
+// VERSIÓN: 5.1 - Tailwind v4 Canonical Syntax Fix
+// DESCRIPCIÓN: Carrusel de "pila infinita" optimizado.
+//              - Se corrige 'aspect-[3/4]' a 'aspect-3/4'.
+//              - Se actualiza 'bg-gradient-to-t' a 'bg-linear-to-t' (v4 standard).
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { useSpring, a } from '@react-spring/three';
-import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
-import { useDrag } from '@use-gesture/react';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Layers, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-// CORRECCIÓN: Rutas relativas estrictas para componentes hermanos y padres
+// --- Imports de Infraestructura ---
 import { BlurText } from '../../razBits/BlurText';
-import { BlogCard3D } from '../../ui/BlogCard3D';
-import { ColorWaveBar } from '../../ui/ColorWaveBar';
-
-// CORRECCIÓN: Rutas relativas profundas para lib
 import type { PostWithSlug } from '../../../lib/schemas/blog.schema';
 import type { Dictionary } from '../../../lib/schemas/dictionary.schema';
+
+// --- Constantes de Diseño ---
+const AUTOPLAY_INTERVAL = 3000;
+const VISIBLE_ITEMS = 5;
 
 type BlogSection3DProps = {
   posts: PostWithSlug[];
@@ -30,183 +27,222 @@ type BlogSection3DProps = {
   lang: string;
 };
 
-interface DragState {
-  swipe: [number, number];
-  tap: boolean;
-  offset: [number, number];
-  direction: [number, number];
-  velocity: [number, number];
-  last: boolean;
-}
-
-const RADIUS = 5.5;
-
-function CarouselRig({
-  posts,
-  lang,
-  ctaText,
-  activeIndex,
-  setActiveIndex
-}: {
-  posts: PostWithSlug[];
-  lang: string;
-  ctaText: string;
-  activeIndex: number;
-  setActiveIndex: (val: number | ((prev: number) => number)) => void;
-}) {
-  const { rotationY } = useSpring({
-    rotationY: activeIndex * (Math.PI * 2 / posts.length),
-    config: { mass: 1, tension: 180, friction: 26 },
-  });
-
-  const bind = useDrag((state) => {
-    const { swipe: [swipeX], tap } = state as unknown as DragState;
-
-    if (tap) return;
-
-    if (swipeX > 0) {
-      setActiveIndex((prev) => prev - 1);
-    } else if (swipeX < 0) {
-      setActiveIndex((prev) => prev + 1);
-    }
-  }, {
-    axis: 'x',
-    pointer: { touch: true },
-    filterTaps: true,
-  });
-
-  const cards = useMemo(() => {
-    return posts.map((post, i) => {
-      const angle = (i / posts.length) * Math.PI * 2;
-      const x = Math.sin(angle) * RADIUS;
-      const z = Math.cos(angle) * RADIUS;
-      return {
-        post,
-        position: [x, 0, z] as [number, number, number],
-        rotation: [0, angle, 0] as [number, number, number],
-      };
-    });
-  }, [posts]);
-
-  return (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <a.group rotation-y={rotationY} {...(bind() as any)}>
-      {cards.map((card) => (
-        <BlogCard3D
-          key={card.post.slug}
-          post={card.post}
-          lang={lang}
-          ctaText={ctaText}
-          position={card.position}
-          rotation={card.rotation}
-        />
-      ))}
-    </a.group>
-  );
-}
-
 export function BlogSection3D({ posts, dictionary, lang }: BlogSection3DProps) {
+  // 1. Estado del Carrusel
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isClient, setIsClient] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
+  // Aseguramos que siempre haya al menos 5 items para el efecto visual (duplicando si es necesario)
+  const displayPosts = posts.length < VISIBLE_ITEMS
+    ? [...posts, ...posts, ...posts].slice(0, VISIBLE_ITEMS)
+    : posts.slice(0, 10); // Limitamos a 10 para performance, mostramos ventana de 5
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % displayPosts.length);
+  }, [displayPosts.length]);
+
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + displayPosts.length) % displayPosts.length);
+  }, [displayPosts.length]);
+
+  // 2. Autoplay (3 segundos)
   useEffect(() => {
-    const timer = setTimeout(() => setIsClient(true), 0);
-    return () => clearTimeout(timer);
-  }, []);
+    if (isPaused) return;
+    const timer = setInterval(handleNext, AUTOPLAY_INTERVAL);
+    return () => clearInterval(timer);
+  }, [handleNext, isPaused]);
 
-  if (!posts || posts.length === 0) return null;
+  // 3. Algoritmo de Posicionamiento Visual (The Stack Logic)
+  const getCardStyle = (index: number) => {
+    // Calculamos la distancia relativa circular
+    const total = displayPosts.length;
+    // Distancia dirigida: -2, -1, 0, 1, 2
+    let offset = (index - activeIndex + total) % total;
+    if (offset > total / 2) offset -= total;
+
+    // Configuración visual por posición
+    if (offset === 0) {
+      // CENTER (ACTIVE)
+      return {
+        zIndex: 50,
+        x: 0,
+        scale: 1,
+        opacity: 1,
+        brightness: 1,
+        pointerEvents: 'auto' as const
+      };
+    } else if (offset === 1 || offset === -1) {
+      // MID LAYERS
+      return {
+        zIndex: 40,
+        x: offset * 180, // Desplazamiento lateral
+        scale: 0.85,
+        opacity: 0.6,
+        brightness: 0.5,
+        pointerEvents: 'none' as const
+      };
+    } else if (offset === 2 || offset === -2) {
+      // BACK LAYERS
+      return {
+        zIndex: 30,
+        x: offset * 140, // Más comprimido atrás
+        scale: 0.7,
+        opacity: 0.3,
+        brightness: 0.3,
+        pointerEvents: 'none' as const
+      };
+    } else {
+      // HIDDEN
+      return {
+        zIndex: 0,
+        x: 0,
+        scale: 0,
+        opacity: 0,
+        brightness: 0,
+        pointerEvents: 'none' as const
+      };
+    }
+  };
 
   return (
-    <section className="relative w-full overflow-hidden bg-black py-24 sm:py-32 border-t border-zinc-900">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(50,50,50,0.2)_0%,rgba(0,0,0,1)_70%)] pointer-events-none" />
-      <ColorWaveBar position="top" direction="left-to-right" />
+    <section
+      className="relative w-full overflow-hidden bg-[#0a0a0a] py-16 border-y border-white/5"
+      aria-label="Blog Carousel"
+    >
+      {/* --- Branding & Header --- */}
+      <div className="container mx-auto px-4 mb-10 flex flex-col items-center">
+        <div className="flex items-center gap-2 mb-4">
+          <Layers size={14} className="text-purple-500" />
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+            Proprietary CMS Engine • Raz Podestá
+          </span>
+        </div>
 
-      <div className="container relative z-10 mx-auto mb-16 px-4 text-center">
-        <span className="mb-4 inline-block rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-zinc-400 backdrop-blur-md">
-          {dictionary.page_title.split('|')[0].trim()}
-        </span>
         <BlurText
           text={dictionary.featured_title}
-          className="font-display text-4xl font-bold tracking-tight text-white sm:text-6xl justify-center"
+          className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl text-center"
         />
-        <p className="mt-4 text-lg text-zinc-400 max-w-2xl mx-auto">
-          Explorando la intersección entre ingeniería de software, inteligencia artificial y diseño.
-        </p>
       </div>
 
-      <div className="relative h-[650px] w-full cursor-grab active:cursor-grabbing">
-        {isClient ? (
-          <Suspense fallback={
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-zinc-500">
-              <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
-              <span className="text-xs font-mono uppercase tracking-widest">Cargando Experiencia...</span>
-            </div>
-          }>
-            <Canvas
-              camera={{ position: [0, 2, 12], fov: 35 }}
-              dpr={[1, 1.5]}
-              gl={{ powerPreference: 'high-performance', antialias: true, alpha: true }}
-            >
-              <fog attach="fog" args={['#000', 10, 25]} />
-              <ambientLight intensity={0.3} />
-              <spotLight position={[10, 20, 10]} angle={0.3} penumbra={1} intensity={1.5} color="#a855f7" />
-              <pointLight position={[-10, -5, -10]} intensity={0.8} color="#3b82f6" />
+      {/* --- The Stage (Carrusel) --- */}
+      <div
+        className="relative h-[450px] w-full flex items-center justify-center perspective-1000"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <AnimatePresence initial={false} mode="popLayout">
+          {displayPosts.map((post, index) => {
+            const style = getCardStyle(index);
+            // Solo renderizamos las cartas visibles para ahorrar DOM
+            if (style.opacity === 0) return null;
 
-              <CarouselRig
-                posts={posts}
-                lang={lang}
-                ctaText={dictionary.read_more_cta}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
+            return (
+              <motion.div
+                key={`${post.slug}-${index}`}
+                initial={false}
+                animate={{
+                  x: style.x,
+                  scale: style.scale,
+                  opacity: style.opacity,
+                  zIndex: style.zIndex,
+                  filter: `brightness(${style.brightness})`,
+                }}
+                transition={{ duration: 0.5, ease: "circOut" }}
+                // CORRECCIÓN TAILWIND V4: aspect-3/4
+                className="absolute w-[300px] sm:w-[380px] aspect-3/4 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden shadow-2xl"
+                style={{
+                  // Sombra blanca/glow solo para la carta activa
+                  boxShadow: style.zIndex === 50
+                    ? '0 20px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255,255,255,0.05)'
+                    : 'none',
+                  cursor: style.zIndex === 50 ? 'default' : 'none'
+                }}
+              >
+                {/* Imagen de Fondo */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={`/images/blog/${post.slug}.jpg`}
+                    alt={post.metadata.title}
+                    fill
+                    className="object-cover"
+                    sizes="400px"
+                  />
+                  {/* CORRECCIÓN TAILWIND V4: bg-linear-to-t */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-90" />
+                </div>
+
+                {/* Contenido (Solo visible e interactivo en la carta central) */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  {style.zIndex === 50 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <div className="flex gap-2 mb-3">
+                        {post.metadata.tags.slice(0, 2).map(tag => (
+                          <span key={tag} className="px-2 py-0.5 rounded-full bg-white/10 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/10">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <h3 className="font-display text-2xl font-bold text-white leading-tight mb-2 line-clamp-2">
+                        {post.metadata.title}
+                      </h3>
+
+                      <p className="font-sans text-sm text-zinc-400 line-clamp-2 mb-6">
+                        {post.metadata.description}
+                      </p>
+
+                      <Link
+                        href={`/${lang}/blog/${post.slug}`}
+                        className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-black transition-all hover:scale-105 hover:bg-zinc-200"
+                      >
+                        {dictionary.read_more_cta}
+                        <ArrowUpRight size={14} className="transition-transform group-hover:rotate-45" />
+                      </Link>
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+
+      {/* --- Controls --- */}
+      <div className="flex justify-center items-center gap-8 mt-4 relative z-50">
+        <button
+          onClick={handlePrev}
+          className="p-3 rounded-full border border-zinc-800 bg-black/50 text-zinc-400 transition-all hover:bg-white hover:text-black hover:border-white hover:scale-110 active:scale-95 backdrop-blur-sm"
+          aria-label="Previous Post"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
+        {/* Indicadores de Progreso */}
+        <div className="flex gap-2">
+          {displayPosts.slice(0, VISIBLE_ITEMS).map((_, idx) => {
+            const isActive = idx === activeIndex % Math.min(displayPosts.length, VISIBLE_ITEMS);
+            return (
+              <div
+                key={idx}
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  isActive ? 'w-8 bg-white' : 'w-2 bg-zinc-800'
+                }`}
               />
-            </Canvas>
-          </Suspense>
-        ) : (
-          <div className="h-full w-full bg-zinc-950 flex items-center justify-center">
-             <div className="w-64 h-96 rounded-2xl border border-zinc-800 bg-zinc-900/50 animate-pulse" />
-          </div>
-        )}
-
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(transparent_40%,#000_100%)]" />
-      </div>
-
-      <div className="container relative z-10 mx-auto -mt-8 flex flex-col items-center justify-center gap-6 pointer-events-none">
-        <div className="flex items-center gap-8 pointer-events-auto">
-          <button
-            onClick={() => setActiveIndex(prev => prev - 1)}
-            className="group flex h-12 w-12 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900/80 text-white backdrop-blur-md transition-all hover:border-purple-500/50 hover:bg-zinc-800 hover:scale-110 active:scale-95"
-            aria-label="Artículo anterior"
-          >
-            <ChevronLeft size={24} className="transition-transform group-hover:-translate-x-0.5" />
-          </button>
-
-          <div className="flex gap-2">
-            {posts.map((_, idx) => {
-              if (posts.length > 8 && Math.abs(idx - ((Math.round(activeIndex) % posts.length + posts.length) % posts.length)) > 3) return null;
-
-              const normalizedActive = ((Math.round(activeIndex) % posts.length) + posts.length) % posts.length;
-              const isActive = normalizedActive === idx;
-
-              return (
-                <div
-                  key={idx}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-8 bg-purple-500' : 'w-1.5 bg-zinc-800'}`}
-                />
-              );
-            })}
-          </div>
-
-          <button
-            onClick={() => setActiveIndex(prev => prev + 1)}
-            className="group flex h-12 w-12 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900/80 text-white backdrop-blur-md transition-all hover:border-purple-500/50 hover:bg-zinc-800 hover:scale-110 active:scale-95"
-            aria-label="Siguiente artículo"
-          >
-            <ChevronRight size={24} className="transition-transform group-hover:translate-x-0.5" />
-          </button>
+            );
+          })}
         </div>
-        <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-medium">
-          Arrastra o usa las flechas para navegar
-        </span>
+
+        <button
+          onClick={handleNext}
+          className="p-3 rounded-full border border-zinc-800 bg-black/50 text-zinc-400 transition-all hover:bg-white hover:text-black hover:border-white hover:scale-110 active:scale-95 backdrop-blur-sm"
+          aria-label="Next Post"
+        >
+          <ChevronRight size={20} />
+        </button>
       </div>
     </section>
   );

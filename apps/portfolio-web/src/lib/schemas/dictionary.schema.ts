@@ -1,6 +1,6 @@
 // RUTA: apps/portfolio-web/src/lib/schemas/dictionary.schema.ts
-// VERSIÓN: 22.0 - Integración de Detalles de Proyecto
-// DESCRIPCIÓN: Registro oficial del esquema 'project_details' en el contrato global.
+// VERSIÓN: 24.0 - Integración de System Status Ticker
+// DESCRIPCIÓN: Se añade 'system_status' al contrato global de i18n.
 
 import { z } from 'zod';
 
@@ -21,9 +21,8 @@ import { curriculumSchema } from './curriculum.schema';
 import { technologiesPageSchema } from './technologies_page.schema';
 import { libraryPageSchema } from './library_page.schema';
 import { profilePageSchema } from './profile_page.schema';
-
-// --- IMPORTACIÓN NUEVA ---
 import { projectDetailsDictionarySchema } from './project_details.schema';
+import { systemStatusSchema } from './system_status.schema';
 
 const visitorHudSchema = z.object({
   label_visitor_info: z.string(),
@@ -63,9 +62,10 @@ export const dictionarySchema = z.object({
   technologies_page: technologiesPageSchema,
   lucide_page: libraryPageSchema,
   profile_page: profilePageSchema,
-
-  // --- REGISTRO SOBERANO DE LA NUEVA SECCIÓN ---
   project_details: projectDetailsDictionarySchema,
+
+  // --- NUEVA SECCIÓN REGISTRADA ---
+  system_status: systemStatusSchema,
 
   not_found: notFoundSchema,
   server_error: serverErrorSchema,
