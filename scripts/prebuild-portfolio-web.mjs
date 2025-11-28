@@ -1,7 +1,7 @@
 // RUTA: scripts/prebuild-portfolio-web.mjs
-// VERSIÓN: 4.1 - Fix Critical Data Leak
-// DESCRIPCIÓN: Se añade 'project_details' a la lista de archivos para asegurar
-//              que los detalles de los proyectos se incluyan en el diccionario final.
+// VERSIÓN: 4.2 - Register System Status
+// DESCRIPCIÓN: Se añade 'system_status' a la lista de inclusión para evitar
+//              el error de runtime en el Layout durante el SSG.
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -43,7 +43,8 @@ const FILES = [
   'ai_gallery_section',
   'visitor_hud',
   'profile_page',
-  'project_details' // <--- 🔴 ESTA LÍNEA FALTABA Y CAUSABA EL CRASH
+  'project_details',
+  'system_status' // <--- 🔴 AQUÍ ESTÁ LA SOLUCIÓN. ESTA LÍNEA FALTABA.
 ];
 
 // MAPEO ESTRUCTURAL
