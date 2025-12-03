@@ -218,5 +218,3 @@ export function Header({ dictionary }: HeaderProps) {
         )}
       </AnimatePresence>
     </header>
-  );
-}
